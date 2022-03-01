@@ -14,6 +14,7 @@ import "./DiscoverInfo.css"; // This is section 1.
 import ReactMarkdown from 'react-markdown';
 import VARIABLES from '../../config/.env';
 import button from "../../res/imgs/toform.png";
+import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
 
 
 function DiscoverInfo() {
@@ -41,6 +42,8 @@ function DiscoverInfo() {
         sources: [],
         state: '',
         usertags: [],
+        videourl: '',
+
     });
     // grab page data from strapi
     useEffect(() => {
@@ -87,6 +90,7 @@ function DiscoverInfo() {
                     role: data[0].role,
                     rolesAtNwc: data[0].rolesAtNwc.map(r => r.text),
                     sources: data[0].sources.map(s => s.text),
+                    videourl: data[0].VideoUrl,
                     state: data[0].state,
                     usertags: data[0].usertags.map(t => t.text),
                 });
@@ -130,11 +134,10 @@ function DiscoverInfo() {
     // Don't look to those as any sort of example.
     // I was being silly.
     // Abstractions (generally) use Javascript.
-    // Braindead HTML pretty much does not.
+    // Braindead HTML pretty much does not.+
 
     return (
         <div className="discoverInfo">
-
             {/**BANNER */}
             <div className="discoverInfoBanner">
                 <div className="discoverInfoBanner_left">
@@ -151,7 +154,6 @@ function DiscoverInfo() {
                     <div className="discoverInfoBody_profile">
                         <img className="discoverInfoBody_pfp" src={state.profilepic} alt={state.profilepic_alt} />
                         <p className="discoverInfoBody_caption">{state.imgcaption}</p>
-
                         <h3 className="discoverInfoBody_hname">NAME</h3>
                         <p className="discoverInfoBody_name">{state.name}</p>
 
@@ -173,9 +175,13 @@ function DiscoverInfo() {
 
                 {/**BODY_RIGHT */}
                 <div className="discoverInfoBody_right">
+                    
+                    <h2 className="discoverInfoBody_video">
+                        <VideoPlayer videourl={state.videourl} />
+                    </h2>
 
                     <h2 className="discoverInfoBody_bioh">
-                        BIOGRAPHY
+                        {state.name}
                     </h2>
 
                     <div className="discoverInfoBody_bigquote discoverInfoBody_bigquote1">
