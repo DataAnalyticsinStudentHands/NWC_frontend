@@ -44,45 +44,66 @@ function MappingNWC() {
 
   // submit basic search query
   const onSubmit = data => {
-    var roles = [];
+    console.log(data)
+    var query_array = [];
 
     if (data.delegate_alternate)
-      roles.push({'nwc_roles.delegate_at_the_nwc': 1});
+    query_array.push({'nwc_roles.delegate_at_the_nwc': 1});
     
     if (data.national_commissioner) {
-      roles.push({'nwc_roles.ford_national_commissioner': 1});
-      roles.push({'nwc_roles.carter_national_commissioner': 1});
+      query_array.push({'nwc_roles.ford_national_commissioner': 1});
+      query_array.push({'nwc_roles.carter_national_commissioner': 1});
     }
 
     if(data.torch_relay_runner) {
-      roles.push({'nwc_roles.torch_relay_runner': 1});
+      query_array.push({'nwc_roles.torch_relay_runner': 1});
     }
 
     if(data.notable_speaker) {
-      roles.push({'notable_speaker': 1});
+      query_array.push({'nwc_roles.notable_speaker': 1});
     }
 
     if(data.journalists_covering_the_nwc) {
-      roles.push({'journalists_covering_the_nwc': 1});
+      query_array.push({'nwc_roles.journalists_covering_the_nwc': 1});
     }
 
     if(data.staff_volunteer) {
-      roles.push({'volunteer': 1});
-      roles.push({'paid_staff_member': 1});
+      query_array.push({'nwc_roles.volunteer': 1});
+      query_array.push({'nwc_roles.paid_staff_member': 1});
     }
 
     if(data.international_dignitary) {
-      roles.push({'international_dignitary': 1});
+      query_array.push({'nwc_roles.international_dignitary': 1});
     }
 
     if(data.official_observer) {
-      roles.push({'official_observer': 1});
+      query_array.push({'nwc_roles.official_observer': 1});
+    }
+
+    if(data.asian_americanpacific_islander) { 
+      query_array.push({'nwc_races.asian_americanpacific_islander': 1});
+    }
+
+    if(data.black) {
+      query_array.push({'nwc_races.black': 1});
+    }
+
+    if(data.hispanic) {
+      query_array.push({'nwc_races.hispanic': 1});
+    }
+
+    if(data.native_americanamerican_indian) {
+      query_array.push({'nwc_races.native_americanamerican_indian': 1});
+    }
+
+    if(data.white) {
+      query_array.push({'nwc_races.white': 1});
     }
 
     const query = qs.stringify({
       _where:
       {
-        _or: roles
+        _or: query_array
       }
     },
       { encode: false });
@@ -227,15 +248,15 @@ function MappingNWC() {
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
               <label className="form-control">
-                <input type="checkbox" name="favorite1" value="asian american" />ASIAN AMERICAN/PACIFIC ISLANDER</label>
+                <input type="checkbox" {...register("asian_americanpacific_islander")} />ASIAN AMERICAN/PACIFIC ISLANDER</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite2" value="black" />BLACK</label>
+                <input type="checkbox" {...register("black")} />BLACK</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="hispanic" />HISPANIC</label>
+                <input type="checkbox" {...register("hispanic")} />HISPANIC</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="native american" />NATIVE AMERICAN/AMERICAN INDIAN</label>
+                <input type="checkbox" {...register("native_americanamerican_indian")} />NATIVE AMERICAN/AMERICAN INDIAN</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="white" />WHITE</label>
+                <input type="checkbox" {...register("white")} />WHITE</label>
             </div>
             <div className='panel'>
               <p>RELIGION</p>

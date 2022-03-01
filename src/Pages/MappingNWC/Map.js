@@ -75,7 +75,7 @@ export default function Map({ map_data }) {
                 el.className = 'marker';
 
                 el.addEventListener('click', () => {
-                    window.alert(marker.properties.first_name);
+                    window.alert(marker.properties.first_name + " " + marker.properties.last_name, );
                 });
 
                 // Add markers to the map.
@@ -91,6 +91,7 @@ export default function Map({ map_data }) {
             <div ref={mapContainer} className="map-container" />
             <div className="table-container">
                 <table>
+                    <tbody>
                     <tr>
                         <th>First Name</th>
                         <th>Last Name</th>
@@ -105,6 +106,7 @@ export default function Map({ map_data }) {
                             </tr>
                         )
                     })}
+                    </tbody>
                 </table>
             </div>
         </div>
