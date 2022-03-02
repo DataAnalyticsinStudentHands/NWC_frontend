@@ -1,26 +1,49 @@
 import React, { useState, useEffect } from 'react'
 import MeetIcon from './MeetIcon';
-import lola from "./res/lola.png";
-import lolahover from "./res/lolahover.png";
+import axios from 'axios';
 import "./MeetTheTeam.css";
+
+import empty_profile_image from './res/empty_profile_image.png';
 
 import VARIABLES from "../../config/.env.js";
 
 function MeetTheTeam() {
   const { fetchBaseUrl } = VARIABLES;
 
-  // one state to hold the regular page content loaded from Strapi
-  const [heads, setHeads] = useState([]);
+  // multiple states to hold the leads and contributors loaded from Strapi
+  const [leads, setLeads] = useState([]);
+  const [contributors, setContributors] = useState([]);
+  const [currentTab, setCurrentTab] = useState("StudentCollaborators");
+  const [isLoading, setIsLoading] = useState(true)
 
-  // grab page data from strapi
+  const fetchData = async () => {
+    setIsLoading(true)
+    const leadsData = await axios(
+      `${fetchBaseUrl}/content-about-project-leads`
+    );
+    const contributorsData = await axios(
+      `${fetchBaseUrl}/content-about-collaborators`
+    );
+
+    setLeads(leadsData.data);
+    return contributorsData.data;
+  };
+
   useEffect(() => {
-    fetch(`${fetchBaseUrl}/content-about-project-leads`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        setHeads(heads => data);
-      })
-      .catch(err => console.log(err));
+    fetchData().then(blob => {
+      //transform the contributors by group
+      let grouped = blob.reduce((result, currentValue) => {
+        (result[currentValue['Contributor_Type']] = result[currentValue['Contributor_Type']] || []).push(
+          currentValue
+        );
+        return result
+      }, [])
+
+      setContributors(grouped);
+      setIsLoading(false);
+    })
+      // make sure to catch any error
+      .catch(console.error);
   }, []); // eslint-disable-line
 
   return <div className="meet">
@@ -36,14 +59,52 @@ function MeetTheTeam() {
 
     {/**LEADS */}
     <div className="meetLeads">
-      {heads.map((value, index) => <MeetIcon
-        img={lola}
-        imghover={lolahover}
+      {leads.map((value) => <MeetIcon
+        img={fetchBaseUrl + value.Illustration.url}
+        imghover={fetchBaseUrl + value.Illustration_hover.url}
         name={value.Name}
         role={value.Role}
-        pfp="data:image/png;base64,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"
-        popupText="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+        pfp={fetchBaseUrl + value.ProfilePicture.url}
+        popupText={value.Description}
+        key={value._id}
       />)}
+    </div>
+
+    {/**TABLE */}
+    <div className="aboutTable">
+      <div className="aboutTable_tabs">
+        {
+          Object.keys(contributors).map(k =>
+            <div
+              key={Math.random() * Math.random()}
+              className={`aboutTable_tab ${currentTab === k ? 'aboutTable_tab--active' : ''}`}
+              onClick={e => setCurrentTab(k)}
+            >
+              <p>{k}</p>
+            </div>
+          )
+        }
+      </div>
+
+      <div className="aboutTable_entries">
+        {isLoading ? (
+          <p>Loading ...</p>
+        ) : (
+          contributors[currentTab].map(c =>
+            <div
+              className="aboutTable_entry"
+              key={Math.random()}
+            >
+              {c.ProfilePicture ?
+                <img src={fetchBaseUrl + c.ProfilePicture.url} alt="_" /> : <img src={empty_profile_image} alt="empty_image_profile" />}
+              <div className="aboutTable_alpha">
+                <p className="aboutTable_name">{c.Name}</p>
+                <p className="aboutTable_txt">{c.Description}</p>
+              </div>
+            </div>
+          )
+        )}
+      </div>
     </div>
   </div>
 }

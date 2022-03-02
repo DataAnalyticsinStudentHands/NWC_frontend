@@ -31,7 +31,8 @@
     position: absolute;
     background-color: white;
     margin-top: -14em;
-    margin-left: -2em;
+    margin-left: -8em;
+    margin-right: 4em;
 }
 
 .meetIcon_popupHeader {
@@ -55,7 +56,6 @@
 }
 
 .meetIcon_popupText > p {
-    max-width: 20em;
     font-family: var(--fontMontserrat);
     font-size: .6em;
     text-align: left;
