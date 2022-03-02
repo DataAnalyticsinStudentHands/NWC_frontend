@@ -66,6 +66,7 @@ function Discover() {
       .catch(err => console.log(err));
   }
 
+  console.log(cards + "hey")
   return (
     <div className="discover">
       
@@ -92,6 +93,7 @@ function Discover() {
               name={value.name}
               role={value.role}
               state={value.state}
+              profilepic={value.profilepic}
             /></a>)
           }
         </div>

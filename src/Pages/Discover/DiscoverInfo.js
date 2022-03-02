@@ -15,7 +15,7 @@ import ReactMarkdown from 'react-markdown';
 import VARIABLES from '../../config/.env';
 import button from "../../res/imgs/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
-
+import InfoVideo from "../../Components/Avalon/InfoVideo.js"
 
 function DiscoverInfo() {
     const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA

@@ -12,6 +12,7 @@ function DiscoverCard({
     name,
     role,
     state,
+    profilepic,
 }) {
     // const color = ["yellow", "blue", "red", "teal"][parseInt(Math.random() * 4)];
     let logo;
@@ -47,6 +48,7 @@ function DiscoverCard({
                 <div className="discoverCard_items">
                     <div className="discoverCard_logo">
                         <img src={logo} alt={name + Math.random()}/>
+                        <img src={profilepic} alt=''/>
                     </div>
                     <div className="discoverCard_data">
                         <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{name}</p>
