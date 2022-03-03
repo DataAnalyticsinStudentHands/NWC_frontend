@@ -1,8 +1,8 @@
 .discoverInfo {
     font-size: calc(16px + 1vw);
     font-family: var(--fontBabasNeue);
+    background: linear-gradient(#FFF4E8 18%, white 5%) no-repeat;
 }
-
 /*
 BANNER
 */
