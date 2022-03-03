@@ -1,13 +1,12 @@
 // import { media2url } from "../../Components/util/util";
 
 function d2card(datum) {
-    console.log(datum)
     let profilepic = ""
     if(datum.profilepic.length > 0){
         profilepic = `https://dash.cs.uh.edu${datum.profilepic[0].formats.thumbnail.url}`
     }
     else{
-        profilepic = "Lol"
+        profilepic = null
     }
 
     return {
