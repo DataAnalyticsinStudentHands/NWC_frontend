@@ -7,12 +7,15 @@ import redlogo from "./redlogo.png";
 import teallogo from "./teallogo.png";
 
 function DiscoverCard({
+
     color, // yellow, blue, red, teal
     href,
     name,
     role,
     state,
+    profilepic,
 }) {
+
     // const color = ["yellow", "blue", "red", "teal"][parseInt(Math.random() * 4)];
     let logo;
     let border;
@@ -40,13 +43,29 @@ function DiscoverCard({
 
     }
 
+    let logoPlace = null
+    let logoPic = null
+    if(profilepic === null){
+        logoPlace = <img src={logo} alt={name + Math.random()}/>
+    }
+    else{
+        logoPic = <img src={profilepic} alt=''/>
+    }
+
     return (
         <Link className="discoverCard" to={href} style={{"border": border}}>
             <div href="discoverCard_body">
                 <div className="discoverCard_holePunch" style={{"border": border}}></div>
                 <div className="discoverCard_items">
                     <div className="discoverCard_logo">
-                        <img src={logo} alt={name + Math.random()}/>
+
+                        <div className="discoverCard_logoPic">
+                        {logoPic}
+                        </div>
+                        <div className="discoverCard_logoPlace">
+                        {logoPlace}
+                        </div>
+
                     </div>
                     <div className="discoverCard_data">
                         <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{name}</p>
