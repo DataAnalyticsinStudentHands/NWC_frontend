@@ -12,6 +12,7 @@ body {
 /*THEMING*/
 
 :root{
+  --colorBackgroundLightGray: #E2E2E2; /*Like seen in the background for the pdf viewer*/
   --colorLightGray: #CCC9C9; /*Like seen in the text of homeMap's popup*/
   --colorLightGrayFont: #A5A5A5; /*Like seen in the text for essays*/
   --colorDarkBlue: #142F45; /*Like seen in the background of the Navigation*/
