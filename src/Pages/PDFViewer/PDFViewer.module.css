@@ -1,0 +1,35 @@
+.pdf {
+  font-size: calc(1vw + 12px);
+}
+
+.pdf__back {
+  font-family: var(--fontBabasNeue);
+  margin: 1em;
+  color: var(--colorDarkBlue);
+  display: flex;
+}
+
+.pdf__larr {
+  margin-right: 1ch;
+}
+
+.pdf__back:hover {
+  cursor: pointer;
+  color: var(--colorDeepYellow);
+  text-decoration-color: var(--colorDarkBlue);
+}
+
+/* For pdf */
+.pdf__document {
+  width: fit-content;
+  margin: 4em auto;
+  padding: 4em 3em 4em;
+  background-color: var(--colorBackgroundLightGray);
+}
+.pdf__page {
+  padding: 10px;
+}
+
+
+
+
