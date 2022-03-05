@@ -1,9 +1,4 @@
-<IfModule mod_rewrite.c>
+Options -MultiViews
 RewriteEngine On
-RewriteBase /dev/
 RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME} !-l
-RewriteRule . /myreactapp/index.html [L]
-</IfModule>
-
+RewriteRule ^ index.html [QSA,L]
