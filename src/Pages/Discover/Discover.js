@@ -22,7 +22,7 @@ function Discover() {
   const { fetchBaseUrl } = VARIABLES;
 
   useEffect(() => {
-    fetch([fetchBaseUrl, `content-discover-stories`/* + `?_start=${page}&_limit=2`*/].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories/?_limit=12`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data, setCards);
@@ -46,21 +46,21 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=12`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
   }
 
   function sortRole() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=12`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
   }
 
   function sortState() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=12`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
@@ -92,6 +92,7 @@ function Discover() {
               name={value.name}
               role={value.role}
               state={value.state}
+              profilepic={value.profilepic}
             /></a>)
           }
         </div>
@@ -133,6 +134,7 @@ function Discover() {
           name={value.name}
           role={value.role}
           state={value.state}
+          profilepic={value.profilepic}
         />)
         }
       </div>

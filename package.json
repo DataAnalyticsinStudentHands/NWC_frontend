@@ -21,6 +21,8 @@
     "react-hook-form": "^7.27.0",
     "react-map-gl": "^6.1.19",
     "react-markdown": "^7.1.0",
+    "react-pdf": "^5.7.1",
+    "react-player": "^2.9.0",
     "react-responsive-carousel": "^3.2.20",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",

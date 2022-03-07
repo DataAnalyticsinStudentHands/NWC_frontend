@@ -1,8 +1,8 @@
 .discoverInfo {
     font-size: calc(16px + 1vw);
     font-family: var(--fontBabasNeue);
+    background: linear-gradient(#FFF4E8 18%, white 5%) no-repeat;
 }
-
 /*
 BANNER
 */
@@ -115,11 +115,13 @@ BODY_LEFT
 BODY_RIGHT
 */
 
+
 .discoverInfoBody_right {
     width: 70%;
 }
 
 .discoverInfoBody_video {
+    margin-left: 1.5em;
     width: 100%;
     margin-bottom: 1em;
 }
@@ -151,6 +153,7 @@ BODY_RIGHT
 
 .discoverInfoBody_bioh {
     width: fit-content;
+    color: #142F45;
     border-bottom: .5em solid var(--colorDeepRed);
     font-size: 1.7em;
     font-weight: normal;

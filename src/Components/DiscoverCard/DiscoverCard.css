@@ -32,6 +32,9 @@
 .discoverCard_logo {
     margin-left: 4%;
 }
+.discoverCard_logoPic{
+    box-shadow: 8px 4px 5px rgb(223, 221, 221);
+}
 
 .discoverCard_data {
     margin: auto 4%;
@@ -52,6 +55,7 @@
 }
 
 .discoverCard_bottom {
+    margin-bottom: 1rem;
     text-align: center;
     font-family: var(--fontMontserrat);
     font-size: .65em;
