@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom';
 import "./About.css";
 
 import button from "./res/button.png";
@@ -100,60 +101,61 @@ function About() {
       {/**DOCUMENTS */}
       <div className="aboutDocuments">
         {state.aboutDocuments_ddlink &&
-          <a href={state.aboutDocuments_ddlink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
             <div>
               DESIGN DOCUMENTS
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_cblink &&
-          <a href={state.aboutDocuments_cblink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_cblink.split('/')[4]}`}>
+
             <div>
               CODEBOOK
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_eclink &&
-          <a href={state.aboutDocuments_eclink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_eclink.split('/')[4]}`}>
             <div>
               ETHICS OF CARE
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_fmlink &&
-          <a href={state.aboutDocuments_fmlink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_fmlink.split('/')[4]}`}>
             <div>
               FEMINIST DIGITAL HUMANITIES MANIFESTA
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_tdlink &&
-          <a href={state.aboutDocuments_tdlink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_tdlink.split('/')[4]}`}>
             <div>
               TERMINILOGY DOCUMENT
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_tblink &&
-          <a href={state.aboutDocuments_tblink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_tblink.split('/')[4]}`}>
             <div>
               TECHNICAL BACKGROUND
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_edlink &&
-          <a href={state.aboutDocuments_edlink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_edlink.split('/')[4]}`}>
             <div>
               EDITING DOCUMENT
             </div>
-          </a>
+          </Link>
         }
         {state.aboutDocuments_frlink &&
-          <a href={state.aboutDocuments_frlink} target="_blank" rel="noreferrer" >
+          <Link to={`PDFViewer/${state.aboutDocuments_frlink.split('/')[4]}`}>
             <div>
               FURTHER READING
             </div>
-          </a>
+          </Link>
         }
       </div>
 
