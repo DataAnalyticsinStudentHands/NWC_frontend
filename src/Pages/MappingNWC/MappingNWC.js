@@ -138,6 +138,21 @@ function MappingNWC() {
       query_array.push({'religion': 'unknown'});
     }
 
+    //build the query for: Higest Level of Education
+    if(data.highschool) {
+      query_array.push({'highest_level_education': 'some highschool'});
+      query_array.push({'highest_level_education': 'high school diploma'});
+    }
+
+    if(data.college) {
+      query_array.push({'highest_level_education': 'some college'});
+      query_array.push({'highest_level_education': 'college degree'});
+    }
+
+    if(data.graduate) {
+      query_array.push({'highest_level_education': 'graduate/professional degree'});
+    }
+
     const query = qs.stringify({
       _where:
       {
@@ -323,11 +338,11 @@ function MappingNWC() {
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
               <label className="form-control">
-                <input type="checkbox" name="favorite1" value="high school" />HIGH SCHOOL</label>
+                <input type="checkbox" {...register("high_school")} />HIGH SCHOOL</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite2" value="college" />COLLEGE</label>
+                <input type="checkbox" {...register("college")} />COLLEGE</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="graduate" />GRADUATE/PROFESSIONAL</label>
+                <input type="checkbox" {...register("graduate")} />GRADUATE/PROFESSIONAL</label>
             </div>
             <div className='panel'>
               <p>POLITICAL OFFICES HELD</p>
