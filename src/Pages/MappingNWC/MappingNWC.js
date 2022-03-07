@@ -44,9 +44,9 @@ function MappingNWC() {
 
   // submit basic search query
   const onSubmit = data => {
-    console.log(data)
     var query_array = [];
 
+    //build the query for: Roles
     if (data.delegate_alternate)
     query_array.push({'nwc_roles.delegate_at_the_nwc': 1});
     
@@ -84,6 +84,7 @@ function MappingNWC() {
       query_array.push({'nwc_races.asian_americanpacific_islander': 1});
     }
 
+    //build the query for: Race & Ethnicity
     if(data.black) {
       query_array.push({'nwc_races.black': 1});
     }
@@ -100,6 +101,43 @@ function MappingNWC() {
       query_array.push({'nwc_races.white': 1});
     }
 
+    //build the query for: Religion
+    if(data.agnostic) {
+      query_array.push({'religion': 'agnostic'});
+    }
+
+    if(data.atheist) {
+      query_array.push({'religion': 'atheist'});
+    }
+
+    if(data.catholic) {
+      query_array.push({'religion': 'catholic'});
+    }
+
+    if(data.christian) {
+      query_array.push({'religion': 'jewish'});
+    }
+
+    if(data.eastern) {
+      query_array.push({'religion': 'eastern'});
+    }
+
+    if(data.jewish) {
+      query_array.push({'religion': 'jewish'});
+    }
+
+    if(data.mormon) {
+      query_array.push({'religion': 'mormon'});
+    }
+
+    if(data.muslim) {
+      query_array.push({'religion': 'muslim'});
+    }
+
+    if(data.unknown) {
+      query_array.push({'religion': 'unknown'});
+    }
+
     const query = qs.stringify({
       _where:
       {
@@ -111,6 +149,7 @@ function MappingNWC() {
     fetch(`${fetchBaseUrl}/participants?${query}`)
       .then(res => res.json())
       .then(data => {
+        console.log(query)
         setMap(maps => data);
       })
       .catch(err => console.log(err));
@@ -261,25 +300,25 @@ function MappingNWC() {
             <div className='panel'>
               <p>RELIGION</p>
               <label className="form-control">
-                <input type="checkbox" name="favorite1" value="agnostic" />AGNOSTIC</label>
+                <input type="checkbox" {...register("agnostic")} />AGNOSTIC</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite2" value="atheist" />ATHEIST</label>
+                <input type="checkbox" {...register("atheist")} />ATHEIST</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="catholic" />CATHOLIC</label>
+                <input type="checkbox" {...register("catholic")} />CATHOLIC</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="christian" />CHRISTIAN NON CATHOLIC</label>
+                <input type="checkbox" {...register("christian")} />CHRISTIAN NON CATHOLIC</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="eastern religions" />EASTERN RELIGIONS</label>
+                <input type="checkbox" {...register("eastern")} />EASTERN RELIGIONS</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite1" value="jewish" />JEWISH</label>
+                <input type="checkbox" {...register("jewish")} />JEWISH</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite2" value="mormon" />MORMON</label>
+                <input type="checkbox" {...register("mormon")} />MORMON</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="muslim" />MUSLIM</label>
+                <input type="checkbox" {...register("muslim")} />MUSLIM</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="unknown" />UNKNOWN</label>
+                <input type="checkbox" {...register("unknown")} />UNKNOWN</label>
               <label className="form-control">
-                <input type="checkbox" name="favorite3" value="non of the above" />NONE OF THE ABOVE</label>
+                <input type="checkbox" {...register("none of the above")} />NONE OF THE ABOVE</label>
             </div>
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
