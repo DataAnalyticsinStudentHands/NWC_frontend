@@ -24,6 +24,9 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
+import inperson from './res/inperson.png';
+import online from './res/online.png';
+import share from './res/share.png';
 
 import VARIABLES from '../../config/.env';
 
@@ -460,15 +463,29 @@ function Home() {
           </div>
 
           {/**HIGHLIGHTS */}
-          <div className="homeHighlights">
-            <div className="homeHighlights_frontDrop"></div>
-            <div className="homeHighlights_frontDrop2">
-              <h2>COMING SOON</h2>
-            </div>
-            <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
-            <HighlightsCarousel />
+      {/* 
+      <div className="homeHighlights">
+        <div className="homeHighlights_frontDrop"></div>
+        <div className="homeHighlights_frontDrop2">
+          <h2>COMING SOON</h2>
           </div>
-        </div>
+        <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
+        <HighlightsCarousel/>
+      </div> */}
+      <div className="homeLaunch">
+      
+      <h1>JOIN US FOR THE LAUNCH</h1>
+      <p> Click on the images to find out more and RSVP</p>
+      <div className="homeLaunchPanel">
+        <a href="https://www.eventbrite.com/e/why-the-1977-national-womens-conference-matters-tickets-269032983897"
+        target="_blank" rel="noopener noreferrer"><img src={inperson} alt="inperson"/></a>
+        <a href="https://www.eventbrite.com/e/269039112227"
+        target="_blank" rel="noopener noreferrer"><img src={online} alt="online"/></a>
+        <a href="https://www.eventbrite.com/e/269045882477"
+        target="_blank" rel="noopener noreferrer"><img src={share} alt="share"/></a>
+      </div>
+    </div>
+  </div>
       ) : (
         ''
       )}
