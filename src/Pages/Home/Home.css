@@ -490,6 +490,35 @@ HIGHLIGHTS
   margin-left: calc(764*var(--xUnit));
 }
 
+.homeLaunch {
+  background: url("./res/mapbg.png");
+  height: calc(1000*var(--xUnit));
+  padding-top: calc(212*var(--xUnit));
+}
+
+.homeLaunch h1{
+  font-family: 'babas_neue', 'normal';
+  font-size: calc(80*var(--xUnit));
+  color: var(--colorDeepRed);
+  text-align: center;
+}
+
+.homeLaunch p{
+  font-family: 'neobulletin';
+  font-size: calc(30*var(--xUnit));
+  text-align: center;
+}
+
+.homeLaunchPanel{
+  display: flex;
+  justify-content: center;
+  padding-top: calc(100*var(--xUnit));
+}
+
+.homeLaunchPanel a{
+  padding-left: calc(50*var(--xUnit));
+}
+
 /*
 THE CSS FOR HANDLING THE ACTUAL INTERACTIVE MAP CAN BE FOUND IN
 ./HighlightsCarousel.css
