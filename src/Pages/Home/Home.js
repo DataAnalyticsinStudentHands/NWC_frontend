@@ -420,25 +420,24 @@ function Home() {
                 <p>{homeButton1_text}</p>
               </div>
             </Link>
-
-            {/*<a href={homeButton2_link}>*/}
-            <div className="homeButtons_button homeButtons_button2">
-              <img src={button2} alt="button_2" />
-              <p>{homeButton2_text}</p>
-            </div>
-            {/*</a>*/}
-            {/*<a href={homeButton3_link}>*/}
-            <div className="homeButtons_button homeButtons_button3">
-              <img src={button3} alt="button_3" />
-              <p>{homeButton3_text}</p>
-            </div>
-            {/*</a>*/}
-            {/* <a href={homeButton4_link}>*/}
-            <div className="homeButtons_button homeButtons_button4">
-              <img src={button4} alt="button_4" />
-              <p>{homeButton4_text}</p>
-            </div>
-            {/*</a>*/}
+            <Link to={homeButton2_link}>
+              <div className="homeButtons_button homeButtons_button2">
+                <img src={button2} alt="button_2" />
+                <p>{homeButton2_text}</p>
+              </div>
+            </Link>
+            <Link to={homeButton3_link}>
+              <div className="homeButtons_button homeButtons_button3">
+                <img src={button3} alt="button_3" />
+                <p>{homeButton3_text}</p>
+              </div>
+            </Link>
+            <Link to={homeButton4_link}>
+              <div className="homeButtons_button homeButtons_button4">
+                <img src={button4} alt="button_4" />
+                <p>{homeButton4_text}</p>
+              </div>
+            </Link>
 
             <img
               className="homeButtons_dots homeButtons_dots1"
