@@ -69,7 +69,7 @@ function Footer() {
                     <a href={`mailto:${contactEmail}`}><p>CONTACT</p></a>
                 </div>
                 <div className="footer_top donate">
-                    <a href={donateLink}>DONATE</a>
+                    <a href={donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>
                 </div>
                 <div className="footer_top social">
                     <div className="socialMedia">
