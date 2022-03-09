@@ -21,15 +21,13 @@ function MappingNWC() {
     bannerimagecredit_more: '',
     basicsearch_text: ''
   });
-
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
-
-  // state for form search by name
+  // 3rd state for form search by name
   const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
-  // state for form checkboxes
+  // 4th state for form checkboxes
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
-  // state form multi select states
+  // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   // submit text search query
@@ -53,167 +51,166 @@ function MappingNWC() {
 
     if (selectedOptions) {
       selectedOptions.forEach(state => {
-        query_array.push({'state': state.value});
+        query_array.push({ 'state': state.value });
       });
-      
+
     }
-    
 
     //build the query for: Roles
     if (data.delegate_alternate)
-      query_array.push({'nwc_roles.delegate_at_the_nwc': 1});
-    
+      query_array.push({ 'nwc_roles.delegate_at_the_nwc': 1 });
+
     if (data.national_commissioner) {
-      query_array.push({'nwc_roles.ford_national_commissioner': 1});
-      query_array.push({'nwc_roles.carter_national_commissioner': 1});
+      query_array.push({ 'nwc_roles.ford_national_commissioner': 1 });
+      query_array.push({ 'nwc_roles.carter_national_commissioner': 1 });
     }
 
-    if(data.torch_relay_runner) {
-      query_array.push({'nwc_roles.torch_relay_runner': 1});
+    if (data.torch_relay_runner) {
+      query_array.push({ 'nwc_roles.torch_relay_runner': 1 });
     }
 
-    if(data.notable_speaker) {
-      query_array.push({'nwc_roles.notable_speaker': 1});
+    if (data.notable_speaker) {
+      query_array.push({ 'nwc_roles.notable_speaker': 1 });
     }
 
-    if(data.journalists_covering_the_nwc) {
-      query_array.push({'nwc_roles.journalists_covering_the_nwc': 1});
+    if (data.journalists_covering_the_nwc) {
+      query_array.push({ 'nwc_roles.journalists_covering_the_nwc': 1 });
     }
 
-    if(data.staff_volunteer) {
-      query_array.push({'nwc_roles.volunteer': 1});
-      query_array.push({'nwc_roles.paid_staff_member': 1});
+    if (data.staff_volunteer) {
+      query_array.push({ 'nwc_roles.volunteer': 1 });
+      query_array.push({ 'nwc_roles.paid_staff_member': 1 });
     }
 
-    if(data.international_dignitary) {
-      query_array.push({'nwc_roles.international_dignitary': 1});
+    if (data.international_dignitary) {
+      query_array.push({ 'nwc_roles.international_dignitary': 1 });
     }
 
-    if(data.official_observer) {
-      query_array.push({'nwc_roles.official_observer': 1});
+    if (data.official_observer) {
+      query_array.push({ 'nwc_roles.official_observer': 1 });
     }
 
-    if(data.asian_americanpacific_islander) { 
-      query_array.push({'nwc_races.asian_americanpacific_islander': 1});
+    if (data.asian_americanpacific_islander) {
+      query_array.push({ 'nwc_races.asian_americanpacific_islander': 1 });
     }
 
     //build the query for: Race & Ethnicity
-    if(data.black) {
-      query_array.push({'nwc_races.black': 1});
+    if (data.black) {
+      query_array.push({ 'nwc_races.black': 1 });
     }
 
-    if(data.hispanic) {
-      query_array.push({'nwc_races.hispanic': 1});
+    if (data.hispanic) {
+      query_array.push({ 'nwc_races.hispanic': 1 });
     }
 
-    if(data.native_americanamerican_indian) {
-      query_array.push({'nwc_races.native_americanamerican_indian': 1});
+    if (data.native_americanamerican_indian) {
+      query_array.push({ 'nwc_races.native_americanamerican_indian': 1 });
     }
 
-    if(data.white) {
-      query_array.push({'nwc_races.white': 1});
+    if (data.white) {
+      query_array.push({ 'nwc_races.white': 1 });
     }
 
     //build the query for: Religion
-    if(data.agnostic) {
-      query_array.push({'religion': 'agnostic'});
+    if (data.agnostic) {
+      query_array.push({ 'religion': 'agnostic' });
     }
 
-    if(data.atheist) {
-      query_array.push({'religion': 'atheist'});
+    if (data.atheist) {
+      query_array.push({ 'religion': 'atheist' });
     }
 
-    if(data.catholic) {
-      query_array.push({'religion': 'catholic'});
+    if (data.catholic) {
+      query_array.push({ 'religion': 'catholic' });
     }
 
-    if(data.christian) {
-      query_array.push({'religion': 'jewish'});
+    if (data.christian) {
+      query_array.push({ 'religion': 'jewish' });
     }
 
-    if(data.eastern) {
-      query_array.push({'religion': 'eastern'});
+    if (data.eastern) {
+      query_array.push({ 'religion': 'eastern' });
     }
 
-    if(data.jewish) {
-      query_array.push({'religion': 'jewish'});
+    if (data.jewish) {
+      query_array.push({ 'religion': 'jewish' });
     }
 
-    if(data.mormon) {
-      query_array.push({'religion': 'mormon'});
+    if (data.mormon) {
+      query_array.push({ 'religion': 'mormon' });
     }
 
-    if(data.muslim) {
-      query_array.push({'religion': 'muslim'});
+    if (data.muslim) {
+      query_array.push({ 'religion': 'muslim' });
     }
 
-    if(data.unknown) {
-      query_array.push({'religion': 'unknown'});
+    if (data.unknown) {
+      query_array.push({ 'religion': 'unknown' });
     }
 
     //build the query for: Higest Level of Education
-    if(data.highschool) {
-      query_array.push({'highest_level_education': 'some_highschool'});
-      query_array.push({'highest_level_education': 'high_school_diploma'});
+    if (data.highschool) {
+      query_array.push({ 'highest_level_education': 'some_highschool' });
+      query_array.push({ 'highest_level_education': 'high_school_diploma' });
     }
 
-    if(data.college) {
-      query_array.push({'highest_level_education': 'some_college'});
-      query_array.push({'highest_level_education': 'college_degree'});
+    if (data.college) {
+      query_array.push({ 'highest_level_education': 'some_college' });
+      query_array.push({ 'highest_level_education': 'college_degree' });
     }
 
-    if(data.graduate) {
-      query_array.push({'highest_level_education': 'graduate_professional_degree'});
+    if (data.graduate) {
+      query_array.push({ 'highest_level_education': 'graduate_professional_degree' });
     }
 
     //build the query for: Political offices held level
-    if(data.city_level) {
-      query_array.push({'jurisdiction_level_politicals.city_level': 1});
+    if (data.city_level) {
+      query_array.push({ 'jurisdiction_level_politicals.city_level': 1 });
     }
 
-    if(data.county_level) {
-      query_array.push({'jurisdiction_level_politicals.county_level': 1});
+    if (data.county_level) {
+      query_array.push({ 'jurisdiction_level_politicals.county_level': 1 });
     }
 
-    if(data.state_level) {
-      query_array.push({'jurisdiction_level_politicals.state_level': 1});
+    if (data.state_level) {
+      query_array.push({ 'jurisdiction_level_politicals.state_level': 1 });
     }
 
-    if(data.federal_level) {
-      query_array.push({'jurisdiction_level_politicals.federal_level': 1});
+    if (data.federal_level) {
+      query_array.push({ 'jurisdiction_level_politicals.federal_level': 1 });
     }
 
     //build the query for: Political Party membership
-    if(data.democratic) {
-      query_array.push({'political_parties.democratic': 1});
+    if (data.democratic) {
+      query_array.push({ 'political_parties.democratic': 1 });
     }
 
-    if(data.republican) {
-      query_array.push({'political_parties.republican': 1});
+    if (data.republican) {
+      query_array.push({ 'political_parties.republican': 1 });
     }
 
-    if(data.third) {
-      query_array.push({'political_parties.american_independent': 1});
-      query_array.push({'political_parties.black_panther': 1});
-      query_array.push({'political_parties.cpusa': 1});
-      query_array.push({'political_parties.conservative_party_of_new_york': 1});
-      query_array.push({'political_parties.dc_statehood': 1});
-      query_array.push({'political_parties.liberal_party_of_new_york': 1});
-      query_array.push({'political_parties.minnesota_dfl': 1});
-      query_array.push({'political_parties.north_dakota_dnl': 1});
-      query_array.push({'political_parties.peace_and_freedom': 1});
-      query_array.push({'political_parties.raza_unida': 1});
-      query_array.push({'political_parties.socialist_party_usa': 1});
-      query_array.push({'political_parties.socialist_workers': 1});
+    if (data.third) {
+      query_array.push({ 'political_parties.american_independent': 1 });
+      query_array.push({ 'political_parties.black_panther': 1 });
+      query_array.push({ 'political_parties.cpusa': 1 });
+      query_array.push({ 'political_parties.conservative_party_of_new_york': 1 });
+      query_array.push({ 'political_parties.dc_statehood': 1 });
+      query_array.push({ 'political_parties.liberal_party_of_new_york': 1 });
+      query_array.push({ 'political_parties.minnesota_dfl': 1 });
+      query_array.push({ 'political_parties.north_dakota_dnl': 1 });
+      query_array.push({ 'political_parties.peace_and_freedom': 1 });
+      query_array.push({ 'political_parties.raza_unida': 1 });
+      query_array.push({ 'political_parties.socialist_party_usa': 1 });
+      query_array.push({ 'political_parties.socialist_workers': 1 });
     }
 
     //build the query for: Stance on ERA
-    if(data.for) {
-      query_array.push({'era_stance.for': 1});
+    if (data.for) {
+      query_array.push({ 'era_stance.for': 1 });
     }
 
-    if(data.against) {
-      query_array.push({'era_stance.against': 1});
+    if (data.against) {
+      query_array.push({ 'era_stance.against': 1 });
     }
 
     const query = qs.stringify({
@@ -227,7 +224,6 @@ function MappingNWC() {
     fetch(`${fetchBaseUrl}/participants?${query}`)
       .then(res => res.json())
       .then(data => {
-        console.log(query)
         setMap(maps => data);
       })
       .catch(err => console.log(err));
@@ -287,11 +283,56 @@ function MappingNWC() {
     { value: "WY", label: "Wyoming" },
   ]
 
+  //reset form fields and map data
+  const onClear = () => {
+    reset({
+      delegate_alternate: 0,
+      national_commissioner: 0,
+      notable_speaker: 0,
+      journalists_covering_the_nwc: 0,
+      torch_relay_runner: 0,
+      staff_volunteer: 0,
+      international_dignitary: 0,
+      official_observer: 0,
+      asian_americanpacific_islander: 0,
+      black: 0,
+      hispanic: 0,
+      native_americanamerican_indian: 0,
+      white: 0,
+      agnostic: 0,
+      atheist: 0,
+      catholic: 0,
+      christian: 0,
+      eastern: 0,
+      jewish: 0,
+      mormon: 0,
+      muslim: 0,
+      unknown: 0,
+      none_of_the_above: 0,
+      highschool: 0,
+      college: 0,
+      graduate: 0,
+      democratic: 0,
+      republican: 0,
+      third: 0,
+      city_level: 0,
+      county_level: 0,
+      state_level: 0,
+      federal_level: 0,
+      for: 0,
+      against: 0,
+      selectInputRef: 0
+    });
+    setSelectedOptions(null);
+    setMap([])
+  }
+
+  // updates from multi-select
   const onSelect = (options) => {
     setSelectedOptions(options);
   };
 
-  // grab page data from strapi
+  // grab page data from strapi on mount
   useEffect(() => {
     fetch(`${fetchBaseUrl}/content-mapping-nwc`)
       .then(res => res.json())
@@ -337,6 +378,7 @@ function MappingNWC() {
                 isMulti
                 options={stateOptions}
                 onChange={onSelect}
+                value={selectedOptions}
                 className="basic-multi-select"
                 classNamePrefix="select"
               />
@@ -436,58 +478,22 @@ function MappingNWC() {
             {errors.exampleRequired && <span>This field is required</span>}
           </div>
           <div className="row">
-            <button type="button" className="resetButton" onClick={ () => reset ({
-              delegate_alternate: 0,
-              national_commissioner: 0,
-              notable_speaker: 0,
-              journalists_covering_the_nwc: 0,
-              torch_relay_runner: 0,
-              staff_volunteer: 0,
-              international_dignitary: 0,
-              official_observer: 0,
-              asian_americanpacific_islander: 0,
-              black: 0,
-              hispanic: 0,
-              native_americanamerican_indian: 0,
-              white: 0,
-              agnostic: 0,
-              atheist: 0,
-              catholic: 0,
-              christian: 0,
-              eastern: 0,
-              jewish: 0,
-              mormon: 0,
-              muslim: 0,
-              unknown: 0,
-              none_of_the_above: 0,
-              highschool: 0,
-              college: 0,
-              graduate: 0,
-              democratic: 0,
-              republican: 0,
-              third: 0,
-              city_level: 0,
-              county_level: 0,
-              state_level: 0,
-              federal_level: 0,
-              for: 0,
-              against: 0
-            }) }>RESET</button>
+            <button type="button" className="resetButton" onClick={onClear}>RESET</button>
             <button type="submit" className="searchButton">SEARCH</button>
           </div>
         </form>
 
         <div className="nameSearch">
-        <p>You can also search participants by name:</p>
-        <form key={1} onSubmit={handleSubmitSearch(onSubmitSearch)} className="mappingNWCSearch_bar">
-          <input type="text" placeholder="SEARCH" {...registerSearch("searchText")} />
-          <button type="submit" className="mappingNWCSearch_icon"></button>
-        </form>
+          <p>You can also search participants by name:</p>
+          <form key={1} onSubmit={handleSubmitSearch(onSubmitSearch)} className="mappingNWCSearch_bar">
+            <input type="text" placeholder="SEARCH" {...registerSearch("searchText")} />
+            <button type="submit" className="mappingNWCSearch_icon"></button>
+          </form>
         </div>
       </div>
       {/**MAP */}
       <Map map_data={maps} />
-      
+
     </div>
   )
 }
