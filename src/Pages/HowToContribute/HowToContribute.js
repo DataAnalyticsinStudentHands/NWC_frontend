@@ -113,62 +113,6 @@ function HowToContribute() {
                     caption_more={imgCredit_more} />
             </div>
 
-            {/* BUTTONS */}
-            <div className="howToContributeButtons_container">
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_researcherText">
-                        <img src={researcher_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={researcher_button_hover}
-                            alt="_"
-                            className="howToContributeButtons_button_hover"
-                        />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_archivistsText">
-                        <img src={archivists_button}
-                            className="howToContributeButtons_archivists_button"
-                            alt="_" />
-                        <img src={archivists_button_hover}
-                            className="howToContributeButtons_archivists_button_hover"
-                            alt="_"
-                        />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_nwcParticipantsText">
-                        <img src={nwc_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={nwc_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_educatorsText">
-                        <img src={educators_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={educators_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_studentsText">
-                        <img src={students_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={students_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
-            </div>
-
             {/* HOW TO GET INVOLVED BANNER */}
             <div className="howToContributeInvolved_banner">
                 <div className="howToContributeInvolved_socialMedia">
@@ -192,9 +136,8 @@ function HowToContribute() {
 
             {/* HOW TO GET INVOLVED LIST */}
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_researcherText">
-                    <img src={nwcResearchersPhoto} alt="_"></img>
+                <div className="howToContributeInvolved_researcherBtn">
+                    <img src={researcher_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
@@ -204,9 +147,8 @@ function HowToContribute() {
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_archivistsText">
-                    <img src={nwcArchivistsPhoto} alt="_"></img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={archivists_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
@@ -216,9 +158,8 @@ function HowToContribute() {
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_nwcParticipantsText">
-                    <img src={nwcParticipants} alt="_"></img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={nwc_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
@@ -228,13 +169,8 @@ function HowToContribute() {
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_educatorsText">
-                    <img
-                        src={nwcEducatorsPhoto}
-                        alt="_">
-
-                    </img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={educators_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
@@ -244,13 +180,8 @@ function HowToContribute() {
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_studentsText">
-                    <img
-                        src={studentsPhoto}
-                        alt="_">
-
-                    </img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={students_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
