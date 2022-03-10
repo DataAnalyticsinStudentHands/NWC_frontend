@@ -40,9 +40,14 @@ const urlify = (str) => {
   return [VARIABLES.fetchBaseUrl, str].join('/'); // VARIABLES.axiosBaseURL.slice(0, VARIABLES.axiosBaseURL.length-1) + "" + str;
 };
 
-export const superSorter = (list) => {
-  const cpy = [...list];
-  cpy.sort((a, b) => a[0] - b[0]);
+// sort points of interest by first element (Name)
+const superSorter = (list) => {
+  let cpy = [...list];
+  cpy = cpy.sort(function(a, b) { 
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+      return 0;
+  });
   return cpy;
 };
 
