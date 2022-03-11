@@ -115,14 +115,15 @@ html {
   
 }
 
-.howToContributeInvolved_researcherText h1 {
+.howToContributeInvolved_researcherText a {
+  color: black;
   font-size: 60rem;
   font-family: var(--fontBabasNeue);
   text-align: left;
   font-weight:100;
 }
 
-.howToContributeInvolved_researcherText h1:hover {
+.howToContributeInvolved_researcherText a:hover {
   color: #FFD048;
   
 }

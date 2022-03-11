@@ -3,21 +3,11 @@ import VARIABLES from '../../config/.env';
 import './HowToContribute.css';
 import htcBannerPic from "./res/htcBannerPic.png"
 import archivists_button from "./res/archivists_button.png"
-import archivists_button_hover from "./res/archivists_button_hover.png"
 import researcher_button from "./res/researcher_button.png"
-import researcher_button_hover from "./res/researcher_button_hover.png"
 import educators_button from "./res/educators_button.png"
-import educators_button_hover from "./res/educators_button_hover.png"
 import students_button from "./res/students_button.png"
-import students_button_hover from "./res/students_button_hover.png"
 import nwc_button from "./res/nwc_participants_button.png"
-import nwc_button_hover from "./res/nwc_participants_button_hover.png"
 import how_to_contribute_button from "./res/how_to_contribute_button.png"
-import nwcArchivistsPhoto from "./res/NWC_Archivists_Photo.png"
-import nwcEducatorsPhoto from "./res/NWC_Educators_Photo.png"
-import nwcParticipants from "./res/NWC_Participants.png"
-import nwcResearchersPhoto from "./res/NWC_Researchers_Photo.png"
-import studentsPhoto from "./res/Students_Photo.png"
 import favInsta from "./res/favInsta.png"
 import favFace from "./res/favFace.png"
 import favTwitter from "./res/favTwitter.png"
@@ -141,7 +131,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>RESEARCHERS</h1>
+                        <a href="/ResourceResearchers/">RESEARCHERS</a>
                         <p>{researchersText}</p>
                     </div>
                 </div>
@@ -152,7 +142,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>ARCHIVISTS</h1>
+                        <a>ARCHIVISTS</a>
                         <p>{archivistsText}</p>
                     </div>
                 </div>
@@ -163,7 +153,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>NWC PARTICIPANTS</h1>
+                        <a>NWC PARTICIPANTS</a>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
@@ -174,7 +164,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>EDUCATORS</h1>
+                        <a>EDUCATORS</a>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
@@ -185,7 +175,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>STUDENTS</h1>
+                        <a>STUDENTS</a>
                         <p>{studentsText}</p>
                     </div>
                 </div>
