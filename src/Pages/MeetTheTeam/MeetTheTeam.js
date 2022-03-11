@@ -13,7 +13,7 @@ function MeetTheTeam() {
   // multiple states to hold the leads and contributors loaded from Strapi
   const [leads, setLeads] = useState([]);
   const [contributors, setContributors] = useState([]);
-  const [currentTab, setCurrentTab] = useState("StudentCollaborators");
+  const [currentTab, setCurrentTab] = useState("STUDENT COLLABORATORS");
   const [isLoading, setIsLoading] = useState(true)
 
   const fetchData = async () => {
@@ -31,8 +31,22 @@ function MeetTheTeam() {
 
   useEffect(() => {
     fetchData().then(blob => {
+
+      //lookup table for contributor group name
+      let lookup = {
+        "SteeringCommittee": 'STEERING COMMITTEE',
+        "StudentCollaborators": 'STUDENT COLLABORATORS',
+        "InternsResearchAssistants": 'INTERNS AND RESEARCH ASSISTANTS',
+        "EducatorCollaborators": 'EDUCATOR COLLABORATORS',
+        "ExternalAdvisoryCommittee": 'EXTERNAL ADVISORY COMMITTEE',
+        "NWCParticipantCommittee": 'NWC PARTICIPANT COMMITTEE',
+        "InternalAdvisoryBoard": 'INTERNAL ADVISORY COMITTEE',
+        "DonorGrantingAgencies": 'DONOR AND GRANTING AGENCIES',
+        "FormerProjectLeads": 'FORMER PROJECT LEADS'
+      }
+
       //transform the contributors by group
-      let grouped = blob.reduce((result, currentValue) => {
+      let grouped = blob.map(obj=> ({ ...obj, Contributor_Type: lookup[obj.Contributor_Type] })).reduce((result, currentValue) => {
         (result[currentValue['Contributor_Type']] = result[currentValue['Contributor_Type']] || []).push(
           currentValue
         );

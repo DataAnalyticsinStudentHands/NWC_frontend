@@ -127,18 +127,30 @@ POPUP
   font-family: 'babas_neue', 'normal';
   display: flex;
   align-items: center;
-  margin-left: calc(54*var(--xUnit));
+  margin-left: calc(30*var(--xUnit));
   margin-bottom: calc(11*var(--xUnit));
 }
 
 .homeMap_popupBack p {
   font-size: calc(30*var(--xUnit));
   margin-left: calc(18*var(--xUnit));
-  color: var(--colorLightGray);
+  color: var(--colorLightGrayFont);
 }
 
 .homeMap_popupBack:hover {
   cursor: pointer;
+}
+
+.backArrow {
+  background-color: #FAFAFA;
+  color: #141311;
+  width: calc(50*var(--xUnit));
+  height: calc(50*var(--xUnit));
+  border-radius: calc(10*var(--xUnit));
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  border: calc(2*var(--xUnit)) solid #F1F9FF;
 }
 
 .homeMap_popupBack:hover .homeMap_popupBackArrow {
@@ -178,12 +190,9 @@ POPUP
 }
 
 .homeMap_popupFeed {
-  margin-top: calc(10*var(--xUnit));
+  position: absolute;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding-left: calc(20*var(--xUnit));
-  padding-right: calc(20*var(--xUnit));
+  padding-left: calc(48*var(--xUnit));
 }
 
 .homeMap_popupFeedLeft:hover, .homeMap_popupFeedRight:hover {
