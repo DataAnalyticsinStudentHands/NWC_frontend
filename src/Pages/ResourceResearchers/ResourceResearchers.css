@@ -1,272 +1,103 @@
-.discoverInfo {
-    font-size: calc(16px + 1vw);
-    font-family: var(--fontBabasNeue);
-    background: linear-gradient(#FFF4E8 18%, white 5%) no-repeat;
-}
 /*
 BANNER
 */
 
-.discoverInfoBanner {
+.researchersBanner_border {
+    width: 36.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+
+.researchersBanner{
     display: flex;
-    justify-content: space-between;
-    padding: 1.5em 1em;
+    align-items:center;
+    margin-left: 325rem;
+    margin-top: 100rem;
 }
 
-.discoverInfoBanner a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
-    color: var(--colorDeepRed);
+.resourceVideoPlayer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
 }
 
-.discoverInfoBanner a:hover {
-    text-decoration: underline;
+.researcherBannerHeader h1{
+    font-family:var(--fontBabasNeue);
+    width:35em;
+    text-align:center;
+    font-size:20px;
+    height:auto
 }
 
-.discoverInfoBanner h1 {
-    font-weight: normal;
+.researchersBannerText{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+  
+.researchersBannerText h2{
+    font-family:var(--fontBabasNeue);
+    width:35em;
+    text-align:justify;
+    text-align-last:justify;
+    font-size:20px;
+    height:auto
 }
 
-.discoverInfoBanner_right {
-    text-align: right;
+.researchersBanner img{
+    float: left;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+  }
+
+/*
+RESEARCHERS ICONS
+*/
+
+.resourceResearchersIcons{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+}
+
+.iconContainer{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 20px;
+    float:left;
+    padding: 30px;
 }
 
 /*
-BODY
+MORE IDEAS CONTAINER
 */
 
-.discoverInfoBody {
+.resourceResearchersMoreIdeasContainer{
     display: flex;
-    position: relative;
-    width: 100%;
+    justify-content: center;
+    margin-top: 100rem;
+    margin-bottom: 100rem;
+}
+.resourceResearchersMoreIdeasContents{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 20px;
+    float:left;
 }
 
-.discoverInfoBody > * {
-    margin: 1em;
-    position: relative;
-}
-
-/*
-BODY_LEFT
-*/
-
-.discoverInfoBody_left {
-    width: 30%;
-}
-
-.discoverInfoBody_profile {
-    background-color: rgba(245, 245, 245, 1);
-    width: 100%;
-    padding-bottom: 1em;
-}
-
-.discoverInfoBody_profile > h3,
-.discoverInfoBody_profile > p {
-    padding: 0 .6em;
-}
-
-.discoverInfoBody_profile > h3 {
-    font-size: .8em;
-    font-weight: normal;
-    margin-top: .5em;
-}
-
-.discoverInfoBody_profile > p {
-    font-size: .5em;
-    font-family: var(--fontMontserrat);
-    font-weight: bold;
-}
-
-.discoverInfoBody_pfp {
-    width: 100%;
-}
-
-.discoverInfoBody_caption {
-    font-size: .5em;
-    margin-bottom: 1em;
-}
-
-.discoverInfoBody_role {
-    margin-bottom: .4em;
-}
-
-.discoverInfoBody_submit {
-    border: none;
-    width: 99%;
-    margin: auto;
-    display: block;
-    margin: .8em auto;
-    padding: .2em;
-    border-radius: 999px;
-    background-color: var(--colorDeepRed);
-    color: white;
-    font-family: var(--fontBabas);
-    font-size: .7em;
-}
-
-.discoverInfoBody_submit:hover {
-    cursor: pointer;
-    transform: scale(1.01);
-    opacity: .9;
-}
-
-/*
-BODY_RIGHT
-*/
-
-
-.discoverInfoBody_right {
-    width: 70%;
-}
-
-.discoverInfoBody_video {
-    margin-left: 1.5em;
-    width: 100%;
-    margin-bottom: 1em;
-}
-
-.discoverInfoBody_tagh {
-    border-bottom: 2px solid var(--colorDeepRed);
-    padding-bottom: .4em;
-    margin-bottom: .4em;
-}
-
-.discoverInfoBody_tagh h3 {
-    font-weight: normal;
-    color: var(--colorDeepRed);
-}
-
-.discoverInfoBody_tags {
-    display: flex;
-    flex-wrap: wrap;
-    margin-bottom: 1em;
-}
-
-.discoverInfoBody_tag {
-    margin: .2em;
-    border: 3px solid var(--colorDeepRed);
-    color: var(--colorDeepRed);
-    border-radius: 999px;
-    padding: 0 1.5em;
-}
-
-.discoverInfoBody_bioh {
-    width: fit-content;
-    color: #142F45;
-    border-bottom: .5em solid var(--colorDeepRed);
-    font-size: 1.7em;
-    font-weight: normal;
-    margin-bottom: 2em;
-}
-
-.discoverInfoBody_bigquote {
-    background-color: var(--colorBeige);
-    padding: 1em;
-    width: fit-content;
-    margin: auto;
-    border-left: .8em solid var(--colorDeepRed);
-    margin-bottom: 1em;
-}
-
-.discoverInfoBody_bigquote p {
-    width: fit-content;
-    max-width: 29ch;
-    text-align: center;
-    margin: auto;
-    font-family: var(--fontMontserrat);
-    font-weight: bold;
-}
-
-.discoverInfoBody_text {
-    padding: .5em;
-    background-color: rgba(158,199,225, .3);
-    margin-bottom: 1em;
-    font-size: .6em;
-}
-
-.discoverInfoBody_text p {
-    margin-bottom: 1em;
-    font-family: var(--fontMontserrat);
-}
-
-.discoverInfoBody_sources h3 {
-    font-weight: normal;
-    margin-bottom: .6em;
-}
-
-.discoverInfoBody_sources p {
-    font-size: .6em;
-    font-family: var(--fontMontserrat);
-    margin-bottom: .4em;
-}
-
-/*
-ARCHIVE
-*/
-
-.discoverInfoArchive {
-    width: 80%;
-    margin: auto;
-}
-
-.discoverInfoArchive > h2 {
-    font-weight: normal;
-    color: var(--colorDarkBlue);
-}
-
-.discoverInfoArchive_items {
-    display: flex;
-    width: 100%;
-}
-
-.discoverInfoArchive_items > * {
-    width: 100%;
-    margin: 1em;
-}
-
-.discoverInfoArchive_item {
-    text-decoration: none;
-    color: inherit;
-}
-
-.discoverInfoArchive_item:hover {
-    transform: scale(1.01);
-    cursor: pointer;
-    opacity: .9;
-}
-
-.discoverInfoArchive_item:hover .discoverInfoArchive_title {
-    text-decoration: underline;
-}
-
-.discoverInfoArchive_thumb {
-    width: 100%;
-}
-
-/*
-STORIES
-*/
-
-.discoverInfoStories {
-    padding: 1em;
-    background-color: var(--colorBeige);
-    margin: 1em;
-    margin-bottom: 2em;
-}
-
-.discoverInfoStories > h2 {
-    text-align: center;
-    color: var(--colorDeepRed);
-    padding-bottom: 2em;
-}
-
-.discoverInfoStories_stories {
-    display: flex;
-}
-
-.discoverInfoStories_stories > * {
-    background-color: white;
-    width: 100%;
-    margin: 0 .2em;
+.resourceResearchersMoreIdeasContents h1{
+    float:right;
+    margin-top:135px;
 }
