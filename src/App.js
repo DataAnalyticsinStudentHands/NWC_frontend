@@ -21,6 +21,7 @@ import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
 import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
+import ResourceResearchers from "./Pages/ResourceResearchers/ResourceResearchers"
 
 
 function App() {
@@ -68,6 +69,9 @@ function App() {
         </Route>
         <Route path="/PDFViewer/:pdffile">
           <PDFViewer />
+        </Route>
+        <Route path="/ResourceResearchers">
+          <ResourceResearchers />
         </Route>
         <Route path="/">
           <Home />
