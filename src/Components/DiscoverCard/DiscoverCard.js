@@ -7,7 +7,6 @@ import redlogo from "./redlogo.png";
 import teallogo from "./teallogo.png";
 
 function DiscoverCard({
-
     color, // yellow, blue, red, teal
     href,
     name,
@@ -53,6 +52,7 @@ function DiscoverCard({
     }
 
     return (
+        
         <Link className="discoverCard" to={href} style={{"border": border}}>
             <div href="discoverCard_body">
                 <div className="discoverCard_holePunch" style={{"border": border}}></div>

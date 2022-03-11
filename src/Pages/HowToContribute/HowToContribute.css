@@ -14,6 +14,7 @@ html {
 
 .contributeBanner {
   display: flex;
+  width: 100%;
   align-items: center;
   justify-content: space-around;
   background: url("./res/mapbg.png");
@@ -31,55 +32,15 @@ html {
 .contributeBanner > .captionedImg {
   width: 30%;
   align-self: flex-end;
-  margin-bottom: -13rem;
+  margin-bottom: -3rem;
   margin-right: -40rem;
 }
-
-/* 
-    HOW TO GET INVOLVED BUTTON BANNER
-*/
-
-
-.howToContributeButtons_column {
-    float: left;
-    width: 15%;
-    margin-top: 25rem;
-    margin-left: 55rem;
-    padding: 55px;
-}
-
-.howToContributeButtons_column img{
-  position:absolute;
-  width: auto;
-  height:auto;
-}
-
-.howToContributeButtons_column li {
-  display: inline-block;
-  list-style-type: none;
-}
-
-.howToContributeButtons_column a img:last-child{
-  display: none;
-}
-
-.howToContributeButtons_column a:hover img:last-child{
-  display:block;
-}
-.howToContributeButtons_column a:hover img:first-child{
-  display:none;
-}
-
-
-/* 
-    HOW TO GET INVOLVED BUTTON BANNER (WIP)
-*/
 
 /* 
     HOW TO GET INVOLVED BANNER TEXT SOCIAL MEDIA
 */
 .howToContributeInvolved_banner{
-  margin-top: 500rem;
+  margin-top: 80rem;
   margin-bottom: 100rem;
 }
 
@@ -135,9 +96,12 @@ html {
   padding: .4em;
 }
 
+.howToContributeInvolved_researcherBtn {
+  margin-top: -25rem;
+}
+
 .howToContributeInvolved_researcherImg {
-  float:left;
-  scroll-margin-top: 100px;
+  margin-top: -10rem;
 }
 
 .howToContributeInvolved_content{
@@ -151,14 +115,15 @@ html {
   
 }
 
-.howToContributeInvolved_researcherText h1 {
+.howToContributeInvolved_researcherText a {
+  color: black;
   font-size: 60rem;
   font-family: var(--fontBabasNeue);
   text-align: left;
   font-weight:100;
 }
 
-.howToContributeInvolved_researcherText h1:hover {
+.howToContributeInvolved_researcherText a:hover {
   color: #FFD048;
   
 }
