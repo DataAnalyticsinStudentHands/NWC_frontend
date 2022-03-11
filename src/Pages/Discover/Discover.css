@@ -191,37 +191,40 @@ PREV/NEXT
     background-color:var(--colorLightBlue);
 }
 
+/*
+PAGINATION COMPONENET
+*/
+
 .paginationContainer {
     text-align: center;
     font-family: var(--fontBabasNeue);
 }
 
 .pagination {
-display: flex;
-list-style: none;
-cursor: pointer;
-margin-left: 325rem;
-margin-top: 15px;
-margin-bottom: 10px;
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    margin-left: 200rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
 }
 
 .pagination a {
-display: inline-block;
-padding: 8px;
-margin: 1px;
-color: var(--colorLightBlue);
+    display: inline-block;
+    padding: 8px;
+    margin: 1px;
+    color: var(--colorLightBlue);
 }
 
 .pagination__link {
-font-weight: normal;
-
+    font-weight: normal;
 }
 
 .pagination__link--active a {
-color: rgba(0, 0, 0, 0.616);
-background: var(--colorLightBlue);
+    color: rgba(0, 0, 0, 0.616);
+    background: var(--colorLightBlue);
 }
 
 .pagination__link--disabled a {
-color: rgb(198, 197, 202);
+    color: rgb(198, 197, 202);
 }
