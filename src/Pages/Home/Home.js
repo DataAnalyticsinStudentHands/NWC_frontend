@@ -336,20 +336,23 @@ function Home() {
                 <div className="homeMap_tabsHr"></div>
 
                 {[
-                  { color: 'red', x: '700', y: '600', mapName: 'dt' },
-                  { color: 'blue', x: '800', y: '400', mapName: 'tw' },
-                  { color: 'green', x: '400', y: '400', mapName: 'museo' },
-                  { color: 'pink', x: '600', y: '600', mapName: 'mag' },
+                  { color: '#3FA490', x: '920', y: '640', mapName: 'dt' },
+                  { color: '#615FBF', x: '950', y: '718', mapName: 'tw' },
+                  { color: '#9EC7E1', x: '880', y: '715', mapName: 'museo' },
+                  { color: '#0944AE', x: '1060', y: '685', mapName: 'mag' },
+                  { color: '#FFD048', x: '805', y: '820', mapName: 'astro' },
+
                 ].map((p) => (
-                  <div
+                  <div 
                     style={{
                       position: 'absolute',
-                      width: 'calc(20*var(--xUnit))',
-                      height: 'calc(20*var(--xUnit))',
+                      width: 'calc(35*var(--xUnit))',
+                      height: 'calc(35*var(--xUnit))',
                       backgroundColor: p.color,
                       borderRadius: '999px',
                       marginLeft: `calc(${p.x}*var(--xUnit))`,
                       marginTop: `calc(${p.y}*var(--xUnit))`,
+                      cursor: 'pointer',
                     }}
                     onClick={() => {
                       setCurrMap(p.mapName);
