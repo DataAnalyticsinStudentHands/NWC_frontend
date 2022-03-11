@@ -169,3 +169,62 @@ CARDS
     margin: 1em 0;
     width: 30%;
 }
+
+/*
+PREV/NEXT
+*/
+
+.cardsPerPage {
+    width: calc(100% - 2em);
+    margin: .5em auto;
+    display: flex;
+    justify-content: left;
+}
+
+.cardsPerPageHeader{
+    margin-top:25rem;
+}
+
+.cardsListPerPage button{
+    font-family: var(--fontBabasNeue);
+    color:black;
+    background-color:var(--colorLightBlue);
+}
+
+/*
+PAGINATION COMPONENET
+*/
+
+.paginationContainer {
+    text-align: center;
+    font-family: var(--fontBabasNeue);
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    margin-left: 200rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px;
+    margin: 1px;
+    color: var(--colorLightBlue);
+}
+
+.pagination__link {
+    font-weight: normal;
+}
+
+.pagination__link--active a {
+    color: rgba(0, 0, 0, 0.616);
+    background: var(--colorLightBlue);
+}
+
+.pagination__link--disabled a {
+    color: rgb(198, 197, 202);
+}

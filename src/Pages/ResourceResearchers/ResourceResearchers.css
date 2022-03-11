@@ -1,0 +1,103 @@
+/*
+BANNER
+*/
+
+.researchersBanner_border {
+    width: 36.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+
+.researchersBanner{
+    display: flex;
+    align-items:center;
+    margin-left: 325rem;
+    margin-top: 100rem;
+}
+
+.resourceVideoPlayer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+}
+
+.researcherBannerHeader h1{
+    font-family:var(--fontBabasNeue);
+    width:35em;
+    text-align:center;
+    font-size:20px;
+    height:auto
+}
+
+.researchersBannerText{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-around;
+}
+  
+.researchersBannerText h2{
+    font-family:var(--fontBabasNeue);
+    width:35em;
+    text-align:justify;
+    text-align-last:justify;
+    font-size:20px;
+    height:auto
+}
+
+.researchersBanner img{
+    float: left;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+  }
+
+/*
+RESEARCHERS ICONS
+*/
+
+.resourceResearchersIcons{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+}
+
+.iconContainer{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 20px;
+    float:left;
+    padding: 30px;
+}
+
+/*
+MORE IDEAS CONTAINER
+*/
+
+.resourceResearchersMoreIdeasContainer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+    margin-bottom: 100rem;
+}
+.resourceResearchersMoreIdeasContents{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 20px;
+    float:left;
+}
+
+.resourceResearchersMoreIdeasContents h1{
+    float:right;
+    margin-top:135px;
+}

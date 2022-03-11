@@ -36,6 +36,12 @@
     box-shadow: 8px 4px 5px rgb(223, 221, 221);
 }
 
+.discoverCard_logoPic{
+    max-width: 100%;
+    height: auto;
+    width: auto\9; /* ie8 */
+}
+
 .discoverCard_data {
     margin: auto 4%;
     width: 100%;
@@ -47,7 +53,7 @@
     border-left: none;
     font-size: .6em;
     padding-top: .4em;
-    color: lightgray;
+    color: rgb(0, 0, 0);
 }
 
 .discoverCard_data .discoverCard_name {
