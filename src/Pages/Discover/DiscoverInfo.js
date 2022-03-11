@@ -170,7 +170,7 @@ function DiscoverInfo() {
                             {r}
                         </p>)}
                     </div>
-                    <button type="button" className="discoverInfoBody_submit">SUBMIT CORRECTIONS</button>
+                    {/* <button type="button" className="discoverInfoBody_submit">SUBMIT CORRECTIONS</button> */}
                 </div>
 
                 {/**BODY_RIGHT */}
