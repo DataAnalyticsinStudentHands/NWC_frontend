@@ -15,18 +15,13 @@ import ReactMarkdown from 'react-markdown';
 import VARIABLES from '../../config/.env';
 import button from "../../res/imgs/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
-import InfoVideo from "../../Components/Avalon/InfoVideo.js"
 
 function DiscoverInfo() {
     const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA
 
     const { fetchBaseUrl } = VARIABLES;
 
-    // this is section 2.
-    // i predefine here mostly to avoid crashes.
-    // for instance, if i have not defined state.career as an array, it does not have the map function.
-    // so, in the user interface, if i have {state.career.map(c => c)}, it will throw an error before state.career is populated with an array object.
-    // will throw an error along the lines of "undefined has no attribute 'map'".
+    // state to hold content from Strapi
     const [state, setState] = useState({
         bigquote1: '',
         bigquote2: '',
@@ -151,26 +146,26 @@ function DiscoverInfo() {
 
                 {/**BODY_LEFT */}
                 <div className="discoverInfoBody_left">
-                    <div className="discoverInfoBody_profile">
-                        <img className="discoverInfoBody_pfp" src={state.profilepic} alt={state.profilepic_alt} />
-                        <p className="discoverInfoBody_caption">{state.imgcaption}</p>
-                        <h3 className="discoverInfoBody_hname">NAME</h3>
-                        <p className="discoverInfoBody_name">{state.name}</p>
+                    <div className='discoverInfoBody_profile'>
+                    <img src={state.profilepic} alt={state.profilepic_alt} />
+                    <p className="discoverInfoBody_caption">{state.imgcaption}</p>
+                    <h3>NAME</h3>
+                    <p>{state.name}</p>
 
-                        <h3 className="discoverInfoBody_hdob">BORN</h3>
-                        <p className="discoverInfoBody_dob">{state.dob}</p>
+                    <h3>BORN</h3>
+                    <p>{state.dob}</p>
 
-                        <h3 className="discoverInfoBody_hcareer">CAREER</h3>
-                        <p className="discoverInfoBody_career">
-                            {<>{state.career.map(c => c).join(', ')}</>}
-                        </p>
+                    <h3>CAREER</h3>
+                    <p>
+                        {<>{state.career.map(c => c).join(', ')}</>}
+                    </p>
 
-                        <h3 className="discoverInfoBody_hrole">ROLE AT NWC</h3>
-                        {state.rolesAtNwc.map(r => <p className="discoverInfoBody_role" key={r}>
+                    <h3>ROLE AT NWC</h3>
+                        {state.rolesAtNwc.map(r => <p key={r}>
                             {r}
-                        </p>)}
-                    </div>
+                    </p>)}
                     {/* <button type="button" className="discoverInfoBody_submit">SUBMIT CORRECTIONS</button> */}
+                </div>
                 </div>
 
                 {/**BODY_RIGHT */}
@@ -184,8 +179,12 @@ function DiscoverInfo() {
                         {state.name}
                     </h2>
 
-                    <div className="discoverInfoBody_bigquote discoverInfoBody_bigquote1">
-                        <p>{state.bigquote1}</p>
+                    <div className="discoverInfoBody_bigquote">
+                        <div className="quote_topleft"></div>
+                            <div className="quote_topright"></div>
+                                <p>{state.bigquote1}</p>
+                            <div className="quote_bottomleft"></div>
+                        <div className="quote_bottomright"></div>
                     </div>
 
                     <div className="discoverInfoBody_text">
@@ -194,8 +193,12 @@ function DiscoverInfo() {
                         </ReactMarkdown>
                     </div>
 
-                    <div className="discoverInfoBody_bigquote discoverInfoBody_bigquote1">
-                        <p>{state.bigquote2}</p>
+                    <div className="discoverInfoBody_bigquote">
+                    <div className="quote_topleft"></div>
+                            <div className="quote_topright"></div>
+                                <p>{state.bigquote2}</p>
+                            <div className="quote_bottomleft"></div>
+                        <div className="quote_bottomright"></div>
                     </div>
 
                     <div className="discoverInfoBody_sources">

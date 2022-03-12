@@ -6,12 +6,11 @@
 /*
 BANNER
 */
-
 .discoverBanner {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: var(--colorBeige);
+    background: url("../../res/imgs/mapbg.png");
 }
 
 .discoverBanner > img {
@@ -19,7 +18,7 @@ BANNER
 }
 
 .discoverBanner > .lcard {
-    width: 35%;
+    width: 45%;
     margin: 2em 0;
 }
 
@@ -129,6 +128,7 @@ SEARCH
     margin: .5em auto;
     display: flex;
     justify-content: right;
+    margin-bottom: 50rem;
 }
 
 .discoverButtons_participants {
