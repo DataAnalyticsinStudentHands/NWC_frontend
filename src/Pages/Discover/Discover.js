@@ -7,11 +7,19 @@ import discoverbannerperson from "../../res/imgs/discoverbannerperson.png";
 import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
-import { getSafe, processPageOld } from "../../Components/util/util";
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 function Discover() {
+
+  //state for main page conent
+  const [state, setState] = useState({
+    banner_text: '',
+    bannerimage_credit: '',
+    bannerimagecredit_more: '',
+  });
+
+  //state for discover cards and pagination etc.
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
@@ -20,10 +28,6 @@ function Discover() {
   const [input, setInput] = useState("");
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
-  const [stateOld, setStateOld] = useState({
-    bannerText: "abcdefg",
-  }); // Handles the text throughout page.
-
   const { fetchBaseUrl } = VARIABLES;
 
   useEffect(() => {
@@ -54,11 +58,18 @@ function Discover() {
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    fetch([fetchBaseUrl, "content-discovers"].join('/'))
-      .then(req => req.json())
-      .then(data => processPageOld(data, setStateOld))
+    fetch(`${fetchBaseUrl}/content-discover-stories-main`)
+      .then(res => res.json())
+      .then(data => {
+        setState({
+          banner_text: data.BannerText,
+          bannerimage_credit: data.BannerImageCredit,
+          bannerimagecredit_more: data.BannerImageCredit_more,
+        });
+        console.log(`${fetchBaseUrl}/content-discover-stories-main`)
+      })
       .catch(err => console.log(err));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line
 
   function search() {
     fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}`].join('/'))
@@ -105,11 +116,11 @@ function Discover() {
       {/**BANNER */}
       <div className="discoverBanner">
         <img src={discoverButton} alt="Discover NWC Stories" />
-        <LCard text={getSafe(stateOld, "BannerText") + ""} />
+        <LCard text={state.banner_text} />
         <CaptionedImg
           src={discoverbannerperson}
-          caption="PHOTO BY JANE DOE"
-          caption_more="Here are some more details" />
+          caption={state.bannerimage_credit}
+          caption_more={state.bannerimagecredit_more} />
       </div>
 
       {/**FEATURED */}
