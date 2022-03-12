@@ -1,7 +1,8 @@
 .discoverInfo {
     font-size: calc(16px + 1vw);
     font-family: var(--fontBabasNeue);
-    background: linear-gradient(#FFF4E8 18%, white 5%) no-repeat;
+    color: var(--colorDarkBlue);
+    background: url("./res/mapbg.png") no-repeat;
 }
 /*
 BANNER
@@ -10,7 +11,7 @@ BANNER
 .discoverInfoBanner {
     display: flex;
     justify-content: space-between;
-    padding: 1.5em 1em;
+    padding: 1em 2em 3em 2em;
 }
 
 .discoverInfoBanner a {
@@ -40,55 +41,48 @@ BODY
     display: flex;
     position: relative;
     width: 100%;
+    padding-left: 1.5em;
 }
 
 .discoverInfoBody > * {
-    margin: 1em;
     position: relative;
+    padding-left: 1em;
 }
 
 /*
 BODY_LEFT
 */
-
 .discoverInfoBody_left {
     width: 30%;
+    font-family: var(--fontMontserrat);
 }
 
 .discoverInfoBody_profile {
-    background-color: rgba(245, 245, 245, 1);
+    background-color: #F8F6F4;
     width: 100%;
-    padding-bottom: 1em;
-}
-
-.discoverInfoBody_profile > h3,
-.discoverInfoBody_profile > p {
-    padding: 0 .6em;
+    padding-bottom: 0.2em;
+    text-transform: uppercase;
 }
 
 .discoverInfoBody_profile > h3 {
-    font-size: .8em;
-    font-weight: normal;
+    font-size: 0.8em;
     margin-top: .5em;
+    padding-left: 20rem;
 }
 
 .discoverInfoBody_profile > p {
-    font-size: .5em;
-    font-family: var(--fontMontserrat);
-    font-weight: bold;
+    font-size: 0.7em;
+    padding-left: 20rem;
 }
 
-.discoverInfoBody_pfp {
+.discoverInfoBody_profile > img {
     width: 100%;
 }
 
-.discoverInfoBody_caption {
-    font-size: .5em;
+.discoverInfoBody_caption{
+    font-size: 0.5em !important;
+    color: black;
     margin-bottom: 1em;
-}
-
-.discoverInfoBody_role {
-    margin-bottom: .4em;
 }
 
 .discoverInfoBody_submit {
@@ -115,13 +109,12 @@ BODY_LEFT
 BODY_RIGHT
 */
 
-
 .discoverInfoBody_right {
     width: 70%;
+    padding-left: 2em;
 }
 
 .discoverInfoBody_video {
-    margin-left: 1.5em;
     width: 100%;
     margin-bottom: 1em;
 }
@@ -152,45 +145,99 @@ BODY_RIGHT
 }
 
 .discoverInfoBody_bioh {
-    width: fit-content;
-    color: #142F45;
-    border-bottom: .5em solid var(--colorDeepRed);
+    color: var(--colorDarkBlue);
     font-size: 1.7em;
     font-weight: normal;
+    position:relative;  
+    border-bottom: 10rem solid var(--colorDeepOrange);
+    display: inline-block;
     margin-bottom: 2em;
+}
+
+.discoverInfoBody_bioh:before {
+    content:""; 
+    display:block; 
+    position:absolute; 
+    left:0; 
+    bottom:0px; 
+    width:100%; 
+    height:10rem;                          
+    background: var(--colorDeepRed);
 }
 
 .discoverInfoBody_bigquote {
     background-color: var(--colorBeige);
-    padding: 1em;
-    width: fit-content;
-    margin: auto;
-    border-left: .8em solid var(--colorDeepRed);
-    margin-bottom: 1em;
+    padding-top: 40rem;
+    margin-bottom: 60rem;
+    margin-left: 1em;
+    margin-right: 4em;
 }
 
 .discoverInfoBody_bigquote p {
     width: fit-content;
-    max-width: 29ch;
     text-align: center;
-    margin: auto;
+    margin-left: 1em;
+    margin-right: 1em;
     font-family: var(--fontMontserrat);
     font-weight: bold;
+    color: black;
+}
+
+.quote_topleft {
+    background: url(./res/quote.png) no-repeat;
+    position: relative;
+    width: 100%;
+    height: 2em;
+    margin-top: -2em;
+    margin-left: -1em;
+}
+
+.quote_topright {
+    border-top: .2em solid var(--colorDeepRed);
+    border-right: .2em solid var(--colorDeepRed);
+    position: relative;
+    float: right;
+    width: 98%;
+    height: 2em;
+    margin-right: -1em;
+    margin-top: -2em;
+}
+
+.quote_bottomleft {
+    position: absolute;
+    display: flex;
+    border-bottom: .2em solid var(--colorDeepRed);
+    border-left: .2em solid var(--colorDeepRed);
+    width: 78%;
+    height: 2em;
+    margin-left: -1em;
+}
+
+.quote_bottomright {
+    background: url(./res/quote.png) no-repeat;
+    position: relative;
+    width: 100%;
+    height: 2em;
+    margin-left: 27.5em;
+    margin-top: -1em;
 }
 
 .discoverInfoBody_text {
-    padding: .5em;
-    background-color: rgba(158,199,225, .3);
-    margin-bottom: 1em;
-    font-size: .6em;
+    margin-right: 5em;
+    padding: 2em;
+    background-color: var(--colorLighterBlue);
+    margin-bottom: 3em;
+    font-size: .55em;
 }
 
 .discoverInfoBody_text p {
+    
     margin-bottom: 1em;
     font-family: var(--fontMontserrat);
 }
 
 .discoverInfoBody_sources h3 {
+    padding-top: 1em;
     font-weight: normal;
     margin-bottom: .6em;
 }

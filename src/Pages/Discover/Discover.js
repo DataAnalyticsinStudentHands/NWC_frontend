@@ -158,11 +158,7 @@ function Discover() {
           <p className="discoverSearch_sorter" onClick={() => sortState()}>STATE</p>
         </div>
       </div>
-      <div className="discoverButtons">
-        <Link to="/participants">
-          <div className="discoverButtons_participants">VIEW PARTICIPANTS</div>
-        </Link>
-      </div>
+      
       <div className="cardsPerPage">
           <div className="cardsPerPageHeader">
           <h3>Cards per page</h3>
@@ -201,6 +197,12 @@ function Discover() {
           profilepic={value.profilepic}
         />)
         }
+      </div>
+
+      <div className="discoverButtons">
+        <Link to="/participants">
+          <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
+        </Link>
       </div>
     </div>
   )
