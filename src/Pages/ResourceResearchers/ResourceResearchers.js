@@ -2,6 +2,12 @@ import React, { useEffect, useState } from 'react';
 import VARIABLES from '../../config/.env';
 import './ResourceResearchers.css';
 import researcher_button from "./res/researcher_button.png"
+import oralIcon from "./res/oralIcon.png"
+import colorCorner from "./res/colorCorner.png"
+import techIcon from "./res/techIcon.png"
+import permissionIcon from "./res/permissionIcon.png"
+import contributeIcon from "./res/contributeIcon.png"
+import ideaIcon from "./res/ideaIcon.png"
 
 import ReactPlayer from 'react-player';
 
@@ -40,6 +46,10 @@ function ResourceResearchers() {
     return (
         <div className="resrouceResearchers">
 
+            {/* COLOR CORNER TOP RIGHT
+            <div className="colorRibbonTR">
+            </div> */}
+
             {/* BANNER */}
             <div className="researchersBanner">
                 <img src={researcher_button} alt="Researcher Button" />
@@ -66,31 +76,34 @@ function ResourceResearchers() {
             {/* RESEARCHER ICONS */}
             <div className="resourceResearchersIcons">
                 <div className="iconContainer">
-                    <img src={researcher_button} alt="_"></img>
+                    <img src={oralIcon} alt="_"></img>
                     <p>How to Contribute Oral Histories</p>  
                 </div>
                 <div className="iconContainer">
-                    <img src={researcher_button} alt="_"></img>
+                    <img src={contributeIcon} alt="_"></img>
                     <p>How to Contribute Oral Histories</p>  
                 </div>
                 <div className="iconContainer">
-                    <img src={researcher_button} alt="_"></img>  
+                    <img src={techIcon} alt="_"></img>  
                     <p>How to Contribute Oral Histories</p>
                 </div>
                 <div className="iconContainer">
-                    <img src={researcher_button} alt="_"></img>
+                    <img src={permissionIcon} alt="_"></img>
                     <p>How to Contribute Oral Histories</p>  
                 </div>
             </div>
 
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="resourceResearchersMoreIdeasContainer">
-                    <div className="resourceResearchersMoreIdeasContents">
-                    <img src={researcher_button} alt="_"></img>
-                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                    </div>
+            <div className="ideaContainer">
+                    <img src={ideaIcon} alt="_"></img>
+                    <h1>HAVE MORE IDEAS? TELL US HERE</h1>
             </div>
+
+            {/* COLOR CORNER TOP RIGHT
+            <div className="colorRibbonBL"><p>Hello</p>
+            </div> */}
+
         </div>
     )
 }

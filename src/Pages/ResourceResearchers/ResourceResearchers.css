@@ -1,3 +1,15 @@
+
+/* 
+COLOR CORNER TOP RIGHT 
+*/
+.colorRibbonTR {
+    background-image: url("./res/colorCorner.png");
+  }
+
+.colorRibbonBL {
+    background-image: url("./res/colorCorner.png");
+}
+
 /*
 BANNER
 */
@@ -84,20 +96,25 @@ RESEARCHERS ICONS
 MORE IDEAS CONTAINER
 */
 
-.resourceResearchersMoreIdeasContainer{
+.ideaContainer{
+    max-width: 100%;
     display: flex;
-    justify-content: center;
+    flex-wrap: wrap;
     margin-top: 100rem;
     margin-bottom: 100rem;
+    justify-content: space-between;
 }
-.resourceResearchersMoreIdeasContents{
-    font-family:var(--fontBabasNeue);
-    text-align:center;
-    font-size: 20px;
-    float:left;
+.ideaContainer img{
+    max-width: 100%;
+    height: auto;
+    margin-left: 500px;
+    display: block;
 }
 
-.resourceResearchersMoreIdeasContents h1{
-    float:right;
+.ideaContainer h1 {
+    margin-right: 600px;
     margin-top:135px;
+    font-size: 40px;
+    font-family:var(--fontBabasNeue);
+    text-align:center;
 }
