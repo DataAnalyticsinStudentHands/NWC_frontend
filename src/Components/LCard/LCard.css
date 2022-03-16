@@ -1,6 +1,7 @@
 .lcard {
-    font-size: calc(16px + 1vw);
-    font-family: var(--fontBabasNeue);
+    font-family: var(--fontNeoBulletin);
+    font-size: 30rem;
+    font-weight: bold;
     width: fit-content;
     min-width: 10em;
     min-height: 4em;

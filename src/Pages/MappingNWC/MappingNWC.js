@@ -358,7 +358,7 @@ function MappingNWC() {
             {state.banner_text}
           </p>
         </div>
-        <div className="mappingNWC_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div>
+        {/* <div className="mappingNWC_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div> */}
         <img src={component119} className="mappingNWC_component119" alt="_" />
       </div>
 

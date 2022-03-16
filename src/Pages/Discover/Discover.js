@@ -7,11 +7,20 @@ import discoverbannerperson from "../../res/imgs/discoverbannerperson.png";
 import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
-import { getSafe, processPageOld } from "../../Components/util/util";
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 
 function Discover() {
+
+  //state for main page conent
+  const [state, setState] = useState({
+    banner_text: '',
+    bannerimage_credit: '',
+    bannerimagecredit_more: '',
+    intro_text: ''
+  });
+
+  //state for discover cards and pagination etc.
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
@@ -20,10 +29,6 @@ function Discover() {
   const [input, setInput] = useState("");
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
-  const [stateOld, setStateOld] = useState({
-    bannerText: "abcdefg",
-  }); // Handles the text throughout page.
-
   const { fetchBaseUrl } = VARIABLES;
 
   useEffect(() => {
@@ -54,11 +59,19 @@ function Discover() {
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    fetch([fetchBaseUrl, "content-discovers"].join('/'))
-      .then(req => req.json())
-      .then(data => processPageOld(data, setStateOld))
+    fetch(`${fetchBaseUrl}/content-discover-stories-main`)
+      .then(res => res.json())
+      .then(data => {
+        setState({
+          banner_text: data.BannerText,
+          bannerimage_credit: data.BannerImageCredit,
+          bannerimagecredit_more: data.BannerImageCredit_more,
+          intro_text: data.IntroductionText,
+        });
+        console.log(`${fetchBaseUrl}/content-discover-stories-main`)
+      })
       .catch(err => console.log(err));
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, []); // eslint-disable-line
 
   function search() {
     fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}`].join('/'))
@@ -104,11 +117,11 @@ function Discover() {
       {/**BANNER */}
       <div className="discoverBanner">
         <img src={discoverButton} alt="Discover NWC Stories" />
-        <LCard text={getSafe(stateOld, "BannerText") + ""} />
+        <LCard text={state.banner_text} />
         <CaptionedImg
           src={discoverbannerperson}
-          caption="PHOTO BY JANE DOE"
-          caption_more="Here are some more details" />
+          caption={state.bannerimage_credit}
+          caption_more={state.bannerimagecredit_more} />
       </div>
 
       {/**FEATURED */}
@@ -130,11 +143,16 @@ function Discover() {
         </div>
       </div>
 
+      {/**INTRO */}
+      <div className="discoverIntro">
+        <p>{state.intro_text}</p>
+      </div>
+
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
           <input placeholder="Search Participants" value={input} onChange={e => setInput(e.target.value)} />
-          <p className="discoverSearch_icon" onClick={() => search()}>&#x1F50E;&#xFE0E;</p>
+          <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
@@ -146,11 +164,7 @@ function Discover() {
           <p className="discoverSearch_sorter" onClick={() => sortState()}>STATE</p>
         </div>
       </div>
-      <div className="discoverButtons">
-        <Link to="/participants">
-          <div className="discoverButtons_participants">VIEW PARTICIPANTS</div>
-        </Link>
-      </div>
+      
       <div className="cardsPerPage">
           <div className="cardsPerPageHeader">
           <h3>Cards per page</h3>
@@ -189,6 +203,12 @@ function Discover() {
           profilepic={value.profilepic}
         />)
         }
+      </div>
+
+      <div className="discoverButtons">
+        <Link to="/participants">
+          <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
+        </Link>
       </div>
     </div>
   )

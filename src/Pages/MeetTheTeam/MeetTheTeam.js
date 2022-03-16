@@ -63,12 +63,8 @@ function MeetTheTeam() {
   return <div className="meet">
     {/**HEAD */}
     <div className="meetHead">
-      <h1 className="meetHead_board">
-        MEET OUR TEAM
-      </h1>
-      <h2>
-        PROJECT LEADS
-      </h2>
+      <h1>MEET OUR TEAM</h1>
+      <h2>PROJECT LEADS</h2>
     </div>
 
     {/**LEADS */}
@@ -104,17 +100,28 @@ function MeetTheTeam() {
         {isLoading ? (
           <p>Loading ...</p>
         ) : (
-          contributors[currentTab].map(c =>
-            <div
-              className="aboutTable_entry"
-              key={Math.random()}
-            >
-              {c.ProfilePicture ?
-                <img src={fetchBaseUrl + c.ProfilePicture.url} alt="_" /> : <img src={empty_profile_image} alt="empty_image_profile" />}
-              <div className="aboutTable_alpha">
-                <p className="aboutTable_name">{c.Name}</p>
-                <p className="aboutTable_txt">{c.Description}</p>
-              </div>
+          contributors[currentTab].map(content =>
+            <div className="aboutTable_entry" key={Math.random()}>
+              {currentTab !== "STEERING COMMITTEE" ? 
+              <div className="aboutTable_entry">
+                <p className="aboutTable_name"> {content.FirstName} {content.LastName} - 
+                <span className="aboutTable_txt"> {content.Description}, {content.Years}</span></p>
+              </div> : 
+              <div className="aboutTable_steering_entry"> 
+                  {content.ProfilePicture ?
+                      <img src={fetchBaseUrl + content.ProfilePicture.url} alt="_" /> : 
+                      <img src={empty_profile_image} alt="empty_image_profile"/>}
+                    <div className="aboutTable_steering_box">
+                      <p className="aboutTable_steering_name"> {content.FirstName} {content.LastName}</p>
+                      <p className="aboutTable_steering_txt">{content.Description}</p>
+                    </div>
+                </div>
+              }
+              
+        
+                
+                
+              
             </div>
           )
         )}

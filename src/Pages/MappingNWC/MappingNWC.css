@@ -8,19 +8,18 @@ BANNER
 */
 
 .mappingNWCBanner {
-  width: 100vw;
   background: url("./res/mapbg.png");
-  padding-top: 151rem;
+  padding-top: 100rem;
   display: flex;
 }
 
 .mappingNWC_button {
-  width: 500rem;
-  height: 500rem;
+  width: 30%;
+  height: 30%;
 }
 
 .mappingNWC_card {
-  width: 834rem;
+  width: 70%;
   height: 450rem;
   min-height: 450rem;
   background-color: white;
@@ -47,31 +46,20 @@ BANNER
   display: flex;
   align-items: center;
   justify-content: center;
-  right: 0;
-  margin-left: -200rem;;
+  margin-left: -300rem;
   margin-top: 577rem;
-  margin-right: 400rem;
   width: fit-content;
   text-align: right;
   padding: 12rem;
 }
 
 .mappingNWC_credit p {
-  width: 323rem;
   text-align: center;
 }
 
 .mappingNWC_component119 {
-  width: 537rem;
-  height: 764rem;
-  margin-left: -400rem;
-  margin-bottom: -151rem;
-  margin-top: -100rem;
+  right: 0px;
 }
-
-
-
-
 
 .marker {
   display: block;
