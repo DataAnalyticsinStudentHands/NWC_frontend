@@ -17,6 +17,7 @@ function Discover() {
     banner_text: '',
     bannerimage_credit: '',
     bannerimagecredit_more: '',
+    intro_text: ''
   });
 
   //state for discover cards and pagination etc.
@@ -65,6 +66,7 @@ function Discover() {
           banner_text: data.BannerText,
           bannerimage_credit: data.BannerImageCredit,
           bannerimagecredit_more: data.BannerImageCredit_more,
+          intro_text: data.IntroductionText,
         });
         console.log(`${fetchBaseUrl}/content-discover-stories-main`)
       })
@@ -142,11 +144,16 @@ function Discover() {
         </div>
       </div>
 
+      {/**INTRO */}
+      <div className="discoverIntro">
+        <p>{state.intro_text}</p>
+      </div>
+
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
           <input placeholder="Search Participants" value={input} onChange={e => setInput(e.target.value)} />
-          <p className="discoverSearch_icon" onClick={() => search()}>&#x1F50E;&#xFE0E;</p>
+          <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
