@@ -46,9 +46,10 @@ function ResourceResearchers() {
     return (
         <div className="resourceResearchers">
 
-            {/* COLOR CORNER TOP RIGHT
+            {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonTR">
-            </div> */}
+                <img src={colorCorner} alt="Color banner top right"></img>
+            </div>
 
             {/* BANNER */}
             <div className="researchersBanner">
@@ -81,15 +82,15 @@ function ResourceResearchers() {
                 </div>
                 <div className="iconContainer">
                     <img src={contributeIcon} alt="_"></img>
-                    <p>How to Contribute Oral Histories</p>  
+                    <p>How to Contribute Biographies</p>  
                 </div>
                 <div className="iconContainer">
                     <img src={techIcon} alt="_"></img>  
-                    <p>How to Contribute Oral Histories</p>
+                    <p>Technical Guidelines</p>
                 </div>
                 <div className="iconContainer">
                     <img src={permissionIcon} alt="_"></img>
-                    <p>How to Contribute Oral Histories</p>  
+                    <p>Permissions Documents</p>  
                 </div>
             </div>
 
@@ -100,9 +101,10 @@ function ResourceResearchers() {
                     <h1>HAVE MORE IDEAS? TELL US HERE</h1>
             </div>
 
-            {/* COLOR CORNER TOP RIGHT
-            <div className="colorRibbonBL"><p>Hello</p>
-            </div> */}
+            {/* COLOR CORNER TOP RIGHT */}
+            <div className="colorRibbonBL">
+                <img src={colorCorner} alt="Color banner bottom left"></img>
+            </div>
 
         </div>
     )
