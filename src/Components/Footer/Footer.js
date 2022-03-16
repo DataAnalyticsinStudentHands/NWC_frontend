@@ -60,7 +60,11 @@ function Footer() {
     return (
         <div className="footer">
                 <div className="footer_top icon">
+                    <div className="footer_top icon centered">
                     <img src={icon} alt="project_icon"/>
+                    <p>Credit: Valerie Pettis</p>
+                    </div>
+                    
                 </div>
                 <div className="footer_top home">
                     <Link to={'/'}>HOME</Link>
