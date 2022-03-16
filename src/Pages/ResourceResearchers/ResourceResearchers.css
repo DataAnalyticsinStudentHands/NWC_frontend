@@ -1,4 +1,3 @@
-
 /* 
 COLOR CORNER TOP RIGHT 
 */
@@ -14,54 +13,54 @@ COLOR CORNER TOP RIGHT
 BANNER
 */
 
+.researchersBanner{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150rem;
+}
+
+.researchersBanner_header{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size:50rem;
+}
+
+.researchersBanner_header h1{
+    font-size:55rem;
+    letter-spacing: 0.1em;
+    color: #142F45;
+}
+
+.researchersBanner_header p{
+    text-align:left;
+    font-size:25rem;
+    width: 800rem;
+    margin-left: 75rem;
+}
+
 .researchersBanner_border {
-    width: 36.5vw;
+    float: left;
+    margin-left: 75rem;
+    margin-right: auto;
+    margin-bottom: 30rem;
+    width: 45.5vw;
     border-top: 10rem solid var(--colorDeepRed); /*high*/
     height: 30rem; /*mid*/
     background-color: var(--colorDeepOrange);
     border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
 }
 
-
-.researchersBanner{
-    display: flex;
-    align-items:center;
-    margin-left: 325rem;
-    margin-top: 100rem;
-}
-
-.resourceVideoPlayer{
-    display: flex;
-    justify-content: center;
-    margin-top: 100rem;
-}
-
-.researcherBannerHeader h1{
+.researchersBanner_text{
+    width: 10rem;
     font-family:var(--fontBabasNeue);
-    width:35em;
     text-align:center;
-    font-size:20px;
-    height:auto
+    font-size: 15rem;
 }
 
-.researchersBannerText{
-    display: flex;
-    width: 100%;
-    align-items: center;
-    justify-content: space-around;
-}
-  
-.researchersBannerText h2{
-    font-family:var(--fontBabasNeue);
-    width:35em;
-    text-align:justify;
-    text-align-last:justify;
-    font-size:20px;
-    height:auto
-}
-
-.researchersBanner img{
-    float: left;
+.researchersBanner_button{
+    margin-left:300rem;
 }
 
 /* 
@@ -87,9 +86,9 @@ RESEARCHERS ICONS
 .iconContainer{
     font-family:var(--fontBabasNeue);
     text-align:center;
-    font-size: 20px;
+    font-size: 20rem;
     float:left;
-    padding: 30px;
+    padding: 30rem;
 }
 
 /*
@@ -107,14 +106,14 @@ MORE IDEAS CONTAINER
 .ideaContainer img{
     max-width: 100%;
     height: auto;
-    margin-left: 500px;
+    margin-left: 500rem;
     display: block;
 }
 
 .ideaContainer h1 {
-    margin-right: 600px;
-    margin-top:135px;
-    font-size: 40px;
+    margin-right: 600rem;
+    margin-top:135rem;
+    font-size: 40rem;
     font-family:var(--fontBabasNeue);
     text-align:center;
 }

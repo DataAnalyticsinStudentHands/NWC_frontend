@@ -44,7 +44,7 @@ function ResourceResearchers() {
     }, []);
 
     return (
-        <div className="resrouceResearchers">
+        <div className="resourceResearchers">
 
             {/* COLOR CORNER TOP RIGHT
             <div className="colorRibbonTR">
@@ -52,13 +52,13 @@ function ResourceResearchers() {
 
             {/* BANNER */}
             <div className="researchersBanner">
-                <img src={researcher_button} alt="Researcher Button" />
-                <div className="researcherBannerHeader">
-                    <h1>RESOURCES FOR RESEARCHERS</h1>
-                    <div className="researchersBanner_border"></div>
-                    <div className="researchersBannerText">
-                <h2>{banner_card}</h2>
+                <div className="researchersBanner_button">
+                    <img src={researcher_button} alt="Researcher Button" />
                 </div>
+                <div className="researchersBanner_header">
+                    <h1>RESOURCES FOR RESEARCHERS</h1>
+                <div className="researchersBanner_border"></div>
+                    <p>{banner_card}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
