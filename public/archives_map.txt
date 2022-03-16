@@ -1,144 +1,144 @@
-Name	Latitude	Longitude
-"Abraham Lincoln Presidential Library and Museum. Springfield, Illinois."	39.803335	-89.647129
-"Alabama Department of Archives and History. Montgomery, Alabama."	32.375705	-86.300738
-"Alverno College, Archives. Milwaukee, Wisconsin."	42.983334	-87.96489
-"Maryland State Archives. Annapolis, Maryland."	38.986409	-76.500893
-"Archives of Michigan. Lansing, Michigan."	42.732051	-84.562774
-"Arizona State University, Archives and Special Collections. Tempe, Arizona."	32.230987	-110.948956
-"Auraria Library. Denver, Colorado."	39.743014	-105.002868
-"Boston College, John J. Burns Library, Archives and Manuscripts Department. Boston, Massachusetts."	42.33656	-71.171327
-"Brigham Young University, Harold B. Lee Library. Provo, Utah."	40.248825	-111.649225
-"Brown University, John Hay Library. Providence, Rhode Island."	41.826196	-71.402507
-"California State University, Long Beach, Virtual Oral Aural History Archive, Special Collections and Archive. Long Beach, California."	33.777172	-118.11467
-"California State University, Sacramento, Department of Special Collections and University Archives. Sacramento, California."	38.55945	-121.423699
-"Jimmy Carter Presidential Library. Atlanta, Georgia."	33.766305	-84.356246
-"Center for the Study of Political Graphics. Culver City, California."	34.010951	-118.415001
-"Central Washington University, Archives and Special Collections. Ellensburg, Washington."	47.000338	-120.542148
-"Chicago History Museum. Chicago, Illinois."	41.911994	-87.631518
-"Claremont Colleges, California, Special Collections at the Intercollegiate Feminist Center. Claremont, California."	34.10293	-117.709568
-"Columbia University, Center for Oral History. New York, New York."	40.811585	-73.960932
-"Columbia University, Rare Book & Manuscript Library. New York, New York."	40.806127	-73.963094
-"Cornell University, Division of Rare Manuscript Collections. Ithaca, New York."	42.433454	-76.4654
-"Cornell University, Kheel Center for Labor-Management Documentation and Archives. Ithaca, New York."	42.4472	-76.481
-"Dallas Public Library, Dallas History and Archives Division. Dallas, Texas."	32.778346	-96.79708
-"Denver Public Library, Western History/Genealogy Department. Denver, Colorado."	39.737572	-104.988225
-"Detroit Public Library, Special Collections. Detroit, Michigan."	42.358381	-83.06667
-"Duke University. David M. Rubenstein Rare Book & Manuscript Library. Durham, North Carolina."	36.001832	-78.93872
-"Emory University, Robert W. Woodruff Library, Stuart A. Rose Manuscript, Archives, and Rare Book Library. Atlanta, Georgia."	33.790436	-84.322879
-"Gerald R. Ford Library. Ann Arbor, Michigan."	42.288501	-83.71236
-"Gay, Lesbian, Bisexual, Transgender Historical Society. San Francisco, California."	37.782281	-122.409531
-"Georgia Department of Archives and History. Morrow, Georgia."	33.596913	-84.336854
-"Georgia State University, Special Collections and Archives. Atlanta, Georgia."	33.752488	-84.387017
-"Harvard University, Arthur and Elizabeth Schlesinger Library on the History of Women in America, Radcliffe Institute for Advanced Study. Cambridge, Massachusetts."	42.376233	-71.122297
-"Harvard University, Center for the History of Medicine. Cambridge, Massachusetts."	42.335156	-71.103658
-"Hollins University, Wyndham Robertson Library. Roanoke, Virginia."	37.354942	-79.939755
-"Idaho State Historical Society. Boise, Idaho."	43.601133	-116.166053
-"Illinois State University, Dr. JoAnn Rayfield Archives. Normal, Illinois."	40.544212	-88.988276
-"Indiana Historical Society, Smith Memorial Library. Indianapolis, Indiana."	39.770487	-86.166401
-"Indiana University, Herman B. Wells Library, Modern Political Papers Collection. Bloomington, Indiana."	39.171008	-86.516717
-"Indiana University, Herman B. Wells Library, University Archives. Bloomington, Indiana."	39.171008	-86.516717
-"Iowa State University, Carrie Chapman Catt Center for Women and Politics. Ames, Iowa."	42.028727	-93.644881
-"James Madison University, Special Collections. Harrisonburg, Virginia."	38.435279	-78.871472
-"Jewish Women’s Archive. Brookline, Massachusetts."	42.337614	-71.121815
-"Lyndon B. Johnson Presidential Library. Austin, Texas."	30.285864	-97.729381
-"Kentucky Historical Society. Frankfort, Kentucky."	38.19906	-84.874513
-"Library of Congress, Manuscript Division, Washington, D.C."	38.886819	-77.004707
-"Louisiana State University, Special Collections. Baton Rouge, Louisiana."	30.408913	-91.18397
-"Michigan History Foundation or Michigan Library and Historical Center, Archives of Michigan. Lansing, Michigan."	42.732051	-84.562774
-"Michigan State University, University Archives and Historical Collections. East Lansing, Michigan."	42.723331	-84.465842
-"Minnesota Historical Society. Saint Paul, Minnesota."	44.949308	-93.10467
-"Montana Historical Society Research Center Archives. Helena, Montana."	46.586377	-112.015856
-"Montana State University, Special Collections & Archives. Bozeman, Montana."	45.667494	-111.049338
-"National Archives. College Park, Maryland."	39.001101	-76.959408
-"New Mexico State University, Rio Grande Historical Collections. Las Cruces, New Mexico."	32.283861	-106.743733
-"New York Public Library, Archives and Manuscripts. New York, New York."	40.753035	-73.981846
-"New York State Archives. Albany, New York."	42.648361	-73.761533
-"North Carolina Division of Archives and History, Archives and Records Section. Raleigh, North Carolina."	35.782898	-78.637246
-"North Dakota State University. Fargo, North Dakota."	46.891574	-96.800083
-"Pacifica Radio Archives: A Living History. Hollywood, California."	34.135298	-118.361759
-"Pennsylvania State University, Special Collections Library. University Park, Pennsylvania."	40.797928	-77.86523
-"Richard Nixon Presidential Library and Museum. Yorba Linda, California."	33.889174	-117.818971
-"Rochester Public Library. Rochester, New York."	43.15413	-77.608261
-"Franklin D. Roosevelt Library. Hyde Park, New York."	41.768659	-73.934088
-"San Diego State University, Special Collections and University Archives. San Diego, California."	32.775169	-117.071579
-"Sarah Lawrence College, Archives. Bronxville, New York."	40.935449	-73.843666
-"Smith College, Sophia Smith Collection of Women's History. Northampton, Massachusetts."	42.3179	-72.63805
-"Smithsonian Institution Archives. Washington, D.C."	38.886024	-77.020786
-"Southern California Library for Social Studies and Research. Los Angeles, California."	33.984027	-118.291197
-"Southern Methodist University, DeGolyer Library. Dallas, Texas."	32.841403	-96.784119
-"Stanford University, Special Collections and University Archives. Palo Alto, California."	37.426635	-122.166841
-"State Historical Society of North Dakota. Bismark, North Dakota."	46.819027	-100.780705
-"State Historical Society of Missouri. St. Louis, Missouri."	38.7079	-90.31271
-"State University of New York at Albany, M. E. Grenander Department of Special Collections & Archives, New York State Modern Political Archive. Albany, New York."	42.684644	-73.825554
-"Suffolk University, Moakley Archive and Institute. Boston, Massachusetts."	42.357905	-71.061042
-"Swarthmore College, Peace Collection. Swarthmore, Pennsylvania."	39.905185	-75.354173
-"Syracuse University, Special Collections Research Center. Syracuse, New York."	43.039952	-76.132614
-"Temple University, Special Collections Research Center. Philadelphia, Pennsylvania."	39.980833	-75.155636
-"Texas State Library and Archives Commission. Austin, Texas."	30.273921	-97.738396
-"Texas State Library and Archives Commission, Sam Houston Regional Library and Research Center. Liberty, Texas."	30.110244	-94.76917
-"Texas Tech University, Southwest Collection/Special Collections Library. Lubbock, Texas."	33.58193	-101.877219
-"Texas Women’s University, The Women’s Collection. Denton, Texas."	33.226231	-97.12796
-"United Methodist Archives and History Center, General Commission on Archives and History. Madison, New Jersey."	40.761311	-74.423944
-"University of Arizona, Special Collections. Tucson, Arizona."	32.23087	-110.948743
-"University of Baltimore, Baltimore Regional Studies Archives. Baltimore, Maryland."	39.306158	-76.617305
-"University of California, Berkeley, The Bancroft Library. Berkeley, California."	37.872092	-122.259443
-"University of California, Irvine, Special Collections. Irvine, California."	33.647119	-117.841134
-"University of California, Los Angeles, Charles E. Young Research Library. Los Angeles, California."	34.074966	-118.441467
-"University of California, Los Angeles, Chicano Studies Research Center. Los Angeles, California."	34.07287	-118.441218
-"University of California, Santa Barbara, Department of Special Collections. Santa Barbara, California."	34.411557	-119.847858
-"University of Colorado at Boulder, Archives Department. Boulder, Colorado."	40.006871	-105.266372
-"University of Connecticut, Archives & Special Collections, Thomas J. Dodd Research Center. Storrs, Connecticut."	41.805761	-72.251107
-"University of Denver, Penrose Library, Special Collections and Archives. Denver, Colorado."	39.677887	-104.961778
-"University of Florida, Smathers Libraries, Special and Area Studies Collections. Gainesville, Florida."	29.651552	-82.342674
-"University of Houston Libraries, Special Collections. Houston, Texas."	29.721071	-95.341923
-"University of Idaho Library, Special Collections and Archives. Moscow, Idaho."	46.727268	-117.014087
-"University of Illinois at Chicago, Special Collections. Chicago, Illinois."	41.871871	-87.650489
-"University of Iowa, Iowa Women’s Archive. Iowa City, Iowa."	41.659712	-91.538427
-"University of Kansas, Kenneth Spencer Research Library. Lawrence, Kansas."	38.958968	-95.247465
-"University of Kentucky, Margaret I. King Special Collections and Archives. Lexington, Kentucky."	38.036777	-84.503596
-"University of Louisville, Archives and Special Collections. Louisville, Kentucky."	38.215838	-85.761689
-"University of Maryland, Special Collections. College Park, Maryland."	38.988068	-76.944423
-"University of Massachusetts, Special Collections and University Archives. Amherst, Massachusetts."	42.389823	-72.528285
-"University of Michigan, Bentley Historical Library. Ann Arbor, Michigan."	42.289606	-83.712277
-"The University of Montana, Mansfield Library, Archives and Special Collections. Missoula, Montana."	46.859441	-113.982847
-"University of Nevada, Las Vegas, Special Collections and Archives. Las Vegas, Nevada."	36.104944	-115.144297
-"University of Nevada, Reno, Mathewson IGT Knowledge Center. Reno, Nevada."	39.543554	-119.815435
-"University of New England, Maine Women Writers Collection. Biddeford, Maine."	43.458612	-70.389211
-"University of North Carolina at Chapel Hill, Southern Historical Collection. Chapel Hill, North Carolina."	35.90671	-79.050086
-"University of North Carolina at Charlotte, J. Murrey Atkins Library. Charlotte, North Carolina."	35.305801	-80.73238
-"University of North Texas Libraries, Texas Portal to History. Denton, Texas."	33.200773	-97.152988
-"University of Oklahoma, Western History Collection. Norman, Oklahoma."	35.209566	-97.445094
-"University of Oregon, Special Collections & University Archives. Eugene, Oregon."	44.043207	-123.078208
-"University of Pittsburgh, University Library System. Pittsburgh, Pennsylvania."	40.442704	-79.954071
-"University of Rochester, Rare Books, Special Collections, and Preservation, River Campus Libraries. Rochester, New York."	43.128266	-77.628877
-"University of South Carolina, Department of Oral History, University Libraries. Columbia, South Carolina."	33.995076	-81.028053
-"University of South Carolina, Ernest F. Hollings Special Collections Library, South Carolina Political Collections. Columbia, South Carolina."	33.995027	-81.028168
-"University of South Florida, Special Collections. Tampa, Florida."	28.061422	-82.413231
-"University of Southern California, ONE National Gay and Lesbian Archives. Los Angeles, California."	34.031035	-118.281573
-"University of Southern Mississippi, Center for Oral History and Cultural Heritage. Hattiesburg, Mississippi."	31.32691	-89.337778
-"University of Tennessee Knoxville, Betsey B. Creekmore Special Collections and University Archives. Knoxville, Tennessee."	35.955093	-83.929786
-"University of Texas at Austin, Benson Latin American Collection. Austin, Texas."	30.284295	-97.729072
-"University of Texas at Austin, Dolph Briscoe Center for American History. Austin, Texas."	30.284984	-97.728968
-"University of Texas at Arlington Library, Special Collections. Arlington, Texas."	32.729655	-97.112795
-"University of Texas at San Antonio, Special Collections. San Antonio, Texas."	29.583385	-98.61901
-"University of Utah, J. Willard Marriott Library. Salt Lake City, Utah."	40.762469	-111.846041
-"University of Virginia, Albert and Shirley Small Special Collections. Charlottesville, Virginia."	38.036063	-78.505873
-"University of Washington, Special Collections. Seattle, Washington."	47.655798	-122.307915
-"University of Wisconsin-Eau Claire, McIntyre Library, Special Collections & Archives. Eau Claire, Wisconsin."	44.79822	-91.501825
-"University of Wisconsin-La Crosse, University Archives. La Crosse, Wisconsin."	43.813527	-91.230061
-"University of Wisconsin-Madison, Archives and Records Management Services. Madison, Wisconsin."	43.075386	-89.397995
-"University of Wollongong. Wollongong, Australia."	-34.406078	150.878527
-"University of Wyoming, American Heritage Center. Laramie, Wyoming."	41.314982	-105.567528
-"Utah State Historical Society. Salt Lake City, Utah."	40.762971	-111.904547
-"Vassar College, Archives and Special Collections Library. Poughkeepsie, New York."	41.690138	-73.897058
-"Vermont Historical Society. Barre, Vermont."	44.196044	-72.498436
-"Virginia Commonwealth University, James Branch Cabell Library, Special Collections and Archives. Richmond, Virginia."	37.547665	-77.453624
-"Washington State Historical Society. Tacoma, Washington."	47.267461	-122.450256
-"Wayne State University, Walter P. Reuther Library. Detroit, Michigan."	42.358945	-83.06873
-"Western Reserve Historical Society. Cleveland, Ohio."	41.513486	-81.611011
-"Western Washington University, Center for Pacific Northwest Studies. Bellingham, Washington."	48.726204	-122.485062
-"Whitman College, Northwest Archives. Walla Walla, Washington."	46.070881	-118.329589
-"Winthrop University, Louise Pettus Archives and Special Collections. Rock Hill, South Carolina."	34.938353	-81.029915
-"Wisconsin Historical Society. Madison, Wisconsin."	43.075444	-89.400111
-"Yale University, Beinecke Rare Book and Manuscript Library. New Haven, Connecticut."	41.311585	-72.927313
-"Yale University, Manuscripts and Archives. New Haven, Connecticut."	41.312758	-72.924328
+Archive	LatLong
+"Abraham Lincoln Presidential Library and Museum. Springfield, Illinois."	"39.803335, -89.647129"
+"Alabama Department of Archives and History. Montgomery, Alabama."	"32.375705, -86.300738"
+"Alverno College, Archives. Milwaukee, Wisconsin."	"42.983334, -87.964890"
+"Maryland State Archives. Annapolis, Maryland."	"38.986409, -76.500893"
+"Archives of Michigan. Lansing, Michigan."	"42.732051, -84.562774"
+"Arizona State University, Archives and Special Collections. Tempe, Arizona."	"32.230987, -110.948956"
+"Auraria Library. Denver, Colorado."	"39.743014, -105.002868"
+"Boston College, John J. Burns Library, Archives and Manuscripts Department. Boston, Massachusetts."	"42.336560, -71.171327"
+"Brigham Young University, Harold B. Lee Library. Provo, Utah."	"40.248825, -111.649225"
+"Brown University, John Hay Library. Providence, Rhode Island."	"41.826196, -71.402507"
+"California State University, Long Beach, Virtual Oral Aural History Archive, Special Collections and Archive. Long Beach, California."	"33.777172, -118.114670"
+"California State University, Sacramento, Department of Special Collections and University Archives. Sacramento, California."	"38.559450, -121.423699"
+"Jimmy Carter Presidential Library. Atlanta, Georgia."	"33.766305, -84.356246"
+"Center for the Study of Political Graphics. Culver City, California."	"34.010951, -118.415001"
+"Central Washington University, Archives and Special Collections. Ellensburg, Washington."	"47.000338, -120.542148"
+"Chicago History Museum. Chicago, Illinois."	"41.911994, -87.631518"
+"Claremont Colleges, California, Special Collections at the Intercollegiate Feminist Center. Claremont, California."	"34.102930, -117.709568"
+"Columbia University, Center for Oral History. New York, New York."	"40.811585, -73.960932"
+"Columbia University, Rare Book & Manuscript Library. New York, New York."	"40.806127, -73.963094"
+"Cornell University, Division of Rare Manuscript Collections. Ithaca, New York."	"42.433454, -76.465400"
+"Cornell University, Kheel Center for Labor-Management Documentation and Archives. Ithaca, New York."	"42.447200, -76.481000"
+"Dallas Public Library, Dallas History and Archives Division. Dallas, Texas."	"32.778346, -96.797080"
+"Denver Public Library, Western History/Genealogy Department. Denver, Colorado."	"39.737572, -104.988225"
+"Detroit Public Library, Special Collections. Detroit, Michigan."	"42.358381, -83.066670"
+"Duke University. David M. Rubenstein Rare Book & Manuscript Library. Durham, North Carolina."	"36.001832, -78.938720"
+"Emory University, Robert W. Woodruff Library, Stuart A. Rose Manuscript, Archives, and Rare Book Library. Atlanta, Georgia."	"33.790436, -84.322879"
+"Gerald R. Ford Library. Ann Arbor, Michigan."	"42.288501, -83.712360"
+"Gay, Lesbian, Bisexual, Transgender Historical Society. San Francisco, California."	"37.782281, -122.409531"
+"Georgia Department of Archives and History. Morrow, Georgia."	"33.596913, -84.336854"
+"Georgia State University, Special Collections and Archives. Atlanta, Georgia."	"33.752488, -84.387017"
+"Harvard University, Arthur and Elizabeth Schlesinger Library on the History of Women in America, Radcliffe Institute for Advanced Study. Cambridge, Massachusetts."	"42.376233, -71.122297"
+"Harvard University, Center for the History of Medicine. Cambridge, Massachusetts."	"42.335156, -71.103658"
+"Hollins University, Wyndham Robertson Library. Roanoke, Virginia."	"37.354942, -79.939755"
+"Idaho State Historical Society. Boise, Idaho."	"43.601133, -116.166053"
+"Illinois State University, Dr. JoAnn Rayfield Archives. Normal, Illinois."	"40.544212, -88.988276"
+"Indiana Historical Society, Smith Memorial Library. Indianapolis, Indiana."	"39.770487, -86.166401"
+"Indiana University, Herman B. Wells Library, Modern Political Papers Collection. Bloomington, Indiana."	"39.171008, -86.516717"
+"Indiana University, Herman B. Wells Library, University Archives. Bloomington, Indiana."	"39.171008, -86.516717"
+"Iowa State University, Carrie Chapman Catt Center for Women and Politics. Ames, Iowa."	"42.028727, -93.644881"
+"James Madison University, Special Collections. Harrisonburg, Virginia."	"38.435279, -78.871472"
+"Jewish Women’s Archive. Brookline, Massachusetts."	"42.337614, -71.121815"
+"Lyndon B. Johnson Presidential Library. Austin, Texas."	"30.285864, -97.729381"
+"Kentucky Historical Society. Frankfort, Kentucky."	"38.199060, -84.874513"
+"Library of Congress, Manuscript Division, Washington, D.C."	"38.886819, -77.004707"
+"Louisiana State University, Special Collections. Baton Rouge, Louisiana."	"30.408913, -91.183970"
+"Michigan History Foundation or Michigan Library and Historical Center, Archives of Michigan. Lansing, Michigan."	"42.732051, -84.562774"
+"Michigan State University, University Archives and Historical Collections. East Lansing, Michigan."	"42.723331, -84.465842"
+"Minnesota Historical Society. Saint Paul, Minnesota."	"44.949308, -93.104670"
+"Montana Historical Society Research Center Archives. Helena, Montana."	"46.586377, -112.015856"
+"Montana State University, Special Collections & Archives. Bozeman, Montana."	"45.667494, -111.049338"
+"National Archives. College Park, Maryland."	"39.001101, -76.959408"
+"New Mexico State University, Rio Grande Historical Collections. Las Cruces, New Mexico."	"32.283861, -106.743733"
+"New York Public Library, Archives and Manuscripts. New York, New York."	"40.753035, -73.981846"
+"New York State Archives. Albany, New York."	"42.648361, -73.761533"
+"North Carolina Division of Archives and History, Archives and Records Section. Raleigh, North Carolina."	"35.782898, -78.637246"
+"North Dakota State University. Fargo, North Dakota."	"46.891574, -96.800083"
+"Pacifica Radio Archives: A Living History. Hollywood, California."	"34.135298, -118.361759"
+"Pennsylvania State University, Special Collections Library. University Park, Pennsylvania."	"40.797928, -77.865230"
+"Richard Nixon Presidential Library and Museum. Yorba Linda, California."	"33.889174, -117.818971"
+"Rochester Public Library. Rochester, New York."	"43.154130, -77.608261"
+"Franklin D. Roosevelt Library. Hyde Park, New York."	"41.768659, -73.934088"
+"San Diego State University, Special Collections and University Archives. San Diego, California."	"32.775169, -117.071579"
+"Sarah Lawrence College, Archives. Bronxville, New York."	"40.935449, -73.843666"
+"Smith College, Sophia Smith Collection of Women's History. Northampton, Massachusetts."	"42.317900, -72.638050"
+"Smithsonian Institution Archives. Washington, D.C."	"38.886024, -77.020786"
+"Southern California Library for Social Studies and Research. Los Angeles, California."	"33.984027, -118.291197"
+"Southern Methodist University, DeGolyer Library. Dallas, Texas."	"32.841403, -96.784119"
+"Stanford University, Special Collections and University Archives. Palo Alto, California."	"37.426635, -122.166841"
+"State Historical Society of North Dakota. Bismark, North Dakota."	"46.819027, -100.780705"
+"State Historical Society of Missouri. St. Louis, Missouri."	"38.707900, -90.312710"
+"State University of New York at Albany, M. E. Grenander Department of Special Collections & Archives, New York State Modern Political Archive. Albany, New York."	"42.684644, -73.825554"
+"Suffolk University, Moakley Archive and Institute. Boston, Massachusetts."	"42.357905, -71.061042"
+"Swarthmore College, Peace Collection. Swarthmore, Pennsylvania."	"39.905185, -75.354173"
+"Syracuse University, Special Collections Research Center. Syracuse, New York."	"43.039952, -76.132614"
+"Temple University, Special Collections Research Center. Philadelphia, Pennsylvania."	"39.980833, -75.155636"
+"Texas State Library and Archives Commission. Austin, Texas."	"30.273921, -97.738396"
+"Texas State Library and Archives Commission, Sam Houston Regional Library and Research Center. Liberty, Texas."	"30.110244, -94.769170"
+"Texas Tech University, Southwest Collection/Special Collections Library. Lubbock, Texas."	"33.581930, -101.877219"
+"Texas Women’s University, The Women’s Collection. Denton, Texas."	"33.226231, -97.127960"
+"United Methodist Archives and History Center, General Commission on Archives and History. Madison, New Jersey."	"40.761311, -74.423944"
+"University of Arizona, Special Collections. Tucson, Arizona."	"32.230870, -110.948743"
+"University of Baltimore, Baltimore Regional Studies Archives. Baltimore, Maryland."	"39.306158, -76.617305"
+"University of California, Berkeley, The Bancroft Library. Berkeley, California."	"37.872092, -122.259443"
+"University of California, Irvine, Special Collections. Irvine, California."	"33.647119, -117.841134"
+"University of California, Los Angeles, Charles E. Young Research Library. Los Angeles, California."	"34.074966, -118.441467"
+"University of California, Los Angeles, Chicano Studies Research Center. Los Angeles, California."	"34.072870, -118.441218"
+"University of California, Santa Barbara, Department of Special Collections. Santa Barbara, California."	"34.411557, -119.847858"
+"University of Colorado at Boulder, Archives Department. Boulder, Colorado."	"40.006871, -105.266372"
+"University of Connecticut, Archives & Special Collections, Thomas J. Dodd Research Center. Storrs, Connecticut."	"41.805761, -72.251107"
+"University of Denver, Penrose Library, Special Collections and Archives. Denver, Colorado."	"39.677887, -104.961778"
+"University of Florida, Smathers Libraries, Special and Area Studies Collections. Gainesville, Florida."	"29.651552, -82.342674"
+"University of Houston Libraries, Special Collections. Houston, Texas."	"29.721071, -95.341923"
+"University of Idaho Library, Special Collections and Archives. Moscow, Idaho."	"46.727268, -117.014087"
+"University of Illinois at Chicago, Special Collections. Chicago, Illinois."	"41.871871, -87.650489"
+"University of Iowa, Iowa Women’s Archive. Iowa City, Iowa."	"41.659712, -91.538427"
+"University of Kansas, Kenneth Spencer Research Library. Lawrence, Kansas."	"38.958968, -95.247465"
+"University of Kentucky, Margaret I. King Special Collections and Archives. Lexington, Kentucky."	"38.036777, -84.503596"
+"University of Louisville, Archives and Special Collections. Louisville, Kentucky."	"38.215838, -85.761689"
+"University of Maryland, Special Collections. College Park, Maryland."	"38.988068, -76.944423"
+"University of Massachusetts, Special Collections and University Archives. Amherst, Massachusetts."	"42.389823, -72.528285"
+"University of Michigan, Bentley Historical Library. Ann Arbor, Michigan."	"42.289606, -83.712277"
+"The University of Montana, Mansfield Library, Archives and Special Collections. Missoula, Montana."	"46.859441, -113.982847"
+"University of Nevada, Las Vegas, Special Collections and Archives. Las Vegas, Nevada."	"36.104944, -115.144297"
+"University of Nevada, Reno, Mathewson IGT Knowledge Center. Reno, Nevada."	"39.543554, -119.815435"
+"University of New England, Maine Women Writers Collection. Biddeford, Maine."	"43.458612, -70.389211"
+"University of North Carolina at Chapel Hill, Southern Historical Collection. Chapel Hill, North Carolina."	"35.906710, -79.050086"
+"University of North Carolina at Charlotte, J. Murrey Atkins Library. Charlotte, North Carolina."	"35.305801, -80.732380"
+"University of North Texas Libraries, Texas Portal to History. Denton, Texas."	"33.200773, -97.152988"
+"University of Oklahoma, Western History Collection. Norman, Oklahoma."	"35.209566, -97.445094"
+"University of Oregon, Special Collections & University Archives. Eugene, Oregon."	"44.043207, -123.078208"
+"University of Pittsburgh, University Library System. Pittsburgh, Pennsylvania."	"40.442704, -79.954071"
+"University of Rochester, Rare Books, Special Collections, and Preservation, River Campus Libraries. Rochester, New York."	"43.128266, -77.628877"
+"University of South Carolina, Department of Oral History, University Libraries. Columbia, South Carolina."	"33.995076, -81.028053"
+"University of South Carolina, Ernest F. Hollings Special Collections Library, South Carolina Political Collections. Columbia, South Carolina."	"33.995027, -81.028168"
+"University of South Florida, Special Collections. Tampa, Florida."	"28.061422, -82.413231"
+"University of Southern California, ONE National Gay and Lesbian Archives. Los Angeles, California."	"34.031035, -118.281573"
+"University of Southern Mississippi, Center for Oral History and Cultural Heritage. Hattiesburg, Mississippi."	"31.326910, -89.337778"
+"University of Tennessee Knoxville, Betsey B. Creekmore Special Collections and University Archives. Knoxville, Tennessee."	"35.955093, -83.929786"
+"University of Texas at Austin, Benson Latin American Collection. Austin, Texas."	"30.284295, -97.729072"
+"University of Texas at Austin, Dolph Briscoe Center for American History. Austin, Texas."	"30.284984, -97.728968"
+"University of Texas at Arlington Library, Special Collections. Arlington, Texas."	"32.729655, -97.112795"
+"University of Texas at San Antonio, Special Collections. San Antonio, Texas."	"29.583385, -98.619010"
+"University of Utah, J. Willard Marriott Library. Salt Lake City, Utah."	"40.762469, -111.846041"
+"University of Virginia, Albert and Shirley Small Special Collections. Charlottesville, Virginia."	"38.036063, -78.505873"
+"University of Washington, Special Collections. Seattle, Washington."	"47.655798, -122.307915"
+"University of Wisconsin-Eau Claire, McIntyre Library, Special Collections & Archives. Eau Claire, Wisconsin."	"44.798220, -91.501825"
+"University of Wisconsin-La Crosse, University Archives. La Crosse, Wisconsin."	"43.813527, -91.230061"
+"University of Wisconsin-Madison, Archives and Records Management Services. Madison, Wisconsin."	"43.075386, -89.397995"
+"University of Wollongong. Wollongong, Australia."	"-34.406078, 150.878527"
+"University of Wyoming, American Heritage Center. Laramie, Wyoming."	"41.314982, -105.567528"
+"Utah State Historical Society. Salt Lake City, Utah."	"40.762971, -111.904547"
+"Vassar College, Archives and Special Collections Library. Poughkeepsie, New York."	"41.690138, -73.897058"
+"Vermont Historical Society. Barre, Vermont."	"44.196044, -72.498436"
+"Virginia Commonwealth University, James Branch Cabell Library, Special Collections and Archives. Richmond, Virginia."	"37.547665, -77.453624"
+"Washington State Historical Society. Tacoma, Washington."	"47.267461, -122.450256"
+"Wayne State University, Walter P. Reuther Library. Detroit, Michigan."	"42.358945, -83.068730"
+"Western Reserve Historical Society. Cleveland, Ohio."	"41.513486, -81.611011"
+"Western Washington University, Center for Pacific Northwest Studies. Bellingham, Washington."	"48.726204, -122.485062"
+"Whitman College, Northwest Archives. Walla Walla, Washington."	"46.070881, -118.329589"
+"Winthrop University, Louise Pettus Archives and Special Collections. Rock Hill, South Carolina."	"34.938353, -81.029915"
+"Wisconsin Historical Society. Madison, Wisconsin."	"43.075444, -89.400111"
+"Yale University, Beinecke Rare Book and Manuscript Library. New Haven, Connecticut."	"41.311585, -72.927313"
+"Yale University, Manuscripts and Archives. New Haven, Connecticut."	"41.312758, -72.924328"
