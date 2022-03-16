@@ -93,6 +93,49 @@ function DiscoverInfo() {
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
+    let bigquote1 = state.bigquote1
+    let bigquote2 = state.bigquote2
+
+    function bigQuoteSwitch1() {
+
+        if (bigquote1 === undefined){
+            return (
+                <p></p>
+            )
+        } 
+        else {
+            return (
+            <div className="discoverInfoBody_bigquote">
+            <div className="quote_topleft"></div>
+                <div className="quote_topright"></div>
+                    <p>{state.bigquote1}</p>
+                <div className="quote_bottomleft"></div>
+            <div className="quote_bottomright"></div>
+        </div>
+            )
+        }
+    }
+
+    function bigQuoteSwitch2() {
+        if (bigquote2 === undefined){
+            return (
+            <p></p>
+            )
+        } 
+        else {
+
+            return (
+            <div className="discoverInfoBody_bigquote">
+            <div className="quote_topleft"></div>
+                    <div className="quote_topright"></div>
+                        <p>{state.bigquote2}</p>
+                    <div className="quote_bottomleft"></div>
+                <div className="quote_bottomright"></div>
+            </div>
+            )
+        }
+    }
+
     // this is section 3, the UI section.
     // the general philosophy here is to do as much with HTML and CSS as possible.
     // there is arguably more memorization in HTML and CSS,
@@ -143,7 +186,6 @@ function DiscoverInfo() {
 
             {/**BODY */}
             <div className="discoverInfoBody">
-
                 {/**BODY_LEFT */}
                 <div className="discoverInfoBody_left">
                     <div className='discoverInfoBody_profile'>
@@ -179,13 +221,14 @@ function DiscoverInfo() {
                         {state.name}
                     </h2>
 
-                    <div className="discoverInfoBody_bigquote">
+                    {bigQuoteSwitch1()}
+                    {/* <div className="discoverInfoBody_bigquote">
                         <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
                                 <p>{state.bigquote1}</p>
                             <div className="quote_bottomleft"></div>
                         <div className="quote_bottomright"></div>
-                    </div>
+                    </div> */}
 
                     <div className="discoverInfoBody_text">
                         <ReactMarkdown>
@@ -193,13 +236,15 @@ function DiscoverInfo() {
                         </ReactMarkdown>
                     </div>
 
-                    <div className="discoverInfoBody_bigquote">
+
+                    {bigQuoteSwitch2()}
+                    {/* <div className="discoverInfoBody_bigquote">
                     <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
                                 <p>{state.bigquote2}</p>
                             <div className="quote_bottomleft"></div>
                         <div className="quote_bottomright"></div>
-                    </div>
+                    </div> */}
 
                     <div className="discoverInfoBody_sources">
                         <h3>Sources</h3>
