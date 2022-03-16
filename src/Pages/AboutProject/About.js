@@ -74,7 +74,7 @@ function About() {
 
       {/**TIMELINE */}
       <div className="aboutTimeline">
-        <div className="aboutTimeline_header"><p>PROJECT TIMELINE</p></div>
+        <div className="aboutHead"><h1>PROJECT TIMELINE</h1></div>
         <div className="aboutTimeline_annot aboutTimeline_annot1">
           <div className="aboutTimeline_annotNo"><p>1</p></div>
           <div className="aboutTimeline_annotText">{state.aboutTimeline_1}</div>
@@ -99,19 +99,12 @@ function About() {
       </div>
 
       {/**DOCUMENTS */}
+      <div className="aboutHead"><h1>PROJECT GUIDING PRINCIPLES</h1></div>
       <div className="aboutDocuments">
-        {state.aboutDocuments_ddlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
+      {state.aboutDocuments_fmlink &&
+          <Link to={`PDFViewer/${state.aboutDocuments_fmlink.split('/')[4]}`}>
             <div>
-              DESIGN DOCUMENTS
-            </div>
-          </Link>
-        }
-        {state.aboutDocuments_cblink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_cblink.split('/')[4]}`}>
-
-            <div>
-              CODEBOOK
+            FEMINIST DH MANIFESTA
             </div>
           </Link>
         }
@@ -122,31 +115,39 @@ function About() {
             </div>
           </Link>
         }
-        {state.aboutDocuments_fmlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_fmlink.split('/')[4]}`}>
+         {state.aboutDocuments_cblink &&
+          <Link to={`PDFViewer/${state.aboutDocuments_cblink.split('/')[4]}`}>
+
             <div>
-              FEMINIST DIGITAL HUMANITIES MANIFESTA
+              CODEBOOK
             </div>
           </Link>
         }
         {state.aboutDocuments_tdlink &&
           <Link to={`PDFViewer/${state.aboutDocuments_tdlink.split('/')[4]}`}>
             <div>
-              TERMINILOGY DOCUMENT
+              TERMINOLOGY DOCUMENT
             </div>
           </Link>
         }
         {state.aboutDocuments_tblink &&
           <Link to={`PDFViewer/${state.aboutDocuments_tblink.split('/')[4]}`}>
             <div>
-              TECHNICAL BACKGROUND
+              TECHNOLOGY BACKGROUND
+            </div>
+          </Link>
+        }
+        {state.aboutDocuments_ddlink &&
+          <Link to={`PDFViewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
+            <div>
+              DESIGN DOCUMENTS
             </div>
           </Link>
         }
         {state.aboutDocuments_edlink &&
           <Link to={`PDFViewer/${state.aboutDocuments_edlink.split('/')[4]}`}>
             <div>
-              EDITING DOCUMENT
+              EDITING PROCEDURES
             </div>
           </Link>
         }
