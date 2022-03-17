@@ -222,12 +222,14 @@ PAGINATION COMPONENET
 }
 
 .pagination {
+    position: absolute;
     display: flex;
     list-style: none;
     cursor: pointer;
-    margin-left: 200rem;
+    margin-left: 220rem;
     margin-top: 15px;
     margin-bottom: 10px;
+    left: 50%;
 }
 
 .pagination a {

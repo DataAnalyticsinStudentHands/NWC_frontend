@@ -101,7 +101,6 @@ function Discover() {
       .catch(err => console.log(err));
   }
   
-
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
