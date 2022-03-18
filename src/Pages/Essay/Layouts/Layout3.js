@@ -1,5 +1,4 @@
 import React from 'react'
-import toform from "../res/toform.png";
 import "./Layout3.css";
 import ReactMarkdown from 'react-markdown';
 
@@ -8,25 +7,25 @@ function Layout3({props}) {
     return (
         <div className="layout3">
             <h1>{props.header}</h1>
-            <img src={toform} alt=""/>
+            <img src={props.HeaderIllustration} alt=""/>
             <p className="layout3_quote">{props.quote}</p>
-            <p className="layout3_section1">
+            <div className="layout3_section1">
                 <ReactMarkdown>
                 {props.section1_p1}
                 </ReactMarkdown>
                 <ReactMarkdown>
                 {props.section1_p2}
                 </ReactMarkdown>
-            </p>
+            </div>
             <ReactMarkdown className="layout3_section2">
                 {props.section2}
             </ReactMarkdown>
-            <p className="layout3_section3">
+            <div className="layout3_section3">
                 <ReactMarkdown className="layout3_section3Text">
                     {props.section3Text}
                 </ReactMarkdown>
                 <p className="layout3_section3Quote">{props.section3Quote}</p>
-            </p>
+            </div>
             <ReactMarkdown className="layout3_section2">
                 {props.section4}
             </ReactMarkdown>
