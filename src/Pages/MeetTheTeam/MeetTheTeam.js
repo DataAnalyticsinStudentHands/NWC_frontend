@@ -13,7 +13,7 @@ function MeetTheTeam() {
   // multiple states to hold the leads and contributors loaded from Strapi
   const [leads, setLeads] = useState([]);
   const [contributors, setContributors] = useState([]);
-  const [currentTab, setCurrentTab] = useState("STUDENT COLLABORATORS");
+  const [currentTab, setCurrentTab] = useState("STEERING COMMITTEE");
   const [isLoading, setIsLoading] = useState(true)
 
   const fetchData = async () => {
@@ -22,7 +22,7 @@ function MeetTheTeam() {
       `${fetchBaseUrl}/content-about-project-leads`
     );
     const contributorsData = await axios(
-      `${fetchBaseUrl}/content-about-collaborators`
+      `${fetchBaseUrl}/content-about-collaborators?_limit=-1`
     );
 
     setLeads(leadsData.data);
@@ -46,14 +46,18 @@ function MeetTheTeam() {
       }
 
       //transform the contributors by group
-      let grouped = blob.map(obj=> ({ ...obj, Contributor_Type: lookup[obj.Contributor_Type] })).reduce((result, currentValue) => {
+      let grouped = blob.map(obj => ({ ...obj, Contributor_Type: lookup[obj.Contributor_Type] })).reduce((result, currentValue) => {
         (result[currentValue['Contributor_Type']] = result[currentValue['Contributor_Type']] || []).push(
           currentValue
         );
         return result
       }, [])
 
-      setContributors(grouped);
+      let sorted = grouped.sort(function(a, b) {
+        return a.FirstName.localeCompare(b.FirstName);
+      });
+
+      setContributors(sorted);
       setIsLoading(false);
     })
       // make sure to catch any error
