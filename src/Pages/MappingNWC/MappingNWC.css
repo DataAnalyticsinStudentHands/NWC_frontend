@@ -9,7 +9,6 @@ BANNER
 
 .mappingNWCBanner {
   background: url("./res/mapbg.png");
-  padding-top: 100rem;
   display: flex;
 }
 
@@ -24,9 +23,8 @@ BANNER
   min-height: 450rem;
   background-color: white;
   border-left: 12rem solid var(--colorDeepRed);
-  padding: 61rem;
-  padding-top: 58rem;
-  margin-top: 52rem;
+  padding-top: 50rem;
+  margin-top: 200rem;
 }
 
 .mappingNWC_card p {
@@ -34,6 +32,13 @@ BANNER
   font-size: 30rem;
   font-weight: bold;
   width: 760rem;
+  margin: 20rem;
+}
+
+.mappingNWC_imgcontainer {
+  display: flex;
+  align-items: flex-end;
+  margin-left: -70rem;
 }
 
 .mappingNWC_credit {
@@ -43,22 +48,17 @@ BANNER
   color: var(--colorBeige);
   font-size: 36rem;
   font-family: var(--fontBabasNeue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: -300rem;
-  margin-top: 577rem;
-  width: fit-content;
-  text-align: right;
-  padding: 12rem;
+  margin-left: -500rem;
 }
 
 .mappingNWC_credit p {
   text-align: center;
+  margin: 20rem;
 }
 
 .mappingNWC_component119 {
-  right: 0px;
+  right: 0;
+  height: 80%;
 }
 
 .marker {
