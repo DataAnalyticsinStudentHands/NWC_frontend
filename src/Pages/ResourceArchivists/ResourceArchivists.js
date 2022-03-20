@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import VARIABLES from '../../config/.env';
-import './ResourceResearchers.css';
+import './ResourceArchivists.css';
 import researcher_button from "./res/researcher_button.png"
 import oralIcon from "./res/oralIcon.png"
 import colorCorner from "./res/colorCorner.png"
@@ -15,9 +15,9 @@ const getWhere = (data, key, value) => {
     return data.filter(e => e[key] === value);
 }
 
-function ResourceResearchers() {
+function ResourceArchivists() {
 
-    const [resourcesStudentText, setResorcesStudentsText] = useState("");
+    const [resourcesArchivistsText, setResorcesArchivistsText] = useState("");
     const [imgCredit, setBannerImageCredit] = useState("");
     const [imgCredit_more, setBannerImageCredit_more] = useState("");
     const [researchersText, setResearchersText] = useState("");
@@ -28,8 +28,8 @@ function ResourceResearchers() {
             .then(res => res.json())
             .then(data => {
 
-                setResorcesStudentsText(
-                    data.Resources_for_Students_Text
+                setResorcesArchivistsText(
+                    data.Resources_for_Archivists_Text
                 );
                 setBannerImageCredit(
                     data.BannerImageCredit
@@ -57,9 +57,9 @@ function ResourceResearchers() {
                     <img src={researcher_button} alt="Researcher Button" />
                 </div>
                 <div className="researchersBanner_header">
-                    <h1>RESOURCES FOR RESEARCHERS</h1>
+                    <h1>RESOURCES FOR ARCHIVISTS</h1>
                 <div className="researchersBanner_border"></div>
-                    <p>{resourcesStudentText}</p>
+                    <p>{resourcesArchivistsText}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
@@ -103,10 +103,10 @@ function ResourceResearchers() {
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonBL">
-                <img className="colorRibbonBLImg" src={colorCorner} alt="Color banner bottom left"></img>
+                <img src={colorCorner} alt="Color banner bottom left"></img>
             </div>
 
         </div>
     )
 }
-export default ResourceResearchers
+export default ResourceArchivists

@@ -142,7 +142,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a>ARCHIVISTS</a>
+                        <a href="/ResourceArchivists">ARCHIVISTS</a>
                         <p>{archivistsText}</p>
                     </div>
                 </div>

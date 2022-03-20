@@ -12,18 +12,12 @@ COLOR CORNER TOP RIGHT
 
 .colorRibbonBL {
     position: absolute;
+    margin-left: -700rem;
+    margin-top: -700rem;
+    object-fit: none;
+    height: 100px;
+    width: 100px;
     z-index: -1;
-}
-
-.colorRibbonBLImg{
-    margin-left: -90rem;
-    margin-top: 50rem;
-    width: 1600px;
-    height: 1000px;
-    -ms-transform: rotate(195deg); /* IE 9 */
-    transform: rotate(195deg);
-    object-fit: cover;
-    object-position: 100% 100%;
 }
 
 /*
@@ -137,8 +131,6 @@ MORE IDEAS CONTAINER
     margin-right: 600rem;
     margin-top:135rem;
     font-size: 40rem;
-    font-weight: 200;
     font-family:var(--fontBabasNeue);
-    color: #142F45;
     text-align:center;
 }

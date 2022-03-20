@@ -23,6 +23,7 @@ import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import ScrollToTop from "./Components/util/ScrollToTop";
 import ResourceResearchers from "./Pages/ResourceResearchers/ResourceResearchers"
+import ResourceArchivists from "./Pages/ResourceArchivists/ResourceArchivists"
 
 
 
@@ -74,6 +75,9 @@ function App() {
         </Route>
         <Route path="/ResourceResearchers">
           <ResourceResearchers />
+        </Route>
+        <Route path="/ResourceArchivists">
+          <ResourceArchivists />
         </Route>
         <Route path="/">
           <Home />
