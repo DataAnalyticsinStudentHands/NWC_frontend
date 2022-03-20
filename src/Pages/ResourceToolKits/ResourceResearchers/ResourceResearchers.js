@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../config/.env';
-import './ResourceArchivists.css';
+import VARIABLES from '../../../../config/.env';
+import './ResourceResearchers.css';
 import researcher_button from "./res/researcher_button.png"
 import oralIcon from "./res/oralIcon.png"
 import colorCorner from "./res/colorCorner.png"
@@ -15,12 +15,10 @@ const getWhere = (data, key, value) => {
     return data.filter(e => e[key] === value);
 }
 
-function ResourceArchivists() {
+function ResourceResearchers() {
 
-    const [resourcesArchivistsText, setResorcesArchivistsText] = useState("");
-    const [imgCredit, setBannerImageCredit] = useState("");
-    const [imgCredit_more, setBannerImageCredit_more] = useState("");
-    const [researchersText, setResearchersText] = useState("");
+    const [resourcesResearchersText, setResourcesResearchersText] = useState("");
+    const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
 
 
     useEffect(() => {
@@ -28,17 +26,11 @@ function ResourceArchivists() {
             .then(res => res.json())
             .then(data => {
 
-                setResorcesArchivistsText(
-                    data.Resources_for_Archivists_Text
+                setResourcesResearchersText(
+                    data.Resources_for_Researchers_Text
                 );
-                setBannerImageCredit(
-                    data.BannerImageCredit
-                );
-                setBannerImageCredit_more(
-                    data.BannerImageCredit_more
-                );
-                setResearchersText(
-                    data.ResearchersText
+                setResourcesStudentsVideo(
+                    data.Video_Url_Researchers
                 );
             })
     }, []);
@@ -57,9 +49,9 @@ function ResourceArchivists() {
                     <img src={researcher_button} alt="Researcher Button" />
                 </div>
                 <div className="researchersBanner_header">
-                    <h1>RESOURCES FOR ARCHIVISTS</h1>
+                    <h1>RESOURCES FOR RESEARCHERS</h1>
                 <div className="researchersBanner_border"></div>
-                    <p>{resourcesArchivistsText}</p>
+                    <p>{resourcesResearchersText}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
@@ -68,8 +60,10 @@ function ResourceArchivists() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={'https://www.youtube.com/watch?v=mV0bUQpz468'}
+                    url={resourcesStudentsVideo}
                     controls={true}
+                    width='1177px'
+                    height='710px'
                 />
             
             </div>
@@ -103,10 +97,10 @@ function ResourceArchivists() {
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonBL">
-                <img src={colorCorner} alt="Color banner bottom left"></img>
+                <img className="colorRibbonBLImg" src={colorCorner} alt="Color banner bottom left"></img>
             </div>
 
         </div>
     )
 }
-export default ResourceArchivists
+export default ResourceResearchers

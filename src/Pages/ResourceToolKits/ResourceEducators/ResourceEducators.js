@@ -1,26 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../config/.env';
-import './ResourceResearchers.css';
-import researcher_button from "./res/researcher_button.png"
-import oralIcon from "./res/oralIcon.png"
-import colorCorner from "./res/colorCorner.png"
-import techIcon from "./res/techIcon.png"
-import permissionIcon from "./res/permissionIcon.png"
-import contributeIcon from "./res/contributeIcon.png"
-import ideaIcon from "./res/ideaIcon.png"
-
+import VARIABLES from '../../../../config/.env';
+import './ResourceEducators.css';
+import educators_button from "./res/educators_button.png"
+import oralIcon from "../res/oralIcon.png"
+import colorCorner from "../res/colorCorner.png"
+import techIcon from "../res/techIcon.png"
+import permissionIcon from "../res/permissionIcon.png"
+import contributeIcon from "../res/contributeIcon.png"
+import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 
-const getWhere = (data, key, value) => {
-    return data.filter(e => e[key] === value);
-}
+function ResourceEducators() {
 
-function ResourceResearchers() {
-
-    const [resourcesStudentText, setResorcesStudentsText] = useState("");
-    const [imgCredit, setBannerImageCredit] = useState("");
-    const [imgCredit_more, setBannerImageCredit_more] = useState("");
-    const [researchersText, setResearchersText] = useState("");
+    const [resourcesResearchersText, setResourcesResearchersText] = useState("");
+    const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
 
 
     useEffect(() => {
@@ -28,17 +21,11 @@ function ResourceResearchers() {
             .then(res => res.json())
             .then(data => {
 
-                setResorcesStudentsText(
-                    data.Resources_for_Students_Text
+                setResourcesResearchersText(
+                    data.Resources_for_Researchers_Text
                 );
-                setBannerImageCredit(
-                    data.BannerImageCredit
-                );
-                setBannerImageCredit_more(
-                    data.BannerImageCredit_more
-                );
-                setResearchersText(
-                    data.ResearchersText
+                setResourcesStudentsVideo(
+                    data.Video_Url_Researchers
                 );
             })
     }, []);
@@ -54,12 +41,12 @@ function ResourceResearchers() {
             {/* BANNER */}
             <div className="researchersBanner">
                 <div className="researchersBanner_button">
-                    <img src={researcher_button} alt="Researcher Button" />
+                    <img src={educators_button} alt="Researcher Button" />
                 </div>
                 <div className="researchersBanner_header">
                     <h1>RESOURCES FOR RESEARCHERS</h1>
                 <div className="researchersBanner_border"></div>
-                    <p>{resourcesStudentText}</p>
+                    <p>{resourcesResearchersText}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
@@ -68,8 +55,10 @@ function ResourceResearchers() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={'https://www.youtube.com/watch?v=mV0bUQpz468'}
+                    url={resourcesStudentsVideo}
                     controls={true}
+                    width='1177px'
+                    height='710px'
                 />
             
             </div>
@@ -109,4 +98,4 @@ function ResourceResearchers() {
         </div>
     )
 }
-export default ResourceResearchers
+export default ResourceEducators
