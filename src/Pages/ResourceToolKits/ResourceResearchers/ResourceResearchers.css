@@ -118,27 +118,26 @@ RESEARCHERS ICONS
 MORE IDEAS CONTAINER
 */
 
-.ideaContainer{
-    max-width: 100%;
+.ideaContainerResearch{
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 100rem;
-    margin-bottom: 100rem;
-    justify-content: space-between;
-}
-.ideaContainer img{
-    max-width: 100%;
-    height: auto;
-    margin-left: 500rem;
-    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-top:20rem;
+    margin-bottom:40rem;
 }
 
-.ideaContainer h1 {
-    margin-right: 600rem;
-    margin-top:135rem;
-    font-size: 40rem;
-    font-weight: 200;
+.ideaContainerIcon{
+    max-width: 100%;
+    margin-left: -150rem;
+    margin-top:50rem;
+    margin-bottom:30rem;
+}
+
+.ideaContainerText{
+    font-size: 20rem;
     font-family:var(--fontBabasNeue);
     color: #142F45;
-    text-align:center;
+    margin-top: 50rem;
+    margin-left: 75rem;
+    font-weight: 100;
 }

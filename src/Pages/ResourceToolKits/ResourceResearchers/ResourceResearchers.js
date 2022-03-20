@@ -90,9 +90,13 @@ function ResourceResearchers() {
 
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="ideaContainer">
+            <div className="ideaContainerResearch">
+                <div className="ideaContainerIcon">
                     <img src={ideaIcon} alt="_"></img>
+                </div>
+                <div className="ideaContainerText">
                     <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                </div>
             </div>
 
             {/* COLOR CORNER TOP RIGHT */}

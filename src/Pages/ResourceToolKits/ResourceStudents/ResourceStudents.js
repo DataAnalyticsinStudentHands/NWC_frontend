@@ -34,8 +34,10 @@ function ResourceStudents() {
         <div className="resourceResearchers">
 
             {/* COLOR CORNER TOP RIGHT */}
-            <div className="colorRibbonTR">
+            <div className="colorRibbonContainer">
+                <div className="colorRibbonTopRight">
                 <img src={colorCorner} alt="Color banner top right"></img>
+                </div>
             </div>
 
             {/* BANNER */}
@@ -85,9 +87,13 @@ function ResourceStudents() {
 
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="ideaContainer">
+            <div className="ideaContainerStudents">
+                <div className="ideaContainerIcon">
                     <img src={ideaIcon} alt="_"></img>
+                </div>
+                <div className="ideaContainerText">
                     <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                </div>
             </div>
 
             {/* COLOR CORNER TOP RIGHT */}

@@ -1,19 +1,23 @@
 /* 
 COLOR CORNER TOP RIGHT 
 */
-.colorRibbonTR {
+.colorRibbonArchTopRight {
     position: absolute;
-    margin-left: 1200rem;
-    margin-top: -1000rem;
+    margin-left: -875rem;
+    margin-top: -275rem;
+    -ms-transform: rotate(95deg); /* IE 9 */
+    transform: rotate(95deg);
     height:100%;
     width: 100%;
     z-index: -1;
   }
 
-.colorRibbonBL {
+.colorRibbonArchRibbonBL {
     position: absolute;
-    margin-left: -700rem;
-    margin-top: -700rem;
+    margin-left: 2900rem;
+    margin-top: -775rem;
+    -ms-transform: rotate(100deg); /* IE 9 */
+    transform: rotate(90deg);
     object-fit: none;
     height: 100px;
     width: 100px;
@@ -107,23 +111,26 @@ ARCHIVISTS ICONS
 MORE IDEAS CONTAINER
 */
 
-.ideaContainer{
-    font-family:var(--fontBabasNeue);
-    text-align:center;
-    float:left;
-    padding: 30rem;
-}
-.ideaContainer img{
-    max-width: 100%;
-    height: auto;
-    margin-left: 500rem;
-    display: block;
+.ideaContainerArchivists{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:20rem;
+    margin-bottom:40rem;
 }
 
-.ideaContainer h1 {
-    margin-right: 600rem;
-    margin-top:135rem;
-    font-size: 40rem;
+.ideaContainerIcon{
+    max-width: 100%;
+    margin-left: -150rem;
+    margin-top:50rem;
+    margin-bottom:30rem;
+}
+
+.ideaContainerText{
+    font-size: 20rem;
     font-family:var(--fontBabasNeue);
-    text-align:center;
+    color: #142F45;
+    margin-top: 50rem;
+    margin-left: 75rem;
+    font-weight: 100;
 }

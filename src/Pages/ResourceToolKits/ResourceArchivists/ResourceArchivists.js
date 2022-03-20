@@ -46,8 +46,10 @@ function ResourceArchivists() {
         <div className="resourceArchivists">
 
             {/* COLOR CORNER TOP RIGHT */}
-            <div className="colorRibbonTR">
-                <img src={colorCorner} alt="Color banner top right"></img>
+            <div className="colorRibbonArchContainer">
+                <div className="colorRibbonArchTopRight">
+                    <img src={colorCorner} alt="Color banner top right"></img>
+                </div>
             </div>
 
             {/* BANNER */}
@@ -93,14 +95,20 @@ function ResourceArchivists() {
 
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="ideaContainer">
+            <div className="ideaContainerArchivists">
+                <div className="ideaContainerIcon">
                     <img src={ideaIcon} alt="_"></img>
+                </div>
+                <div className="ideaContainerText">
                     <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                </div>
             </div>
 
             {/* COLOR CORNER TOP RIGHT */}
-            <div className="colorRibbonBL">
-                <img src={colorCorner} alt="Color banner bottom left"></img>
+            <div className="colorRibbonArchContainer">
+                <div className="colorRibbonArchRibbonBL">
+                    <img src={colorCorner} alt="Color banner bottom left"></img>
+                </div>
             </div>
 
         </div>

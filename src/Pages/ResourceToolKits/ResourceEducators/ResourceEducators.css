@@ -1,23 +1,18 @@
 /* 
 COLOR CORNER TOP RIGHT 
 */
-.colorRibbonTR {
+.dotRedEducator {
     position: absolute;
-    margin-left: 1200rem;
-    margin-top: -1000rem;
-    height:100%;
-    width: 100%;
     z-index: -1;
+    margin-left: 1600rem;
+    margin-top: 200rem;
   }
 
-.colorRibbonBL {
+.dotBlueEducator {
     position: absolute;
-    margin-left: -700rem;
-    margin-top: -700rem;
-    object-fit: none;
-    height: 100px;
-    width: 100px;
     z-index: -1;
+    margin-left: -200rem;
+    margin-top: -750rem;
 }
 
 /*
