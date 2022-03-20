@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../../../config/.env';
+import VARIABLES from '../../../config/.env';
 import './ResourceEducators.css';
-import educators_button from "./res/educators_button.png"
+import educators_button from "../res/educators_button.png"
 import oralIcon from "../res/oralIcon.png"
 import colorCorner from "../res/colorCorner.png"
 import techIcon from "../res/techIcon.png"

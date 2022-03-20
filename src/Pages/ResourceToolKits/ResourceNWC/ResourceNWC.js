@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../../../config/.env';
+import VARIABLES from '../../../config/.env';
 import './ResourceNWC.css';
-import nwc_participants_button from "./res/nwc_participants_button.png"
-import oralIcon from "./res/oralIcon.png"
-import iconPapers from "./res/iconPapers.png"
-import dotRed from "./res/dotRed.png"
-import dotBlue from "./res/dotBlue.png"
-import techIcon from "./res/techIcon.png"
-import permissionIcon from "./res/permissionIcon.png"
-import contributeIcon from "./res/contributeIcon.png"
-import ideaIcon from "./res/ideaIcon.png"
+import nwc_participants_button from "../res/nwc_participants_button.png"
+import oralIcon from "../res/oralIcon.png"
+import iconPapers from "../res/iconPapers.png"
+import dotRed from "../res/dotRed.png"
+import dotBlue from "../res/dotBlue.png"
+import techIcon from "../res/techIcon.png"
+import permissionIcon from "../res/permissionIcon.png"
+import contributeIcon from "../res/contributeIcon.png"
+import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 
 function ResourceNWC() {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../../../config/.env';
+import VARIABLES from '../../../config/.env';
 import './ResourceStudents.css';
-import students_button from "./res/students_button.png"
-import oralIcon from "./res/oralIcon.png"
-import colorCorner from "./res/colorCorner.png"
-import techIcon from "./res/techIcon.png"
-import permissionIcon from "./res/permissionIcon.png"
-import contributeIcon from "./res/contributeIcon.png"
-import ideaIcon from "./res/ideaIcon.png"
+import students_button from "../res/students_button.png"
+import oralIcon from "../res/oralIcon.png"
+import colorCorner from "../res/colorCorner.png"
+import techIcon from "../res/techIcon.png"
+import permissionIcon from "../res/permissionIcon.png"
+import contributeIcon from "../res/contributeIcon.png"
+import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 
 function ResourceStudents() {

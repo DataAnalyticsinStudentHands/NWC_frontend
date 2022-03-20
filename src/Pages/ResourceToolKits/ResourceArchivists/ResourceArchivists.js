@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../../../config/.env';
+import VARIABLES from '../../../config/.env';
 import './ResourceArchivists.css';
 import archivists_button from "../res/archivist_button.png"
 import archivalIcon from "../res/archivalIcon.png"
