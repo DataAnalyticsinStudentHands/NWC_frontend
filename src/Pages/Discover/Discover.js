@@ -45,6 +45,12 @@ function Discover() {
     fetch([fetchBaseUrl, `content-discover-stories?_start=${currentPage}&_limit=${postsPerPage}`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
+
+        for (let i = data.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [data[i], data[j]] = [data[j], data[i]];
+      }
+        console.log(data)
         loadcards(data, setCards);
       })
       .catch(err => console.log(err));
@@ -72,17 +78,16 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=-1`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_limit=12`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
 
-      // let names = cards.map(obj => ({'name' : obj['name']}));
-      // let sortedNames = names.sort(function (a, b) {
-      //   return ('' + a.firstName).localeCompare(b.lastName);
-      // })
-      // console.log(sortedNames)
-      // setCards(sortedNames)
+        // let names = cards.map(personName => ({'name' : personName['name']}));
+        // let sortedNames = names.split('').reverse()
+        // console.log(names)
+        // console.log(sortedNames)
+        // setCards(sortedNames)
 
   }
 
@@ -103,12 +108,12 @@ function Discover() {
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
+    state.currentPage = 0
   }
 
   //Pagination handleClick
   function handlePageClick(e) {
       setCurrentPage(e.selected * postsPerPage)
-      console.log(currentPage)
   }
 
   return (
@@ -170,25 +175,11 @@ function Discover() {
           <h3>Cards per page</h3>
             </div>
       <ul className="cardsListPerPage">
-            <button onClick={handleSelectChange} value={12}>12</button>
-            <button onClick={handleSelectChange} value={24}>24</button>
-            <button onClick={handleSelectChange} value={48}>48</button>
-            <button onClick={handleSelectChange} value={96}>96</button>
+            <button onClick={handleSelectChange} value={12} >12</button>
+            <button onClick={handleSelectChange} value={24} >24</button>
+            <button onClick={handleSelectChange} value={48} >48</button>
+            <button onClick={handleSelectChange} value={96} >96</button>
         </ul>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={3}
-            pageCount={totalPages}
-            previousLabel="< previous"
-            containerClassName={"pagination"}
-            previousLinkClassName={"pagination__link"}
-            nextLinkClassName={"pagination__link"}
-            disabledClassName={"pagination__link--disabled"}
-            activeClassName={"pagination__link--active"}
-            />
       </div>
 
       {/**CARDS */}
@@ -204,6 +195,21 @@ function Discover() {
         />)
         }
       </div>
+
+      <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={3}
+            pageCount={totalPages}
+            previousLabel="< previous"
+            containerClassName={"pagination"}
+            previousLinkClassName={"pagination__link"}
+            nextLinkClassName={"pagination__link"}
+            disabledClassName={"pagination__link--disabled"}
+            activeClassName={"pagination__link--active"}
+            />
 
       <div className="discoverButtons">
         <Link to="/participants">
