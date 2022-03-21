@@ -131,7 +131,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceResearchers/">RESEARCHERS</a>
+                        <a href="/ResourceResearchers">RESEARCHERS</a>
                         <p>{researchersText}</p>
                     </div>
                 </div>
@@ -142,7 +142,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a>ARCHIVISTS</a>
+                        <a href="/ResourceArchivists">ARCHIVISTS</a>
                         <p>{archivistsText}</p>
                     </div>
                 </div>
@@ -153,7 +153,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a>NWC PARTICIPANTS</a>
+                        <a href="/ResourceNWC">NWC PARTICIPANTS</a>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
@@ -164,7 +164,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a>EDUCATORS</a>
+                        <a href="/ResourceEducators">EDUCATORS</a>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
@@ -175,7 +175,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a>STUDENTS</a>
+                        <a href="/ResourceStudents">STUDENTS</a>
                         <p>{studentsText}</p>
                     </div>
                 </div>

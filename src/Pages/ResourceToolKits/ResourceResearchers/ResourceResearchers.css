@@ -1,0 +1,136 @@
+/* 
+COLOR CORNER TOP RIGHT 
+*/
+.colorRibbonTR {
+    position: absolute;
+    margin-left: 1200rem;
+    margin-top: -1000rem;
+    height:100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+.colorRibbonResearchersBL{
+    position: absolute;
+    margin-left: -870rem;
+    margin-top: -700rem;
+    object-fit: none;
+    max-width: 100%;
+    z-index: -1;
+}
+
+/*
+BANNER
+*/
+
+.researchersBanner{
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 150rem;
+}
+
+.researchersBanner_header{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size:50rem;
+}
+
+.researchersBanner_header h1{
+    font-size:55rem;
+    letter-spacing: 0.1em;
+    color: #142F45;
+}
+
+.researchersBanner_header p{
+    text-align:left;
+    font-size:25rem;
+    width: 800rem;
+    margin-left: 75rem;
+}
+
+.researchersBanner_border {
+    float: left;
+    margin-left: 75rem;
+    margin-right: auto;
+    margin-bottom: 30rem;
+    width: 45.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+.researchersBanner_text{
+    width: 10rem;
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 15rem;
+}
+
+.researchersBanner_button{
+    margin-left:300rem;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+
+    margin-top: 100rem;
+  }
+
+/*
+RESEARCHERS ICONS
+*/
+
+.resourceResearchersIcons{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+}
+
+.iconContainer{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    float:left;
+    padding: 30rem;
+}
+
+.iconContainer p{
+    width: 70%;
+    color: #142F45;
+    margin-left: 52rem;
+    margin-top: 50rem;
+    font-size: 30rem;
+}
+
+/*
+MORE IDEAS CONTAINER
+*/
+
+.ideaContainerResearch{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top:20rem;
+    margin-bottom:40rem;
+}
+
+.ideaContainerIcon{
+    max-width: 100%;
+    margin-left: -150rem;
+    margin-top:50rem;
+    margin-bottom:30rem;
+}
+
+.ideaContainerText{
+    font-size: 20rem;
+    font-family:var(--fontBabasNeue);
+    color: #142F45;
+    margin-top: 50rem;
+    margin-left: 75rem;
+    font-weight: 100;
+}

@@ -22,8 +22,11 @@ import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import ScrollToTop from "./Components/util/ScrollToTop";
-import ResourceResearchers from "./Pages/ResourceResearchers/ResourceResearchers"
-
+import ResourceResearchers from "./Pages/ResourceToolKits/ResourceResearchers/ResourceResearchers"
+import ResourceArchivists from "./Pages/ResourceToolKits/ResourceArchivists/ResourceArchivists"
+import ResourceStudents from "./Pages/ResourceToolKits/ResourceStudents/ResourceStudents"
+import ResourceNWC from "./Pages/ResourceToolKits/ResourceNWC/ResourceNWC"
+import ResourceEducators from "./Pages/ResourceToolKits/ResourceEducators/ResourceEducators"
 
 
 function App() {
@@ -74,6 +77,18 @@ function App() {
         </Route>
         <Route path="/ResourceResearchers">
           <ResourceResearchers />
+        </Route>
+        <Route path="/ResourceArchivists">
+          <ResourceArchivists />
+        </Route>
+        <Route path="/ResourceStudents">
+          <ResourceStudents />
+        </Route>
+        <Route path="/ResourceNWC">
+          <ResourceNWC />
+        </Route>
+        <Route path="/ResourceEducators">
+          <ResourceEducators />
         </Route>
         <Route path="/">
           <Home />
