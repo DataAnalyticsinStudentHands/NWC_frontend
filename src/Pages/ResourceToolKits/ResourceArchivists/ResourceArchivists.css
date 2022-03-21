@@ -1,21 +1,26 @@
 /* 
 COLOR CORNER TOP RIGHT 
 */
-.colorRibbonTR {
+.colorRibbonArchTopRight {
     position: absolute;
-    margin-left: 1200rem;
-    margin-top: -1000rem;
+    margin-left: -875rem;
+    margin-top: -275rem;
+    -ms-transform: rotate(95deg); /* IE 9 */
+    transform: rotate(95deg);
     height:100%;
     width: 100%;
     z-index: -1;
   }
 
-.colorRibbonBL {
+.colorRibbonArchRibbonBL {
     position: absolute;
-    margin-left: -700rem;
-    margin-top: -595rem;
-    height:100%;
-    width: 100%;
+    margin-left: 2900rem;
+    margin-top: -775rem;
+    -ms-transform: rotate(100deg); /* IE 9 */
+    transform: rotate(90deg);
+    object-fit: none;
+    height: 100px;
+    width: 100px;
     z-index: -1;
 }
 
@@ -23,7 +28,7 @@ COLOR CORNER TOP RIGHT
 BANNER
 */
 
-.researchersBanner{
+.archivistsBanner{
     display: flex;
     align-items: center;
     margin-left: auto;
@@ -31,45 +36,45 @@ BANNER
     margin-top: 150rem;
 }
 
-.researchersBanner_header{
+.archivistsBanner_header{
     font-family:var(--fontBabasNeue);
     text-align:center;
     font-size:50rem;
 }
 
-.researchersBanner_header h1{
+.archivistsBanner_header h1{
     font-size:55rem;
     letter-spacing: 0.1em;
     color: #142F45;
 }
 
-.researchersBanner_header p{
+.archivistsBanner_header p{
     text-align:left;
     font-size:25rem;
     width: 800rem;
     margin-left: 75rem;
 }
 
-.researchersBanner_border {
+.archivistsBanner_border {
     float: left;
     margin-left: 75rem;
     margin-right: auto;
     margin-bottom: 30rem;
-    width: 45.5vw;
+    width: 42.5vw;
     border-top: 10rem solid var(--colorDeepRed); /*high*/
     height: 30rem; /*mid*/
     background-color: var(--colorDeepOrange);
     border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
 }
 
-.researchersBanner_text{
+.archivistsBanner_text{
     width: 10rem;
     font-family:var(--fontBabasNeue);
     text-align:center;
     font-size: 15rem;
 }
 
-.researchersBanner_button{
+.archivistsBanner_button{
     margin-left:300rem;
 }
 
@@ -84,52 +89,48 @@ VIDEO PLAYER
   }
 
 /*
-RESEARCHERS ICONS
+ARCHIVISTS ICONS
 */
-
-.resourceResearchersIcons{
-    display: flex;
-    justify-content: center;
+.archivistsBannerIcons{
+    vertical-align: top;
+    display: inline-block;
+    text-align: center;
     margin-top: 100rem;
-}
-
-.iconContainer{
-    font-family:var(--fontBabasNeue);
-    text-align:center;
-    font-size: 30rem;
-    float:left;
-    padding: 30rem;
+    margin-left: 300rem;
 }
 
 .iconContainer p{
-    width: 70%;
-    margin-left: 52rem;
+    white-space: pre-line;
+    display: block;
+    color: #142F45;
     margin-top: 50rem;
+    font-size: 30rem;
 }
 
 /*
 MORE IDEAS CONTAINER
 */
 
-.ideaContainer{
-    max-width: 100%;
+.ideaContainerArchivists{
     display: flex;
-    flex-wrap: wrap;
-    margin-top: 100rem;
-    margin-bottom: 100rem;
-    justify-content: space-between;
-}
-.ideaContainer img{
-    max-width: 100%;
-    height: auto;
-    margin-left: 500rem;
-    display: block;
+    align-items: center;
+    justify-content: center;
+    margin-top:20rem;
+    margin-bottom:40rem;
 }
 
-.ideaContainer h1 {
-    margin-right: 600rem;
-    margin-top:135rem;
-    font-size: 40rem;
+.ideaContainerIcon{
+    max-width: 100%;
+    margin-left: -150rem;
+    margin-top:50rem;
+    margin-bottom:30rem;
+}
+
+.ideaContainerText{
+    font-size: 20rem;
     font-family:var(--fontBabasNeue);
-    text-align:center;
+    color: #142F45;
+    margin-top: 50rem;
+    margin-left: 75rem;
+    font-weight: 100;
 }
