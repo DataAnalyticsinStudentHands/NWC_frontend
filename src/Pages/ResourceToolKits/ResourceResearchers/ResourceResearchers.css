@@ -10,20 +10,13 @@ COLOR CORNER TOP RIGHT
     z-index: -1;
   }
 
-.colorRibbonBL {
+.colorRibbonResearchersBL{
     position: absolute;
+    margin-left: -870rem;
+    margin-top: -700rem;
+    object-fit: none;
+    max-width: 100%;
     z-index: -1;
-}
-
-.colorRibbonBLImg{
-    margin-left: -90rem;
-    margin-top: 50rem;
-    width: 1600px;
-    height: 1000px;
-    -ms-transform: rotate(195deg); /* IE 9 */
-    transform: rotate(195deg);
-    object-fit: cover;
-    object-position: 100% 100%;
 }
 
 /*

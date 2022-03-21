@@ -15,8 +15,7 @@ import ReactPlayer from 'react-player';
 function ResourceEducators() {
 
     const [resourcesEducatorsText, setResourcesEducatorssText] = useState("");
-    const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
-
+    const [resourcesEducatorsVideo , setResourcesStudentsVideo] = useState("");
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
@@ -27,7 +26,7 @@ function ResourceEducators() {
                     data.Resources_for_Educators_Text
                 );
                 setResourcesStudentsVideo(
-                    data.Video_Url_Researchers
+                    data.Video_Url_Educators
                 );
             })
     }, []);
@@ -57,12 +56,11 @@ function ResourceEducators() {
         <div className="resourceVideoPlayer">
             <h2>VIDEO PLAYER</h2>
             <ReactPlayer
-                url={resourcesStudentsVideo}
+                url={resourcesEducatorsVideo}
                 controls={true}
                 width='1177px'
                 height='710px'
             />
-        
         </div>
 
         {/* RESEARCHER ICONS */}

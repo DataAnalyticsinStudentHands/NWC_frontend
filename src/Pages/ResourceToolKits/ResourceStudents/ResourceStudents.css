@@ -12,18 +12,12 @@ COLOR CORNER TOP RIGHT
     z-index: -1;
   }
 
-.colorRibbonBL {
+.colorRibbonStudentBL{
     position: absolute;
     z-index: -1;
-}
-
-.colorRibbonBLImg{
-    margin-left: -180rem;
-    margin-top: -10rem;
-    width: 1600px;
-    height: 1000px;
+    margin-left: -780rem;
+    margin-top: -580rem;
     object-fit: cover;
-    object-position: 100% 100%;
 }
 
 /*

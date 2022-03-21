@@ -4,22 +4,17 @@ import './ResourceResearchers.css';
 import researcher_button from "../res/researcher_button.png"
 import oralIcon from "../res/oralIcon.png"
 import colorCorner from "../res/colorCorner.png"
+import colorCornerResearcher from "../res/colorCornerResearcher.png"
 import techIcon from "../res/techIcon.png"
 import permissionIcon from "../res/permissionIcon.png"
 import contributeIcon from "../res/contributeIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
-
 import ReactPlayer from 'react-player';
-
-const getWhere = (data, key, value) => {
-    return data.filter(e => e[key] === value);
-}
 
 function ResourceResearchers() {
 
     const [resourcesResearchersText, setResourcesResearchersText] = useState("");
-    const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
-
+    const [resourcesResearchersVideo , setResourcesResearchersVideo] = useState("");
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
@@ -29,7 +24,7 @@ function ResourceResearchers() {
                 setResourcesResearchersText(
                     data.Resources_for_Researchers_Text
                 );
-                setResourcesStudentsVideo(
+                setResourcesResearchersVideo(
                     data.Video_Url_Researchers
                 );
             })
@@ -60,12 +55,11 @@ function ResourceResearchers() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={resourcesStudentsVideo}
+                    url={resourcesResearchersVideo}
                     controls={true}
                     width='1177px'
                     height='710px'
-                />
-            
+                />       
             </div>
 
             {/* RESEARCHER ICONS */}
@@ -88,7 +82,6 @@ function ResourceResearchers() {
                 </div>
             </div>
 
-
             {/* MORE IDEAS CONTAINER */}
             <div className="ideaContainerResearch">
                 <div className="ideaContainerIcon">
@@ -100,8 +93,10 @@ function ResourceResearchers() {
             </div>
 
             {/* COLOR CORNER TOP RIGHT */}
-            <div className="colorRibbonBL">
-                <img className="colorRibbonBLImg" src={colorCorner} alt="Color banner bottom left"></img>
+            <div className="colorRibbonResearchersContainer">
+                <div className="colorRibbonResearchersBL">
+                    <img src={colorCornerResearcher} alt="Color banner bottom left"></img>
+                </div>
             </div>
 
         </div>

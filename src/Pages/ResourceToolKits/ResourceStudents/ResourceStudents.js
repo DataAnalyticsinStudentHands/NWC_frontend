@@ -4,6 +4,7 @@ import './ResourceStudents.css';
 import students_button from "../res/students_button.png"
 import oralIcon from "../res/oralIcon.png"
 import colorCorner from "../res/colorCorner.png"
+import colorCornerStudent from "../res/colorCornerStudent.png"
 import techIcon from "../res/techIcon.png"
 import permissionIcon from "../res/permissionIcon.png"
 import contributeIcon from "../res/contributeIcon.png"
@@ -14,7 +15,6 @@ function ResourceStudents() {
 
     const [resourcesStudentText, setResourcesStudentsText] = useState("");
     const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
-
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
@@ -62,7 +62,6 @@ function ResourceStudents() {
                     width='1177px'
                     height='710px'
                 />
-            
             </div>
 
             {/* RESEARCHER ICONS */}
@@ -85,7 +84,6 @@ function ResourceStudents() {
                 </div>
             </div>
 
-
             {/* MORE IDEAS CONTAINER */}
             <div className="ideaContainerStudents">
                 <div className="ideaContainerIcon">
@@ -97,8 +95,10 @@ function ResourceStudents() {
             </div>
 
             {/* COLOR CORNER TOP RIGHT */}
-            <div className="colorRibbonBL">
-                <img className="colorRibbonBLImg" src={colorCorner} alt="Color banner bottom left"></img>
+            <div className="colorRibbonStudentContainer">
+                <div className="colorRibbonStudentBL">
+                    <img src={colorCornerStudent} alt="Color banner bottom left"></img>
+                </div>
             </div>
 
         </div>

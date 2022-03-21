@@ -46,12 +46,12 @@ BANNER
     margin-left: 75rem;
 }
 
-.archivistsBanner_border {
+.resourceNWCBanner_border {
     float: left;
     margin-left: 75rem;
     margin-right: auto;
     margin-bottom: 30rem;
-    width: 45.5vw;
+    width: 43.5vw;
     border-top: 10rem solid var(--colorDeepRed); /*high*/
     height: 30rem; /*mid*/
     background-color: var(--colorDeepOrange);

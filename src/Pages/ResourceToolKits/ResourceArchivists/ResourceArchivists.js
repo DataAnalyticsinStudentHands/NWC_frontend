@@ -10,34 +10,21 @@ import ideaIcon from "../res/ideaIcon.png"
 
 import ReactPlayer from 'react-player';
 
-const getWhere = (data, key, value) => {
-    return data.filter(e => e[key] === value);
-}
-
 function ResourceArchivists() {
 
-    const [resourcesArchivistsText, setResorcesArchivistsText] = useState("");
-    const [imgCredit, setBannerImageCredit] = useState("");
-    const [imgCredit_more, setBannerImageCredit_more] = useState("");
-    const [researchersText, setResearchersText] = useState("");
-
+    const [resourcesArchivistsText, setResourcesArchivistsText] = useState("");
+    const [resourcesArchivistsVideo, setResourcesArchivistsVideo] = useState("");
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
             .then(res => res.json())
             .then(data => {
 
-                setResorcesArchivistsText(
+                setResourcesArchivistsText(
                     data.Resources_for_Archivists_Text
                 );
-                setBannerImageCredit(
-                    data.BannerImageCredit
-                );
-                setBannerImageCredit_more(
-                    data.BannerImageCredit_more
-                );
-                setResearchersText(
-                    data.ResearchersText
+                setResourcesArchivistsVideo(
+                    data.Video_Url_Archivists
                 );
             })
     }, []);
@@ -69,12 +56,11 @@ function ResourceArchivists() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={'https://www.youtube.com/watch?v=mV0bUQpz468'}
+                    url={resourcesArchivistsVideo}
                     controls={true}
                     width='1177px'
                     height='710px'
                 />
-            
             </div>
 
             {/* RESEARCHER ICONS */}

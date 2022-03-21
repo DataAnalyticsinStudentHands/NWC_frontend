@@ -15,8 +15,7 @@ import ReactPlayer from 'react-player';
 function ResourceNWC() {
 
     const [resourcesParticipantsText, setResourcesParticipantsText] = useState("");
-    const [resourcesStudentsVideo , setResourcesStudentsVideo] = useState("");
-
+    const [resourcesParticipantsVideo , setResourcesParticipantsVideo] = useState("");
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
@@ -26,7 +25,7 @@ function ResourceNWC() {
                 setResourcesParticipantsText(
                     data.Resources_for_Participants_Text
                 );
-                setResourcesStudentsVideo(
+                setResourcesParticipantsVideo(
                     data.Video_Url_Participants
                 );
             })
@@ -57,12 +56,11 @@ function ResourceNWC() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={resourcesStudentsVideo}
+                    url={resourcesParticipantsVideo}
                     controls={true}
                     width='1177px'
                     height='710px'
                 />
-            
             </div>
 
             {/* RESEARCHER ICONS */}
