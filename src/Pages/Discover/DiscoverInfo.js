@@ -98,7 +98,7 @@ function DiscoverInfo() {
 
     function bigQuoteSwitch1() {
 
-        if (bigquote1 === undefined){
+        if (bigquote1 === null){
             return (
                 <p></p>
             )
@@ -116,25 +116,26 @@ function DiscoverInfo() {
         }
     }
 
-    function bigQuoteSwitch2() {
-        if (bigquote2 === undefined){
-            return (
-            <p></p>
-            )
-        } 
-        else {
+    // function bigQuoteSwitch2() {
+    //     if (bigquote2 === null){
+    //         console.log(bigquote2 + "here")
+    //         return (
+    //         <p></p>
+    //         )
+    //     } 
+    //     else {
 
-            return (
-            <div className="discoverInfoBody_bigquote">
-            <div className="quote_topleft"></div>
-                    <div className="quote_topright"></div>
-                        <p>{state.bigquote2}</p>
-                    <div className="quote_bottomleft"></div>
-                <div className="quote_bottomright"></div>
-            </div>
-            )
-        }
-    }
+    //         return (
+    //         <div className="discoverInfoBody_bigquote">
+    //         <div className="quote_topleft"></div>
+    //                 <div className="quote_topright"></div>
+    //                     <p>{state.bigquote2}</p>
+    //                 <div className="quote_bottomleft"></div>
+    //             <div className="quote_bottomright"></div>
+    //         </div>
+    //         )
+    //     }
+    // }
 
     // this is section 3, the UI section.
     // the general philosophy here is to do as much with HTML and CSS as possible.
@@ -237,14 +238,16 @@ function DiscoverInfo() {
                     </div>
 
 
-                    {bigQuoteSwitch2()}
-                    {/* <div className="discoverInfoBody_bigquote">
+                    {/* {bigQuoteSwitch2()} */}
+
+                    {state.bigquote2 !== '' ?
+                    <div className="discoverInfoBody_bigquote">
                     <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
                                 <p>{state.bigquote2}</p>
                             <div className="quote_bottomleft"></div>
                         <div className="quote_bottomright"></div>
-                    </div> */}
+                    </div> : null}
 
                     <div className="discoverInfoBody_sources">
                         <h3>Sources</h3>

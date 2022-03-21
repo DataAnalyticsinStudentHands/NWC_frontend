@@ -72,7 +72,7 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
@@ -132,7 +132,7 @@ function Discover() {
             .filter(value => value.featured === 'true')
             .map((value, index) => <a href={`/discover/${value.id}`}><DiscoverCard
               key={Math.random()}
-              color={["yellow", "blue", "red", "teal"][value.name.charCodeAt(0) % 4]}
+              color={"teal"}
               href={`/discover/${value.id}`}
               name={value.name}
               role={value.role}
