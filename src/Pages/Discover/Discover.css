@@ -148,7 +148,7 @@ SEARCH
     width: calc(100% - 2em);
     margin: .5em auto;
     display: flex;
-    justify-content: right;
+    justify-content: left;
     margin-bottom: 50rem;
 }
 
