@@ -242,7 +242,6 @@ TABLE
   width: 70%;
   max-height: 20em;
   flex-direction: row;
-  border: 1px solid var(--colorDarkBlue);
   padding-top: 0.2em;
   overflow-y: scroll;
 }
