@@ -36,6 +36,7 @@ function Discover() {
       .then(response => response.json())
       .then(data => {
         loadcards(data, setFeatured);
+        setDataLength(data.length)
       })
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
@@ -50,15 +51,6 @@ function Discover() {
   }, [currentPage, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
-    fetch([fetchBaseUrl, `content-discover-stories?_limit=-1`/* + `?_start=${page}&_limit=2`*/].join('/'))
-      .then(response => response.json())
-      .then(dataLength => {
-        setDataLength(dataLength.length)
-      })
-      .catch(err => console.log(err));
-  }, []); // eslint-disable-line
-
-  useEffect(() => {
     fetch(`${fetchBaseUrl}/content-discover-stories-main`)
       .then(res => res.json())
       .then(data => {
@@ -68,7 +60,6 @@ function Discover() {
           bannerimagecredit_more: data.BannerImageCredit_more,
           intro_text: data.IntroductionText,
         });
-        console.log(`${fetchBaseUrl}/content-discover-stories-main`)
       })
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
@@ -81,10 +72,18 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
+
+      // let names = cards.map(obj => ({'name' : obj['name']}));
+      // let sortedNames = names.sort(function (a, b) {
+      //   return ('' + a.firstName).localeCompare(b.lastName);
+      // })
+      // console.log(sortedNames)
+      // setCards(sortedNames)
+
   }
 
   function sortRole() {
@@ -108,7 +107,8 @@ function Discover() {
 
   //Pagination handleClick
   function handlePageClick(e) {
-    setCurrentPage(e.selected)
+      setCurrentPage(e.selected * postsPerPage)
+      console.log(currentPage)
   }
 
   return (
@@ -132,7 +132,7 @@ function Discover() {
             .filter(value => value.featured === 'true')
             .map((value, index) => <a href={`/discover/${value.id}`}><DiscoverCard
               key={Math.random()}
-              color={["yellow", "blue", "red", "teal"][value.name.charCodeAt(0) % 4]}
+              color={"teal"}
               href={`/discover/${value.id}`}
               name={value.name}
               role={value.role}
