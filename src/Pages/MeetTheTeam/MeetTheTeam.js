@@ -19,10 +19,10 @@ function MeetTheTeam() {
   const fetchData = async () => {
     setIsLoading(true)
     const leadsData = await axios(
-      `${fetchBaseUrl}/content-about-project-leads`
+      `${fetchBaseUrl}/content-about-project-leads?_sort=Order:ASC`
     );
     const contributorsData = await axios(
-      `${fetchBaseUrl}/content-about-collaborators?_limit=-1`
+      `${fetchBaseUrl}/content-about-collaborators?_sort=LastName:ASC&_limit=-1`
     );
 
     setLeads(leadsData.data);
@@ -40,7 +40,7 @@ function MeetTheTeam() {
         "EducatorCollaborators": 'EDUCATOR COLLABORATORS',
         "ExternalAdvisoryCommittee": 'EXTERNAL ADVISORY COMMITTEE',
         "NWCParticipantCommittee": 'NWC PARTICIPANT COMMITTEE',
-        "InternalAdvisoryBoard": 'INTERNAL ADVISORY COMITTEE',
+        "InternalAdvisoryBoard": 'INTERNAL ADVISORY COMMITTEE',
         "DonorGrantingAgencies": 'DONOR AND GRANTING AGENCIES',
         "FormerProjectLeads": 'FORMER PROJECT LEADS'
       }
@@ -53,11 +53,7 @@ function MeetTheTeam() {
         return result
       }, [])
 
-      let sorted = grouped.sort(function(a, b) {
-        return a.FirstName.localeCompare(b.FirstName);
-      });
-
-      setContributors(sorted);
+      setContributors(grouped);
       setIsLoading(false);
     })
       // make sure to catch any error

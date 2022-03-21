@@ -336,11 +336,11 @@ function Home() {
                 <div className="homeMap_tabsHr"></div>
 
                 {[
-                  { color: '#3FA490', x: '920', y: '640', mapName: 'dt' },
-                  { color: '#615FBF', x: '950', y: '718', mapName: 'tw' },
-                  { color: '#9EC7E1', x: '880', y: '715', mapName: 'museo' },
-                  { color: '#0944AE', x: '1060', y: '685', mapName: 'mag' },
-                  { color: '#FFD048', x: '805', y: '820', mapName: 'astro' },
+                  { color: '#3FA490', x: '930', y: '754', mapName: 'dt' },
+                  { color: '#615FBF', x: '960', y: '852', mapName: 'tw' },
+                  { color: '#9EC7E1', x: '890', y: '849', mapName: 'museo' },
+                  { color: '#142F45', x: '1070', y: '810', mapName: 'mag' },
+                  { color: '#FFD048', x: '795', y: '964', mapName: 'astro' },
 
                 ].map((p) => (
                   <div 

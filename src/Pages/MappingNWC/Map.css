@@ -2,6 +2,10 @@
 Map
 */
 
+.map-area {
+  padding-left: 50rem;
+  padding-right: 50rem;
+}
 
 .map-container {
   height: 600px;
@@ -36,6 +40,8 @@ button {
   font-size: calc(1vw + 2px);
   font-family: var(--fontMontserrat);
   display: flex;
+  padding-top: 50rem;
+  padding-bottom: 50rem;
 }
   
 th {

@@ -47,8 +47,6 @@ function MappingNWC() {
     var query_array = [];
 
     //build the query for state
-    console.log(selectedOptions)
-
     if (selectedOptions) {
       selectedOptions.forEach(state => {
         query_array.push({ 'state': state.value });
@@ -224,6 +222,7 @@ function MappingNWC() {
     fetch(`${fetchBaseUrl}/participants?${query}`)
       .then(res => res.json())
       .then(data => {
+        console.log(data)
         setMap(maps => data);
       })
       .catch(err => console.log(err));
@@ -358,8 +357,15 @@ function MappingNWC() {
             {state.banner_text}
           </p>
         </div>
-        {/* <div className="mappingNWC_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div> */}
+        <div className='mappingNWC_imgcontainer'>
         <img src={component119} className="mappingNWC_component119" alt="_" />
+        <div className="mappingNWC_credit" title={state.bannerimagecredit_more}>
+          <p>PHOTO BY {state.bannerimage_credit}</p>
+        </div>
+        
+        
+        </div>
+        
       </div>
 
       {/**SEARCH */}
