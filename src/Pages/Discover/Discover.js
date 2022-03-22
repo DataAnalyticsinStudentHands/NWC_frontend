@@ -76,25 +76,17 @@ function Discover() {
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
-
-      // let names = cards.map(obj => ({'name' : obj['name']}));
-      // let sortedNames = names.sort(function (a, b) {
-      //   return ('' + a.firstName).localeCompare(b.lastName);
-      // })
-      // console.log(sortedNames)
-      // setCards(sortedNames)
-
   }
 
   function sortRole() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
   }
 
   function sortState() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
@@ -175,20 +167,7 @@ function Discover() {
             <button onClick={handleSelectChange} value={48}>48</button>
             <button onClick={handleSelectChange} value={96}>96</button>
         </ul>
-          <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={3}
-            pageCount={totalPages}
-            previousLabel="< previous"
-            containerClassName={"pagination"}
-            previousLinkClassName={"pagination__link"}
-            nextLinkClassName={"pagination__link"}
-            disabledClassName={"pagination__link--disabled"}
-            activeClassName={"pagination__link--active"}
-            />
+          
       </div>
 
       {/**CARDS */}
@@ -204,6 +183,21 @@ function Discover() {
         />)
         }
       </div>
+
+      <ReactPaginate
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={2}
+            marginPagesDisplayed={3}
+            pageCount={totalPages}
+            previousLabel="< previous"
+            containerClassName={"pagination"}
+            previousLinkClassName={"pagination__link"}
+            nextLinkClassName={"pagination__link"}
+            disabledClassName={"pagination__link--disabled"}
+            activeClassName={"pagination__link--active"}
+            />
 
       <div className="discoverButtons">
         <Link to="/participants">
