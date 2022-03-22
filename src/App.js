@@ -34,7 +34,8 @@ import ResourceEducators from "./Pages/ResourceToolKits/ResourceEducators/Resour
 
 function App() {
   return (
-    <Router basename={'/dev'} className="App">
+    // <Router basename={'/dev'} className="App">
+    <Router className="App">
       <Navigation />
       <ScrollToTop>
       <Switch>
