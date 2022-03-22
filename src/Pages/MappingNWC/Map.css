@@ -2,9 +2,13 @@
 Map
 */
 
+.map-area {
+  padding-left: 50rem;
+  padding-right: 50rem;
+}
 
 .map-container {
-  height: 400px;
+  height: 600px;
 }
 
 /*
@@ -22,6 +26,32 @@ button {
     (Some argue that we should keep the default arrow cursor for buttons, to be consistent with how desktop operating systems treat buttons.)
   */
   cursor: pointer;
+}
+
+.marker {
+  background-image: url('./res/marker_map_icon.png');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.table-container {
+  font-size: calc(1vw + 2px);
+  font-family: var(--fontMontserrat);
+  display: flex;
+  padding-top: 50rem;
+  padding-bottom: 50rem;
+}
+  
+th {
+  padding-left: 30rem;
+  border-bottom: 1px solid black;
+}
+  
+td {
+  padding-left: 30rem;
+  text-align: left;
 }
 
 

@@ -49,8 +49,6 @@ function HighlightsCarousel() {
     fetch([VARIABLES.fetchBaseUrl, "content-home-carousels"].join('/'))
     .then(res => res.json())
     .then(data => {
-      console.log(data);
-
       const get = (section) => {
         return urlify(getWhere(data, 'Section', section)["Image"][0]["url"]);
       };

@@ -8,26 +8,23 @@ BANNER
 */
 
 .mappingNWCBanner {
-  width: 100vw;
   background: url("./res/mapbg.png");
-  padding-top: 151rem;
   display: flex;
 }
 
 .mappingNWC_button {
-  width: 500rem;
-  height: 500rem;
+  width: 30%;
+  height: 30%;
 }
 
 .mappingNWC_card {
-  width: 834rem;
+  width: 70%;
   height: 450rem;
   min-height: 450rem;
   background-color: white;
   border-left: 12rem solid var(--colorDeepRed);
-  padding: 61rem;
-  padding-top: 58rem;
-  margin-top: 52rem;
+  padding-top: 50rem;
+  margin-top: 200rem;
 }
 
 .mappingNWC_card p {
@@ -35,6 +32,13 @@ BANNER
   font-size: 30rem;
   font-weight: bold;
   width: 760rem;
+  margin: 20rem;
+}
+
+.mappingNWC_imgcontainer {
+  display: flex;
+  align-items: flex-end;
+  margin-left: -70rem;
 }
 
 .mappingNWC_credit {
@@ -44,34 +48,18 @@ BANNER
   color: var(--colorBeige);
   font-size: 36rem;
   font-family: var(--fontBabasNeue);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  right: 0;
-  margin-left: -200rem;;
-  margin-top: 577rem;
-  margin-right: 400rem;
-  width: fit-content;
-  text-align: right;
-  padding: 12rem;
+  margin-left: -500rem;
 }
 
 .mappingNWC_credit p {
-  width: 323rem;
   text-align: center;
+  margin: 20rem;
 }
 
 .mappingNWC_component119 {
-  width: 537rem;
-  height: 764rem;
-  margin-left: -400rem;
-  margin-bottom: -151rem;
-  margin-top: -100rem;
+  right: 0;
+  height: 80%;
 }
-
-
-
-
 
 .marker {
   display: block;
@@ -118,44 +106,11 @@ SEARCH
   font-family: var(--fontMontserrat);
   font-size:25rem;
   color: var(--colorDarkBlue);
-  margin-bottom: 15rem;
+  margin-bottom: 20rem;
+  margin-top: 20rem;
 }
 
-.mappingNWCSearch_bar {
-  width: fit-content;
-  display: flex;
-  border: .1em solid var(--colorLightBlue);
-  padding: 0 .2em;
-}
 
-.mappingNWCSearch_bar > input {
-  border: none;
-  outline: none;
-  border-bottom: .1em solid var(--colorLightBlue);
-  height: fit-content;
-  font-size: .7em;
-  margin: auto;
-  padding-left: 1ch;
-  margin-right: 1ch;
-}
-
-.mappingNWCSearch_bar > input::placeholder {
-  color: lightgray;
-}
-
-.mappingNWCSearch_bar > input:focus {
-  border-bottom: .1em solid var(--colorDeepRed);
-}
-
-.mappingNWSearch_icon {
-  color: var(--colorLightBlue);
-}
-
-.mappingNWCSearch_icon:hover {
-  cursor: pointer;
-  color: var(--colorDeepRed);
-  transform: scale(1.04);
-}
 
 .basicForm {
   font-size:25rem;
@@ -173,19 +128,32 @@ SEARCH
   flex-grow: 1;
   height: auto;
   font-family: var(--fontBabasNeue);
-  padding-left: 10rem;
+  padding-left: 1%;
+  padding-right: 2%;
+  padding-bottom: 10rem;
+  border-bottom: 2rem dashed var(--colorDarkBlue);
+
+  
 }
 
 .panel p{
   font-family: var(--fontBabasNeue);
   margin-top: 10rem;
   padding-bottom: 10rem;
-
+  text-decoration: underline;
 }
 
 .panel + .panel {
-  margin-left: 2%;
-  border-left: 4rem solid var(--colorDarkBlue);
+  /*margin-left: 2%;*/
+  border-left: 2rem dashed var(--colorDarkBlue);
+}
+
+.basicForm {
+  border: 2rem dashed var(--colorDarkBlue);
+}
+
+.basic-multi-select {
+  padding-bottom: 30rem;
 }
 
 .form-control {
@@ -251,6 +219,8 @@ button {
   font-size: 30rem;
   font-family: var(--fontBabasNeue);
   margin-top: 20rem;
+  margin-bottom: 20rem;
+  margin-right: 50rem;
   border: none;
   color: white;
   width: fit-content;
@@ -267,12 +237,56 @@ button {
 }
 
 .resetButton {
-  margin-right: 50rem;
   background-color: var(--colorDarkBlue);
 }
 
 button:hover {
   text-decoration: underline;
+}
+
+
+.nameSearch {
+  display: flex;
+  margin-top: 30rem;
+}
+
+.mappingNWCSearch_bar {
+  width: fit-content;
+  display: flex;
+  padding: 0 .2em;
+}
+
+.mappingNWCSearch_bar > input {
+  border: none;
+  outline: none;
+  border-bottom: .1em solid var(--colorLightBlue);
+  height: fit-content;
+  font-size: .7em;
+  margin: auto;
+  padding-left: 1ch;
+  margin-right: 1ch;
+}
+
+.mappingNWCSearch_bar > input::placeholder {
+  color: lightgray;
+}
+
+.mappingNWCSearch_bar > input:focus {
+  border-bottom: .1em solid var(--colorDeepRed);
+}
+
+.mappingNWCSearch_icon {
+  background-image: url("./res/searchicon.png");
+  background-repeat: no-repeat;
+  border-radius: 0;
+  background-size: 30%;
+  cursor: pointer;
+}
+
+.mappingNWCSearch_icon:hover {
+  cursor: pointer;
+  color: var(--colorDeepRed);
+  transform: scale(1.04);
 }
 
 

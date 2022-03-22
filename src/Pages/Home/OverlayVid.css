@@ -110,12 +110,12 @@
   position: absolute;
   font-size: 40rem;
   font-family: var(--fontSubwayDs);
-  margin-left: 1500rem;
-  margin-top: 800rem;
   color: white;
   width: fit-content;
   z-index: 999;
   cursor: pointer;
+  top: 20%;
+  right: 10%;
 }
 
 .overlay_vid_skip:hover {

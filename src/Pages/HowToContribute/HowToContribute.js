@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import VARIABLES from '../../config/.env';
 import './HowToContribute.css';
-import component119 from "./res/component119.png"
+import htcBannerPic from "./res/htcBannerPic.png"
 import archivists_button from "./res/archivists_button.png"
-import archivists_button_hover from "./res/archivists_button_hover.png"
 import researcher_button from "./res/researcher_button.png"
-import researcher_button_hover from "./res/researcher_button_hover.png"
 import educators_button from "./res/educators_button.png"
-import educators_button_hover from "./res/educators_button_hover.png"
 import students_button from "./res/students_button.png"
-import students_button_hover from "./res/students_button_hover.png"
 import nwc_button from "./res/nwc_participants_button.png"
-import nwc_button_hover from "./res/nwc_participants_button_hover.png"
 import how_to_contribute_button from "./res/how_to_contribute_button.png"
-import nwcArchivistsPhoto from "./res/NWC_Archivists_Photo.png"
-import nwcEducatorsPhoto from "./res/NWC_Educators_Photo.png"
-import nwcParticipants from "./res/NWC_Participants.png"
-import nwcResearchersPhoto from "./res/NWC_Researchers_Photo.png"
-import studentsPhoto from "./res/Students_Photo.png"
 import favInsta from "./res/favInsta.png"
 import favFace from "./res/favFace.png"
 import favTwitter from "./res/favTwitter.png"
 import favShare from "./res/favShare.png"
+import LCard from "../../Components/LCard/LCard";
+import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 const getWhere = (data, key, value) => {
     return data.filter(e => e[key] === value);
@@ -40,8 +33,8 @@ function HowToContribute() {
     const [nwcParticipantsText, setNwcParticipantsText] = useState("");
     const [educatorsText, setEducatorsText] = useState("");
     const [studentsText, setStudentsText] = useState("");
-    // need strapi field to be created
-    // const [archivistsText, setArchivistsText] = useState("");
+    const [archivistsText, setArchivistsText] = useState("");
+
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-how-to-contribute"].join('/'))
@@ -69,10 +62,9 @@ function HowToContribute() {
                 setStudentsText(
                     data.StudentsText
                 );
-                //Need field option in strapi
-                // setArchivistsText(
-                //     data.ArchivistsText
-                // );
+                setArchivistsText(
+                    data.ArchivistsText
+                );
             })
     }, []);
 
@@ -103,75 +95,13 @@ function HowToContribute() {
         <div className="howToContribute">
 
             {/* BANNER */}
-            <div className="howToContributeBanner">
-                <img src={how_to_contribute_button} className="howToContribute_button" alt="_" />
-                <div className="howToContribute_card">
-                    <p>
-                        {banner_card}
-                    </p>
-                </div>
-                <div className="howToContribute_credit" title={imgCredit_more}>
-                    <p>
-                        PHOTO BY {imgCredit}
-                    </p>
-                </div>
-                <img src={component119} className="howToContribute_component119" alt="_" />
-            </div>
-
-            {/* BUTTONS */}
-            <div className="howToContributeButtons_container">
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_researcherText">
-                        <img src={researcher_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={researcher_button_hover}
-                            alt="_"
-                            className="howToContributeButtons_button_hover"
-                        />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_archivistsText">
-                        <img src={archivists_button}
-                            className="howToContributeButtons_archivists_button"
-                            alt="_" />
-                        <img src={archivists_button_hover}
-                            className="howToContributeButtons_archivists_button_hover"
-                            alt="_"
-                        />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_nwcParticipantsText">
-                        <img src={nwc_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={nwc_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_educatorsText">
-                        <img src={educators_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={educators_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
-                <div class="howToContributeButtons_column">
-                    <a href="#howToContributeInvolved_studentsText">
-                        <img src={students_button}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                        <img src={students_button_hover}
-                            className="howToContributeButtons_button"
-                            alt="_" />
-                    </a>
-                </div>
+            <div className="contributeBanner">
+                <img src={how_to_contribute_button} alt="How to Contribute" />
+                <LCard text={banner_card} />
+                <CaptionedImg
+                    src={htcBannerPic}
+                    caption={"Photo by " + imgCredit}
+                    caption_more={imgCredit_more} />
             </div>
 
             {/* HOW TO GET INVOLVED BANNER */}
@@ -180,7 +110,7 @@ function HowToContribute() {
                     <div className="howToContributeInvolved">
                         <h1>HOW TO GET INVOLVED</h1>
                     </div>
-                    <div className="howToContributeInvolved_favFace">
+                    {/* <div className="howToContributeInvolved_favFace">
                         <a href={facebookLink}><img src={favFace} alt="facebook_logo" /></a>
                     </div>
                     <div className="howToContributeInvolved_favTwitter">
@@ -191,75 +121,62 @@ function HowToContribute() {
                     </div>
                     <div className="howToContributeInvolved_favShare">
                         <a href={instagramLink}><img src={favShare} alt="share_logo" /></a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
             {/* HOW TO GET INVOLVED LIST */}
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_researcherText">
-                    <img src={nwcResearchersPhoto} alt="_"></img>
+                <div className="howToContributeInvolved_researcherBtn">
+                    <img src={researcher_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>RESEARCHERS</h1>
+                        <Link to="/ResourceResearchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
                     </div>
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_archivistsText">
-                    <img src={nwcArchivistsPhoto} alt="_"></img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={archivists_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>ARCHIVISTS</h1>
-                        <p>{researchersText}</p>
+                    <Link to="/ResourceArchivists">ARCHIVISTS</Link>
+                        <p>{archivistsText}</p>
                     </div>
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_nwcParticipantsText">
-                    <img src={nwcParticipants} alt="_"></img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={nwc_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>NWC PARTICIPANTS</h1>
+                    <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_educatorsText">
-                    <img
-                        src={nwcEducatorsPhoto}
-                        alt="_">
-
-                    </img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={educators_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>EDUCATORS</h1>
+                    <Link to="/ResourceEducators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
             </div>
             <div className="howToContributeInvolved_container">
-                <div className="howToContributeInvolved_researcherImg"
-                    id="howToContributeInvolved_studentsText">
-                    <img
-                        src={studentsPhoto}
-                        alt="_">
-
-                    </img>
+                <div className="howToContributeInvolved_researcherImg">
+                    <img src={students_button} alt="_"></img>
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <h1>STUDENTS</h1>
+                    <Link to="/ResourceStudents">STUDENTS</Link>
                         <p>{studentsText}</p>
                     </div>
                 </div>
@@ -275,24 +192,15 @@ function HowToContribute() {
                         <p>{banner_card}</p>
                     </div>
                     <div className="howToContributeSubmission_body_links">
-                        <div className="howToContributeSubmission_oral"
-                            style={{ marginRight: "50px" }}>
-                            <p>ORAL HISTORY/BIOGRAPHY SUBMISSIONS</p>
-                        </div>
-                        <div className="howToContributeSubmission_corrections"
-                            style={{ marginRight: "50px" }}>
-                            <p>CORRECTIONS</p>
-                        </div>
-                        <div className="howToContributeSubmission_archival"
-                            style={{ marginRight: "50px" }}>
-                            <p>ARCHIVAL INFORMATION SUBMISSIONS</p>
-                        </div>
-                    </div>
+                        <Link to="/Forms/CorrectionsForm" className="howToContributeSubmission_submit"
+                            >
+                            CORRECTIONS
+                        </Link>
+                                            </div>
                 </div>
 
             </div>
         </div>
     )
 }
-
 export default HowToContribute

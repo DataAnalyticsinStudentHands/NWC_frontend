@@ -3,49 +3,11 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 
 import './Map.css'
 import VARIABLES from "../../config/.env.js";
+import { Person } from 'react-bootstrap-icons';
 
 mapboxgl.accessToken = VARIABLES.mapboxAccessToken;
 
-const geojson = {
-    'type': 'FeatureCollection',
-    'features': [
-        {
-            'type': 'Feature',
-            'properties': {
-                'message': 'Foo',
-                'iconSize': [60, 60]
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-66.324462, -16.024695]
-            }
-        },
-        {
-            'type': 'Feature',
-            'properties': {
-                'message': 'Bar',
-                'iconSize': [50, 50]
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-61.21582, -15.971891]
-            }
-        },
-        {
-            'type': 'Feature',
-            'properties': {
-                'message': 'Baz',
-                'iconSize': [40, 40]
-            },
-            'geometry': {
-                'type': 'Point',
-                'coordinates': [-63.292236, -18.281518]
-            }
-        }
-    ]
-};
-
-export default function Map() {
+export default function Map({ map_data }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -53,8 +15,27 @@ export default function Map() {
     const [lat, setLat] = useState(29.75);
     const [zoom, setZoom] = useState(4);
 
+    //lookup roles
+    const lookup = {
+        "delegate_at_the_nwc": "Delegate at the NWC",
+        "ford_national_commissioner": "Ford National Commissioner",
+        "carter_national_commissioner": "Carter National Commissioner",
+        "international_dignitary": "International Dignitary",
+        "torch_relay_runner": "Torch Relay Runner",
+        "alternate_at_the_nwc": "Alternate at the NWC",
+        "delegate_at_large": "Delegate at Large",
+        "official_observer": "Official Observer",
+        "volunteer": "Volunteer",
+        "paid_staff_member": "Paid Staff Member",
+        "notable_speaker": "Notable Speaker",
+        "unofficial_observer": "Unofficial Observer",
+        "journalists_covering_the_nwc": "Journalist covering the NWC",
+        "state_delegation_chair": "State Delegation Chair",
+        "exhibitor": 'Exhibitor'
+    }
+
     useEffect(() => {
-        if (map.current) return; // initialize map only once
+        //if (map.current) return; // initialize map only once
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/light-v10',
@@ -65,34 +46,55 @@ export default function Map() {
         const nav = new mapboxgl.NavigationControl();
         map.current.addControl(nav, "top-right");
 
-        // Add markers to the map.
-        for (const marker of geojson.features) {
-            // Create a DOM element for each marker.
-            const el = document.createElement('div');
-            const width = marker.properties.iconSize[0];
-            const height = marker.properties.iconSize[1];
-            el.className = 'marker';
-            el.style.backgroundImage = `url(https://placekitten.com/g/${width}/${height}/)`;
-            el.style.width = `${width}px`;
-            el.style.height = `${height}px`;
-            el.style.backgroundSize = '100%';
+        if (map_data.length > 0) {
+            map_data.forEach(function (point) {
+                let geometry = point.location_of_residence_in1977;
+                delete point.location_of_residence_in1977;
+                let properties = point;
+                let marker = { "type": "Feature", "geometry": geometry, "properties": properties }
+                const el = document.createElement('div');
+                el.className = 'marker';
 
-            el.addEventListener('click', () => {
-                window.alert(marker.properties.message);
+                el.addEventListener('click', () => {
+                    window.alert(marker.properties.first_name + " " + marker.properties.last_name, );
+                });
+
+                // Add markers to the map.
+                new mapboxgl.Marker(el)
+                    .setLngLat(marker.geometry.coordinates)
+                    .addTo(map.current);
             });
-
-            // Add markers to the map.
-            new mapboxgl.Marker(el)
-                .setLngLat(marker.geometry.coordinates)
-                .addTo(map.current);
         }
-
-
-    });
+    }, [lng, lat, zoom, map_data]);
 
     return (
         <div className='map-area'>
             <div ref={mapContainer} className="map-container" />
+            <div className="table-container">
+                <table>
+                    <tbody>
+                    {map_data.length > 0 ? 
+                    <tr>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>State</th>
+                        <th>Role at NWC</th>
+                    </tr> : <p> Please select options for search</p>
+}
+                    {map_data.length > 0 && map_data.map((val, key) => {
+                        return (
+                            
+                            <tr key={key}>
+                                <td>{val.first_name}</td>
+                                <td>{val.last_name}</td>
+                                <td>{val.state}</td>
+                                <td>{val.nwc_roles.map(role => { return lookup[Object.keys(role)[1]]+' '})}</td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
+            </div>
         </div>
     );
 }

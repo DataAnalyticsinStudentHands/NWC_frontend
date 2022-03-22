@@ -24,6 +24,9 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
+import inperson from './res/inperson.png';
+import online from './res/online.png';
+import share from './res/share.png';
 
 import VARIABLES from '../../config/.env';
 
@@ -37,9 +40,14 @@ const urlify = (str) => {
   return [VARIABLES.fetchBaseUrl, str].join('/'); // VARIABLES.axiosBaseURL.slice(0, VARIABLES.axiosBaseURL.length-1) + "" + str;
 };
 
-export const superSorter = (list) => {
-  const cpy = [...list];
-  cpy.sort((a, b) => a[0] - b[0]);
+// sort points of interest by first element (Name)
+const superSorter = (list) => {
+  let cpy = [...list];
+  cpy = cpy.sort(function(a, b) { 
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+      return 0;
+  });
   return cpy;
 };
 
@@ -328,20 +336,23 @@ function Home() {
                 <div className="homeMap_tabsHr"></div>
 
                 {[
-                  { color: 'red', x: '700', y: '600', mapName: 'dt' },
-                  { color: 'blue', x: '800', y: '400', mapName: 'tw' },
-                  { color: 'green', x: '400', y: '400', mapName: 'museo' },
-                  { color: 'pink', x: '600', y: '600', mapName: 'mag' },
+                  { color: '#3FA490', x: '930', y: '754', mapName: 'dt' },
+                  { color: '#615FBF', x: '960', y: '852', mapName: 'tw' },
+                  { color: '#9EC7E1', x: '890', y: '849', mapName: 'museo' },
+                  { color: '#142F45', x: '1070', y: '810', mapName: 'mag' },
+                  { color: '#FFD048', x: '795', y: '964', mapName: 'astro' },
+
                 ].map((p) => (
-                  <div
+                  <div 
                     style={{
                       position: 'absolute',
-                      width: 'calc(20*var(--xUnit))',
-                      height: 'calc(20*var(--xUnit))',
+                      width: 'calc(35*var(--xUnit))',
+                      height: 'calc(35*var(--xUnit))',
                       backgroundColor: p.color,
                       borderRadius: '999px',
                       marginLeft: `calc(${p.x}*var(--xUnit))`,
                       marginTop: `calc(${p.y}*var(--xUnit))`,
+                      cursor: 'pointer',
                     }}
                     onClick={() => {
                       setCurrMap(p.mapName);
@@ -417,25 +428,24 @@ function Home() {
                 <p>{homeButton1_text}</p>
               </div>
             </Link>
-
-            {/*<a href={homeButton2_link}>*/}
-            <div className="homeButtons_button homeButtons_button2">
-              <img src={button2} alt="button_2" />
-              <p>{homeButton2_text}</p>
-            </div>
-            {/*</a>*/}
-            {/*<a href={homeButton3_link}>*/}
-            <div className="homeButtons_button homeButtons_button3">
-              <img src={button3} alt="button_3" />
-              <p>{homeButton3_text}</p>
-            </div>
-            {/*</a>*/}
-            {/* <a href={homeButton4_link}>*/}
-            <div className="homeButtons_button homeButtons_button4">
-              <img src={button4} alt="button_4" />
-              <p>{homeButton4_text}</p>
-            </div>
-            {/*</a>*/}
+            <Link to={homeButton2_link}>
+              <div className="homeButtons_button homeButtons_button2">
+                <img src={button2} alt="button_2" />
+                <p>{homeButton2_text}</p>
+              </div>
+            </Link>
+            <Link to={homeButton3_link}>
+              <div className="homeButtons_button homeButtons_button3">
+                <img src={button3} alt="button_3" />
+                <p>{homeButton3_text}</p>
+              </div>
+            </Link>
+            <Link to={homeButton4_link}>
+              <div className="homeButtons_button homeButtons_button4">
+                <img src={button4} alt="button_4" />
+                <p>{homeButton4_text}</p>
+              </div>
+            </Link>
 
             <img
               className="homeButtons_dots homeButtons_dots1"
@@ -460,15 +470,29 @@ function Home() {
           </div>
 
           {/**HIGHLIGHTS */}
-          <div className="homeHighlights">
-            <div className="homeHighlights_frontDrop"></div>
-            <div className="homeHighlights_frontDrop2">
-              <h2>COMING SOON</h2>
-            </div>
-            <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
-            <HighlightsCarousel />
+      {/* 
+      <div className="homeHighlights">
+        <div className="homeHighlights_frontDrop"></div>
+        <div className="homeHighlights_frontDrop2">
+          <h2>COMING SOON</h2>
           </div>
-        </div>
+        <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
+        <HighlightsCarousel/>
+      </div> */}
+      <div className="homeLaunch">
+      
+      <h1>JOIN US FOR THE LAUNCH</h1>
+      <p> Click on the images to find out more and RSVP</p>
+      <div className="homeLaunchPanel">
+        <a href="https://www.eventbrite.com/e/why-the-1977-national-womens-conference-matters-tickets-269032983897"
+        target="_blank" rel="noopener noreferrer"><img src={inperson} alt="inperson"/></a>
+        <a href="https://www.eventbrite.com/e/269039112227"
+        target="_blank" rel="noopener noreferrer"><img src={online} alt="online"/></a>
+        <a href="https://www.eventbrite.com/e/269045882477"
+        target="_blank" rel="noopener noreferrer"><img src={share} alt="share"/></a>
+      </div>
+    </div>
+  </div>
       ) : (
         ''
       )}

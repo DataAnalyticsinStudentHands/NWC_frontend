@@ -20,13 +20,23 @@ import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
 import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
+import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
+import CorrectionsForm from './Pages/Forms/CorrectionsForm';
+import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
+import PDFViewer from './Pages/PDFViewer/PDFViewer';
+import ScrollToTop from "./Components/util/ScrollToTop";
+import ResourceResearchers from "./Pages/ResourceToolKits/ResourceResearchers/ResourceResearchers"
+import ResourceArchivists from "./Pages/ResourceToolKits/ResourceArchivists/ResourceArchivists"
+import ResourceStudents from "./Pages/ResourceToolKits/ResourceStudents/ResourceStudents"
+import ResourceNWC from "./Pages/ResourceToolKits/ResourceNWC/ResourceNWC"
+import ResourceEducators from "./Pages/ResourceToolKits/ResourceEducators/ResourceEducators"
 
 
 function App() {
   return (
     <Router basename={'/dev'} className="App">
       <Navigation />
-
+      <ScrollToTop>
       <Switch>
         <Route path="/MeetTheTeam">
           <MeetTheTeam />
@@ -50,9 +60,9 @@ function App() {
         <Route path="/Torch">
           <Torch />
         </Route>
-        <Route path="/MappingNWC">
+{/*         <Route path="/MappingNWC">
           <MappingNWC />
-        </Route>
+        </Route> */}
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>
@@ -65,10 +75,38 @@ function App() {
         <Route path="/Participants">
           <Participants />
         </Route>
+        <Route path="/PDFViewer/:pdffile">
+          <PDFViewer />
+        </Route>
+        <Route path="/Forms/CorrectionsForm">
+          <CorrectionsForm />
+        </Route>
+        <Route path="/Forms/HowToDonatePapersForm">
+          <HowToDonatePapersForm />
+        </Route>
+        <Route path="/Forms/MoreIdeasForm">
+          <MoreIdeasForm />
+        </Route>
+        <Route path="/ResourceResearchers">
+          <ResourceResearchers />
+        </Route>
+        <Route path="/ResourceArchivists">
+          <ResourceArchivists />
+        </Route>
+        <Route path="/ResourceStudents">
+          <ResourceStudents />
+        </Route>
+        <Route path="/ResourceNWC">
+          <ResourceNWC />
+        </Route>
+        <Route path="/ResourceEducators">
+          <ResourceEducators />
+        </Route>
         <Route path="/">
           <Home />
         </Route>
       </Switch>
+      </ScrollToTop>
       <Footer />
     </Router>
   );

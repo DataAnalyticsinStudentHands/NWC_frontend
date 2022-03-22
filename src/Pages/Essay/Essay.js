@@ -32,10 +32,14 @@ function Essay() {
             function processImage(img) {
                 // [imgurl, credit]
                 try {
-                    return [
-                        [VARIABLES.fetchBaseUrl, img.Image[0].url].join(''),
-                        img.ImgCredit
-                    ];
+                    if (img !== null) {
+                        if (img.Image.length !== 0) {
+                            return [
+                                [VARIABLES.fetchBaseUrl, img.Image[0].url].join(''),
+                                img.ImgCredit
+                            ];
+                        }
+                    }
                 } catch(err) {
                     console.log(err);
                 }
@@ -60,6 +64,7 @@ function Essay() {
                 Image3: processImage(data.Image3),
                 MainImage: processImage(data.MainImage),
                 TallImage: processImage(data.TallImage),
+                HeaderIllustration: data.HeaderIllustration ? [VARIABLES.fetchBaseUrl, data.HeaderIllustration.url].join('') : ''
             })
         });
         window.scrollTo(0, 0);

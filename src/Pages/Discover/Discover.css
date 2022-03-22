@@ -6,12 +6,11 @@
 /*
 BANNER
 */
-
 .discoverBanner {
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background-color: var(--colorBeige);
+    background: url("../../res/imgs/mapbg.png");
 }
 
 .discoverBanner > img {
@@ -19,7 +18,7 @@ BANNER
 }
 
 .discoverBanner > .lcard {
-    width: 35%;
+    width: 45%;
     margin: 2em 0;
 }
 
@@ -43,6 +42,8 @@ FEATURED
     display: flex;
     justify-content: space-around;
     margin-bottom: 1em;
+    margin-left: 1em;
+    margin-right: 1em;
     flex-wrap: wrap;
     position: relative;
 }
@@ -56,11 +57,26 @@ FEATURED
 }
 
 /*
+INTRO
+*/
+.discoverIntro {
+    padding-left: 100rem;
+    padding-right: 100rem;
+    padding-bottom: 20rem;
+    padding-top: 100rem;
+} 
+.discoverIntro > p {
+    font-family: var(--fontMontserrat);
+    font-size:25rem;
+    color: var(--colorDarkBlue);
+}
+
+/*
 SEARCH
 */
 
 .discoverSearch {
-    width: calc(100% - 2em);
+    width: calc(100% - 5em);
     margin: auto;
     display: flex;
     justify-content: space-between;
@@ -72,8 +88,7 @@ SEARCH
 .discoverSearch_bar {
     width: fit-content;
     display: flex;
-    border: .1em solid var(--colorLightBlue);
-    padding: 0 .2em;
+    padding: 0.2em .2em;
 }
 
 .discoverSearch_bar > input {
@@ -96,7 +111,12 @@ SEARCH
 }
 
 .discoverSearch_icon {
-    color: var(--colorLightBlue);
+    background-image: url("./res/searchicon.png");
+    background-repeat: no-repeat;
+    border-radius: 0;
+    background-size: 30%;
+    cursor: pointer;
+    margin: 0;
 }
 
 .discoverSearch_icon:hover {
@@ -128,7 +148,8 @@ SEARCH
     width: calc(100% - 2em);
     margin: .5em auto;
     display: flex;
-    justify-content: right;
+    justify-content: left;
+    margin-bottom: 50rem;
 }
 
 .discoverButtons_participants {
@@ -168,4 +189,65 @@ CARDS
 .discoverCards > * {
     margin: 1em 0;
     width: 30%;
+}
+
+/*
+PREV/NEXT
+*/
+
+.cardsPerPage {
+    width: calc(100% - 5em);
+    display: flex;
+    margin: auto;
+    padding: .4em;
+}
+
+.cardsPerPageHeader{
+    margin-top:25rem;
+    color: var(--colorLightBlue);
+}
+
+.cardsListPerPage button{
+    font-family: var(--fontBabasNeue);
+    background-color:var(--colorLightBlue);
+}
+
+/*
+PAGINATION COMPONENET
+*/
+
+.paginationContainer {
+    text-align: center;
+    font-family: var(--fontBabasNeue);
+}
+
+.pagination {
+    position: absolute;
+    display: flex;
+    list-style: none;
+    cursor: pointer;
+    margin-left: 220rem;
+    margin-top: 15px;
+    margin-bottom: 10px;
+    left: 50%;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 8px;
+    margin: 1px;
+    color: var(--colorLightBlue);
+}
+
+.pagination__link {
+    font-weight: normal;
+}
+
+.pagination__link--active a {
+    color: rgba(0, 0, 0, 0.616);
+    background: var(--colorLightBlue);
+}
+
+.pagination__link--disabled a {
+    color: rgb(198, 197, 202);
 }

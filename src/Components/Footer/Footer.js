@@ -60,7 +60,11 @@ function Footer() {
     return (
         <div className="footer">
                 <div className="footer_top icon">
+                    <div className="footer_top icon centered">
                     <img src={icon} alt="project_icon"/>
+                    <p style={{marginTop: "20rem"}}>Designer of IWY Symbol: Valerie Pettis</p>
+                    </div>
+                    
                 </div>
                 <div className="footer_top home">
                     <Link to={'/'}>HOME</Link>
@@ -69,7 +73,7 @@ function Footer() {
                     <a href={`mailto:${contactEmail}`}><p>CONTACT</p></a>
                 </div>
                 <div className="footer_top donate">
-                    <a href={donateLink}>DONATE</a>
+                    <a href={donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>
                 </div>
                 <div className="footer_top social">
                     <div className="socialMedia">
