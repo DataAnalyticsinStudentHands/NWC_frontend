@@ -39,6 +39,7 @@ BANNER
 }
 
 .resourceNWCBanner_header p{
+    font-family: var(--fontNeoBulletin);
     text-align:left;
     font-size:25rem;
     width: 800rem;

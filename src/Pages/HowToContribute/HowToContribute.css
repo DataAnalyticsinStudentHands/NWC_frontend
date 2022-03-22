@@ -178,6 +178,18 @@ html {
     justify-content: center;
 
   }
+
+  .howToContributeSubmission_submit {
+    border-radius: 50px;
+    background: var(--colorDeepRed);
+    padding: 20rem;
+    width: 500rem;
+    height: 80rem;
+    font-family: var(--fontBabasNeue);
+    font-size: 35rem;
+    color: white;
+    text-align: center;
+}
   
   .howToContributeSubmission_oral {
     border-radius: 50px;
@@ -191,12 +203,6 @@ html {
     background: #80280D;
   }
   
-  .howToContributeSubmission_oral p{
-    font-family: var(--fontBabasNeue);
-    font-size: 35rem;
-    color: white;
-    text-align: center;
-  }
   .howToContributeSubmission_corrections {
     border-radius: 50px;
     background: var(--colorDeepRed);

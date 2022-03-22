@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import VARIABLES from '../../../config/.env';
 import './ResourceResearchers.css';
 import researcher_button from "../res/researcher_button.png"
@@ -13,20 +14,28 @@ import ReactPlayer from 'react-player';
 
 function ResourceResearchers() {
 
-    const [resourcesResearchersText, setResourcesResearchersText] = useState("");
-    const [resourcesResearchersVideo , setResourcesResearchersVideo] = useState("");
+    // state to hold content from Strapi
+    const [state, setState] = useState({
+        Resources_for_Researchers_Text: '',
+        Video_Url_Researchers: '',
+        Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: '',
+        Pdf_How_to_Contribute_Biographies_Students_Researchers: '',
+        Pdf_Technical_Guidelines: '',
+        Pdf_Permission_Documents: ''
+    });
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
             .then(res => res.json())
             .then(data => {
-
-                setResourcesResearchersText(
-                    data.Resources_for_Researchers_Text
-                );
-                setResourcesResearchersVideo(
-                    data.Video_Url_Researchers
-                );
+                setState({
+                    Resources_for_Researchers_Text: data.Resources_for_Researchers_Text,
+                    Video_Url_Researchers: data.Video_Url_Researchers,
+                    Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: data.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? data.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.url.split('/')[2] : undefined,
+                    Pdf_How_to_Contribute_Biographies_Students_Researchers: data.Pdf_How_to_Contribute_Biographies_Students_Researchers ? data.Pdf_How_to_Contribute_Biographies_Students_Researchers.url.split('/')[2] : undefined,
+                    Pdf_Technical_Guidelines: data.Pdf_Technical_Guidelines ? data.Pdf_Technical_Guidelines.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                });
             })
     }, []);
 
@@ -45,8 +54,8 @@ function ResourceResearchers() {
                 </div>
                 <div className="researchersBanner_header">
                     <h1>RESOURCES FOR RESEARCHERS</h1>
-                <div className="researchersBanner_border"></div>
-                    <p>{resourcesResearchersText}</p>
+                    <div className="researchersBanner_border"></div>
+                    <p>{state.Resources_for_Researchers_Text}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
@@ -55,42 +64,53 @@ function ResourceResearchers() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={resourcesResearchersVideo}
+                    url={state.Video_Url_Researchers}
                     controls={true}
                     width='1177px'
                     height='710px'
-                />       
+                />
             </div>
 
             {/* RESEARCHER ICONS */}
             <div className="resourceResearchersIcons">
-                <div className="iconContainer">
-                    <img src={oralIcon} alt="_"></img>
-                    <p>How to Contribute Oral Histories</p>  
-                </div>
-                <div className="iconContainer">
-                    <img src={contributeIcon} alt="_"></img>
-                    <p>How to Contribute Biographies</p>  
-                </div>
-                <div className="iconContainer">
-                    <img src={techIcon} alt="_"></img>  
-                    <p>Technical Guidelines</p>
-                </div>
-                <div className="iconContainer">
-                    <img src={permissionIcon} alt="_"></img>
-                    <p>Permissions Documents</p>  
-                </div>
+                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers}`}>
+                    <div className="iconContainer">
+                        <img src={oralIcon} alt="_"></img>
+                        <p>How to Contribute Oral Histories</p>
+                    </div>
+                </Link>
+                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_Students_Researchers}`}>
+                    <div className="iconContainer">
+                        <img src={contributeIcon} alt="_"></img>
+                        <p>How to Contribute Biographies</p>
+                    </div>
+                </Link>
+                <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines}`}>
+                    <div className="iconContainer">
+                        <img src={techIcon} alt="_"></img>
+                        <p>Technical Guidelines</p>
+                    </div>
+                </Link>
+                <a href={`${state.Pdf_Permission_Documents}`} download>
+                    <div className="iconContainer">
+                        <img src={permissionIcon} alt="_"></img>
+                        <p>Permissions Documents</p>
+                    </div>
+                </a>
+
             </div>
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="ideaContainerResearch">
-                <div className="ideaContainerIcon">
-                    <img src={ideaIcon} alt="_"></img>
+            <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerResearch">
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
                 </div>
-                <div className="ideaContainerText">
-                    <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                </div>
-            </div>
+            </Link>
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonResearchersContainer">

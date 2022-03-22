@@ -20,6 +20,9 @@ import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
 import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
+import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
+import CorrectionsForm from './Pages/Forms/CorrectionsForm';
+import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import ScrollToTop from "./Components/util/ScrollToTop";
 import ResourceResearchers from "./Pages/ResourceToolKits/ResourceResearchers/ResourceResearchers"
@@ -74,6 +77,15 @@ function App() {
         </Route>
         <Route path="/PDFViewer/:pdffile">
           <PDFViewer />
+        </Route>
+        <Route path="/Forms/CorrectionsForm">
+          <CorrectionsForm />
+        </Route>
+        <Route path="/Forms/HowToDonatePapersForm">
+          <HowToDonatePapersForm />
+        </Route>
+        <Route path="/Forms/MoreIdeasForm">
+          <MoreIdeasForm />
         </Route>
         <Route path="/ResourceResearchers">
           <ResourceResearchers />

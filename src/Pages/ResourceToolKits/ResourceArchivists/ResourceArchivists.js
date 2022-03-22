@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import VARIABLES from '../../../config/.env';
 import './ResourceArchivists.css';
 import archivists_button from "../res/archivist_button.png"
@@ -12,20 +13,24 @@ import ReactPlayer from 'react-player';
 
 function ResourceArchivists() {
 
-    const [resourcesArchivistsText, setResourcesArchivistsText] = useState("");
-    const [resourcesArchivistsVideo, setResourcesArchivistsVideo] = useState("");
+    // state to hold content from Strapi
+    const [state, setState] = useState({
+        Resources_for_Archivists_Text: '',
+        Video_Url_Archivists: '',
+        Pdf_Technical_Guidelines_Archivists: '',
+        Pdf_Permission_Documents: ''
+    });
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
             .then(res => res.json())
             .then(data => {
-
-                setResourcesArchivistsText(
-                    data.Resources_for_Archivists_Text
-                );
-                setResourcesArchivistsVideo(
-                    data.Video_Url_Archivists
-                );
+                setState({
+                    Resources_for_Archivists_Text: data.Resources_for_Archivists_Text,
+                    Video_Url_Archivists: data.Video_Url_Archivists,
+                    Pdf_Technical_Guidelines_Archivists: data.Pdf_Technical_Guidelines_Archivists ? data.Pdf_Technical_Guidelines_Archivists.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                });
             })
     }, []);
 
@@ -46,8 +51,8 @@ function ResourceArchivists() {
                 </div>
                 <div className="archivistsBanner_header">
                     <h1>RESOURCES FOR ARCHIVISTS</h1>
-                <div className="archivistsBanner_border"></div>
-                    <p>{resourcesArchivistsText}</p>
+                    <div className="archivistsBanner_border"></div>
+                    <p>{state.Resources_for_Archivists_Text}</p>
                 </div>
                 {/* <LCard text={banner_card} /> */}
             </div>
@@ -56,7 +61,7 @@ function ResourceArchivists() {
             <div className="resourceVideoPlayer">
                 <h2>VIDEO PLAYER</h2>
                 <ReactPlayer
-                    url={resourcesArchivistsVideo}
+                    url={state.Video_Url_Archivists}
                     controls={true}
                     width='1177px'
                     height='710px'
@@ -65,30 +70,38 @@ function ResourceArchivists() {
 
             {/* RESEARCHER ICONS */}
             <div className="archivistsBannerIcons">
-                <div className="iconContainer">
-                    <img src={archivalIcon} alt="_"></img>
-                    <p>How to Contribute Archival Information</p>  
-                </div>
-                <div className="iconContainer">
-                    <img src={techIcon} alt="_"></img>
-                    <p>Technical Guidelines</p>  
-                </div>
-                <div className="iconContainer">
-                    <img src={permissionIcon} alt="_"></img>
-                    <p>Permissions Documents</p>  
-                </div>
+                <Link to="/Forms/HowToDonatePapersForm">
+                    <div className="iconContainer">
+                        <img src={archivalIcon} alt="_"></img>
+                        <p>How to Contribute Archival Information</p>
+                    </div>
+                </Link>
+                <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines_Archivists}`}>
+                    <div className="iconContainer">
+                        <img src={techIcon} alt="_"></img>
+                        <p>Technical Guidelines</p>
+                    </div>
+                </Link>
+                <a href={`${state.Pdf_Permission_Documents}`} download>
+                    <div className="iconContainer">
+                        <img src={permissionIcon} alt="_"></img>
+                        <p>Permissions Documents</p>
+                    </div>
+                </a>
             </div>
 
 
             {/* MORE IDEAS CONTAINER */}
-            <div className="ideaContainerArchivists">
-                <div className="ideaContainerIcon">
-                    <img src={ideaIcon} alt="_"></img>
+            <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerArchivists">
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
                 </div>
-                <div className="ideaContainerText">
-                    <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                </div>
-            </div>
+            </Link>
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonArchContainer">
