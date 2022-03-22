@@ -45,12 +45,6 @@ function Discover() {
     fetch([fetchBaseUrl, `content-discover-stories?_start=${currentPage}&_limit=${postsPerPage}`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
-
-        for (let i = data.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [data[i], data[j]] = [data[j], data[i]];
-      }
-        console.log(data)
         loadcards(data, setCards);
       })
       .catch(err => console.log(err));
@@ -78,28 +72,21 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
-
-        // let names = cards.map(personName => ({'name' : personName['name']}));
-        // let sortedNames = names.split('').reverse()
-        // console.log(names)
-        // console.log(sortedNames)
-        // setCards(sortedNames)
-
   }
 
   function sortRole() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
   }
 
   function sortState() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=12`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
@@ -108,7 +95,7 @@ function Discover() {
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
-    state.currentPage = 0
+    setCurrentPage(0);
   }
 
   //Pagination handleClick
@@ -175,11 +162,12 @@ function Discover() {
           <h3>Cards per page</h3>
             </div>
       <ul className="cardsListPerPage">
-            <button onClick={handleSelectChange} value={12} >12</button>
-            <button onClick={handleSelectChange} value={24} >24</button>
-            <button onClick={handleSelectChange} value={48} >48</button>
-            <button onClick={handleSelectChange} value={96} >96</button>
+            <button onClick={handleSelectChange} value={12}>12</button>
+            <button onClick={handleSelectChange} value={24}>24</button>
+            <button onClick={handleSelectChange} value={48}>48</button>
+            <button onClick={handleSelectChange} value={96}>96</button>
         </ul>
+          
       </div>
 
       {/**CARDS */}

@@ -124,7 +124,7 @@ function Participants() {
                 {
                     participants.length === 0
                         ? "No Participants Found."
-                        : participants.map(p => <p key={Math.random()}>{p.LastName} {p.FirstName}</p>)
+                        : participants.map(p => <p key={Math.random()}>{p.LastName}, {p.FirstName}, {p.States}</p>)
                 }
             </div>
         </div>

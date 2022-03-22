@@ -62,7 +62,7 @@ function Footer() {
                 <div className="footer_top icon">
                     <div className="footer_top icon centered">
                     <img src={icon} alt="project_icon"/>
-                    <p style={{marginTop: "20rem"}}>Designer of IWY Symbol: Valerie Pett</p>
+                    <p style={{marginTop: "20rem"}}>Designer of IWY Symbol: Valerie Pettis</p>
                     </div>
                     
                 </div>
