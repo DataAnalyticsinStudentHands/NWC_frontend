@@ -1,10 +1,3 @@
-// These pages are roughly split into 3 sections.
-// 1. The associated .css file ("./DiscoverInfo.css" for this particular one)
-// 2. Data fetching with useState and useEffect
-// 3. The actual UI
-// If there is anything you already understand, feel free to skim through it.
-// If there is anything that i do not go through thoroughly enough, feel free to ask questions.
-
 import React, { useState, useEffect } from 'react'
 import {
     useParams,
@@ -93,88 +86,6 @@ function DiscoverInfo() {
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    let bigquote1 = state.bigquote1
-    let bigquote2 = state.bigquote2
-
-    function bigQuoteSwitch1() {
-
-        if (bigquote1 === null){
-            return (
-                <p></p>
-            )
-        } 
-        else {
-            return (
-            <div className="discoverInfoBody_bigquote">
-            <div className="quote_topleft"></div>
-                <div className="quote_topright"></div>
-                    <p>{state.bigquote1}</p>
-                <div className="quote_bottomleft"></div>
-            <div className="quote_bottomright"></div>
-        </div>
-            )
-        }
-    }
-
-    // function bigQuoteSwitch2() {
-    //     if (bigquote2 === null){
-    //         console.log(bigquote2 + "here")
-    //         return (
-    //         <p></p>
-    //         )
-    //     } 
-    //     else {
-
-    //         return (
-    //         <div className="discoverInfoBody_bigquote">
-    //         <div className="quote_topleft"></div>
-    //                 <div className="quote_topright"></div>
-    //                     <p>{state.bigquote2}</p>
-    //                 <div className="quote_bottomleft"></div>
-    //             <div className="quote_bottomright"></div>
-    //         </div>
-    //         )
-    //     }
-    // }
-
-    // this is section 3, the UI section.
-    // the general philosophy here is to do as much with HTML and CSS as possible.
-    // there is arguably more memorization in HTML and CSS,
-    // but HTML and CSS are pretty much incapable of crashing things.
-    // it also helps the pages read top to bottom, which saves maintainers from hunting down what certain abstractions actually do.
-    // there are some exceptions. if there is code that is repeated an absurd amount of times, abstract it to remove absurd clutter.
-    // but shoot for less rather than more abstraction.
-    //
-    // to each their own, but I would generally prefer something like
-    // arr.map(e => (
-    //    <p className="pageSection_element">
-    //          <a>{e.text} more html...</a>
-    //          more html...
-    //    </p>
-    // </p>));
-    //
-    // instead of
-    // arr.map(e => <SomeComponentIMade prop={e.someAttribute} />)
-    //
-    // the first example pretty much shows what anyone familiar with boring, basic HTML would be expecting to see on the page.
-    // the second example would require a (likely small but at least considerable) degree of scavenging.
-    // things that get used on tons of different pages are good candidates for getting abstracted into components.
-    //
-    // Of course, all these comments are my personal preference.
-    // Do at your discression. if things get really messy, abstract.
-    // If you have something you truly believe to be a superior alternative, please pursue that.
-    // But yeah, my general approach again was: do as much with HTML and CSS as possible, as those are braindead and more fool-proof.
-    // Using react and javascript minimally, in my opinion, seems to reduce bugs.
-    // The website still has its fair share of bugs.
-    // But if I did not try to keep things braindead for myself, I'm sure I'd end up with the Crash-Master-2000.
-    // I'm not trying to self-deprecate either; just generally goes hand-in-hand with my honesty.
-    //
-    // A lot of my other files outsource code into pretty shoddy abstractions.
-    // Don't look to those as any sort of example.
-    // I was being silly.
-    // Abstractions (generally) use Javascript.
-    // Braindead HTML pretty much does not.+
-
     return (
         <div className="discoverInfo">
             {/**BANNER */}
@@ -190,30 +101,31 @@ function DiscoverInfo() {
                 {/**BODY_LEFT */}
                 <div className="discoverInfoBody_left">
                     <div className='discoverInfoBody_profile'>
-                    <img src={state.profilepic} alt={state.profilepic_alt} />
-                    <p className="discoverInfoBody_caption">{state.imgcaption}</p>
-                    <h3>NAME</h3>
-                    <p>{state.name}</p>
+                        <img src={state.profilepic} alt={state.profilepic_alt} />
+                        <p className="discoverInfoBody_caption">{state.imgcaption}</p>
+                        <h3>NAME</h3>
+                        <p>{state.name}</p>
 
-                    <h3>BORN</h3>
-                    <p>{state.dob}</p>
+                        <h3>BORN</h3>
+                        <p>{state.dob}</p>
 
-                    <h3>CAREER</h3>
-                    <p>
-                        {<>{state.career.map(c => c).join(', ')}</>}
-                    </p>
+                        <h3>CAREER</h3>
+                        {state.career.map(r => <p key={r}>
+                            {r}
+                        </p>)}
 
-                    <h3>ROLE AT NWC</h3>
+                        <h3>ROLE AT NWC</h3>
                         {state.rolesAtNwc.map(r => <p key={r}>
                             {r}
-                    </p>)}
-                    {/* <button type="button" className="discoverInfoBody_submit">SUBMIT CORRECTIONS</button> */}
-                </div>
+                        </p>)}
+
+                    </div>
+                    <Link to='/Forms/CorrectionsForm' className="discoverInfoBody_submit">SUBMIT CORRECTIONS</Link>
                 </div>
 
                 {/**BODY_RIGHT */}
                 <div className="discoverInfoBody_right">
-                    
+
                     <h2 className="discoverInfoBody_video">
                         <VideoPlayer videourl={state.videourl} />
                     </h2>
@@ -222,14 +134,14 @@ function DiscoverInfo() {
                         {state.name}
                     </h2>
 
-                    {bigQuoteSwitch1()}
-                    {/* <div className="discoverInfoBody_bigquote">
-                        <div className="quote_topleft"></div>
+                    {state.bigquote1 !== '' ?
+                        <div className="discoverInfoBody_bigquote">
+                            <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                                <p>{state.bigquote1}</p>
+                            <p>{state.bigquote1}</p>
                             <div className="quote_bottomleft"></div>
-                        <div className="quote_bottomright"></div>
-                    </div> */}
+                            <div className="quote_bottomright"></div>
+                        </div> : null}
 
                     <div className="discoverInfoBody_text">
                         <ReactMarkdown>
@@ -237,17 +149,14 @@ function DiscoverInfo() {
                         </ReactMarkdown>
                     </div>
 
-
-                    {/* {bigQuoteSwitch2()} */}
-
                     {state.bigquote2 !== '' ?
-                    <div className="discoverInfoBody_bigquote">
-                    <div className="quote_topleft"></div>
+                        <div className="discoverInfoBody_bigquote">
+                            <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                                <p>{state.bigquote2}</p>
+                            <p>{state.bigquote2}</p>
                             <div className="quote_bottomleft"></div>
-                        <div className="quote_bottomright"></div>
-                    </div> : null}
+                            <div className="quote_bottomright"></div>
+                        </div> : null}
 
                     <div className="discoverInfoBody_sources">
                         <h3>Sources</h3>
