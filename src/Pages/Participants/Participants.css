@@ -43,16 +43,6 @@
     float: right;
 }
 
-.participants_dl {
-    display: flex;
-    margin: auto;
-    width: fit-content;
-}
-
-
-
-
-
 .participantsList {
     display: flex;
     flex-flow: column wrap;
@@ -61,6 +51,6 @@
     width: 80%;
     margin: auto;
     font-family: var(--fontMontserrat);
-    font-size: .7em;
+    font-size: .6em;
     max-height: 800em;
 }
