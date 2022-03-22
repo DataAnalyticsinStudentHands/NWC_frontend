@@ -1,7 +1,6 @@
 import { media2url } from "../../Components/util/util";
 
 export function loaddiscover(data, setState, state={}) {
-    console.log(data);
 
     setState({
         ...state,

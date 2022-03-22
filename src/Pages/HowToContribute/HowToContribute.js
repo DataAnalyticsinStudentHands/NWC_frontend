@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import VARIABLES from '../../config/.env';
 import './HowToContribute.css';
 import htcBannerPic from "./res/htcBannerPic.png"
@@ -109,7 +110,7 @@ function HowToContribute() {
                     <div className="howToContributeInvolved">
                         <h1>HOW TO GET INVOLVED</h1>
                     </div>
-                    <div className="howToContributeInvolved_favFace">
+                    {/* <div className="howToContributeInvolved_favFace">
                         <a href={facebookLink}><img src={favFace} alt="facebook_logo" /></a>
                     </div>
                     <div className="howToContributeInvolved_favTwitter">
@@ -120,7 +121,7 @@ function HowToContribute() {
                     </div>
                     <div className="howToContributeInvolved_favShare">
                         <a href={instagramLink}><img src={favShare} alt="share_logo" /></a>
-                    </div>
+                    </div> */}
                 </div>
             </div>
 
@@ -131,7 +132,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceResearchers">RESEARCHERS</a>
+                        <Link to="/ResourceResearchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
                     </div>
                 </div>
@@ -142,7 +143,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceArchivists">ARCHIVISTS</a>
+                    <Link to="/ResourceArchivists">ARCHIVISTS</Link>
                         <p>{archivistsText}</p>
                     </div>
                 </div>
@@ -153,7 +154,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceNWC">NWC PARTICIPANTS</a>
+                    <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
@@ -164,7 +165,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceEducators">EDUCATORS</a>
+                    <Link to="/ResourceEducators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
@@ -175,7 +176,7 @@ function HowToContribute() {
                 </div>
                 <div class="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <a href="/ResourceStudents">STUDENTS</a>
+                    <Link to="/ResourceStudents">STUDENTS</Link>
                         <p>{studentsText}</p>
                     </div>
                 </div>
@@ -191,19 +192,11 @@ function HowToContribute() {
                         <p>{banner_card}</p>
                     </div>
                     <div className="howToContributeSubmission_body_links">
-                        <div className="howToContributeSubmission_oral"
-                            style={{ marginRight: "50px" }}>
-                            <p>ORAL HISTORY/BIOGRAPHY SUBMISSIONS</p>
-                        </div>
-                        <div className="howToContributeSubmission_corrections"
-                            style={{ marginRight: "50px" }}>
-                            <p>CORRECTIONS</p>
-                        </div>
-                        <div className="howToContributeSubmission_archival"
-                            style={{ marginRight: "50px" }}>
-                            <p>ARCHIVAL INFORMATION SUBMISSIONS</p>
-                        </div>
-                    </div>
+                        <Link to="/Forms/CorrectionsForm" className="howToContributeSubmission_submit"
+                            >
+                            CORRECTIONS
+                        </Link>
+                                            </div>
                 </div>
 
             </div>

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import VARIABLES from '../../../config/.env';
 import './ResourceEducators.css';
 import oralIcon from "../res/oralIcon.png"
@@ -14,98 +15,122 @@ import ReactPlayer from 'react-player';
 
 function ResourceEducators() {
 
-    const [resourcesEducatorsText, setResourcesEducatorssText] = useState("");
-    const [resourcesEducatorsVideo , setResourcesStudentsVideo] = useState("");
+    // state to hold content from Strapi
+    const [state, setState] = useState({
+        Resources_for_Educators_Text: '',
+        Video_Url_Educators: '',
+        Pdf_How_to_Contribute_Oral_Histories_Educators: '',
+        Pdf_How_to_Contribute_Biographies_Educators: '',
+        Pdf_Classroom_Ideas: '',
+        Pdf_Technical_Guidelines: '',
+        Pdf_Permission_Documents: ''
+    });
 
     useEffect(() => {
         fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
             .then(res => res.json())
             .then(data => {
-
-                setResourcesEducatorssText(
-                    data.Resources_for_Educators_Text
-                );
-                setResourcesStudentsVideo(
-                    data.Video_Url_Educators
-                );
+                setState({
+                    Resources_for_Educators_Text: data.Resources_for_Educators_Text,
+                    Video_Url_Educators: data.Video_Url_Educators,
+                    Pdf_How_to_Contribute_Oral_Histories_Educators: data.Pdf_How_to_Contribute_Oral_Histories_Educators ? data.Pdf_How_to_Contribute_Oral_Histories_Educators.url.split('/')[2] : undefined,
+                    Pdf_How_to_Contribute_Biographies_Educators: data.Pdf_How_to_Contribute_Biographies_Educators ? data.Pdf_How_to_Contribute_Biographies_Educators.url.split('/')[2] : undefined,
+                    Pdf_Classroom_Ideas: data.Pdf_Classroom_Ideas ? data.Pdf_Classroom_Ideas.url.split('/')[2] : undefined,
+                    Pdf_Technical_Guidelines: data.Pdf_Technical_Guidelines ? data.Pdf_Technical_Guidelines.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                });
             })
     }, []);
 
     return (
         <div className="resourceNWC">
 
-        {/* COLOR CORNER TOP RIGHT */}
-        <div className="dotRedEducator">
-            <img src={dotRed} alt="Red Dot Background"></img>
+            {/* COLOR CORNER TOP RIGHT */}
+            <div className="dotRedEducator">
+                <img src={dotRed} alt="Red Dot Background"></img>
+            </div>
+
+            {/* BANNER */}
+            <div className="resourceNWCBanner">
+                <div className="resourceNWCBanner_button">
+                    <img src={educators_button} alt="NWC Button" />
+                </div>
+                <div className="resourceNWCBanner_header">
+                    <h1>RESOURCES FOR EDUCATORS</h1>
+                    <div className="resourceNWCBanner_border"></div>
+                    <p>{state.Resources_for_Educators_Text}</p>
+                </div>
+
+            </div>
+
+            {/* VIDEO PLAYER */}
+            <div className="resourceVideoPlayer">
+                <h2>VIDEO PLAYER</h2>
+                <ReactPlayer
+                    url={state.Video_Url_Educators}
+                    controls={true}
+                    width='1177px'
+                    height='710px'
+                />
+            </div>
+
+            {/* RESEARCHER ICONS */}
+            <div className="resourceNWCIconsTop">
+
+                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Educators}`}>
+                    <div className="iconContainer">
+                        <img src={oralIcon} alt="_"></img>
+                        <p>How to Contribute Oral Histories</p>
+                    </div>
+                </Link>
+                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_Educators}`}>
+                    <div className="iconContainer">
+                        <img src={contributeIcon} alt="_"></img>
+                        <p>How to Contribute Biographies</p>
+                    </div>
+                </Link>
+
+                <Link to={`PDFViewer/${state.Pdf_Classroom_Ideas}`}>
+                    <div className="iconContainer">
+                        <img src={iconClass} alt="_"></img>
+                        <p>Classroom Ideas</p>
+                    </div>
+                </Link>
+            </div>
+
+            <div className="resourceNWCIconsBottom">
+                <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines}`}>
+                    <div className="iconContainer">
+                        <img src={techIcon} alt="_"></img>
+                        <p>Technical Guidelines</p>
+                    </div>
+                </Link>
+                <a href={`${state.Pdf_Permission_Documents}`} download>
+                    <div className="iconContainer">
+                        <img src={permissionIcon} alt="_"></img>
+                        <p>Permissions Documents</p>
+                    </div>
+                </a>
+            </div>
+
+            {/* MORE IDEAS CONTAINER */}
+            <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerNWC">
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
+                </div>
+            </Link>
+
+            {/* COLOR CORNER TOP RIGHT */}
+            <div className="dotBlueEducator">
+                <img src={dotBlue} alt="Blue Dot Background"></img>
+            </div>
+
         </div>
-
-        {/* BANNER */}
-        <div className="resourceNWCBanner">
-            <div className="resourceNWCBanner_button">
-                <img src={educators_button} alt="NWC Button" />
-            </div>
-            <div className="resourceNWCBanner_header">
-                <h1>RESOURCES FOR EDUCATORS</h1>
-            <div className="resourceNWCBanner_border"></div>
-                <p>{resourcesEducatorsText}</p>
-            </div>
-
-        </div>
-
-        {/* VIDEO PLAYER */}
-        <div className="resourceVideoPlayer">
-            <h2>VIDEO PLAYER</h2>
-            <ReactPlayer
-                url={resourcesEducatorsVideo}
-                controls={true}
-                width='1177px'
-                height='710px'
-            />
-        </div>
-
-        {/* RESEARCHER ICONS */}
-        <div className="resourceNWCIconsTop">
-            <div className="iconContainer">
-                <img src={oralIcon} alt="_"></img>
-                <p>How to Contribute Oral Histories</p>  
-            </div>
-            <div className="iconContainer">
-                <img src={contributeIcon} alt="_"></img>
-                <p>How to Contribute Biographies</p>  
-            </div>
-            <div className="iconContainer">
-                <img src={iconClass} alt="_"></img>  
-                <p>Classroom Ideas</p>
-            </div>
-        </div>
-
-        <div className="resourceNWCIconsBottom">
-            <div className="iconContainer">
-                <img src={techIcon} alt="_"></img>
-                <p>Technical Guidelines</p>  
-            </div>
-            <div className="iconContainer">
-                <img src={permissionIcon} alt="_"></img>
-                <p>Permissions Documents</p>  
-            </div>
-        </div>
-
-        {/* MORE IDEAS CONTAINER */}
-        <div className="ideaContainerNWC">
-            <div className="ideaContainerIcon">
-                <img src={ideaIcon} alt="_"></img>
-            </div>
-            <div className="ideaContainerText">
-                <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-            </div>
-        </div>
-
-        {/* COLOR CORNER TOP RIGHT */}
-        <div className="dotBlueEducator">
-            <img src={dotBlue} alt="Blue Dot Background"></img>
-        </div>
-
-    </div>
     )
 }
 export default ResourceEducators

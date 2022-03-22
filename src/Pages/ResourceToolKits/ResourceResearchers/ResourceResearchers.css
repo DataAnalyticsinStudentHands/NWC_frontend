@@ -46,6 +46,7 @@ BANNER
 .researchersBanner_header p{
     text-align:left;
     font-size:25rem;
+    font-family: var(--fontNeoBulletin);
     width: 800rem;
     margin-left: 75rem;
 }

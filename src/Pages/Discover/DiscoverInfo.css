@@ -60,19 +60,21 @@ BODY_LEFT
 .discoverInfoBody_profile {
     background-color: #F8F6F4;
     width: 100%;
-    padding-bottom: 0.2em;
+    padding-bottom: 0.6em;
     text-transform: uppercase;
 }
 
 .discoverInfoBody_profile > h3 {
     font-size: 0.8em;
-    margin-top: .5em;
+    margin-top: 1em;
     padding-left: 20rem;
 }
 
 .discoverInfoBody_profile > p {
     font-size: 0.7em;
     padding-left: 20rem;
+    padding-right: 20rem;
+    padding-top: 0.5em;
 }
 
 .discoverInfoBody_profile > img {
@@ -82,13 +84,13 @@ BODY_LEFT
 .discoverInfoBody_caption{
     font-size: 0.5em !important;
     color: black;
-    margin-bottom: 1em;
+    margin-bottom: 2em;
 }
 
 .discoverInfoBody_submit {
     border: none;
     width: 99%;
-    margin: auto;
+    text-align: center;
     display: block;
     margin: .8em auto;
     padding: .2em;
@@ -236,6 +238,10 @@ BODY_RIGHT
     font-family: var(--fontMontserrat);
 }
 
+.discoverInfoBody_sources{
+    padding-bottom: 2em;
+}
+
 .discoverInfoBody_sources h3 {
     padding-top: 1em;
     font-weight: normal;
@@ -245,7 +251,7 @@ BODY_RIGHT
 .discoverInfoBody_sources p {
     font-size: .6em;
     font-family: var(--fontMontserrat);
-    margin-bottom: .4em;
+    margin-bottom: .8em;
 }
 
 /*
