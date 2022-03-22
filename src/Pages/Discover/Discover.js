@@ -95,12 +95,12 @@ function Discover() {
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
+    setCurrentPage(0);
   }
 
   //Pagination handleClick
   function handlePageClick(e) {
       setCurrentPage(e.selected * postsPerPage)
-      console.log(currentPage)
   }
 
   return (
