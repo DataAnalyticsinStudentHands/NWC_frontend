@@ -69,10 +69,6 @@ function DiscoverInfo() {
                     imgcaption: data[0].imgcaption,
                     maintext: data[0].maintext,
                     name: data[0].name,
-                    // this is just getting the url. this pattern is common for media objects, like images and pdf files.
-                    // this is also acheived in media2url, which can be found in util.js,
-                    // but i think that level of abstraction is unnecessary.
-                    // the string literal is my personal preference.
                     profilepic,
                     profilepic_alt,
                     role: data[0].role,
