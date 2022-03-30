@@ -5,12 +5,12 @@ import * as qs from 'qs';
 
 import Map from "./Map";
 import VARIABLES from "../../config/.env.js";
-import './MappingNWC.css'
+import './ResearchingNWC.css'
 
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 
-function MappingNWC() {
+function ResearchingNWC() {
 
   const { fetchBaseUrl } = VARIABLES;
 
@@ -504,4 +504,4 @@ function MappingNWC() {
   )
 }
 
-export default MappingNWC
+export default ResearchingNWC
