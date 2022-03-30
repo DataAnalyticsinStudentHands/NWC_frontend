@@ -60,9 +60,9 @@ function App() {
         <Route path="/Torch">
           <Torch />
         </Route>
-{/*         <Route path="/MappingNWC">
+         <Route path="/MappingNWC">
           <MappingNWC />
-        </Route> */}
+        </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>
