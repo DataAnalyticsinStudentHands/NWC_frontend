@@ -9,8 +9,8 @@ import './Custom.css';
 import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
-import MappingNWC from "./Pages/MappingNWC/MappingNWC";
-import AdvancedSearch from "./Pages/MappingNWC/AdvancedSearch";
+import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
+import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
@@ -60,8 +60,8 @@ function App() {
         <Route path="/Torch">
           <Torch />
         </Route>
-         <Route path="/MappingNWC">
-          <MappingNWC />
+         <Route path="/ResearchingNWC">
+          <ResearchingNWC />
         </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
