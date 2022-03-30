@@ -8,7 +8,7 @@ BANNER
 
 .aboutBanner {
   width: 100vw;
-  background: url("./res/mapbg.png");
+  background: url("../../res/mapbg.png");
   padding-top: 151rem;
   display: flex;
 }

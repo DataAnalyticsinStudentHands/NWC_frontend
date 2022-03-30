@@ -25,11 +25,11 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import ScrollToTop from "./Components/util/ScrollToTop";
-import ResourceResearchers from "./Pages/ResourceToolKits/ResourceResearchers/ResourceResearchers"
-import ResourceArchivists from "./Pages/ResourceToolKits/ResourceArchivists/ResourceArchivists"
-import ResourceStudents from "./Pages/ResourceToolKits/ResourceStudents/ResourceStudents"
-import ResourceNWC from "./Pages/ResourceToolKits/ResourceNWC/ResourceNWC"
-import ResourceEducators from "./Pages/ResourceToolKits/ResourceEducators/ResourceEducators"
+import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
+import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
+import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
+import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
+import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
 
 
 function App() {
@@ -60,9 +60,9 @@ function App() {
         <Route path="/Torch">
           <Torch />
         </Route>
-{/*         <Route path="/MappingNWC">
+         <Route path="/MappingNWC">
           <MappingNWC />
-        </Route> */}
+        </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>

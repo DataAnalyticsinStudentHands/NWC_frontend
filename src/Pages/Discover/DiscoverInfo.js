@@ -6,7 +6,7 @@ import {
 import "./DiscoverInfo.css"; // This is section 1.
 import ReactMarkdown from 'react-markdown';
 import VARIABLES from '../../config/.env';
-import button from "../../res/imgs/toform.png";
+import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
 
 function DiscoverInfo() {

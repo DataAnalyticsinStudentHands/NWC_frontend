@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import "./Discover.css";
-import discoverButton from "../../res/imgs/buttondiscover.png";
+import discoverButton from "../../res/button-discover.png";
 import LCard from '../../Components/LCard/LCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
-import discoverbannerperson from "../../res/imgs/discoverbannerperson.png";
+import discoverbannerperson from "./res/discoverbannerperson.png";
 import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';

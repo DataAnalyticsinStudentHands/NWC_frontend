@@ -7,7 +7,7 @@ import Map from "./Map";
 import VARIABLES from "../../config/.env.js";
 import './MappingNWC.css'
 
-import button from "./res/button.png";
+import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 
 function MappingNWC() {

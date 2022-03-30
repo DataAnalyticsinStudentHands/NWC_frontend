@@ -2,7 +2,7 @@
     font-size: calc(16px + 1vw);
     font-family: var(--fontBabasNeue);
     color: var(--colorDarkBlue);
-    background: url("./res/mapbg.png") no-repeat;
+    background: url("../../res/mapbg.png") no-repeat;
 }
 /*
 BANNER

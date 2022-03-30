@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "./res/button.png";
-import chick from './res/chick.png';
-import tl from './res/tl.png';
+import button from "../../res/button-about.png";
+import barbarajordan from './res/barbara-jordan.png';
+import tl from './res/timeline.png';
 
 import VARIABLES from "../../config/.env.js";
 
@@ -69,7 +69,7 @@ function About() {
           </p>
         </div>
         <div className="aboutBanner_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div>
-        <img src={chick} className="aboutBanner_chick" alt="_" />
+        <img src={barbarajordan} className="aboutBanner_chick" alt="barbara-jordan" />
       </div>
 
       {/**TIMELINE */}

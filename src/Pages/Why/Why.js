@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Why.css";
-import buttonwhy from "./res/buttonwhy.png";
+import buttonwhy from "../../res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
 import comingsoon from "./res/comingsoon_thumb.png";
 import VARIABLES from '../../config/.env';

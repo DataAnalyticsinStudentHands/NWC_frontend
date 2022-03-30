@@ -17,7 +17,7 @@ html {
   width: 100%;
   align-items: center;
   justify-content: space-around;
-  background: url("./res/mapbg.png");
+  background: url("../../res/mapbg.png");
 }
 
 .contributeBanner > img {
