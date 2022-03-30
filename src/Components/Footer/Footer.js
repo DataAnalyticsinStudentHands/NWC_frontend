@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 
 import VARIABLES from "../../config/.env";
 
-import icon from "../../res/imgs/icon.png";
-import instagram from "../../res/imgs/instagram.png";
-import twitter from "../../res/imgs/twitter.png";
-import facebook from "../../res/imgs/facebook.png";
-import natendow from "../../res/imgs/natendow.png";
+import icon from "./res/icon.png";
+import instagram from "./res/instagram.png";
+import twitter from "./res/twitter.png";
+import facebook from "./res/facebook.png";
+import natendow from "./res/natendow.png";
 
 const getWhere = (data, key, value) => {
     return data.filter(e => e[key] === value);

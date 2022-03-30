@@ -10,7 +10,7 @@ BANNER
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: url("../../res/imgs/mapbg.png");
+    background: url("../../res/mapbg.png");
 }
 
 .discoverBanner > img {
