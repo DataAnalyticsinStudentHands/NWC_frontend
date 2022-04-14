@@ -14,7 +14,6 @@ import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
-import Torch from "./Pages/Torch/Torch";
 import Participants from "./Pages/Participants/Participants";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
@@ -54,14 +53,10 @@ function App() {
           <Why />
         </Route>
         <Route path="/Essay">
-          {/*<Essay/>*/}
           <Essay />
         </Route>
-        <Route path="/Torch">
-          <Torch />
-        </Route>
-         <Route path="/ResearchingNWC">
-          <ResearchingNWC />
+         <Route path="/MappingNWC">
+            <ResearchingNWC />
         </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
