@@ -26,7 +26,6 @@ function Why() {
         fetch([VARIABLES.fetchBaseUrl, "content-whies"].join('/'))
         .then(res => res.json())
         .then(data => {
-
             const primaryDocuments = data[0].PrimaryDocuments.map(pd => {
                 // [THUMBNAIL, PDF]    
                 const thumbnail = [VARIABLES.fetchBaseUrl, pd.THUMBNAIL[0].url].join('');
@@ -66,20 +65,15 @@ function Why() {
     function EssayList(props) {
         const essays = props.essays;
         const listItems = essays.filter(essay => essay[3] === true)
-            .map((essay) =>
+            .map((essay) => 
             <div key={essay[0]} className="thumb_with_title">
                 <Link to={`essay?id=${essay[0]}`}>
                     <img src={essay[1]} alt="" key={essay[0]} />
                     <h3 className="thumb_with_title_h3">{essay[2]}</h3>
                 </Link>
-                
             </div>
         );
-        return (
-            <div>
-                {listItems}
-            </div>
-        );
+        return (listItems);
     }
 
     return (
@@ -118,12 +112,6 @@ function Why() {
                 <div className="whyEssays">
                     <h2>FEATURED ESSAYS</h2>
                     <div className="whyEssays_list">
-                        <div className="thumb_with_title">
-                            <Link to="/Torch">
-                                <img src={`${VARIABLES.fetchBaseUrl}/uploads/empty_thumb_0a3afbbd76.png`} alt=""/>
-                                <h3 className="thumb_with_title_h3">Torch Relay</h3>
-                            </Link>
-                        </div>  
                         <EssayList essays={essays} />,
                         <div className="thumb_with_title">
                             <img src={comingsoon} alt="" />
