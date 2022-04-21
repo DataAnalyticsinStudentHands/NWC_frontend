@@ -16,17 +16,18 @@ function Why() {
         BannerPhotoCredit_more: "More Stuff",
         TimelineIframeSrc: "https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1Yjky3oa3s751TooQVoeVZasxl98_i8EcjTAqo896d1s&font=Default&lang=en&initial_zoom=2&height=650",
         documents: [],
-        videoSRC: " https://av.lib.uh.edu:443/master_files/nk322d406/embed",
+        videoURL: " https://av.lib.uh.edu:443/master_files/nk322d406/embed",
         videoTitle: "Video Title",
     });
 
     const [essays, setEssays] = useState([[]]);
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-whies"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "content-why-the-nwc-matters"].join('/'))
         .then(res => res.json())
         .then(data => {
-            const primaryDocuments = data[0].PrimaryDocuments.map(pd => {
+            
+            const primaryDocuments = data.PrimaryDocuments.map(pd => {
                 // [THUMBNAIL, PDF]    
                 const thumbnail = [VARIABLES.fetchBaseUrl, pd.THUMBNAIL[0].url].join('');
                 const pdf = [VARIABLES.fetchBaseUrl, pd.PDF[0].url].join('');
@@ -35,9 +36,13 @@ function Why() {
             });
 
             setPageState({
-                ...pageState,
-                ...data[0],
+                HistoricalOverview: data.HistoricalOverview,
+                BannerPhotoCredit: data.BannerPhotoCredit,
+                BannerPhotoCredit_more: data.BannerPhotoCredit_more,
+                TimelineIframeSrc: data.TimelineIframeSrc,
                 documents: primaryDocuments,
+                videoURL: data.videoURL,
+                videoTitle: data.videoTitle,
             })
         })
         .catch(err => console.log(err));
@@ -104,7 +109,14 @@ function Why() {
             </div>
 
             {/**TIMELINE */}
-            <iframe title="Timeline Iframe" src={pageState.TimelineIframeSrc} width='100%' height='650' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe> 
+            <iframe className="" title="Timeline Iframe" 
+                src={pageState.TimelineIframeSrc} 
+                width='100%' height='650' 
+                webkitallowfullscreen="true" 
+                mozallowfullscreen="true" 
+                allowFullScreen 
+                frameBorder='0'>
+            </iframe> 
 
 
             <div className="whylowerSection">
@@ -124,8 +136,8 @@ function Why() {
                 <div className="whyPublications">
                     <h2>CONFERENCE PUBLICATIONS</h2>
                     <div className="whyPublications_list">
-                        {pageState.documents.map(d => <a href={d[1]}>
-                            <img src={d[0]} alt="" />
+                        {pageState.documents.map(d => <a  key={d[1]} href={d[1]}>
+                            <img key={d[0]} src={d[0]} alt="" />
                         </a>)}
                     </div>
                 </div>
