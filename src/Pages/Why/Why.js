@@ -8,16 +8,17 @@ import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 
 
-
+//Clean up lorem ipsum
+//Casing 
 function Why() {
     const [pageState, setPageState] = useState({
-        HistoricalOverview: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-        BannerPhotoCredit: "Photo by Jane Doe",
-        BannerPhotoCredit_more: "More Stuff",
-        TimelineIframeSrc: "https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1Yjky3oa3s751TooQVoeVZasxl98_i8EcjTAqo896d1s&font=Default&lang=en&initial_zoom=2&height=650",
+        HistoricalOverview: "",
+        BannerPhotoCredit: "",
+        BannerPhotoCredit_more: "",
+        TimelineIframeSrc: "",
         documents: [],
-        videoURL: " https://av.lib.uh.edu:443/master_files/nk322d406/embed",
-        videoTitle: "Video Title",
+        videoURL: "",
+        videoTitle: "",
     });
 
     const [essays, setEssays] = useState([[]]);
@@ -41,8 +42,8 @@ function Why() {
                 BannerPhotoCredit_more: data.BannerPhotoCredit_more,
                 TimelineIframeSrc: data.TimelineIframeSrc,
                 documents: primaryDocuments,
-                videoURL: data.videoURL,
-                videoTitle: data.videoTitle,
+                videoURL: data.VideoURL,
+                videoTitle: data.VideoTitle,
             })
         })
         .catch(err => console.log(err));
@@ -104,7 +105,7 @@ function Why() {
             {/**VIDEO */}
             <div className="whyoutsideVideo">
                 <div className="whyVideo">
-                    <InfoVideo src={pageState.videoSRC} title={pageState.videoTitle} />
+                    <InfoVideo src={pageState.videoURL} title={pageState.videoTitle} />
                 </div>
             </div>
 
