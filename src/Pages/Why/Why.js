@@ -7,15 +7,14 @@ import VARIABLES from '../../config/.env';
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 
-
 //Clean up lorem ipsum
 //Casing 
 function Why() {
     const [pageState, setPageState] = useState({
-        HistoricalOverview: "",
-        BannerPhotoCredit: "",
-        BannerPhotoCredit_more: "",
-        TimelineIframeSrc: "",
+        historicalOverview: "",
+        bannerPhotoCredit: "",
+        bannerPhotoCredit_more: "",
+        timelineIframeSrc: "",
         documents: [],
         videoURL: "",
         videoTitle: "",
@@ -37,10 +36,10 @@ function Why() {
             });
 
             setPageState({
-                HistoricalOverview: data.HistoricalOverview,
-                BannerPhotoCredit: data.BannerPhotoCredit,
-                BannerPhotoCredit_more: data.BannerPhotoCredit_more,
-                TimelineIframeSrc: data.TimelineIframeSrc,
+                historicalOverview: data.HistoricalOverview,
+                bannerPhotoCredit: data.BannerPhotoCredit,
+                bannerPhotoCredit_more: data.BannerPhotoCredit_more,
+                timelineIframeSrc: data.TimelineIframeSrc,
                 documents: primaryDocuments,
                 videoURL: data.VideoURL,
                 videoTitle: data.VideoTitle,
@@ -89,15 +88,15 @@ function Why() {
                 <img className="whyBanner_button" src={buttonwhy} alt=""/>
                 <div className="whyBanner_card">
                     <h2>HISTORICAL OVERVIEW</h2>
-                    <p>{pageState.HistoricalOverview}</p>
+                    <p>{pageState.historicalOverview}</p>
                     <Link to="/Essay?id=6195463454e8a217c0d07075">
                         <p className="why_readmore" >READ MORE</p>
                     </Link>
                 </div>
                 <figure>
                     <img src={whybannerhuman} alt=""/>
-                    <figcaption title={pageState.BannerPhotoCredit_more}>
-                        {pageState.BannerPhotoCredit}
+                    <figcaption title={pageState.bannerPhotoCredit_more}>
+                        {pageState.bannerPhotoCredit}
                     </figcaption>
                 </figure>
             </div>
@@ -111,7 +110,7 @@ function Why() {
 
             {/**TIMELINE */}
             <iframe className="" title="Timeline Iframe" 
-                src={pageState.TimelineIframeSrc} 
+                src={pageState.timelineIframeSrc} 
                 width='100%' height='650' 
                 webkitallowfullscreen="true" 
                 mozallowfullscreen="true" 
