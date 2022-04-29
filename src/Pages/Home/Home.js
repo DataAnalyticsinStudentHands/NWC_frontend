@@ -31,6 +31,7 @@ import share from './res/share.png';
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
+import { dataURItoByteString } from 'react-pdf/dist/umd/shared/utils';
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e[key] === value);
@@ -57,30 +58,36 @@ function Home() {
   //temp
   const overlaymp4 = VARIABLES.overlaymp4; //"https://www.w3schools.com/html/mov_bbb.mp4";
 
-  const jack = '_';
-  const [homeAbout_p1, setHomeAbout_p1] = useState(jack + jack);
-  const [homeAbout_p2, setHomeAbout_p2] = useState(jack);
-  const [homeMap_text, setHomeMap_text] = useState(jack + jack + jack);
   const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
-  const [homeAboutImgCredit, setHomeAboutImgCredit] = useState('Jane Doe');
-  const [homeExplore_text, setHomeExplore_text] = useState(jack + jack);
-  const [homeButton1_text, setHomeButton1_text] = useState(jack);
-  const [homeButton1_link, setHomeButton1_link] = useState('/');
-  const [homeButton2_text, setHomeButton2_text] = useState(jack);
-  const [homeButton2_link, setHomeButton2_link] = useState('/');
-  const [homeButton3_text, setHomeButton3_text] = useState(jack);
-  const [homeButton3_link, setHomeButton3_link] = useState('/');
-  const [homeButton4_text, setHomeButton4_text] = useState(jack);
-  const [homeButton4_link, setHomeButton4_link] = useState('/');
   const [homeDowntown, setHomeDowntown] = useState([]);
   const [homeThirdward_uh, setHomeThirdward_uh] = useState([]);
   const [homeMuseum_district, setHomeMuseum_district] = useState([]);
   const [homeMagnolia_park, setHomeMagnolia_park] = useState([]);
   const [homeAstrodome, setHomeAtrodome] = useState([]);
-  const [photoByExplore, setPhotoByExplore] = useState([]);
-  const [aboutImgCredit_more, setAboutImgCredit_more] = useState([]);
-  const [photoByExplore_more, setPhotoByExplore_more] = useState([]);
   const [openingMap, setOpeningMap] = useState(true);
+  
+  const [state, setState] = useState({
+
+    photoByExplore: "",
+    photoByExplore_more:  "",
+    aboutImgCredit: "",
+    aboutImgCredit_more: "",
+    createdAt:"",
+    homeAbout_p: "",
+    homeAbout_p1: "",
+    homeAbout_p2: "",
+    homeButton1_link: "",
+    homeButton1_text: "",
+    homeButton2_link: "",
+    homeButton2_text: "",
+    homeButton3_link: "",
+    homeButton3_text: "",
+    homeButton4_link: "",
+    homeExplore_text: "",
+    homeHighlights_content2: "",
+    homeMap_text: ""
+  
+  });
 
   const scroll = () => {
     window.scrollTo(0, 0);
@@ -91,41 +98,29 @@ function Home() {
     fetch([VARIABLES.fetchBaseUrl, 'content-homes'].join('/'))
       .then((res) => res.json())
       .then((data) => {
-        const get = (section) => {
-          return getWhere(data, 'Section', section)[0]['Content'];
-        };
 
-        setHomeAbout_p1(get('homeAbout_p1'));
-
-        setHomeAbout_p2(get('homeAbout_p2'));
-
-        setHomeAboutImgCredit(get('aboutImgCredit'));
-
-        setHomeMap_text(get('homeMap_text'));
-
-        setHomeExplore_text(get('homeExplore_text'));
-
-        setHomeButton1_text(get('homeButton1_text'));
-
-        setHomeButton1_link(get('homeButton1_link'));
-
-        setHomeButton2_text(get('homeButton2_text'));
-
-        setHomeButton2_link(get('homeButton2_link'));
-
-        setHomeButton3_text(get('homeButton3_text'));
-
-        setHomeButton3_link(get('homeButton3_link'));
-
-        setHomeButton4_text(get('homeButton4_text'));
-
-        setHomeButton4_link(get('homeButton4_link'));
-
-        setPhotoByExplore(get('PhotoByExplore'));
-
-        setPhotoByExplore_more(get('PhotoByExplore_more'));
-
-        setAboutImgCredit_more(get('aboutImgCredit_more'));
+        setState({
+          photoByExplore: data.PhotoByExplore,
+          photoByExplore_more: data.PhotoByExplore_more,
+          aboutImgCreidt: data.aboutImgCreidt,
+          aboutImgCredit_more: data.aboutImgCredit_more,
+          createdAt: data.createdAt,
+          homeAbout_p: data.homeAbout_p,
+          homeAbout_p1: data.homeAbout_p1,
+          homeAbout_p2: data.homeAbout_p2,
+          homeButton1_link: data.homeButton1_link,
+          homeButton1_text: data.homeButton1_text,
+          homeButton2_link: data.homeButton2_link,
+          homeButton2_text: data.homeButton2_text,
+          homeButton3_link: data.homeButton3_link,
+          homeButton3_text: data.homeButton3_text,
+          homeButton4_link: data.homeButton4_text,
+          homeButton4_text: data.homeButton4_text,
+          homeExplore_text: data.homeExplore_text,
+          homeHighlights_content2: data.homeHighlights_content2,
+          homeMap_text: data.homeMap_text
+        })
+        
       })
       .catch((err) => console.log(err));
   }, []);
@@ -271,9 +266,9 @@ function Home() {
 
                 {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
                 <div className="homeAbout_peas">
-                  <p className="homeAbout_p1">{homeAbout_p1}</p>
+                  <p className="homeAbout_p1">{state.homeAbout_p1}</p>
                   {homeAboutReadmore ? (
-                    <p className="homeAbout_p2">{homeAbout_p2}</p>
+                    <p className="homeAbout_p2">{state.homeAbout_p2}</p>
                   ) : (
                     ''
                   )}
@@ -288,9 +283,9 @@ function Home() {
 
               <div className="homeAbout_chicks">
                 <img src={aboutpeople} alt="female_athletes" />
-                <div title={aboutImgCredit_more} className="homeAbout_imgCred">
-                  <p title={aboutImgCredit_more}>
-                    PHOTO BY {homeAboutImgCredit}
+                <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
+                  <p title={state.aboutImgCredit_more}>
+                    PHOTO BY {state.homeAboutImgCredit}
                   </p>
                 </div>
               </div>
@@ -305,7 +300,7 @@ function Home() {
               <div className="homeMap_headerBackdrop"></div>
               <p className="homeMap_header">INTERACTIVE MAP</p>
               <div className="homeMap_cardHr"></div>
-              <p className="homeMap_text">{homeMap_text}</p>
+              <p className="homeMap_text">{state.homeMap_text}</p>
             </div>
 
             {openingMap ? (
@@ -407,14 +402,14 @@ function Home() {
               <div className="homeExplore_headerBackdrop"></div>
               <p className="homeExplore_header">EXPLORE THE SITE</p>
               <div className="homeExplore_hr"></div>
-              <p className="homeExplore_text">{homeExplore_text}</p>
+              <p className="homeExplore_text">{state.homeExplore_text}</p>
             </div>
 
             <div className="homeExplore_img">
               <img src={minorityrightsplank} alt="minority_rights_plank" />
             </div>
-            <div className="homeExplore_imgSrc" title={photoByExplore_more}>
-              <p>PHOTO BY {photoByExplore}</p>
+            <div className="homeExplore_imgSrc" title={state.photoByExplore_more}>
+              <p>PHOTO BY {state.photoByExplore}</p>
             </div>
 
             <div className="homeExplore_borderBot"></div>
@@ -422,28 +417,28 @@ function Home() {
 
           {/**BUTTONS */}
           <div className="homeButtons">
-            <Link to={homeButton1_link}>
+            <Link to={state.homeButton1_link}>
               <div className="homeButtons_button homeButtons_button1">
                 <img src={button1} alt="button_2" />
-                <p>{homeButton1_text}</p>
+                <p>{state.homeButton1_text}</p>
               </div>
             </Link>
-            <Link to={homeButton2_link}>
+            <Link to={state.homeButton2_link}>
               <div className="homeButtons_button homeButtons_button2">
                 <img src={button2} alt="button_2" />
-                <p>{homeButton2_text}</p>
+                <p>{state.homeButton2_text}</p>
               </div>
             </Link>
-            <Link to={homeButton3_link}>
+            <Link to={state.homeButton3_link}>
               <div className="homeButtons_button homeButtons_button3">
                 <img src={button3} alt="button_3" />
-                <p>{homeButton3_text}</p>
+                <p>{state.homeButton3_text}</p>
               </div>
             </Link>
-            <Link to={homeButton4_link}>
+            <Link to={state.homeButton4_link}>
               <div className="homeButtons_button homeButtons_button4">
                 <img src={button4} alt="button_4" />
-                <p>{homeButton4_text}</p>
+                <p>{state.homeButton4_text}</p>
               </div>
             </Link>
 
