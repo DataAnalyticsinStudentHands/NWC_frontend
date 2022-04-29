@@ -22,7 +22,7 @@ function d2card(datum) {
 
 export function loadcards(data, setState) {
     try{
-        setState(data.map(d2card));
+        setState(data?.map(d2card));
     } catch(e) {
         console.log(e);
     }

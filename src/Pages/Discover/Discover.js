@@ -24,7 +24,7 @@ function Discover() {
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
   let totalPages = (Math.ceil(dataLength / postsPerPage))
@@ -37,18 +37,17 @@ function Discover() {
       .then(data => {
         loadcards(data, setFeatured);
         setDataLength(data.length)
-      })
-      .catch(err => console.log(err));
+      }).catch(err => console.log(err));
   }, []); // eslint-disable-line
 
   useEffect(() => {
-    fetch([fetchBaseUrl, `content-discover-stories?_start=${currentPage}&_limit=${postsPerPage}`/* + `?_start=${page}&_limit=2`*/].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?_start=${currentOffSet}&_limit=${postsPerPage}`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data, setCards);
       })
       .catch(err => console.log(err));
-  }, [currentPage, postsPerPage]); // eslint-disable-line
+  }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
     fetch(`${fetchBaseUrl}/content-discover-stories-main`)
@@ -72,10 +71,19 @@ function Discover() {
   }
 
   function sortName() {
-    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_sort=name:ASC&_limit=-1`].join('/'))
+    fetch([fetchBaseUrl, `content-discover-stories?name_contains=${input}&_limit=-1`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
+      //This should reset the pagination back to page 1
+      setCurrentOffSet(0)
+
+      cards.forEach(card => {
+        const nameParts = card.name.split(" ")
+        card.lastName = nameParts[nameParts.length - 1]
+      })
+      cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
+      console.log(cards)
   }
 
   function sortRole() {
@@ -83,6 +91,8 @@ function Discover() {
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
+      //This should reset the pagination back to page 1
+      setCurrentOffSet(0)
   }
 
   function sortState() {
@@ -90,17 +100,34 @@ function Discover() {
       .then(response => response.json())
       .then(data => loadcards(data, setCards))
       .catch(err => console.log(err));
+      //This should reset the pagination back to page 1
+      setCurrentOffSet(0)
   }
-  
+
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
-    setCurrentPage(0);
+    setCurrentOffSet(0);
   }
 
   //Pagination handleClick
   function handlePageClick(e) {
-      setCurrentPage(e.selected * postsPerPage)
+    setCurrentOffSet(e.selected * postsPerPage)
+  }
+
+  //Janky reset for pagination, depending on the cards per page
+  function resetPagination() {
+    if (postsPerPage === "12") {
+      return currentOffSet / 12
+    } else if (postsPerPage === "24") {
+      return currentOffSet / 24
+    } else if (postsPerPage === "48") {
+      return currentOffSet / 48
+    } else if (postsPerPage === "96") {
+      return currentOffSet / 96
+    } else {
+      return currentOffSet * 0
+    }
   }
 
   return (
@@ -188,6 +215,8 @@ function Discover() {
             breakLabel="..."
             nextLabel="next >"
             onPageChange={handlePageClick}
+            renderOnZeroPageCount={null}
+            forcePage={resetPagination()}
             pageRangeDisplayed={2}
             marginPagesDisplayed={3}
             pageCount={totalPages}
