@@ -95,7 +95,7 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'content-homea'].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, 'content-homes'].join('/'))
       .then((res) => res.json())
       .then((data) => {
 
