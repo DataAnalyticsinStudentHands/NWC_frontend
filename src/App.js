@@ -55,7 +55,7 @@ function App() {
         <Route path="/Essay">
           <Essay />
         </Route>
-         <Route path="/MappingNWC">
+         <Route path="/ResearchingNWC">
             <ResearchingNWC />
         </Route> 
         <Route path="/HowToContribute">
