@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "../../res/button-about.png";
+import button from "../../res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
 
