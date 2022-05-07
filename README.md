@@ -1,6 +1,6 @@
 # NWC Frontend 
 
-This is the client-side interface for the 1977 NWC project. It is built with Create-React-App, React-Router, React-Bootstrap, and Axios. The backend it interacts could be found here: https://github.com/DataAnalyticsinStudentHands/NWC_backend.
+This is the client-side interface for the 1977 NWC project. It is built with Create-React-App, React-Router, and Axios to communicate with the backend. The backend it interacts could be found here: https://github.com/DataAnalyticsinStudentHands/NWC_backend.
 
 ## Development
 

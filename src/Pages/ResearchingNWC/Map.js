@@ -3,7 +3,6 @@ import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-load
 
 import './Map.css'
 import VARIABLES from "../../config/.env.js";
-import { Person } from 'react-bootstrap-icons';
 
 mapboxgl.accessToken = VARIABLES.mapboxAccessToken;
 
@@ -11,9 +10,9 @@ export default function Map({ map_data }) {
     const mapContainer = useRef(null);
     const map = useRef(null);
 
-    const [lng, setLng] = useState(-95.36);
-    const [lat, setLat] = useState(29.75);
-    const [zoom, setZoom] = useState(4);
+    const [lng] = useState(-95.36);
+    const [lat] = useState(29.75);
+    const [zoom] = useState(4);
 
     //lookup roles
     const lookup = {
@@ -35,7 +34,7 @@ export default function Map({ map_data }) {
     }
 
     useEffect(() => {
-        //if (map.current) return; // initialize map only once
+        
         map.current = new mapboxgl.Map({
             container: mapContainer.current,
             style: 'mapbox://styles/mapbox/light-v10',

@@ -16,7 +16,6 @@ function MoreIdeasForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   
@@ -43,7 +42,8 @@ function MoreIdeasForm() {
         </p>
       </header>
 
-      <input placeholder="Name" {...register('name')} />
+      <input placeholder="Name" {...register('name', { required: true })} />
+      {errors.name?.type === 'required' && "Name is required"}
       <input
         placeholder="Affiliation/Occupation"
         {...register('affiliation')}

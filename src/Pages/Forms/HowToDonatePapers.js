@@ -16,7 +16,6 @@ function HowToDonatePapersForm() {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   
@@ -42,7 +41,8 @@ function HowToDonatePapersForm() {
         </p>
       </header>
 
-      <input placeholder="Name" {...register('name')} />
+      <input placeholder="Name" {...register('name', { required: true })} />
+      {errors.name?.type === 'required' && "Name is required"}
       <input
         placeholder="Role at NWC"
         {...register('role')}
