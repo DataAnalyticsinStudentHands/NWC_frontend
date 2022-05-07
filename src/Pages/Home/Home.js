@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import Map from './Map';
-import HighlightsCarousel from './HighlightsCarousel';
 import './OverlayVid.css';
 
 import opening from './res/openingmap.png';
@@ -31,7 +30,6 @@ import share from './res/share.png';
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
-import { dataURItoByteString } from 'react-pdf/dist/umd/shared/utils';
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e[key] === value);
@@ -199,8 +197,6 @@ function Home() {
       points: homeAstrodome,
     },
   };
-
-  const [videoOn, setVideoOn] = useState(true);
 
   return (
     <>
