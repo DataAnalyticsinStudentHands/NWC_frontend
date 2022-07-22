@@ -31,27 +31,39 @@ function About() {
 
   // grab page data from strapi
   useEffect(() => {
-    fetch(`${fetchBaseUrl}/content-about`)
+    fetch(`${fetchBaseUrl}/api/content-about?populate=*`)
       .then(res => res.json())
       .then(data => {
+        //
+        const {data:
+                {attributes:
+                  {
+                    Banner_text, BannerImageCredit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
+                    aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
+                    aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink,
+                    aboutDocuments_aplink
+                  }
+                }
+              } = data;
+              
         setState({
-          banner_text: data.Banner_text,
-          bannerimage_credit: data.BannerImage_Credit,
-          bannerimagecredit_more: data.BannerImageCredit_more,
-          aboutTimeline_1: data.aboutTimeline_1,
-          aboutTimeline_2: data.aboutTimeline_2,
-          aboutTimeline_3: data.aboutTimeline_3,
-          aboutTimeline_4: data.aboutTimeline_4,
-          aboutTimeline_5: data.aboutTimeline_5,
-          aboutDocuments_ddlink: data.aboutDocuments_ddlink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_ddlink[0].url : undefined,
-          aboutDocuments_cblink: data.aboutDocuments_cblink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_cblink[0].url : undefined,
-          aboutDocuments_aplink: data.aboutDocuments_aplink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_aplink[0].url : undefined,
-          aboutDocuments_frlink: data.aboutDocuments_frlink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_frlink[0].url : undefined,
-          aboutDocuments_eclink: data.aboutDocuments_eclink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_eclink[0].url : undefined,
-          aboutDocuments_fmlink: data.aboutDocuments_fmlink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_fmlink[0].url : undefined,
-          aboutDocuments_tblink: data.aboutDocuments_tblink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_tblink[0].url : undefined,
-          aboutDocuments_tdlink: data.aboutDocuments_tdlink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_tdlink[0].url : undefined,
-          aboutDocuments_edlink: data.aboutDocuments_edlink.length !== 0 ? fetchBaseUrl + data.aboutDocuments_edlink[0].url : undefined,
+          banner_text: Banner_text,
+          bannerimage_credit: BannerImageCredit,
+          bannerimagecredit_more: BannerImageCredit_more,
+          aboutTimeline_1: aboutTimeline_1,
+          aboutTimeline_2: aboutTimeline_2,
+          aboutTimeline_3: aboutTimeline_3,
+          aboutTimeline_4: aboutTimeline_4,
+          aboutTimeline_5: aboutTimeline_5,
+          aboutDocuments_cblink: aboutDocuments_cblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
+          aboutDocuments_aplink: aboutDocuments_aplink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
+          aboutDocuments_frlink: aboutDocuments_frlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
+          aboutDocuments_eclink: aboutDocuments_eclink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
+          aboutDocuments_fmlink: aboutDocuments_fmlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
+          aboutDocuments_tblink: aboutDocuments_tblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tblink.data.attributes.url : undefined,
+          aboutDocuments_tdlink: aboutDocuments_tdlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tdlink.data.attributes.url : undefined,
+          aboutDocuments_edlink: aboutDocuments_edlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_edlink.data.attributes.url : undefined,
+          aboutDocuments_ddlink: aboutDocuments_ddlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_ddlink.data.attributes.url : undefined,
         });
       })
       .catch(err => console.log(err));
