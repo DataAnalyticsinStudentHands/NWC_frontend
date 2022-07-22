@@ -23,26 +23,32 @@ function Why() {
     const [essays, setEssays] = useState([[]]);
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-why-the-nwc-matters"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-why-the-nwc-matter?populate[PrimaryDocuments][populate]=*"].join('/'))
         .then(res => res.json())
         .then(data => {
-            
-            const primaryDocuments = data.PrimaryDocuments.map(pd => {
+            const {data:
+                    {attributes:
+                        {PrimaryDocuments, HistoricalOverview, BannerPhotoCredit, BannerPhotoCredit_more, 
+                            TimelineIframeSrc, VideoURL, VideoTitle}}} = data;
+
+            //thumbnails and pdfs should prop be in an array                
+            const primaryDocuments = PrimaryDocuments.map(pd => {
+                
                 // [THUMBNAIL, PDF]    
-                const thumbnail = [VARIABLES.fetchBaseUrl, pd.THUMBNAIL[0].url].join('');
-                const pdf = [VARIABLES.fetchBaseUrl, pd.PDF[0].url].join('');
+                const thumbnail = [VARIABLES.fetchBaseUrl, pd.THUMBNAIL.data.attributes.url].join('');
+                const pdf = [VARIABLES.fetchBaseUrl, pd.PDF.data.attributes.url].join('');
 
                 return [thumbnail, pdf];
             });
 
             setPageState({
-                historicalOverview: data.HistoricalOverview,
-                bannerPhotoCredit: data.BannerPhotoCredit,
-                bannerPhotoCredit_more: data.BannerPhotoCredit_more,
-                timelineIframeSrc: data.TimelineIframeSrc,
+                historicalOverview: HistoricalOverview,
+                bannerPhotoCredit: BannerPhotoCredit,
+                bannerPhotoCredit_more: BannerPhotoCredit_more,
+                timelineIframeSrc: TimelineIframeSrc,
                 documents: primaryDocuments,
-                videoURL: data.VideoURL,
-                videoTitle: data.VideoTitle,
+                videoURL: VideoURL,
+                videoTitle: VideoTitle,
             })
         })
         .catch(err => console.log(err));
@@ -50,15 +56,15 @@ function Why() {
     }, []); // eslint-disable-line
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-essays"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-essays?populate=*"].join('/'))
         .then(res => res.json())
         .then(data => {
             setEssays(
-                data.map(d => {
-                    const featured = d.Featured;
-                    const thumbnail = [VARIABLES.fetchBaseUrl, d.Thumbnail.url].join('')
-                    const id = d._id;
-                    const title = d.ShortTitle;
+                data.data.map(d => {
+                    const featured = d.attributes.Featured;
+                    const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                    const id = d.id;
+                    const title = d.attributes.ShortTitle;
 
                     return [id, thumbnail, title, featured];
                 })
@@ -135,11 +141,14 @@ function Why() {
                 {/**PUBLICATIONS */}
                 <div className="whyPublications">
                     <h2>CONFERENCE PUBLICATIONS</h2>
+                    
                     <div className="whyPublications_list">
                         {pageState.documents.map(d => <a  key={d[1]} href={d[1]}>
                             <img key={d[0]} src={d[0]} alt="" />
                         </a>)}
                     </div>
+                
+                
                 </div>
             </div>
         </div>
