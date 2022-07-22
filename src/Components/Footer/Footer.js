@@ -23,22 +23,25 @@ function Footer() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-footer"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-footer"].join('/'))
         .then(response => response.json())
         .then(data => {
-
+            const {data:
+                    {attributes:
+                        {DonateLink, FacebookLink, InstagramLink, TwitterLink, contactEmail, paragraph}
+                    }} = data;
             setState({
-                donateLink: data.DonateLink,
-                facebookLink: data.FacebookLink,
-                instagramLink: data.InstagramLink,
-                twitterLink: data.TwitterLink,
-                contactEmail: data.contactEmail,
-                paragraph: data.paragraph
+                donateLink: DonateLink,
+                facebookLink: FacebookLink,
+                instagramLink: InstagramLink,
+                twitterLink: TwitterLink,
+                contactEmail: contactEmail,
+                paragraph: paragraph
             });
 
           })
         }, []);  /* eslint-disable-line */
-
+        
     return (
         <div className="footer">
                 <div className="footer_top icon">
@@ -56,6 +59,7 @@ function Footer() {
                 </div>
                 <div className="footer_top donate">
                     <a href={state.donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>
+                    
                 </div>
                 <div className="footer_top social">
                     <div className="socialMedia">
