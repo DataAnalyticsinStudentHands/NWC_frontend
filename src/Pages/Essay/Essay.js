@@ -35,29 +35,35 @@ function Essay() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, `content-essays/${id}`].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, `api/content-essays/${id}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
         .then(res => res.json())
         .then(data => {
+            const {data:
+                        {attributes:
+                            {
+                                LayoutChoice, Title, HeaderImage, PullQuote1, Section1, Section2, Section3, Section4, CaptionedImage1, CaptionedImage2, CaptionedImage3, 
+                                CaptionedImage4, BigImage1, BigImage2, PullQuote2, AuthorCredit, PreferredCitation, Sources, TimeLineURL
+                            }}} = data;
             setState({
-                layoutChoice: data.LayoutChoice,
-                title: data.Title,
-                headerImage: data.HeaderImage ? [VARIABLES.fetchBaseUrl, data.HeaderImage.Image[0].url].join('') : '',
-                pullQuote1: data.PullQuote1,
-                section1: data.Section1,
-                section2: data.Section2,
-                section3: data.Section3,
-                section4: data.Section4,
-                captionedImage1: data.CaptionedImage1,
-                captionedImage2: data.CaptionedImage2,
-                captionedImage3: data.CaptionedImage3,
-                captionedImage4: data.CaptionedImage4,
-                bigImage1: data.BigImage1,
-                bigImage2: data.BigImage2,
-                pullQuote2: data.PullQuote2,
-                authorCredit: data.AuthorCredit,
-                preferredCitation: data.PreferredCitation,
-                sources: data.Sources.map(src => src.text),
-                timeLineURL: data.TimeLineURL
+                layoutChoice: LayoutChoice,
+                title: Title,
+                headerImage: HeaderImage ? [VARIABLES.fetchBaseUrl, HeaderImage.Image.url].join('') : '',
+                pullQuote1: PullQuote1,
+                section1: Section1,
+                section2: Section2,
+                section3: Section3,
+                section4: Section4,
+                captionedImage1: CaptionedImage1,
+                captionedImage2: CaptionedImage2,
+                captionedImage3: CaptionedImage3,
+                captionedImage4: CaptionedImage4,
+                bigImage1: BigImage1,
+                bigImage2: BigImage2,
+                pullQuote2: PullQuote2,
+                authorCredit: AuthorCredit,
+                preferredCitation: PreferredCitation,
+                sources: Sources.map(src => src.text),
+                timeLineURL: TimeLineURL
             })
         });
         window.scrollTo(0, 0);
