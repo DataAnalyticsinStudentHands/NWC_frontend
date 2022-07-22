@@ -24,33 +24,34 @@ function HowToContribute() {
     const [archivistsText, setArchivistsText] = useState("");
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-how-to-contribute"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-how-to-contribute"].join('/'))
             .then(res => res.json())
             .then(data => {
-
+                const{data:{attributes:{BannerText, BannerImageCredit, BannerImageCredit_more, ResearchersText, 
+                    NwcParticipantsText, EducatorsText, StudentsText, ArchivistsText}}} = data
                 setBannerText(
-                    data.BannerText
+                    BannerText
                 );
                 setBannerImageCredit(
-                    data.BannerImageCredit
+                    BannerImageCredit
                 );
                 setBannerImageCredit_more(
-                    data.BannerImageCredit_more
+                    BannerImageCredit_more
                 );
                 setResearchersText(
-                    data.ResearchersText
+                    ResearchersText
                 );
                 setNwcParticipantsText(
-                    data.NwcParticipantsText
+                    NwcParticipantsText
                 );
                 setEducatorsText(
-                    data.EducatorsText
+                    EducatorsText
                 );
                 setStudentsText(
-                    data.StudentsText
+                    StudentsText
                 );
                 setArchivistsText(
-                    data.ArchivistsText
+                    ArchivistsText
                 );
             })
     }, []);
