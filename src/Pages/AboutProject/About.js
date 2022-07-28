@@ -41,7 +41,7 @@ function About() {
                     Banner_text, BannerImageCredit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
                     aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
                     aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink,
-                    aboutDocuments_aplink
+                    // aboutDocuments_aplink
                   }
                 }
               } = data;
@@ -56,7 +56,7 @@ function About() {
           aboutTimeline_4: aboutTimeline_4,
           aboutTimeline_5: aboutTimeline_5,
           aboutDocuments_cblink: aboutDocuments_cblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
-          aboutDocuments_aplink: aboutDocuments_aplink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
+          // aboutDocuments_aplink: aboutDocuments_aplink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
           aboutDocuments_frlink: aboutDocuments_frlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
           aboutDocuments_eclink: aboutDocuments_eclink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
           aboutDocuments_fmlink: aboutDocuments_fmlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
