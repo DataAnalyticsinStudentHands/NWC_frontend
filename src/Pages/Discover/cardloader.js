@@ -20,7 +20,8 @@ function d2card(datum) {
         profilepic = null
     }
     console.log('line 22', datum.attributes.profilepic.data)
-    console.log('line 23', profilepic)
+    console.log('line 23', datum.attributes.profilepic.data.attributes)
+    console.log('line 24', profilepic)
     return {
         id: datum.id,
         name: datum.attributes.name,
