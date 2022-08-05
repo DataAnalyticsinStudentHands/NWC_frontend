@@ -36,22 +36,21 @@ function DiscoverInfo() {
     // grab page data from strapi
     useEffect(() => {
         // this pattern is pretty much seen on all data-driven pages
-        fetch(`${fetchBaseUrl}/api/content-discover-stories?_id=${storyId}?populate=*`)
+        fetch(`${fetchBaseUrl}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
             .then(res => res.json())
             .then(data => {
-                const{data:
-                        {attributes:
+                
+                const {attributes:
                             {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, role, rolesAtNwc, 
-                                sources, VideoUrl, usertags}}}=data
+                                sources, VideoUrl, usertags}}= data.data[0]
                 // IF Conditional statement to ensure data[0].profilepic[0] TypeError resolved
                 // If it exists, we can set the state to that profile pic
                 // Else set it to our "button" picture, this is subject to change
-
                 let profilepic = state.profilepic
                 let profilepic_alt = state.profilepic_alt
-                if (data[0].profilepic[0]) {
-                    profilepic = `${fetchBaseUrl}${data.data.attributes.profilepic.data.attributes.url}`;
-                    profilepic_alt = data.data.attributes.profilepic.data.attributes.alternativeText;
+                if (data.data[0].attributes.profilepic.data) {
+                    profilepic = `${fetchBaseUrl}${data.data[0].attributes.profilepic.data.attributes.url}`;
+                    profilepic_alt = data.data[0].attributes.profilepic.data.attributes.alternativeText;
                 } else {
 
                     profilepic = button
@@ -78,7 +77,7 @@ function DiscoverInfo() {
                     rolesAtNwc: rolesAtNwc.map(r => r.text),
                     sources: sources.map(s => s.text),
                     videourl: VideoUrl,
-                    state: data.data.attributes.state,
+                    state: data.data[0].attributes.state,
                     usertags: usertags.map(t => t.text),
                 });
             })
