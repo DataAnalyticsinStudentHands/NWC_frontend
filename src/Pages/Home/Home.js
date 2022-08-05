@@ -33,7 +33,7 @@ import { useGlobalContext } from '../../context/GlobalProvider';
 // import axios from 'axios';
 
 const getWhere = (data, key, value) => {
-  console.log('line 36', data)
+  
   return data.data.filter((e) => e[key] === value);
 };
 
