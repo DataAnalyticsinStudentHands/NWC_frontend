@@ -24,7 +24,7 @@ function Discover() {
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
-  const [currentOffSet, setCurrentOffSet] = useState(0);
+  const [currentOffSet, setCurrentOffSet] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
   let totalPages = (Math.ceil(dataLength / postsPerPage))
@@ -32,16 +32,18 @@ function Discover() {
   const { fetchBaseUrl } = VARIABLES;
 
   useEffect(() => {
+    
     fetch([fetchBaseUrl, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setFeatured);
+        
         setDataLength(data.data.length)
       }).catch(err => console.log(err));
   }, []); // eslint-disable-line
-
+  
   useEffect(() => {
-    fetch([fetchBaseUrl, `api/content-discover-stories?_start=${currentOffSet}&_limit=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -50,6 +52,7 @@ function Discover() {
   }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
+    
     fetch(`${fetchBaseUrl}/api/content-discover-stories-main`)
       .then(res => res.json())
       .then(data => {
@@ -65,14 +68,16 @@ function Discover() {
   }, []); // eslint-disable-line
 //doesn't get full api
   function search() {
-    fetch([fetchBaseUrl, `api/content-discover-stories?name_contains=${input}&populate=*`].join('/'))
+    
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
   }
   
   function sortName() {
-    fetch([fetchBaseUrl, `api/content-discover-stories?name_contains=${input}&_limit=-1&populate=*`].join('/'))
+    
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_limit=-1&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -84,11 +89,12 @@ function Discover() {
         card.lastName = nameParts[nameParts.length - 1]
       })
       cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
-      console.log(cards)
+      
   }
 
   function sortRole() {
-    fetch([fetchBaseUrl, `api/content-discover-stories?name_contains=${input}&_sort=role:ASC&_limit=-1&populate=*`].join('/'))
+    
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_sort=role:ASC&_limit=-1&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -97,7 +103,8 @@ function Discover() {
   }
 
   function sortState() {
-    fetch([fetchBaseUrl, `api/content-discover-stories?name_contains=${input}&_sort=state:ASC&_limit=-1&populate=*`].join('/'))
+    
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&sort=state:ASC&_limit=-1&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -113,7 +120,8 @@ function Discover() {
 
   //Pagination handleClick
   function handlePageClick(e) {
-    setCurrentOffSet(e.selected * postsPerPage)
+   
+    setCurrentOffSet(e.selected+1)
   }
 
   //Janky reset for pagination, depending on the cards per page
@@ -157,7 +165,7 @@ function Discover() {
               name={value.name}
               role={value.role}
               state={value.state}
-              // profilepic={value.profilepic}
+              profilepic={value.profilepic}
             /></a>)
           }
         </div>
@@ -207,7 +215,7 @@ function Discover() {
           name={value.name}
           role={value.role}
           state={value.state}
-          // profilepic={value.profilepic}
+          profilepic={value.profilepic}
         />)
         }
       </div>
