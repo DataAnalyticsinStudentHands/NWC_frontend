@@ -51,8 +51,6 @@ function MeetTheTeam() {
       
       
       //transform the contributors by group
-      // console.log('blob line 49', blob[1])
-      // lookup[obj.Contributor_Type] 
       let grouped = blob.map((obj, index )=> ({ ...obj, Contributor_Type: lookup[blob[index].attributes.Contributor_Type] })).reduce((result, currentValue) => {
         (result[currentValue['Contributor_Type']] = result[currentValue['Contributor_Type']] || []).push(
           currentValue
@@ -63,7 +61,6 @@ function MeetTheTeam() {
       
       
       setContributors(grouped);
-      console.log('grouped line65', grouped)
       setIsLoading(false);
     })
       // make sure to catch any error
