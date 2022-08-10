@@ -25,7 +25,7 @@ function MoreIdeasForm() {
     let submission = data;
     submission.form = "MORE IDEAS"
 
-    axios.post([VARIABLES.fetchBaseUrl, `forms/email`].join('/'), JSON.stringify(submission))
+    axios.post([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'), JSON.stringify(submission))
         .then(response => setState({
           formSent: true
         }));

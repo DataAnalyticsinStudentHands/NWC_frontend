@@ -36,19 +36,21 @@ function DiscoverInfo() {
     // grab page data from strapi
     useEffect(() => {
         // this pattern is pretty much seen on all data-driven pages
-        fetch(`${fetchBaseUrl}/content-discover-stories?_id=${storyId}`)
+        fetch(`${fetchBaseUrl}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
             .then(res => res.json())
             .then(data => {
-
+                
+                const {attributes:
+                            {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, role, rolesAtNwc, 
+                                sources, VideoUrl, usertags}}= data.data[0]
                 // IF Conditional statement to ensure data[0].profilepic[0] TypeError resolved
                 // If it exists, we can set the state to that profile pic
                 // Else set it to our "button" picture, this is subject to change
-
                 let profilepic = state.profilepic
                 let profilepic_alt = state.profilepic_alt
-                if (data[0].profilepic[0]) {
-                    profilepic = `${fetchBaseUrl}${data[0].profilepic[0].url}`;
-                    profilepic_alt = data[0].profilepic[0].alternativeText;
+                if (data.data[0].attributes.profilepic.data) {
+                    profilepic = `${fetchBaseUrl}${data.data[0].attributes.profilepic.data.attributes.url}`;
+                    profilepic_alt = data.data[0].attributes.profilepic.data.attributes.alternativeText;
                 } else {
 
                     profilepic = button
@@ -62,21 +64,21 @@ function DiscoverInfo() {
                 // this is why the occasional map function is seen in below's assignments.
                 // we want [literal1, literal2, ...], not [{object1}, {object2}, ...] (which is the purpose of the occasional .map)
                 setState({
-                    bigquote1: data[0].bigquote1,
-                    bigquote2: data[0].bigquote2,
-                    career: data[0].career.map(c => c.text),
-                    dob: data[0].dob,
-                    imgcaption: data[0].imgcaption,
-                    maintext: data[0].maintext,
-                    name: data[0].name,
+                    bigquote1: bigquote1,
+                    bigquote2: bigquote2,
+                    career: career.map(c => c.text),
+                    dob: dob,
+                    imgcaption: imgcaption,
+                    maintext: maintext,
+                    name: name,
                     profilepic,
                     profilepic_alt,
-                    role: data[0].role,
-                    rolesAtNwc: data[0].rolesAtNwc.map(r => r.text),
-                    sources: data[0].sources.map(s => s.text),
-                    videourl: data[0].VideoUrl,
-                    state: data[0].state,
-                    usertags: data[0].usertags.map(t => t.text),
+                    role: role,
+                    rolesAtNwc: rolesAtNwc.map(r => r.text),
+                    sources: sources.map(s => s.text),
+                    videourl: VideoUrl,
+                    state: data.data[0].attributes.state,
+                    usertags: usertags.map(t => t.text),
                 });
             })
             .catch(err => console.log(err));

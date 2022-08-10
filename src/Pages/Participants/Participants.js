@@ -12,11 +12,11 @@ function Participants() {
 
     // Pull Strapi Data
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, 'list-of-participants?_sort=LastName:ASC&_limit=-1'].join('/')) // need to figure out how to sort in query, but for another day </3
+        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?_sort=LastName:ASC&_limit=-1'].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
                 // console.log(data);
-                setParticipants(data)
+                setParticipants(data.data)
             })
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
@@ -24,11 +24,11 @@ function Participants() {
     // handle onChange event of the dropdown
     const handleChange = e => {
         setSelectedValue(e.label);
-        fetch([VARIABLES.fetchBaseUrl, `list-of-participants?States_contains=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
+        fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?States_contains=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
-                console.log(data);
-                setParticipants(Array.isArray(data) ? data : [])
+                console.log(data.data);
+                setParticipants(Array.isArray(data.data) ? data : [])
             })
             .catch(err => console.log(err));
     }
@@ -110,7 +110,7 @@ function Participants() {
                 <CSVLink
                     data={[
                         ["Last Name", "First Name", "State"],
-                        ...participants.map(p => [p.LastName, p.FirstName, p.States]),
+                        ...participants.map(p => [p.attributes.LastName, p.attributes.FirstName, p.attributes.States]),
                     ]}
                     filename={`participants-${Date.now()}.csv`}
                 >
@@ -124,7 +124,7 @@ function Participants() {
                 {
                     participants.length === 0
                         ? "No Participants Found."
-                        : participants.map(p => <p key={Math.random()}>{p.LastName}, {p.FirstName}, {p.States}</p>)
+                        : participants.map(p => <p key={Math.random()}>{p.attributes.LastName}, {p.attributes.FirstName}, {p.attributes.States}</p>)
                 }
             </div>
         </div>

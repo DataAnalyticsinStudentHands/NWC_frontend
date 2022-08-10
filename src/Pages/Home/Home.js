@@ -30,9 +30,11 @@ import share from './res/share.png';
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
+// import axios from 'axios';
 
 const getWhere = (data, key, value) => {
-  return data.filter((e) => e[key] === value);
+  
+  return data.data.filter((e) => e[key] === value);
 };
 
 const urlify = (str) => {
@@ -93,30 +95,38 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'content-homes'].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, 'api/content-home'].join('/'))
       .then((res) => res.json())
       .then((data) => {
 
+        const {data:
+                {attributes:
+                  {PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2, homeButton1_link, homeButton1_text,
+                    homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text, homeExplore_text, homeHighlights_content2, homeMap_text
+                  }
+                }
+              } = data;
+
         setState({
-          photoByExplore: data.PhotoByExplore,
-          photoByExplore_more: data.PhotoByExplore_more,
-          aboutImgCreidt: data.aboutImgCreidt,
-          aboutImgCredit_more: data.aboutImgCredit_more,
-          createdAt: data.createdAt,
-          homeAbout_p: data.homeAbout_p,
-          homeAbout_p1: data.homeAbout_p1,
-          homeAbout_p2: data.homeAbout_p2,
-          homeButton1_link: data.homeButton1_link,
-          homeButton1_text: data.homeButton1_text,
-          homeButton2_link: data.homeButton2_link,
-          homeButton2_text: data.homeButton2_text,
-          homeButton3_link: data.homeButton3_link,
-          homeButton3_text: data.homeButton3_text,
-          homeButton4_link: data.homeButton4_text,
-          homeButton4_text: data.homeButton4_text,
-          homeExplore_text: data.homeExplore_text,
-          homeHighlights_content2: data.homeHighlights_content2,
-          homeMap_text: data.homeMap_text
+          photoByExplore: PhotoByExplore,
+          photoByExplore_more: PhotoByExplore_more,
+          aboutImgCreidt: aboutImgCredit,
+          aboutImgCredit_more: aboutImgCredit_more,
+          createdAt: createdAt,
+          homeAbout_p: homeAbout_p,
+          homeAbout_p1: homeAbout_p1,
+          homeAbout_p2: homeAbout_p2,
+          homeButton1_link: homeButton1_link,
+          homeButton1_text: homeButton1_text,
+          homeButton2_link: homeButton2_link,
+          homeButton2_text: homeButton2_text,
+          homeButton3_link: homeButton3_link,
+          homeButton3_text: homeButton3_text,
+          homeButton4_link: homeButton4_link,
+          homeButton4_text: homeButton4_text,
+          homeExplore_text: homeExplore_text,
+          homeHighlights_content2: homeHighlights_content2,
+          homeMap_text: homeMap_text
         })
         
       })
@@ -124,35 +134,39 @@ function Home() {
   }, []);
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'content-home-maps'].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, 'api/content-home-maps?populate=*'].join('/'))
       .then((res) => res.json())
       .then((data) => {
         const get = (map) => {
           return superSorter(
             getWhere(data, 'Map', map).map((p) => {
+              const {data:
+                      {attributes:
+                        {x, y, Name, Description, citation1, citation2, citation3, 
+                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}}} = p;
               const p2 = [];
-              p2[0] = p['Name'];
-              p2[1] = p['x'];
-              p2[2] = p['y'];
-              p2[3] = p['Description'];
-              p2[4] = p.mainImage[0] ? urlify(p.mainImage[0].url) : undefined;
-              p2[5] = p.pdf1[0] ? urlify(p.pdf1[0].url) : undefined;
-              p2[6] = p.pdf2[0] ? urlify(p.pdf2[0].url) : undefined;
-              p2[7] = p.pdf3[0] ? urlify(p.pdf3[0].url) : undefined;
+              p2[0] = Name;
+              p2[1] = x;
+              p2[2] = y;
+              p2[3] = Description;
+              p2[4] = mainImage.data.attributes.url ? urlify(mainImage.data.attributes.url) : undefined;
+              p2[5] = pdf1.data.attributes.url ? urlify(pdf1.data.attributes.url) : undefined;
+              p2[6] = pdf2.data.attributes.url ? urlify(pdf2.data.attributes.url) : undefined;
+              p2[7] = pdf3.data.attributes.url ? urlify(pdf3.data.attributes.url) : undefined;
               //p2[8] = p.pdf4[0] ? urlify(p.pdf4[0].url) : undefined;
-              p2[9] = p.img1[0] ? urlify(p.img1[0].url) : undefined;
-              p2[10] = p.img2[0] ? urlify(p.img2[0].url) : undefined;
-              p2[11] = p.img3[0] ? urlify(p.img3[0].url) : undefined;
+              p2[9] = img1.data.attributes.url ? urlify(img1.data.attributes.url) : undefined;
+              p2[10] = img2.data.attributes.url ? urlify(img2.data.attributes.url) : undefined;
+              p2[11] = img3.data.attributes.url ? urlify(img3.data.attributes.url) : undefined;
               //p2[12] = p.img4[0] ? urlify(p.img4[0].url) : undefined;
               /*p2[4] = [
               p2[9], p2[10], p2[11], p2[12]
             ]*/
               //p2[4] = p2[4][Math.floor(Math.random()*p2[4].length)];
               //console.log(p);
-              p2[13] = p['citation1'] ? p['citation1'] : '';
+              p2[13] = citation1 ? citation1: '';
               //console.log(p);
-              p2[14] = p.citation2 !== undefined ? p.citation2 : '';
-              p2[15] = p.citation3 !== undefined ? p.citation3 : '';
+              p2[14] = citation2 !== undefined ? citation2 : '';
+              p2[15] = citation3 !== undefined ? citation3 : '';
               //p2[16] = p.citation4 !== undefined ? p.citation4 : "";
 
               return p2;

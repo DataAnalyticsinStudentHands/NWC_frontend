@@ -34,7 +34,7 @@ function ResearchingNWC() {
   const onSubmitSearch = (data) => {
     var searchQuery = data.searchText;
 
-    fetch([VARIABLES.fetchBaseUrl, `participants?first_name_contains=${searchQuery}`].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, `api/participants?first_name_contains=${searchQuery}`].join('/'))
       .then(response => response.json())
       .then(data => {
         setMap(data);

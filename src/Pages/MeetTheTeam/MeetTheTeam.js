@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import MeetIcon from './MeetIcon';
 import axios from 'axios';
 import "./MeetTheTeam.css";
+// import qs from 'qs'
 
 import empty_profile_image from './res/empty_profile_image.png';
 
@@ -19,15 +20,16 @@ function MeetTheTeam() {
   const fetchData = async () => {
     setIsLoading(true)
     const leadsData = await axios(
-      `${fetchBaseUrl}/content-about-project-leads?_sort=Order:ASC`
+      `${fetchBaseUrl}/api/content-about-project-leads?_sort=Order:ASC&populate=*`
     );
     const contributorsData = await axios(
-      `${fetchBaseUrl}/content-about-collaborators?_sort=LastName:ASC&_limit=-1`
+      `${fetchBaseUrl}/api/content-about-collaborators?_sort=LastName:ASC&_limit=-1&populate=*`
     );
-
-    setLeads(leadsData.data);
-    return contributorsData.data;
+    
+    setLeads(leadsData.data.data);
+    return contributorsData.data.data;
   };
+
 
   useEffect(() => {
     fetchData().then(blob => {
@@ -43,16 +45,21 @@ function MeetTheTeam() {
         "InternalAdvisoryBoard": 'INTERNAL ADVISORY COMMITTEE',
         "DonorGrantingAgencies": 'DONOR AND GRANTING AGENCIES',
         "FormerProjectLeads": 'FORMER PROJECT LEADS'
-      }
+      } 
 
+
+      
+      
       //transform the contributors by group
-      let grouped = blob.map(obj => ({ ...obj, Contributor_Type: lookup[obj.Contributor_Type] })).reduce((result, currentValue) => {
+      let grouped = blob.map((obj, index )=> ({ ...obj, Contributor_Type: lookup[blob[index].attributes.Contributor_Type] })).reduce((result, currentValue) => {
         (result[currentValue['Contributor_Type']] = result[currentValue['Contributor_Type']] || []).push(
           currentValue
         );
+        
         return result
       }, [])
-
+      
+      
       setContributors(grouped);
       setIsLoading(false);
     })
@@ -70,13 +77,13 @@ function MeetTheTeam() {
     {/**LEADS */}
     <div className="meetLeads">
       {leads.map((value) => <MeetIcon
-        img={fetchBaseUrl + value.Illustration.url}
-        imghover={fetchBaseUrl + value.Illustration_hover.url}
-        name={value.Name}
-        role={value.Role}
-        pfp={fetchBaseUrl + value.ProfilePicture.url}
-        popupText={value.Description}
-        key={value._id}
+        img={fetchBaseUrl + value.attributes.Illustration.data.attributes.url}
+        imghover={fetchBaseUrl + value.attributes.Illustration_hover.data.attributes.url}
+        name={value.attributes.Name}
+        role={value.attributes.Role}
+        pfp={fetchBaseUrl + value.attributes.ProfilePicture.data.attributes.url}
+        popupText={value.attributes.Description}
+        key={value.id}
       />)}
     </div>
 
@@ -104,16 +111,16 @@ function MeetTheTeam() {
             <div className="aboutTable_entry" key={Math.random()}>
               {currentTab !== "STEERING COMMITTEE" ? 
               <div className="aboutTable_entry">
-                <p className="aboutTable_name"> {content.FirstName} {content.LastName} - 
-                <span className="aboutTable_txt"> {content.Description}, {content.Years}</span></p>
+                <p className="aboutTable_name"> {content.attributes.FirstName} {content.LastName} - 
+                <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span></p>
               </div> : 
               <div className="aboutTable_steering_entry"> 
                   {content.ProfilePicture ?
-                      <img src={fetchBaseUrl + content.ProfilePicture.url} alt="_" /> : 
+                      <img src={fetchBaseUrl + content.attributes.ProfilePicture.data.attributes.url} alt="_" /> : 
                       <img src={empty_profile_image} alt="empty_image_profile"/>}
                     <div className="aboutTable_steering_box">
-                      <p className="aboutTable_steering_name"> {content.FirstName} {content.LastName}</p>
-                      <p className="aboutTable_steering_txt">{content.Description}</p>
+                      <p className="aboutTable_steering_name"> {content.attributes.FirstName} {content.attributes.LastName}</p>
+                      <p className="aboutTable_steering_txt">{content.attributes.Description}</p>
                     </div>
                 </div>
               }

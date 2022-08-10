@@ -22,14 +22,15 @@ function ResourceArchivists() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit"].join('/'))
             .then(res => res.json())
             .then(data => {
+                const {data:{attributes:{Resources_for_Archivists_Text, Video_Url_Archivists, Pdf_Permission_Documents, Pdf_Technical_Guidelines_Archivists}}} = data
                 setState({
-                    Resources_for_Archivists_Text: data.Resources_for_Archivists_Text,
-                    Video_Url_Archivists: data.Video_Url_Archivists,
-                    Pdf_Technical_Guidelines_Archivists: data.Pdf_Technical_Guidelines_Archivists ? data.Pdf_Technical_Guidelines_Archivists.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                    Resources_for_Archivists_Text: Resources_for_Archivists_Text,
+                    Video_Url_Archivists: Video_Url_Archivists,
+                    Pdf_Technical_Guidelines_Archivists: Pdf_Technical_Guidelines_Archivists ? Pdf_Technical_Guidelines_Archivists.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.url : undefined,
                 });
             })
     }, []);
