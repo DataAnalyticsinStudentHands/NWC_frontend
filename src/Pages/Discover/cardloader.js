@@ -1,13 +1,16 @@
 function d2card(datum) {
     let profilepic = ""
+    // let profilepic2 = ''
     if(datum.attributes.profilepic.data === null){
         profilepic = null
     }else{
-        profilepic = `http://localhost:1337${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
+        profilepic = `https://dash.cs.uh.edu${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
+
+        //  profilepic2 = `http://localhost:1337${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
     }
     // datum.profilepic.length > 0
     // if(check === false){
-    //     // profilepic = `https://dash.cs.uh.edu${datum.profilepic[0].formats.thumbnail.url}`
+        // profilepic = `https://dash.cs.uh.edu${datum.profilepic[0].formats.thumbnail.url}`
     //     // profilepic = `http://localhost:1337${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
     // }
     // else{
