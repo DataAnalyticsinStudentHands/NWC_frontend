@@ -27,17 +27,31 @@ function ResourceEducators() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
+                const{
+                    data:{
+                        attributes:{
+                            Resources_for_Educators_Text,
+                            Video_Url_Educators,
+                            Pdf_How_to_Contribute_Oral_Histories_Educators, 
+                            Pdf_How_to_Contribute_Biographies_Educators,
+                            Pdf_Classroom_Ideas,
+                            Pdf_Technical_Guidelines,
+                            Pdf_Permission_Documents
+                        }
+                    }
+                } = data
+
                 setState({
-                    Resources_for_Educators_Text: data.Resources_for_Educators_Text,
-                    Video_Url_Educators: data.Video_Url_Educators,
-                    Pdf_How_to_Contribute_Oral_Histories_Educators: data.Pdf_How_to_Contribute_Oral_Histories_Educators ? data.Pdf_How_to_Contribute_Oral_Histories_Educators.url.split('/')[2] : undefined,
-                    Pdf_How_to_Contribute_Biographies_Educators: data.Pdf_How_to_Contribute_Biographies_Educators ? data.Pdf_How_to_Contribute_Biographies_Educators.url.split('/')[2] : undefined,
-                    Pdf_Classroom_Ideas: data.Pdf_Classroom_Ideas ? data.Pdf_Classroom_Ideas.url.split('/')[2] : undefined,
-                    Pdf_Technical_Guidelines: data.Pdf_Technical_Guidelines ? data.Pdf_Technical_Guidelines.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                    Resources_for_Educators_Text: Resources_for_Educators_Text,
+                    Video_Url_Educators: Video_Url_Educators,
+                    Pdf_How_to_Contribute_Oral_Histories_Educators: Pdf_How_to_Contribute_Oral_Histories_Educators ? Pdf_How_to_Contribute_Oral_Histories_Educators.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_How_to_Contribute_Biographies_Educators: Pdf_How_to_Contribute_Biographies_Educators ? Pdf_How_to_Contribute_Biographies_Educators.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Classroom_Ideas: Pdf_Classroom_Ideas ? Pdf_Classroom_Ideas.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
