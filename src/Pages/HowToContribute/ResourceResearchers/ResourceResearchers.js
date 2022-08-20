@@ -31,6 +31,8 @@ function ResourceResearchers() {
                 const{data:
                         {attributes:
                             {
+                                Resources_for_Researchers_Text,
+                                Video_Url_Researchers,
                                 Pdf_How_to_Contribute_Biographies_Students_Researchers, 
                                 Pdf_How_to_Contribute_Oral_Histories_Students_Researchers, 
                                 Pdf_Technical_Guidelines, 
@@ -39,8 +41,8 @@ function ResourceResearchers() {
                 
                             // console.log(data)
                 setState({
-                    Resources_for_Researchers_Text: data.Resources_for_Researchers_Text,
-                    Video_Url_Researchers: data.Video_Url_Researchers,
+                    Resources_for_Researchers_Text: Resources_for_Researchers_Text,
+                    Video_Url_Researchers: Video_Url_Researchers,
                     Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_How_to_Contribute_Biographies_Students_Researchers: Pdf_How_to_Contribute_Biographies_Students_Researchers ? Pdf_How_to_Contribute_Biographies_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
