@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
-import axios from 'axios';
+// import axios from 'axios';
 
 import ThankYou from './ThankYou';
 
@@ -25,11 +25,25 @@ function MoreIdeasForm() {
     let submission = data;
     submission.form = "MORE IDEAS"
 
-    axios.post([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'), JSON.stringify(submission))
-        .then(response => setState({
-          formSent: true
-        }));
-  }
+    // axios.post([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'), JSON.stringify(submission))
+    //     .then(response => setState({
+    //       formSent: true
+    //     }));
+
+    fetch([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'),{
+      method:'POST',
+      headers:{
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify(submission)
+      })
+      .then(response => setState({formSent:true}))
+    }
+
+  
+
+
+
 
   return (
     <main className={styles.forms}>

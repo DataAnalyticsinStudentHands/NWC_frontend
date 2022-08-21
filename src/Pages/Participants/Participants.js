@@ -27,7 +27,7 @@ function Participants() {
         fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?States_contains=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
-                console.log(data.data);
+                // console.log(data.data);
                 setParticipants(Array.isArray(data.data) ? data : [])
             })
             .catch(err => console.log(err));

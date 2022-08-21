@@ -30,7 +30,7 @@ import share from './res/share.png';
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
-// import axios from 'axios';
+
 
 const getWhere = (data, key, value) => {
   
@@ -38,7 +38,7 @@ const getWhere = (data, key, value) => {
 };
 
 const urlify = (str) => {
-  return [VARIABLES.fetchBaseUrl, str].join('/'); // VARIABLES.axiosBaseURL.slice(0, VARIABLES.axiosBaseURL.length-1) + "" + str;
+  return [VARIABLES.fetchBaseUrl, str].join('/'); 
 };
 
 // sort points of interest by first element (Name)
