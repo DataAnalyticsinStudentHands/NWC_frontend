@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import MeetIcon from './MeetIcon';
-import axios from 'axios';
+// import axios from 'axios';
 import "./MeetTheTeam.css";
 // import qs from 'qs'
 
@@ -10,7 +10,7 @@ import VARIABLES from "../../config/.env.js";
 
 function MeetTheTeam() {
   const { fetchBaseUrl } = VARIABLES;
-
+  let contributorsData = ''
   // multiple states to hold the leads and contributors loaded from Strapi
   const [leads, setLeads] = useState([]);
   const [contributors, setContributors] = useState([]);
@@ -19,15 +19,27 @@ function MeetTheTeam() {
 
   const fetchData = async () => {
     setIsLoading(true)
-    const leadsData = await axios(
-      `${fetchBaseUrl}/api/content-about-project-leads?_sort=Order:ASC&populate=*`
-    );
-    const contributorsData = await axios(
-      `${fetchBaseUrl}/api/content-about-collaborators?_sort=LastName:ASC&_limit=-1&populate=*`
-    );
+    // const leadsData = await axios(
+    //   `${fetchBaseUrl}/api/content-about-project-leads?_sort=Order:ASC&populate=*`
+    // );
     
-    setLeads(leadsData.data.data);
-    return contributorsData.data.data;
+    fetch([fetchBaseUrl, 'api/content-about-project-leads?_sort=Order:ASC&populate=*'].join('/'))
+    .then(res => res.json())
+    .then(data => {
+        setLeads(data.data)
+    })
+    .catch(err => console.log(err));
+
+    // const contributorsData = await axios(
+    //   `${fetchBaseUrl}/api/content-about-collaborators?_sort=LastName:ASC&_limit=-1&populate=*`
+    // );
+   
+  const res = await fetch([fetchBaseUrl, 'api/content-about-collaborators?_sort=LastName:ASC&_limit=-1&populate=*'].join('/'))
+  contributorsData = await res.json()
+
+    return contributorsData.data
+    // setLeads(leadsData.data.data);
+    // return contributorsData.data.data;
   };
 
 

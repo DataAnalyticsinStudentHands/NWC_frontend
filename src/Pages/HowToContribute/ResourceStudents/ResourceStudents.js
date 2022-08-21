@@ -25,16 +25,28 @@ function ResourceStudents() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-toolkits"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
+                const{
+                    data:{
+                        attributes:{
+                            Resources_for_Students_Text,
+                            Video_Url_Students,
+                            Pdf_How_to_Contribute_Biographies_Students_Researchers,
+                            Pdf_How_to_Contribute_Oral_Histories_Students_Researchers,
+                            Pdf_Technical_Guidelines,
+                            Pdf_Permission_Documents
+                        }
+                    }
+                } = data
                 setState({
-                    Resources_for_Students_Text: data.Resources_for_Students_Text,
-                    Video_Url_Students: data.Video_Url_Students,
-                    Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: data.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? data.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.url.split('/')[2] : undefined,
-                    Pdf_How_to_Contribute_Biographies_Students_Researchers: data.Pdf_How_to_Contribute_Biographies_Students_Researchers ? data.Pdf_How_to_Contribute_Biographies_Students_Researchers.url.split('/')[2] : undefined,
-                    Pdf_Technical_Guidelines: data.Pdf_Technical_Guidelines ? data.Pdf_Technical_Guidelines.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: data.Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + data.Pdf_Permission_Documents.url : undefined,
+                    Resources_for_Students_Text: Resources_for_Students_Text,
+                    Video_Url_Students: Video_Url_Students,
+                    Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_How_to_Contribute_Biographies_Students_Researchers: Pdf_How_to_Contribute_Biographies_Students_Researchers ? Pdf_How_to_Contribute_Biographies_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
