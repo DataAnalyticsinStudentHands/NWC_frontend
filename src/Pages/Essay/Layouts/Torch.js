@@ -4,6 +4,7 @@ import "./Torch.css";
 import ReactMarkdown from 'react-markdown';
 
 function Torch({props}) {
+    
     return (
         <div className="torch">
             {/**BANNER */}
@@ -17,7 +18,7 @@ function Torch({props}) {
             </div>
             <div className="torchSection1">
                 <div className="torchSection1_img">
-                    <img src={props.captionedImage1 ? [VARIABLES.fetchBaseUrl, props.captionedImage1.Image.url].join('') : ''} alt=""/>
+                    <img src={props.captionedImage1 ? [props.captionedImage1].join('') : ''} alt=""/>
                     <figcaption>
                     {props.captionedImage1 ? props.captionedImage1.ImgCaption : ''}
                     </figcaption>
@@ -29,7 +30,7 @@ function Torch({props}) {
 
             {/**MIDPHOTO */}
             <figure className="torchMidphoto">
-            <img src={props.bigImage1 ? [VARIABLES.fetchBaseUrl, props.bigImage1.Image.url].join('') : ''} alt=""/>
+            <img src={props.bigImage1 ? [props.bigImage1].join('') : ''} alt=""/>
                 <figcaption title={props.bigImage1.ImgCreditMore}>
                     {props.bigImage1.ImgCredit}
                 </figcaption>
@@ -52,13 +53,13 @@ function Torch({props}) {
                 </div>
                 <div className="torchSection2_right">
                     <figure>
-                        <img src={props.captionedImage2 ? [VARIABLES.fetchBaseUrl, props.captionedImage2.Image.url].join('') : ''} alt=""/>
+                        <img src={props.captionedImage2 ? [props.captionedImage2].join('') : ''} alt=""/>
                         <figcaption>
                             {props.captionedImage2 ? props.captionedImage2.ImgCaption : ''}
                         </figcaption>
                     </figure>
                     <figure>
-                    <img src={props.captionedImage3 ? [VARIABLES.fetchBaseUrl, props.captionedImage3.Image.url].join('') : ''} alt=""/>
+                    <img src={props.captionedImage3 ? [props.captionedImage3].join('') : ''} alt=""/>
                         <figcaption>
                         {props.captionedImage3 ? props.captionedImage3.ImgCaption : ''}
                         </figcaption>
@@ -70,7 +71,7 @@ function Torch({props}) {
             <div className="torchMap">
                 <h2>HOUSTON MAP OF TORCH RELAY</h2>
                 <figure>
-                <img src={props.bigImage2 ? [VARIABLES.fetchBaseUrl, props.bigImage2.Image.url].join('') : ''} alt={props.bigImage2.ImageAlt}/>
+                <img src={props.bigImage2 ? [props.bigImage2].join('') : ''} alt={props.bigImage2.ImageAlt}/>
                     <figcaption>
                         {props.bigImage2.ImgCaption}
                     </figcaption>
@@ -86,7 +87,7 @@ function Torch({props}) {
                     </ReactMarkdown>
                 </div>
                 <div className="torchSection3_right">
-                <img src={props.captionedImage4 ? [VARIABLES.fetchBaseUrl, props.captionedImage4.Image.url].join('') : ''} alt=""/>
+                <img src={props.captionedImage4 ? [VARIABLES.fetchBaseUrl, props.captionedImage4].join('') : ''} alt=""/>
                     <figcaption>
                     {props.captionedImage4 ? props.captionedImage4.ImgCaption : ''}
                     </figcaption>
