@@ -4,8 +4,6 @@ import "./Torch.css";
 import ReactMarkdown from 'react-markdown';
 
 function Torch({props}) {
-    console.log('line 7')
-    console.log(props.captionedImage1.Image.data.attributes.url)
     return (
         <div className="torch">
             {/**BANNER */}
