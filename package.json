@@ -2,7 +2,6 @@
   "name": "nwcfrontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/dev",
   "dependencies": {
     "@picocss/pico": "^1.4.4",
     "@react-hook/window-size": "^3.0.7",

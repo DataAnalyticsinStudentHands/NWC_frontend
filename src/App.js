@@ -33,8 +33,8 @@ import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/Resourc
 
 function App() {
   return (
-    <Router basename={'/dev'} className="App">
-    {/* <Router className="App"> */}
+    // <Router basename={'/dev'} className="App">
+    <Router className="App">
       <Navigation />
       <ScrollToTop>
       <Switch>
@@ -56,15 +56,15 @@ function App() {
         <Route path="/Essay">
           <Essay />
         </Route>
-         <Route path="/ResearchingNWC">
+{/*          <Route path="/ResearchingNWC">
             <ResearchingNWC />
-        </Route> 
+        </Route>  */}
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>
-        <Route path="/AdvancedSearch">
+{/*         <Route path="/AdvancedSearch">
           <AdvancedSearch />
-        </Route>
+        </Route> */}
         <Route path="/About">
           <About></About>
         </Route>
