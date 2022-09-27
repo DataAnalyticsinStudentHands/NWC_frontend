@@ -294,7 +294,8 @@ function Home() {
                 <img src={aboutpeople} alt="female_athletes" />
                 <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
                   <p title={state.aboutImgCredit_more}>
-                    PHOTO BY {state.homeAboutImgCredit}
+                    {/* PHOTO BY {state.homeAboutImgCredit} */}
+                    PHOTO BY {state.aboutImgCredit}
                   </p>
                 </div>
               </div>
