@@ -123,7 +123,7 @@ function MeetTheTeam() {
             <div className="aboutTable_entry" key={Math.random()}>
               {currentTab !== "STEERING COMMITTEE" ? 
               <div className="aboutTable_entry">
-                <p className="aboutTable_name"> {content.attributes.FirstName} {content.LastName} - 
+                <p className="aboutTable_name"> {content.attributes.FirstName} {content.attributes.LastName} - 
                 <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span></p>
               </div> : 
               <div className="aboutTable_steering_entry"> 
