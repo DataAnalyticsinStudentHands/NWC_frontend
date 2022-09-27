@@ -38,7 +38,7 @@ function About() {
         const {data:
                 {attributes:
                   {
-                    Banner_text, BannerImageCredit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
+                    Banner_text, BannerImage_Credit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
                     aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
                     aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink,
                     // aboutDocuments_aplink
@@ -48,7 +48,7 @@ function About() {
               
         setState({
           banner_text: Banner_text,
-          bannerimage_credit: BannerImageCredit,
+          bannerimage_credit: BannerImage_Credit,
           bannerimagecredit_more: BannerImageCredit_more,
           aboutTimeline_1: aboutTimeline_1,
           aboutTimeline_2: aboutTimeline_2,

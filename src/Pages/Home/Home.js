@@ -31,10 +31,8 @@ import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 
-
 const getWhere = (data, key, value) => {
-  
-  return data.data.filter((e) => e[key] === value);
+  return data.filter((e) => e.attributes[key] === value);
 };
 
 const urlify = (str) => {
@@ -110,7 +108,7 @@ function Home() {
         setState({
           photoByExplore: PhotoByExplore,
           photoByExplore_more: PhotoByExplore_more,
-          aboutImgCreidt: aboutImgCredit,
+          aboutImgCredit: aboutImgCredit,
           aboutImgCredit_more: aboutImgCredit_more,
           createdAt: createdAt,
           homeAbout_p: homeAbout_p,
@@ -137,14 +135,16 @@ function Home() {
     fetch([VARIABLES.fetchBaseUrl, 'api/content-home-maps?populate=*'].join('/'))
       .then((res) => res.json())
       .then((data) => {
+        
         const get = (map) => {
           return superSorter(
-            getWhere(data, 'Map', map).map((p) => {
-              const {data:
+            getWhere(data.data, 'Map', map).map((p) => {
+              const 
                       {attributes:
                         {x, y, Name, Description, citation1, citation2, citation3, 
-                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}}} = p;
+                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
               const p2 = [];
+              
               p2[0] = Name;
               p2[1] = x;
               p2[2] = y;
@@ -168,12 +168,11 @@ function Home() {
               p2[14] = citation2 !== undefined ? citation2 : '';
               p2[15] = citation3 !== undefined ? citation3 : '';
               //p2[16] = p.citation4 !== undefined ? p.citation4 : "";
-
               return p2;
             })
           );
         };
-
+        
         setHomeDowntown(get('downtown'));
         setHomeThirdward_uh(get('thirdward_uh'));
         setHomeMuseum_district(get('museum_district'));
@@ -295,7 +294,8 @@ function Home() {
                 <img src={aboutpeople} alt="female_athletes" />
                 <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
                   <p title={state.aboutImgCredit_more}>
-                    PHOTO BY {state.homeAboutImgCredit}
+                    {/* PHOTO BY {state.homeAboutImgCredit} */}
+                    PHOTO BY {state.aboutImgCredit}
                   </p>
                 </div>
               </div>
