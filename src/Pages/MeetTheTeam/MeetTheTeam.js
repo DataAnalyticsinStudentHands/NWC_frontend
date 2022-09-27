@@ -78,7 +78,7 @@ function MeetTheTeam() {
       // make sure to catch any error
       .catch(console.error);
   }, []); // eslint-disable-line
-
+ 
   return <div className="meet">
     {/**HEAD */}
     <div className="meetHead">
@@ -127,7 +127,7 @@ function MeetTheTeam() {
                 <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span></p>
               </div> : 
               <div className="aboutTable_steering_entry"> 
-                  {content.ProfilePicture ?
+                  {content.attributes.ProfilePicture ?
                       <img src={fetchBaseUrl + content.attributes.ProfilePicture.data.attributes.url} alt="_" /> : 
                       <img src={empty_profile_image} alt="empty_image_profile"/>}
                     <div className="aboutTable_steering_box">
@@ -136,11 +136,7 @@ function MeetTheTeam() {
                     </div>
                 </div>
               }
-              
-        
-                
-                
-              
+
             </div>
           )
         )}
