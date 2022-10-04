@@ -21,7 +21,9 @@ function d2card(datum) {
     // }
     return {
         id: datum.id,
-        name: datum.attributes.name,
+        // name: datum.attributes.name,
+        firstname: datum.attributes.firstname,
+        lastname: datum.attributes.lastname,
         role: datum.attributes.role,
         state: datum.attributes.state,
         featured: datum.attributes.featured,

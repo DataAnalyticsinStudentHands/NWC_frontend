@@ -69,28 +69,41 @@ function Discover() {
 //doesn't get full api
   function search() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$containsi]=${input}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
   }
   
-  function sortName() {
+  function firstNameSort() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_limit=-1&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
       //This should reset the pagination back to page 1
       setCurrentOffSet(0)
 
-      cards.forEach(card => {
-        const nameParts = card.name.split(" ")
-        card.lastName = nameParts[nameParts.length - 1]
-      })
-      cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
+      // cards.forEach(card => {
+      //   const nameParts = card.name.split(" ")
+      //   card.lastName = nameParts[nameParts.length - 1]
+      // })
+      // cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
       
   }
+
+  function lastNameSort() {
+    
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => loadcards(data.data, setCards))
+      .catch(err => console.log(err));
+      //This should reset the pagination back to page 1
+      setCurrentOffSet(0)
+  }
+
+
+
 
   function sortRole() {
     
@@ -162,7 +175,9 @@ function Discover() {
               key={Math.random()}
               color={"teal"}
               href={`/discover/${value.id}`}
-              name={value.name}
+              // name={value.name}
+              firstname={value.firstname}
+              lastname={value.lastname}
               role={value.role}
               state={value.state}
               profilepic={value.profilepic}
@@ -185,7 +200,9 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortName()}>NAME</p>
+          <p className="discoverSearch_sorter" onClick={() => firstNameSort()}>FIRST NAME</p>
+          <p className="discoverSearch_separater">|</p>
+          <p className="discoverSearch_sorter" onClick={() => lastNameSort()}>LAST NAME</p>
           <p className="discoverSearch_separater">|</p>
           <p className="discoverSearch_sorter" onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
@@ -210,9 +227,11 @@ function Discover() {
       <div className="discoverCards">
         {cards.map((value) => <DiscoverCard
           key={Math.random()}
-          color={["yellow", "blue", "red", "teal"][value.name.charCodeAt(0) % 4]}
+          color={["yellow", "blue", "red", "teal"][value.firstname.charCodeAt(0) % 4]}
           href={`/discover/${value.id}`}
-          name={value.name}
+          // name={value.name}
+          firstname={value.firstname}
+          lastname={value.lastname}
           role={value.role}
           state={value.state}
           profilepic={value.profilepic}
