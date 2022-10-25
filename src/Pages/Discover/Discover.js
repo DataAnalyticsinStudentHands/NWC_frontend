@@ -69,7 +69,7 @@ function Discover() {
 //doesn't get full api
   function search() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$containsi]=${input}&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${input}&filters[$or][1][lastname][$contains]=${input}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -77,7 +77,7 @@ function Discover() {
   
   function firstNameSort() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -94,7 +94,7 @@ function Discover() {
 
   function lastNameSort() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -102,12 +102,9 @@ function Discover() {
       setCurrentOffSet(0)
   }
 
-
-
-
   function sortRole() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_sort=role:ASC&_limit=-1&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
@@ -117,7 +114,7 @@ function Discover() {
 
   function sortState() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&sort=state:ASC&_limit=-1&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
