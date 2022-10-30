@@ -9,8 +9,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
-    "node-sass": "^7.0.3",
-    "pdfjs-dist": "^3.0.279",
+    "node-sass": "^6.0.0",
     "qs": "^6.10.3",
     "react": "^17.0.2",
     "react-csv": "^2.2.2",
@@ -23,7 +22,7 @@
     "react-player": "^2.9.0",
     "react-responsive-carousel": "^3.2.20",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "^5.0.1",
+    "react-scripts": "4.0.3",
     "react-select": "^5.2.2",
     "web-vitals": "^1.1.2"
   },
