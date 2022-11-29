@@ -9,9 +9,9 @@ import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-
+var currentData = 'default'
 function Discover() {
-
+  
   //state for main page conent
   const [state, setState] = useState({
     banner_text: '',
@@ -24,13 +24,12 @@ function Discover() {
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
-  const [currentOffSet, setCurrentOffSet] = useState(1);
+  const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   const { fetchBaseUrl } = VARIABLES;
-
   useEffect(() => {
     
     fetch([fetchBaseUrl, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
@@ -43,12 +42,52 @@ function Discover() {
   }, []); // eslint-disable-line
   
   useEffect(() => {
-    fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+    
+    if(currentData === 'default'){
+      fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
       })
       .catch(err => console.log(err));
+    }
+    if(currentData === 'firstname'){
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        loadcards(data.data, setCards);
+        
+      })
+      .catch(err => console.log(err));
+    }
+    if(currentData === 'lastname'){
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        loadcards(data.data, setCards);
+        
+      })
+      .catch(err => console.log(err));
+    }
+    if(currentData === 'role'){
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        loadcards(data.data, setCards);
+        
+      })
+      .catch(err => console.log(err));
+    }
+    if(currentData === 'state'){
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        loadcards(data.data, setCards);
+        
+      })
+      .catch(err => console.log(err));
+    }
+    
   }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
@@ -69,53 +108,111 @@ function Discover() {
 //doesn't get full api
   function search() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&populate=*`].join('/'))
+    let fullname = input.split(' ')
+    let firstname = fullname[0]
+    let lastname = fullname[1]
+    
+    if(fullname.length === 1){
+      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => loadcards(data.data, setCards))
       .catch(err => console.log(err));
+    }else{
+      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&filters[$or][2][firstname][$containsi]=${lastname}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => loadcards(data.data, setCards))
+      .catch(err => console.log(err));
+    }
+
+
+    
   }
   
-  function sortName() {
-    
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_limit=-1&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => loadcards(data.data, setCards))
-      .catch(err => console.log(err));
-      //This should reset the pagination back to page 1
-      setCurrentOffSet(0)
+  function firstNameSort() {
+    // console.log(string)
+    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    //   .then(response => response.json())
+    //   .then(data => loadcards(data.data, setCards))
+    //   .catch(err => console.log(err));
+    //   //This should reset the pagination back to page 1
+    //   console.log('first name sort')
+    //   // setCurrentOffSet(0)
 
-      cards.forEach(card => {
-        const nameParts = card.name.split(" ")
-        card.lastName = nameParts[nameParts.length - 1]
-      })
-      cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
-      
+    //   // cards.forEach(card => {
+    //   //   const nameParts = card.name.split(" ")
+    //   //   card.lastName = nameParts[nameParts.length - 1]
+    //   // })
+    //   // cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
+    currentData = 'firstname'
+    console.log(currentOffSet)
+    if(currentOffSet === 0){
+      setCurrentOffSet(1)
+    }else{
+      setCurrentOffSet(0)
+    }
+    
+  }
+
+  function lastNameSort() {
+    
+    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    //   .then(response => response.json())
+    //   .then(data => loadcards(data.data, setCards))
+    //   .catch(err => console.log(err));
+
+    currentData = 'lastname'
+    if(currentOffSet === 0){
+      setCurrentOffSet(1)
+    }else{
+      setCurrentOffSet(0)
+    }
+    // setCurrentOffSet(1)
+    
+
+      //This should reset the pagination back to page 1
+      // setCurrentOffSet(0)
   }
 
   function sortRole() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&_sort=role:ASC&_limit=-1&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => loadcards(data.data, setCards))
-      .catch(err => console.log(err));
+    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    //   .then(response => response.json())
+    //   .then(data => loadcards(data.data, setCards))
+    //   .catch(err => console.log(err));
+      currentData = 'role'
+      if(currentOffSet === 0){
+        setCurrentOffSet(1)
+      }else{
+        setCurrentOffSet(0)
+      }
+      // setCurrentOffSet(1)
+      
       //This should reset the pagination back to page 1
-      setCurrentOffSet(0)
+      // setCurrentOffSet(0)
   }
 
   function sortState() {
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?filters[name][$contains]=${input}&sort=state:ASC&_limit=-1&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => loadcards(data.data, setCards))
-      .catch(err => console.log(err));
-      //This should reset the pagination back to page 1
-      setCurrentOffSet(0)
+    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    //   .then(response => response.json())
+    //   .then(data => loadcards(data.data, setCards))
+    //   .catch(err => console.log(err));
+    //   //This should reset the pagination back to page 1
+    //   setCurrentOffSet(0)
+      currentData = 'state'
+      if(currentOffSet === 0){
+        setCurrentOffSet(1)
+      }else{
+        setCurrentOffSet(0)
+      }
+      // setCurrentOffSet(1)
+     
   }
 
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
-    setCurrentOffSet(0);
+    // setCurrentOffSet(0);
   }
 
   //Pagination handleClick
@@ -162,7 +259,9 @@ function Discover() {
               key={Math.random()}
               color={"teal"}
               href={`/discover/${value.id}`}
-              name={value.name}
+              // name={value.name}
+              firstname={value.firstname}
+              lastname={value.lastname}
               role={value.role}
               state={value.state}
               profilepic={value.profilepic}
@@ -185,7 +284,10 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortName()}>NAME</p>
+          <p className="discoverSearch_sorter" onClick={() => firstNameSort()}>FIRST NAME</p>
+          
+          <p className="discoverSearch_separater">|</p>
+          <p className="discoverSearch_sorter" onClick={() => lastNameSort()}>LAST NAME</p>
           <p className="discoverSearch_separater">|</p>
           <p className="discoverSearch_sorter" onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
@@ -210,9 +312,11 @@ function Discover() {
       <div className="discoverCards">
         {cards.map((value) => <DiscoverCard
           key={Math.random()}
-          color={["yellow", "blue", "red", "teal"][value.name.charCodeAt(0) % 4]}
+          color={["yellow", "blue", "red", "teal"][value.firstname.charCodeAt(0) % 4]}
           href={`/discover/${value.id}`}
-          name={value.name}
+          // name={value.name}
+          firstname={value.firstname}
+          lastname={value.lastname}
           role={value.role}
           state={value.state}
           profilepic={value.profilepic}
