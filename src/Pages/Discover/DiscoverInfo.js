@@ -136,7 +136,7 @@ function DiscoverInfo() {
                         {state.firstname} {state.lastname}
                     </h2>
 
-                    {state.bigquote1 !== '' ?
+                    {state.bigquote1 !== '' && state.bigquote1 !== null ?
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
@@ -151,10 +151,12 @@ function DiscoverInfo() {
                         </ReactMarkdown>
                     </div>
 
-                    {state.bigquote2 !== '' ?
+                    {state.bigquote2 !== '' && state.bigquote2 !== null ?
+                    
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
+                            
                             <p>{state.bigquote2}</p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
