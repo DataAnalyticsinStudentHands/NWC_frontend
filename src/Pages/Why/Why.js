@@ -95,7 +95,7 @@ function Why() {
                 <div className="whyBanner_card">
                     <h2>HISTORICAL OVERVIEW</h2>
                     <p>{pageState.historicalOverview}</p>
-                    <Link to="/Essay?id=6195463454e8a217c0d07075">
+                    <Link to="/Essay?id=1">
                         <p className="why_readmore" >READ MORE</p>
                     </Link>
                 </div>
