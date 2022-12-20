@@ -35,19 +35,50 @@
     margin-right: 4em;
 }
 
+.meetIcon_popup > img{
+    width:400px;
+    height:600px;
+}
+.popup_img{
+    width:100%;
+    height:auto;
+}
+
+
+#close {
+    position: relative;
+    float: right;
+    right: .5em;
+    border: solid white;
+    border-radius: 50%;
+    width: 1.5em;
+    height: 1.5em;
+    align-items: center;
+    text-align: center;
+    font-family: var(--fontBabasNeue);
+    font-weight: normal;
+    color: white;
+    padding:2px 5px;
+    font-size: .8em;
+    /* background:#ccc; */
+    
+}
+
 .meetIcon_popupHeader {
     background-color: var(--colorDarkBlue);
     color: white;
     text-align: left;
-    padding-left: 4ch;
+    padding-left: 1ch;
     padding-top: .5em;
     padding-bottom: .5em;
+    
 }
 
 .meetIcon_popupHeader > h3 {
     font-family: var(--fontBabasNeue);
     font-weight: normal;
     max-width: 20em;
+    
 }
 
 .meetIcon_popupHeader > p {
