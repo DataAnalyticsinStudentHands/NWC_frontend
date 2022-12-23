@@ -11,11 +11,11 @@ function ThankYou() {
         </p>
       </header>
 
-      {/* <input
+      { <a href='./CorrectionsForm'> <input
         type="button"
         className={styles.corrections_submit}
-        value="Back to submission page"
-      /> */}
+        value="Submit another correction"      
+      /> </a> }
     </form>
   );
 }

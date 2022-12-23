@@ -55,7 +55,7 @@ function Footer() {
                     <Link to={'/'}>HOME</Link>
                 </div>
                 <div className="footer_top contact">
-                    <a href={`mailto:${state.contactEmail}`}><p>CONTACT</p></a>
+                    <Link to='/Forms/ContactUsForm'> CONTACT </Link>
                 </div>
                 <div className="footer_top donate">
                     <a href={state.donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>

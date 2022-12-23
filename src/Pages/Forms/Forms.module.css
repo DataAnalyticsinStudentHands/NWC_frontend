@@ -34,7 +34,7 @@ CORRECTIONS
   max-width: 140ch;
   display: block;
   margin: 1em;
-  text-indent: 4ch;
+  text-indent: 1ch;
   padding: 0.4em;
   border-radius: 8px;
 }
@@ -59,4 +59,23 @@ CORRECTIONS
   color: var(--colorDeepRed);
   border: 2px solid var(--colorDeepRed);
   cursor: pointer;
+}
+
+.corrections_validate {
+  color: #bf1650;
+  margin: 1em;
+  font-size: 16px;
+}
+
+.corrections_ph ::placeholder{
+  opacity: .5;
+}
+
+/* FORMS */
+
+.forms_p {
+  margin: 0.5em;
+
+
+
 }
