@@ -29,6 +29,15 @@ CORRECTIONS
   margin: 2em auto;
 }
 
+.corrections_preq {
+  font-family: var(--fontMontserrat);
+  font-size: 0.6em;
+  max-width: 60ch;
+  text-align: center;
+  margin: 2em auto;
+  font-style: italic;
+}
+
 .corrections :is(input, textarea) {
   width: 100%;
   max-width: 140ch;
@@ -74,8 +83,8 @@ CORRECTIONS
 /* FORMS */
 
 .forms_p {
-  margin: 0.5em;
-
-
+  font-family: var(--fontMontserrat);
+  font-size: 0.6em;
+  margin: 0.9em;
 
 }

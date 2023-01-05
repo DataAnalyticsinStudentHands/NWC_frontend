@@ -52,7 +52,7 @@ function CorrectionsForm() {
         <p className={styles.corrections_p}>
         If you detected an error on our website or have more information about an NWC participant that you would like to share, please tell us about it on this page. We will review your contribution and make the needed changes. We thank you in advance for your contribution to our work.
         </p>
-        <p className={styles.corrections_p}> All fields are required </p>
+        <p className={styles.corrections_preq}> All fields are required </p>
       </header>
 
       <input  placeholder="Name" {...register('Name', { required: true })} />

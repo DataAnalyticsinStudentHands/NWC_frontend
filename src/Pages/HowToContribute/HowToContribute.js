@@ -149,6 +149,10 @@ function HowToContribute() {
                             >
                             CORRECTIONS
                         </Link>
+                        <Link to="/Forms/MoreIdeasForm" className="howToContributeSubmission_submit"
+                            >
+                            Have more ideas? Tell us here
+                        </Link>
                                             </div>
                 </div>
 

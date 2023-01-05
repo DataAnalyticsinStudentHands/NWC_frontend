@@ -3,7 +3,7 @@ import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
 
 import VARIABLES from "../../config/.env.js";
-import ThankYou from './ThankYou';
+import {ThankYouContact} from './ThankYou';
 
 function ContactUsForm() {
 
@@ -24,7 +24,7 @@ function ContactUsForm() {
       submission.form = "CONTACTUS";
       console.log(submission)
   
-    fetch([VARIABLES.fetchBaseUrl, `api/contacts`].join('/'),{
+    fetch([VARIABLES.fetchBaseUrl, `api/contact`].join('/'),{
       method:'POST',
       headers:{
         'Content-type': 'application/json'
@@ -44,7 +44,7 @@ function ContactUsForm() {
           <p className={styles.corrections_p}>
           Any questions or comments you have about our work? Please send us a message below!
           </p>
-          <p className={styles.corrections_p}> * Required fields </p>
+          <p className={styles.corrections_preq}> * Required fields </p>
         </header>
         <p className={styles.forms_p}> Name*</p>
         <input  placeholder="Name" {...register('Name', { required: true })} />
@@ -65,7 +65,7 @@ function ContactUsForm() {
         <input type="submit" value="Submit" className={styles.corrections_submit} />
 
       </form> : null}
-      {state.formSent ? <ThankYou /> : null}
+      {state.formSent ? <ThankYouContact /> : null}
       </main>
     );
   }
