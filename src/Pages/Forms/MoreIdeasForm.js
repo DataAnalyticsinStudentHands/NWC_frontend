@@ -3,11 +3,11 @@ import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
 // import axios from 'axios';
 
-import ThankYou from './ThankYou';
+import {ThankYouMoreIdeas} from './ThankYou';
 
 import VARIABLES from "../../config/.env.js";
 
-function MoreIdeasForm() {
+function CorrectionsForm() {
 
   const [state, setState] = useState({
      formSent: false
@@ -22,65 +22,60 @@ function MoreIdeasForm() {
   
   const onSubmit = (data) => {
 
-    let submission = data;
-    submission.form = "MORE IDEAS"
+    let submission = {data};
+    submission.form = "MOREIDEAS";
+    console.log(submission)
 
-    // axios.post([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'), JSON.stringify(submission))
-    //     .then(response => setState({
-    //       formSent: true
-    //     }));
+  //   axios.post([VARIABLES.fetchBaseUrl, `forms/email`].join('/'), JSON.stringify(submission))
+  //       .then(response => setState({
+  //         formSent: true
+  //       }));
+  // }
 
-    fetch([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'),{
-      method:'POST',
-      headers:{
-        'Content-type': 'application/json'
-      },
-      body:JSON.stringify(submission)
-      })
-      .then(response => setState({formSent:true}))
-    }
-
-  
-
-
-
+  fetch([VARIABLES.fetchBaseUrl, `api/form-moreidea`].join('/'),{
+    method:'POST',
+    headers:{
+      'Content-type': 'application/json'
+    },
+    body:JSON.stringify(submission)
+    })
+    .then(response => setState({formSent:true}))
+    
+  }
 
   return (
     <main className={styles.forms}>
     {!state.formSent ? 
     <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)}>
       <header>
-        <h1 className={styles.corrections_heading}>Have more ideas? Tell us here</h1>
+        <h1 className={styles.corrections_heading}>Have more Ideas? Tell us here</h1>
         <p className={styles.corrections_p}>
         Is there an additional feature or concept you think should be included in our website? Would you like us to collect additional categories of biographies? Should we expand the range of our demographic datasets? Should we build additional timeline features? If you have ideas about how to improve Sharing Stories from 1977 for teachers, researchers, archivists, NWC participants, or students please tell us here.
         </p>
       </header>
 
-      <input placeholder="Name" {...register('name', { required: true })} />
-      {errors.name?.type === 'required' && "Name is required"}
+      <input  placeholder="Name" {...register('Name', { required: true })} />
+      {errors?.Name?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
       <input
         placeholder="Affiliation/Occupation"
-        {...register('affiliation')}
+        {...register('Affiliation', { required: true })}
       />
-      <input placeholder="Email" {...register('email')} type="email" />
-      <input
-        placeholder="Name of Page Needing Correction (please also include corresponding URL)"
-        {...register('page')}
-      />
-      <input
-        placeholder="Name of specific feature to be corrected (i.e. biography, demographic fact, interpretive essay)"
-        {...register('feature')}
-      />
+      {errors?.Affiliation?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+      <input placeholder="Address" {...register('Address', { required: true })}/>
+      {errors?.Address?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+      <input placeholder="Phone" {...register('Phone', { required: true })}/>
+      {errors?.Phone?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+      <input placeholder="Email" {...register('Email', { required: true })} type="email" />
+      {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
       <textarea
-        placeholder="Corrections"
-        {...register('corrections')}
-      ></textarea>
-      <input placeholder="Source for Correction" {...register('source')} />
-      <input type="submit" className={styles.corrections_submit} />
+          placeholder="Comments" {...register('Comments', { required: true })}
+          ></textarea>
+        {errors?.Comments?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+      <input type="submit" value="Submit" className={styles.corrections_submit} />
     </form> : null}
-    {state.formSent ? <ThankYou /> : null}
+    {state.formSent ? <ThankYouMoreIdeas /> : null}
     </main>
   );
 }
 
-export default MoreIdeasForm;
+export default CorrectionsForm;
