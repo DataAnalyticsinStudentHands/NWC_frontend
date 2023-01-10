@@ -484,7 +484,7 @@ function Home() {
         <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
         <HighlightsCarousel/>
       </div> */}
-       {/*<div className="homeLaunch">
+      <div className="homeLaunch">
       
       <h1>JOIN US FOR THE LAUNCH</h1>
       <p> Click on the images to find out more and RSVP</p>
@@ -495,8 +495,8 @@ function Home() {
         target="_blank" rel="noopener noreferrer"><img src={online} alt="online"/></a>
         <a href="https://www.eventbrite.com/e/269045882477"
         target="_blank" rel="noopener noreferrer"><img src={share} alt="share"/></a>
-      </div> 
-    </div>*/}
+      </div>
+    </div>
   </div>
       ) : (
         ''
