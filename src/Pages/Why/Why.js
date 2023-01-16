@@ -6,9 +6,15 @@ import comingsoon from "./res/comingsoon_thumb.png";
 import VARIABLES from '../../config/.env';
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
+import '@brainhubeu/react-carousel/lib/style.css';
+import '../../Components/Carousel/Carousel3.scss';
+import '@brainhubeu/react-carousel/lib/style.css';
+import Carousel3 from '../../Components/Carousel/Carousel3';
 
 //Clean up lorem ipsum
 //Casing 
+// let images =[<img src='https://cdn.pixabay.com/photo/2023/01/01/05/31/bride-7689627_960_720.jpg' alt='pic'/>, <img src='https://cdn.pixabay.com/photo/2023/01/04/15/01/flower-7696955_960_720.jpg' alt='pic'/>, <img src='https://cdn.pixabay.com/photo/2023/01/05/08/17/bird-7698384_960_720.jpg' alt='pic'/>]
+
 function Why() {
     const [pageState, setPageState] = useState({
         historicalOverview: "",
@@ -62,30 +68,18 @@ function Why() {
             setEssays(
                 data.data.map(d => {
                     const featured = d.attributes.Featured;
-                    const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                    let thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
                     const id = d.id;
-                    const title = d.attributes.ShortTitle;
-
-                    return [id, thumbnail, title, featured];
+                    let title = d.attributes.ShortTitle;
+                    
+                    return ["essay", id, thumbnail, title, featured];
                 })
             )
         })
         .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    function EssayList(props) {
-        const essays = props.essays;
-        const listItems = essays.filter(essay => essay[3] === true)
-            .map((essay) => 
-            <div key={essay[0]} className="thumb_with_title">
-                <Link to={`essay?id=${essay[0]}`}>
-                    <img src={essay[1]} alt="" key={essay[0]} />
-                    <h3 className="thumb_with_title_h3">{essay[2]}</h3>
-                </Link>
-            </div>
-        );
-        return (listItems);
-    }
+
 
     return (
         <div className="why">
@@ -130,11 +124,19 @@ function Why() {
                 <div className="whyEssays">
                     <h2>FEATURED ESSAYS</h2>
                     <div className="whyEssays_list">
-                        <EssayList essays={essays} />,
-                        <div className="thumb_with_title">
+                        {/* <EssayList essays={essays} />, */}
+                        {/* <Carousel
+                            plugins={['arrows']}
+                            slides={images}
+                        >
+                        
+                        <Carousel3 essays={essays}/>
+                        {/* <SetImages essays={essays}/> */}
+                        {/* <div className="thumb_with_title">
                             <img src={comingsoon} alt="" />
                             <h3 className="thumb_with_title_h3">Coming soon</h3>
-                        </div>
+                        </div> */}
+                        <Carousel3 essays={essays}/>
                     </div>
                 </div>
 
