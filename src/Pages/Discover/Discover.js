@@ -325,21 +325,21 @@ function Discover() {
       </div>
 
       <ReactPaginate
-            breakLabel="..."
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            renderOnZeroPageCount={null}
-            forcePage={resetPagination()}
-            pageRangeDisplayed={2}
-            marginPagesDisplayed={3}
-            pageCount={totalPages}
-            previousLabel="< previous"
-            containerClassName={"pagination"}
-            previousLinkClassName={"pagination__link"}
-            nextLinkClassName={"pagination__link"}
-            disabledClassName={"pagination__link--disabled"}
-            activeClassName={"pagination__link--active"}
-            />
+        containerClassName={"pagination"}
+        nextLabel="next >"
+        previousLabel="< previous"
+        previousLinkClassName={"pagination__link"}
+        nextLinkClassName={"pagination__link"}
+        disabledClassName={"pagination__link--disabled"}
+        activeClassName={"pagination__link--active"}
+        pageCount={totalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={2}
+        onPageChange={handlePageClick}
+        renderOnZeroPageCount={null}
+        // breakLabel="..."
+        // forcePage={resetPagination()}    
+        />
 
       <div className="discoverButtons">
         <Link to="/participants">
