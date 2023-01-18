@@ -54,9 +54,6 @@ function ContactUsForm() {
         {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
         <p className={styles.forms_p}> Phone</p>
         <input placeholder="Phone" {...register('Phone')}  />
-        <p className={styles.forms_p}> Subject*</p>
-        <input placeholder="Subject" {...register('Subject', { required: true })} />
-        {errors?.Subject?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
         <p className={styles.forms_p}> Message*</p>
         <textarea
           placeholder="Message" {...register('Message', { required: true })}
