@@ -45,6 +45,8 @@ function Discover() {
     
     if(currentData === 'default'){
       fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+      // fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&fields[0]=id&fields[1]=firstname&fields[2]=lastname&fields[3]=role&fields[4]=state&fields[5]=featured&populate[profilepic][populate][0]=thumbnail`].join('/'))
+      // pagination[page]=${currentOffSet}&pagination=${postsPerPage}&fields[0]=id&fields[1]=firstname&fields[2]=lastname&fields[3]=role&fields[4]=state&fields[5]=featured&populate[profilepic][fields][0]=url
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -129,20 +131,6 @@ function Discover() {
   }
   
   function firstNameSort() {
-    // console.log(string)
-    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
-    //   .then(response => response.json())
-    //   .then(data => loadcards(data.data, setCards))
-    //   .catch(err => console.log(err));
-    //   //This should reset the pagination back to page 1
-    //   console.log('first name sort')
-    //   // setCurrentOffSet(0)
-
-    //   // cards.forEach(card => {
-    //   //   const nameParts = card.name.split(" ")
-    //   //   card.lastName = nameParts[nameParts.length - 1]
-    //   // })
-    //   // cards.sort((a, b) => a.lastName.localeCompare(b.lastName))
     currentData = 'firstname'
     console.log(currentOffSet)
     if(currentOffSet === 0){
@@ -154,12 +142,6 @@ function Discover() {
   }
 
   function lastNameSort() {
-    
-    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
-    //   .then(response => response.json())
-    //   .then(data => loadcards(data.data, setCards))
-    //   .catch(err => console.log(err));
-
     currentData = 'lastname'
     if(currentOffSet === 0){
       setCurrentOffSet(1)
@@ -174,11 +156,6 @@ function Discover() {
   }
 
   function sortRole() {
-    
-    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
-    //   .then(response => response.json())
-    //   .then(data => loadcards(data.data, setCards))
-    //   .catch(err => console.log(err));
       currentData = 'role'
       if(currentOffSet === 0){
         setCurrentOffSet(1)
@@ -192,13 +169,6 @@ function Discover() {
   }
 
   function sortState() {
-    
-    // fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
-    //   .then(response => response.json())
-    //   .then(data => loadcards(data.data, setCards))
-    //   .catch(err => console.log(err));
-    //   //This should reset the pagination back to page 1
-    //   setCurrentOffSet(0)
       currentData = 'state'
       if(currentOffSet === 0){
         setCurrentOffSet(1)
@@ -219,21 +189,6 @@ function Discover() {
   function handlePageClick(e) {
    
     setCurrentOffSet(e.selected+1)
-  }
-
-  //Janky reset for pagination, depending on the cards per page
-  function resetPagination() {
-    if (postsPerPage === "12") {
-      return currentOffSet / 12
-    } else if (postsPerPage === "24") {
-      return currentOffSet / 24
-    } else if (postsPerPage === "48") {
-      return currentOffSet / 48
-    } else if (postsPerPage === "96") {
-      return currentOffSet / 96
-    } else {
-      return currentOffSet * 0
-    }
   }
 
   return (
