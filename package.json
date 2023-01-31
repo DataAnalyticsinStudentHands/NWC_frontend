@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "/dev",
   "dependencies": {
+    "@brainhubeu/react-carousel": "^2.0.4",
     "@picocss/pico": "^1.4.4",
     "@react-hook/window-size": "^3.0.7",
     "@testing-library/jest-dom": "^5.12.0",

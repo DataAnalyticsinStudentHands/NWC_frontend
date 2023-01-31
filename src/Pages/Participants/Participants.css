@@ -44,13 +44,37 @@
 }
 
 .participantsList {
+    /* display: flex;
+    flex-flow: column wrap; */
+    /* background-color: rgba(117, 178, 224, .3); */
+    padding: 2em;
+    /* width: 80%; */
+    margin: auto;
+    /* font-family: var(--fontMontserrat);
+    font-size: .6em; */
+    /* max-height: 800em; */
+    /* border: dashed red; */
+}
+
+.participantContainer{
+    /* display: flex;
+    flex-flow: column wrap; */
+    columns: 3;
+    background-color: rgba(117, 178, 224, .3);
+    /* border: dashed blue; */
+    padding: .5em;
+    margin: auto;
+    /* margin: auto; */
+    
+}
+
+.participantContainer > ul{
     display: flex;
     flex-flow: column wrap;
-    background-color: rgba(117, 178, 224, .3);
-    padding: 2em;
-    width: 80%;
-    margin: auto;
     font-family: var(--fontMontserrat);
-    font-size: .6em;
-    max-height: 800em;
+    font-size: .5em;
+    /* max-height: 800em; */
+    /* background-color: rgba(117, 178, 224, .3); */
+    /* border: dashed green; */
 }
+

@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 
 //Clean up lorem ipsum
-//Casing 
 function Why() {
     const [pageState, setPageState] = useState({
         historicalOverview: "",
@@ -62,10 +61,10 @@ function Why() {
             setEssays(
                 data.data.map(d => {
                     const featured = d.attributes.Featured;
-                    const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                    let thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
                     const id = d.id;
-                    const title = d.attributes.ShortTitle;
-
+                    let title = d.attributes.ShortTitle;
+                    
                     return [id, thumbnail, title, featured];
                 })
             )
