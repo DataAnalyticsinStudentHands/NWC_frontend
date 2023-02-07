@@ -233,7 +233,7 @@ function Discover() {
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
-          <input placeholder="Search by Name" value={input} onChange={e => setInput(e.target.value)} />
+          <input placeholder="Search Participants by name" value={input} onChange={e => setInput(e.target.value)} />
           <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">
