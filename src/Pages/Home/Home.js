@@ -215,8 +215,6 @@ function Home() {
     fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
-      console.log('line 229', data.data)
-      // console.log('line 229', data.data, data.data.attributes.Featured, data.data.attributes.Thumbnail.data.attributes.url)
         setImages(
             data.data.map(d => {
                 const featured = d.attributes.Featured;

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 function getData(props){
 let item = props.images
-console.log('line 10', item)
 let items = []
 
 for(let x in item){
