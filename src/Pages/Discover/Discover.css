@@ -100,6 +100,7 @@ SEARCH
     margin: auto;
     padding-left: 1ch;
     margin-right: 1ch;
+    width: 19vw;
 }
 
 .discoverSearch_bar > input::placeholder {
