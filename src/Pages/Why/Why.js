@@ -6,6 +6,7 @@ import comingsoon from "./res/comingsoon_thumb.png";
 import VARIABLES from '../../config/.env';
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
+import Carousel3 from '../../Components/Carousel/Carousel3';
 
 //Clean up lorem ipsum
 //Casing 
@@ -66,7 +67,7 @@ function Why() {
                     const id = d.id;
                     const title = d.attributes.ShortTitle;
 
-                    return [id, thumbnail, title, featured];
+                    return ['essay', id, thumbnail, title, featured];
                 })
             )
         })
@@ -129,13 +130,15 @@ function Why() {
                 {/**ESSAYS */}
                 <div className="whyEssays">
                     <h2>FEATURED ESSAYS</h2>
-                    <div className="whyEssays_list">
-                        <EssayList essays={essays} />,
+                    <div className='whyEssays_list'>
+                        <Carousel3 images={essays}/>
+                        </div>
+                        {/* <EssayList essays={essays} />,
                         <div className="thumb_with_title">
                             <img src={comingsoon} alt="" />
                             <h3 className="thumb_with_title_h3">Coming soon</h3>
-                        </div>
-                    </div>
+                        </div> */}
+                    
                 </div>
 
                 {/**PUBLICATIONS */}

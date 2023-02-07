@@ -23,22 +23,11 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
-import inperson from './res/inperson.png';
-import online from './res/online.png';
-import share from './res/share.png';
 import Carousel3 from '../../Components/Carousel/Carousel3';
 
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
-
-// const images = [
-//   ['home', "https://www.eventbrite.com/e/why-the-1977-national-womens-conference-matters-tickets-269032983897",inperson], 
-//   ['home', "https://www.eventbrite.com/e/269039112227", online],
-//   ['home', "https://www.eventbrite.com/e/269045882477", share] 
-// ]
-
-
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -235,8 +224,9 @@ function Home() {
                 // const thumbnail = 
                 const id = d.id;
                 const title = d.attributes.ShortTitle;
+                const link = d.attributes.home_highlights_link
 
-                return ['default', id, thumbnail, title, featured];
+                return ['default', id, thumbnail, title, featured, link];
             })
         )
     })
@@ -517,12 +507,11 @@ function Home() {
         <HighlightsCarousel/>
       </div> */}
       <div className="homeLaunch">
-      
-      <h1>JOIN US FOR THE LAUNCH</h1>
-      <p> Click on the images to find out more and RSVP</p>
-        
-          <Carousel3 images={images}/>
-        
+        <h1>JOIN US FOR THE LAUNCH</h1>
+        <p> Click on the images to find out more and RSVP</p>
+      <div className='homeLaunchPanel'>
+        <Carousel3 images={images}/>
+      </div>
     </div>
   </div>
       ) : (
