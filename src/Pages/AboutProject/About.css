@@ -158,7 +158,7 @@ DOCUMENTS
 }
 
 .aboutDocuments a {
-  font-size: 80rem;
+  font-size: 60rem;
   font-family: var(--fontBabasNeue);
   margin-bottom: 141rem;
   justify-content: center;
@@ -166,6 +166,7 @@ DOCUMENTS
   text-align: center;
   width: 400rem;
   color: var(--colorDarkBlue);
+  text-decoration: underline;
 }
 
 .aboutDocuments a:hover {
