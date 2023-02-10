@@ -9,7 +9,9 @@ import teallogo from "./teallogo.png";
 function DiscoverCard({
     color, // yellow, blue, red, teal
     href,
-    name,
+    // name,
+    firstname,
+    lastname,
     role,
     state,
     profilepic,
@@ -45,7 +47,7 @@ function DiscoverCard({
     let logoPlace = null
     let logoPic = null
     if(profilepic === null){
-        logoPlace = <img src={logo} alt={name + Math.random()}/>
+        logoPlace = <img src={logo} alt={firstname+' '+lastname + Math.random()}/>
     }
     else{
         logoPic = <img src={profilepic} alt=''/>
@@ -68,7 +70,7 @@ function DiscoverCard({
 
                     </div>
                     <div className="discoverCard_data">
-                        <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{name}</p>
+                        <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{firstname} {lastname}</p>
                         <p className="discoverCard_role" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{role}</p>
                         <p className="discoverCard_state" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{state}</p>
                     </div>
