@@ -121,11 +121,15 @@ function Participants() {
 
             {/**LIST */}
             <div className="participantsList">
+                
+                <ul className='participantContainer'>
                 {
                     participants.length === 0
                         ? "No Participants Found."
-                        : participants.map(p => <p key={Math.random()}>{p.attributes.LastName}, {p.attributes.FirstName}, {p.attributes.States}</p>)
+                        : participants.map(participant => <ul key={Math.random()}>{participant.attributes.LastName}, {participant.attributes.FirstName}, {participant.attributes.States}</ul>)
                 }
+                </ul>
+            
             </div>
         </div>
     )

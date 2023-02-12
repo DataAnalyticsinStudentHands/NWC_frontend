@@ -34,6 +34,7 @@ function PDFViewer() {
       >
         {Array.from(new Array(numPages), (el, index) => (
           <Page
+            height={900}
             className={styles.pdf__page}
             key={`page_${index + 1}`}
             pageNumber={index + 1}

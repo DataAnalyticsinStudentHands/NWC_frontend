@@ -23,6 +23,8 @@ function DiscoverInfo() {
         imgcaption: '',
         maintext: '',
         name: '',
+        firstname:'',
+        lastname:'',
         profilepic: '',
         profilepic_alt: '',
         role: '',
@@ -41,7 +43,7 @@ function DiscoverInfo() {
             .then(data => {
                 
                 const {attributes:
-                            {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, role, rolesAtNwc, 
+                            {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, firstname, lastname, role, rolesAtNwc, 
                                 sources, VideoUrl, usertags}}= data.data[0]
                 // IF Conditional statement to ensure data[0].profilepic[0] TypeError resolved
                 // If it exists, we can set the state to that profile pic
@@ -71,6 +73,8 @@ function DiscoverInfo() {
                     imgcaption: imgcaption,
                     maintext: maintext,
                     name: name,
+                    firstname: firstname,
+                    lastname: lastname,
                     profilepic,
                     profilepic_alt,
                     role: role,
@@ -90,7 +94,7 @@ function DiscoverInfo() {
             <div className="discoverInfoBanner">
                 <div className="discoverInfoBanner_left">
                     <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-                    <h1>{state.name}</h1>
+                    <h1>{state.firstname} {state.lastname}</h1>
                 </div>
             </div>
 
@@ -102,7 +106,7 @@ function DiscoverInfo() {
                         <img src={state.profilepic} alt={state.profilepic_alt} />
                         <p className="discoverInfoBody_caption">{state.imgcaption}</p>
                         <h3>NAME</h3>
-                        <p>{state.name}</p>
+                        <p>{state.firstname} {state.lastname}</p>
 
                         <h3>BORN</h3>
                         <p>{state.dob}</p>
@@ -129,10 +133,10 @@ function DiscoverInfo() {
                     </h2>
 
                     <h2 className="discoverInfoBody_bioh">
-                        {state.name}
+                        {state.firstname} {state.lastname}
                     </h2>
 
-                    {state.bigquote1 !== '' ?
+                    {state.bigquote1 !== '' && state.bigquote1 !== null ?
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
@@ -147,10 +151,12 @@ function DiscoverInfo() {
                         </ReactMarkdown>
                     </div>
 
-                    {state.bigquote2 !== '' ?
+                    {state.bigquote2 !== '' && state.bigquote2 !== null ?
+                    
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
+                            
                             <p>{state.bigquote2}</p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>

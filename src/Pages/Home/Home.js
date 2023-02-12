@@ -29,6 +29,8 @@ import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 
+
+
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
 };
