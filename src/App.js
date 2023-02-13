@@ -57,9 +57,9 @@ function App() {
         <Route path="/Essay">
           <Essay />
         </Route>
-{/*          <Route path="/ResearchingNWC">
+         <Route path="/ResearchingNWC">
             <ResearchingNWC />
-        </Route>  */}
+        </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>

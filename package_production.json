@@ -2,7 +2,6 @@
   "name": "nwcfrontend",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/dev",
   "dependencies": {
     "@picocss/pico": "^1.4.4",
     "@react-hook/window-size": "^3.0.7",
@@ -25,8 +24,6 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "react-select": "^5.2.2",
-    "react-slick": "^0.29.0",
-    "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

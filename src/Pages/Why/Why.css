@@ -117,15 +117,17 @@ ESSAYS
 }
 
 .whyEssays_list {
-    display: flex;
+    display: flexbox;
     width: 100%;
-    overflow-x: auto;
-    justify-content: left;
+    
+    /* overflow-x: auto; */
+    /* justify-content: left; */
 }
 
 .thumb_with_title {
     position: relative;
     text-align: center;
+   
 }
 
 .thumb_with_title_h3 {
@@ -141,9 +143,14 @@ ESSAYS
 }
 
 .whyEssays_list img {
+    display: block;
     width: 350rem;
-    margin-right: 15rem;
-    margin-left: 15rem;
+    margin-right: auto;
+    margin-left: auto;
+    
+    
+
+    
 }
 
 .whyEssays_list a:hover {
