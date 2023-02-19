@@ -133,7 +133,6 @@ SEARCH
   padding-bottom: 10rem;
   border-bottom: 2rem dashed var(--colorDarkBlue);
 
-  
 }
 
 .panel p{
@@ -146,10 +145,14 @@ SEARCH
 .panel + .panel {
   /*margin-left: 2%;*/
   border-left: 2rem dashed var(--colorDarkBlue);
+
 }
 
 .basicForm {
-  border: 2rem dashed var(--colorDarkBlue);
+  /* border: 2rem dashed var(--colorDarkBlue); */
+  background-color:rgba(158, 199, 225, 0.35);
+  padding: 1%;
+  border-radius: 1em;;  
 }
 
 .basic-multi-select {
