@@ -91,6 +91,12 @@ RESEARCHERS ICONS
     display: flex;
     justify-content: center;
     margin-top: 100rem;
+    margin-bottom: 100rem;
+}
+
+.resourceResearchersIcons img{
+    max-width:100%;
+    
 }
 
 .iconContainer{

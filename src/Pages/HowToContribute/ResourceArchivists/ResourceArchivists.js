@@ -73,19 +73,19 @@ function ResourceArchivists() {
             {/* RESEARCHER ICONS */}
             <div className="archivistsBannerIcons">
                 <Link to="/Forms/HowToDonatePapersForm">
-                    <div className="iconContainer">
+                    <div className="iconContainer_arch">
                         <img src={archivalIcon} alt="_"></img>
                         <p>How to Contribute Archival Information</p>
                     </div>
                 </Link>
                 <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines_Archivists}`}>
-                    <div className="iconContainer">
+                    <div className="iconContainer_arch">
                         <img src={techIcon} alt="_"></img>
                         <p>Technical Guidelines</p>
                     </div>
                 </Link>
                 <a href={`${state.Pdf_Permission_Documents}`} download>
-                    <div className="iconContainer">
+                    <div className="iconContainer_arch">
                         <img src={permissionIcon} alt="_"></img>
                         <p>Permissions Documents</p>
                     </div>

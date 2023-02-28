@@ -97,10 +97,18 @@ ARCHIVISTS ICONS
     display: inline-block;
     text-align: center;
     margin-top: 100rem;
-    margin-left: 300rem;
 }
 
-.iconContainer p{
+.iconContainer_arch{
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    float:left;
+    padding: 30rem;
+    margin-left: -130rem;
+    margin-right: 100rem;
+}
+
+.iconContainer_arch p{
     white-space: pre-line;
     display: block;
     color: #142F45;
