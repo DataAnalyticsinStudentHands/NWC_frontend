@@ -88,19 +88,19 @@ function ResourceNWC() {
             {/* RESEARCHER ICONS */}
             <div className="resourceNWCIconsTop">
             <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={oralIcon} alt="_"></img>
                         <p>How to Contribute Oral Histories</p>
                     </div>
                 </Link>
                 <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_NWCParticipants}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={contributeIcon} alt="_"></img>
                         <p>How to Contribute Biographies</p>
                     </div>
                 </Link>
                 <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={techIcon} alt="_"></img>
                         <p>Technical Guidelines</p>
                     </div>
@@ -109,13 +109,13 @@ function ResourceNWC() {
 
             <div className="resourceNWCIconsBottom">
             <a href={`${state.Pdf_Permission_Documents}`} download>
-                    <div className="iconContainer_nwc_bottom">
+                    <div className="iconContainer">
                         <img src={permissionIcon} alt="_"></img>
                         <p>Permissions Documents</p>
                     </div>
                 </a>
                 <Link to="/Forms/HowToDonatePapersForm">
-                <div className="iconContainer_nwc_bottom">
+                <div className="iconContainer">
                     <img src={iconPapers} alt="_"></img>
                     <p>HOW TO DONATE YOUR PAPERS</p>  
                 </div>

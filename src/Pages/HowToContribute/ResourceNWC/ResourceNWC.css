@@ -87,36 +87,10 @@ ARCHIVISTS ICONS
     display: inline-block;
     text-align: center;
     margin-top: 100rem;
-    margin-left: 300rem;
+    margin-left: 320rem;
 }
 
-.iconContainer_nwc{
-    font-family:var(--fontBabasNeue);
-    text-align:center;
-    float:left;
-    padding: 30rem;
-    margin-left: -110rem;
-    margin-right: 80rem;
-}
-
-.iconContainer_nwc_bottom {
-    font-family:var(--fontBabasNeue);
-    text-align:center;
-    float:left;
-    padding: 30rem;
-    margin-left: -160rem;
-    margin-right: 150rem;
-}
-
-.iconContainer_nwc p{
-    white-space: pre-line;
-    display: block;
-    color: #142F45;
-    margin-top: 50rem;
-    font-size: 30rem;
-}
-
-.iconContainer_nwc_bottom p{
+.iconContainer p{
     white-space: pre-line;
     display: block;
     color: #142F45;
@@ -129,7 +103,7 @@ ARCHIVISTS ICONS
     display: inline-block;
     text-align: center;
     margin-top: 100rem;
-    margin-left: 550rem;
+    margin-left: 540rem;
 }
 
 /*

@@ -92,20 +92,20 @@ function ResourceEducators() {
             <div className="resourceNWCIconsTop">
 
                 <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Educators}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={oralIcon} alt="_"></img>
                         <p>How to Contribute Oral Histories</p>
                     </div>
                 </Link>
                 <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_Educators}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={contributeIcon} alt="_"></img>
                         <p>How to Contribute Biographies</p>
                     </div>
                 </Link>
 
                 <Link to={`PDFViewer/${state.Pdf_Classroom_Ideas}`}>
-                    <div className="iconContainer_nwc">
+                    <div className="iconContainer">
                         <img src={iconClass} alt="_"></img>
                         <p>Classroom Ideas</p>
                     </div>
@@ -114,13 +114,13 @@ function ResourceEducators() {
 
             <div className="resourceNWCIconsBottom">
                 <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines}`}>
-                    <div className="iconContainer_nwc_bottom">
+                    <div className="iconContainer">
                         <img src={techIcon} alt="_"></img>
                         <p>Technical Guidelines</p>
                     </div>
                 </Link>
                 <a href={`${state.Pdf_Permission_Documents}`} download>
-                    <div className="iconContainer_nwc_bottom">
+                    <div className="iconContainer">
                         <img src={permissionIcon} alt="_"></img>
                         <p>Permissions Documents</p>
                     </div>
