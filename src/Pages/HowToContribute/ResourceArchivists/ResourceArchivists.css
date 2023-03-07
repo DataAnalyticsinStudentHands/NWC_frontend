@@ -97,7 +97,13 @@ ARCHIVISTS ICONS
     display: inline-block;
     text-align: center;
     margin-top: 100rem;
-    margin-left: 300rem;
+    margin-left: -100rem;
+}
+
+.iconContainer{
+    
+    margin-left: -100rem;
+    margin-right: 100rem;
 }
 
 .iconContainer p{
