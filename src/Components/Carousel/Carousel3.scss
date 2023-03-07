@@ -6,8 +6,33 @@
     right:25px
   }
 
-
+ 
 }
 .slick-dots{
   bottom: -50px;
 }
+.slick-next:before{
+  font-family: '';
+  opacity: 1;
+  color: #FFF4E8;
+ }
+
+ .slick-prev:before{
+  font-family: '';
+  opacity: 1;
+  color: #FFF4E8;
+  
+  
+ }
+
+ .slick-next:hover{
+  opacity: .75;
+ }
+
+ .slick-prev:hover{
+  opacity: .75;
+ }
+ .slick-dots li.slick-active button:before{
+  color: #B32525;
+  font-size: 15px;
+ }
