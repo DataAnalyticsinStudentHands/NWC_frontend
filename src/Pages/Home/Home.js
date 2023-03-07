@@ -36,7 +36,8 @@ const getWhere = (data, key, value) => {
 };
 
 const urlify = (str) => {
-  return [VARIABLES.fetchBaseUrl, str].join('/'); 
+  return `${VARIABLES.fetchBaseUrl}${str}`; 
+  // return [VARIABLES.fetchBaseUrl, str].join('/'); 
 };
 
 // sort points of interest by first element (Name)
@@ -142,9 +143,9 @@ function Home() {
           return superSorter(
             getWhere(data.data, 'Map', map).map((p) => {
               const 
-                      {attributes:
-                        {x, y, Name, Description, citation1, citation2, citation3, 
-                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
+                  {attributes:
+                    {x, y, Name, Description, citation1, citation2, citation3, 
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
               const p2 = [];
               
               p2[0] = Name;
