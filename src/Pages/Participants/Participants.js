@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from "react-router-dom";
 import './Participants.css';
 import VARIABLES from '../../config/.env';
@@ -8,33 +8,58 @@ import Select from 'react-select';
 function Participants() {
     const [participants, setParticipants] = useState([]);
     // state for select
-    const [selectedValue, setSelectedValue] = useState();
-
+    const [selectedValue, setSelectedValue] = useState(null);
+    const listOfPartcipants = useRef([])
     // Pull Strapi Data
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?_sort=LastName:ASC&_limit=-1'].join('/')) // need to figure out how to sort in query, but for another day </3
+        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
+                listOfPartcipants.current = data.data
                 setParticipants(data.data)
             })
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
     // handle onChange event of the dropdown
+    // const handleChange = selectedOption => {
+    //     setSelectedValue(selectedOption.label);
+    //     fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?[filters][States][$eq]=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
+    //         .then(res => res.json())
+    //         .then(data => {
+    //             console.log('line 30', data.data);
+    //             setParticipants(Array.isArray(data.data) ? data.data : [data.data])
+    //         })
+    //         .catch(err => console.log(err));
+    // }
+
     const handleChange = e => {
         setSelectedValue(e.label);
-        fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?States_contains=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data.data);
-                setParticipants(Array.isArray(data.data) ? data : [])
-            })
-            .catch(err => console.log(err));
+        let i = 0
+        let newList = []
+        if(selectedValue === 'All States'){
+            setParticipants(listOfPartcipants.current)
+            console.log('line 31')
+        }else{
+            while(i < listOfPartcipants.current.length){
+                if(listOfPartcipants.current[i].attributes.States === selectedValue){
+                    newList.push(listOfPartcipants.current[i])
+                    console.log('line 37')
+                }   
+                i++
+            }
+            console.log('handle change')
+            setParticipants(newList)
+        }
+        
+        // setParticipants({value:newList}, function(){
+        //     console.log('line 46', participants.value)
+        // })
     }
 
     // adding USA list of states for select input
     const stateOptions = [
+        {value:"ALL", label: "All States"},
         { value: "AL", label: "Alabama" },
         { value: "AK", label: "Alaska" },
         { value: "AZ", label: "Arizona" },
@@ -90,7 +115,7 @@ function Participants() {
     return (
         <div className="participants">
             {/**BACK LINK */}
-            <div>
+            <div class='backToDiscover'>
                 <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
             </div>
 
@@ -98,16 +123,21 @@ function Participants() {
             <div className='participantsOptions'>
             
             {/**FILTER */}
-            <div className="participantsFilter">
+            {/* <div className="participantsFilter"> */}
+               <div className='participantsFilter'>
                 <p>Filter by State: </p>
-                <Select
+                <Select id='select'
                     options={stateOptions}
                     onChange={handleChange}
                     value={stateOptions.find(obj => obj.value === selectedValue)}
                     className="basic-multi-select participantsFilterSelect"
                     classNamePrefix="select"
-                />
-                <CSVLink
+                >
+                    
+                    
+                </Select>
+                </div>
+                <CSVLink 
                     data={[
                         ["Last Name", "First Name", "State"],
                         ...participants.map(p => [p.attributes.LastName, p.attributes.FirstName, p.attributes.States]),
@@ -116,7 +146,7 @@ function Participants() {
                 >
                     Download CSV
                 </CSVLink>
-                </div>
+                {/* </div> */}
             </div>
 
             {/**LIST */}
