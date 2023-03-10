@@ -62,7 +62,7 @@ export default function Map(props) {
                                     <tr key={val.id}>
                                         <td>{val.attributes.last_name}</td>
                                         <td>{val.attributes.first_name}</td>
-                                        <td>{val.attributes.residence_in_1977.data.attributes.city_state}</td>
+                                        <td>{val.attributes.residence_in_1977.data?.attributes.city_state}</td>
                                         <td>{val.attributes.role.data.map(e => { return e.attributes.role+'  '})}</td>
                                     </tr>
                                 )
