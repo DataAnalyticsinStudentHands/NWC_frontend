@@ -217,7 +217,7 @@ function Home() {
     fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
-      console.log('220', data)
+      
         setImages(
             data.data.map(d => {
                 const featured = d.attributes.Featured;
@@ -509,7 +509,6 @@ function Home() {
       </div> */}
       <div className="homeLaunch">
         <h1>SITE HIGHLIGHTS</h1>
-        <p> Click on the images to find out more and RSVP</p>
       <div className='homeLaunchPanel'>
         <Carousel3 images={images}/>
       </div>
