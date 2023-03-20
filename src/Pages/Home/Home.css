@@ -481,9 +481,7 @@ HIGHLIGHTS
   margin: 60rem auto;
 }
 
-.homeLaunchPanel a{
-  padding-left: calc(50*var(--xUnit));
-}
+
 .homeLaunchPanel img{
     display: block;
     width: 350rem;

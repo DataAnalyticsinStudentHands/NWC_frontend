@@ -11,7 +11,7 @@ const Carousel3 = (props) => {
       return (
           <div
           className={className}
-          style={{ ...style, display: "block", background: "red", "borderRadius":"50%" }}
+          style={{ ...style, display: "flex", background: "#B32525", width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'align-items':'center', 'justifyContent':'center' }}
           onClick={onClick}
           />
       );
@@ -21,7 +21,7 @@ const Carousel3 = (props) => {
       return (
         <div
           className={className}
-          style={{ ...style, display: "block", background: "red", zIndex:'1', "borderRadius":"50%"}}
+          style={{ ...style, display: "flex", background: "#B32525", zIndex:'1', width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'align-items':'center', 'justifyContent':'center' }}
           onClick={onClick}
         />
       );
@@ -29,7 +29,7 @@ const Carousel3 = (props) => {
   const settings = {
       dots: true,
       infinite: true,
-      slidesToShow: 1,
+      slidesToShow: 3,
       slidesToScroll: 1,
       
       // pauseOnHover: true,

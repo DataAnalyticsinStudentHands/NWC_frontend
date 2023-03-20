@@ -36,7 +36,7 @@ const getWhere = (data, key, value) => {
 };
 
 const urlify = (str) => {
-  return [VARIABLES.fetchBaseUrl, str].join('/'); 
+  return `${VARIABLES.fetchBaseUrl}${str}`; 
 };
 
 // sort points of interest by first element (Name)
@@ -142,9 +142,9 @@ function Home() {
           return superSorter(
             getWhere(data.data, 'Map', map).map((p) => {
               const 
-                      {attributes:
-                        {x, y, Name, Description, citation1, citation2, citation3, 
-                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
+                  {attributes:
+                    {x, y, Name, Description, citation1, citation2, citation3, 
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
               const p2 = [];
               
               p2[0] = Name;
@@ -217,6 +217,7 @@ function Home() {
     fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
+      
         setImages(
             data.data.map(d => {
                 const featured = d.attributes.Featured;
@@ -507,8 +508,7 @@ function Home() {
         <HighlightsCarousel/>
       </div> */}
       <div className="homeLaunch">
-        <h1>JOIN US FOR THE LAUNCH</h1>
-        <p> Click on the images to find out more and RSVP</p>
+        <h1>SITE HIGHLIGHTS</h1>
       <div className='homeLaunchPanel'>
         <Carousel3 images={images}/>
       </div>
