@@ -4,6 +4,7 @@ import './Participants.css';
 import VARIABLES from '../../config/.env';
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
+import BackToButton from '../../Components/Buttons/backTo';
 
 function Participants() {
     const [participants, setParticipants] = useState([]);
@@ -21,40 +22,15 @@ function Participants() {
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    // handle onChange event of the dropdown
-    // const handleChange = selectedOption => {
-    //     setSelectedValue(selectedOption.label);
-    //     fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?[filters][States][$eq]=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
-    //         .then(res => res.json())
-    //         .then(data => {
-    //             console.log('line 30', data.data);
-    //             setParticipants(Array.isArray(data.data) ? data.data : [data.data])
-    //         })
-    //         .catch(err => console.log(err));
-    // }
-
     const handleChange = e => {
-        setSelectedValue(e.label);
-        let i = 0
-        let newList = []
-        if(selectedValue === 'All States'){
-            setParticipants(listOfPartcipants.current)
-            console.log('line 31')
-        }else{
-            while(i < listOfPartcipants.current.length){
-                if(listOfPartcipants.current[i].attributes.States === selectedValue){
-                    newList.push(listOfPartcipants.current[i])
-                    console.log('line 37')
-                }   
-                i++
-            }
-            console.log('handle change')
-            setParticipants(newList)
-        }
         
-        // setParticipants({value:newList}, function(){
-        //     console.log('line 46', participants.value)
-        // })
+        let selectedValues = e.map(e=>{return e.label})
+        setSelectedValue(selectedValues);
+        const list = listOfPartcipants.current.filter(fullList => selectedValues.includes(fullList.attributes.States)).map(p=>{
+            return p
+        })
+        selectedValues.length === 0?setParticipants(listOfPartcipants.current): setParticipants(list)
+        
     }
 
     // adding USA list of states for select input
@@ -115,10 +91,13 @@ function Participants() {
     return (
         <div className="participants">
             {/**BACK LINK */}
-            <div class='backToDiscover'>
+            {/* <div class='backToDiscover'>
                 <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-            </div>
-
+            </div> */}
+            <p className='backToDiscover'>
+                <BackToButton name='Discover' link='/discover'/>
+            </p>
+            
             <h1>List of NWC Participants</h1>
             <div className='participantsOptions'>
             
@@ -127,10 +106,13 @@ function Participants() {
                <div className='participantsFilter'>
                 <p>Filter by State: </p>
                 <Select id='select'
+                    isMulti
                     options={stateOptions}
                     onChange={handleChange}
+                    // onChange={onSelect}
+                    // value={selectedOptions}
                     value={stateOptions.find(obj => obj.value === selectedValue)}
-                    className="basic-multi-select participantsFilterSelect"
+                    className="basic-multi-select"
                     classNamePrefix="select"
                 >
                     

@@ -3,6 +3,7 @@
     font-family: var(--fontBabasNeue);
     padding: 1em 0;
     color: var(--colorDarkBlue);
+    
 }
 
 .participants a {
@@ -49,26 +50,15 @@
 }
 
 .participantsList {
-    /* display: flex;
-    flex-flow: column wrap; */
-    /* background-color: rgba(117, 178, 224, .3); */
-    padding: 2em;
-    /* width: 80%; */
+    padding: 1em 2em 1em 2em;
     margin: auto;
-    /* font-family: var(--fontMontserrat);
-    font-size: .6em; */
-    /* max-height: 800em; */
 }
 
 .participantContainer{
-    /* display: flex;
-    flex-flow: column wrap; */
     columns: 3;
     background-color: rgba(117, 178, 224, .3);
     padding: .5em;
     margin: auto;
-    /* margin: auto; */
-    
 }
 
 .participantContainer > ul{
@@ -76,7 +66,5 @@
     flex-flow: column wrap;
     font-family: var(--fontMontserrat);
     font-size: .5em;
-    /* max-height: 800em; */
-    /* background-color: rgba(117, 178, 224, .3); */
 }
 
