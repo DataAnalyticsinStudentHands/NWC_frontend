@@ -37,7 +37,7 @@
 
 .meetIcon_popup > img{
     width:400px;
-    height:600px;
+    height:auto;
 }
 .popup_img{
     width:100%;
@@ -91,4 +91,8 @@
     font-size: .6em;
     text-align: left;
     padding: .8em;
+    max-width: 900px;
+    max-height: 400px;
+    white-space: normal;
+    overflow: auto;
 }

@@ -26,7 +26,8 @@ function About() {
     aboutDocuments_ddlink: '',
     aboutDocuments_cblink: '',
     aboutDocuments_aplink: '',
-    aboutDocuments_frlink: ''
+    aboutDocuments_frlink: '',
+    aboutDocuments_collectionsGuide:''
   });
 
   // grab page data from strapi
@@ -34,14 +35,15 @@ function About() {
     fetch(`${fetchBaseUrl}/api/content-about?populate=*`)
       .then(res => res.json())
       .then(data => {
-        //
+        
         const {data:
                 {attributes:
                   {
                     Banner_text, BannerImage_Credit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
                     aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
-                    aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink,
-                    // aboutDocuments_aplink
+                    aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink, 
+                    aboutDocuments_collectionsGuide,
+                    aboutDocuments_aplink
                   }
                 }
               } = data;
@@ -55,15 +57,16 @@ function About() {
           aboutTimeline_3: aboutTimeline_3,
           aboutTimeline_4: aboutTimeline_4,
           aboutTimeline_5: aboutTimeline_5,
-          aboutDocuments_cblink: aboutDocuments_cblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
-          // aboutDocuments_aplink: aboutDocuments_aplink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
-          aboutDocuments_frlink: aboutDocuments_frlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
-          aboutDocuments_eclink: aboutDocuments_eclink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
-          aboutDocuments_fmlink: aboutDocuments_fmlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
-          aboutDocuments_tblink: aboutDocuments_tblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tblink.data.attributes.url : undefined,
-          aboutDocuments_tdlink: aboutDocuments_tdlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tdlink.data.attributes.url : undefined,
-          aboutDocuments_edlink: aboutDocuments_edlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_edlink.data.attributes.url : undefined,
-          aboutDocuments_ddlink: aboutDocuments_ddlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_ddlink.data.attributes.url : undefined,
+          aboutDocuments_cblink: aboutDocuments_cblink.data !== null ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
+          aboutDocuments_aplink: aboutDocuments_aplink.data !== null ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
+          aboutDocuments_frlink: aboutDocuments_frlink.data !== null ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
+          aboutDocuments_eclink: aboutDocuments_eclink.data !== null ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
+          aboutDocuments_fmlink: aboutDocuments_fmlink.data !== null ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
+          aboutDocuments_tblink: aboutDocuments_tblink.data !== null ? fetchBaseUrl + aboutDocuments_tblink.data.attributes.url : undefined,
+          aboutDocuments_tdlink: aboutDocuments_tdlink.data !== null ? fetchBaseUrl + aboutDocuments_tdlink.data.attributes.url : undefined,
+          aboutDocuments_edlink: aboutDocuments_edlink.data !== null ? fetchBaseUrl + aboutDocuments_edlink.data.attributes.url : undefined,
+          aboutDocuments_ddlink: aboutDocuments_ddlink.data !== null ? fetchBaseUrl + aboutDocuments_ddlink.data.attributes.url : undefined,
+          aboutDocuments_collectionsGuide: aboutDocuments_collectionsGuide.data !== null ? fetchBaseUrl + aboutDocuments_collectionsGuide.data.attributes.url: undefined,
         });
       })
       .catch(err => console.log(err));
@@ -167,6 +170,13 @@ function About() {
           <Link to={`PDFViewer/${state.aboutDocuments_frlink.split('/')[4]}`}>
             <div>
               FURTHER READING
+            </div>
+          </Link>
+        }
+        {state.aboutDocuments_collectionsGuide  &&
+          <Link to={`PDFViewer/${state.aboutDocuments_collectionsGuide.split('/')[4]}`}>
+            <div>
+              COLLECTIONS GUIDE
             </div>
           </Link>
         }
