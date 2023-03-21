@@ -45,8 +45,6 @@ function Discover() {
     
     if(currentData === 'default'){
       fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
-      // fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&fields[0]=id&fields[1]=firstname&fields[2]=lastname&fields[3]=role&fields[4]=state&fields[5]=featured&populate[profilepic][populate][0]=thumbnail`].join('/'))
-      // pagination[page]=${currentOffSet}&pagination=${postsPerPage}&fields[0]=id&fields[1]=firstname&fields[2]=lastname&fields[3]=role&fields[4]=state&fields[5]=featured&populate[profilepic][fields][0]=url
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -115,14 +113,25 @@ function Discover() {
     let lastname = fullname[1]
     
     if(fullname.length === 1){
+     
       fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&populate=*`].join('/'))
       .then(response => response.json())
-      .then(data => loadcards(data.data, setCards))
+      .then(data => {
+        loadcards(data.data, setCards) 
+        setDataLength(data.data.length)
+        setCurrentOffSet(currentOffSet===0?1:0)
+        
+      })
       .catch(err => console.log(err));
     }else{
       fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&filters[$or][2][firstname][$containsi]=${lastname}&populate=*`].join('/'))
       .then(response => response.json())
-      .then(data => loadcards(data.data, setCards))
+      .then(data => {
+        
+        loadcards(data.data, setCards)
+        setDataLength(data.data.length)
+        setCurrentOffSet(currentOffSet===0?1:0)
+        })
       .catch(err => console.log(err));
     }
 
@@ -132,7 +141,6 @@ function Discover() {
   
   function firstNameSort() {
     currentData = 'firstname'
-    console.log(currentOffSet)
     if(currentOffSet === 0){
       setCurrentOffSet(1)
     }else{
@@ -181,7 +189,10 @@ function Discover() {
 
   //Cards shown amount
   function handleSelectChange(e) {
-    setPostsPerPage(e.target.value);
+    if(totalPages > 1){
+      setPostsPerPage(e.target.value);
+    }
+    
     // setCurrentOffSet(0);
   }
 
@@ -233,7 +244,7 @@ function Discover() {
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
-          <input placeholder="Search Participants by name" value={input} onChange={e => setInput(e.target.value)} />
+          <input placeholder="Search Participants by Name" value={input} onChange={e => setInput(e.target.value)} />
           <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">
@@ -252,7 +263,7 @@ function Discover() {
       
       <div className="cardsPerPage">
           <div className="cardsPerPageHeader">
-          <h3>Cards per page</h3>
+          Cards per page
             </div>
       <ul className="cardsListPerPage">
             <button onClick={handleSelectChange} value={12}>12</button>

@@ -8,6 +8,8 @@ import ReactMarkdown from 'react-markdown';
 import VARIABLES from '../../config/.env';
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
+import BackToButton from '../../Components/Buttons/backTo';
+
 
 function DiscoverInfo() {
     const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA
@@ -92,10 +94,15 @@ function DiscoverInfo() {
         <div className="discoverInfo">
             {/**BANNER */}
             <div className="discoverInfoBanner">
-                <div className="discoverInfoBanner_left">
+                {/* <div className="discoverInfoBanner_left">
                     <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
                     <h1>{state.firstname} {state.lastname}</h1>
+                </div> */}
+                <div className='discoverInfoBanner_left'>
+                    <BackToButton name='Discover' link='/discover'/>
+                    <h1>{state.firstname} {state.lastname}</h1>
                 </div>
+                
             </div>
 
             {/**BODY */}
