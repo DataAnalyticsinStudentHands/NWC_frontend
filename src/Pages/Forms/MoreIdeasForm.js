@@ -46,7 +46,7 @@ function CorrectionsForm() {
   return (
     <main className={styles.forms}>
     {!state.formSent ? 
-    <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)} noValidate>
       <header>
         <h1 className={styles.corrections_heading}>Have more Ideas? Tell us here</h1>
         <p className={styles.corrections_p}>
@@ -65,8 +65,9 @@ function CorrectionsForm() {
       {errors?.Address?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
       <input placeholder="Phone" {...register('Phone', { required: true })}/>
       {errors?.Phone?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
-      <input placeholder="Email" {...register('Email', { required: true })} type="email" />
+      <input placeholder="Email" {...register('Email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} type="email" />
       {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
+      {errors?.Email?.type === 'pattern' && <p className={styles.corrections_validate}> Email is invalid </p>}
       <textarea
           placeholder="Comments" {...register('Comments', { required: true })}
           ></textarea>

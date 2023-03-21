@@ -1,13 +1,33 @@
-.carousel3 {
-  .slick-prev{
-    left:25px;
-  }
-  .slick-next{
-    right:25px
-  }
-
-
+.slick-prev{
+  left: -50px;
 }
-.slick-dots{
-  bottom: -50px;
+
+.slick-next{
+  right: -50px;
 }
+
+.slick-next:before{
+  font-family: '';
+  opacity: 1;
+  color: #FFF4E8;
+ }
+
+ .slick-prev:before{
+  font-family: '';
+  opacity: 1;
+  color: #FFF4E8;
+  
+  
+ }
+
+ .slick-next:hover{
+  opacity: .75;
+ }
+
+ .slick-prev:hover{
+  opacity: .75;
+ }
+ .slick-dots li.slick-active button:before{
+  color: #B32525;
+  font-size: 15px;
+ }

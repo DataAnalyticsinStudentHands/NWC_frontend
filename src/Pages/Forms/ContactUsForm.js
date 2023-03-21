@@ -38,7 +38,7 @@ function ContactUsForm() {
     return (
       <main className={styles.forms}>
       {!state.formSent ? 
-      <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)} noValidate>
         <header>
           <h1 className={styles.corrections_heading}>Contact Us</h1>
           <p className={styles.corrections_p}>
@@ -50,13 +50,11 @@ function ContactUsForm() {
         <input  placeholder="Name" {...register('Name', { required: true })} />
         {errors?.Name?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
         <p className={styles.forms_p}> Email*</p> 
-        <input placeholder="Email" {...register('Email', { required: true })} type="email" />
-        {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+        <input placeholder="Email" {...register('Email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} type="email" />
+        {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
+        {errors?.Email?.type === 'pattern' && <p className={styles.corrections_validate}> Email is invalid </p>}
         <p className={styles.forms_p}> Phone</p>
         <input placeholder="Phone" {...register('Phone')}  />
-        <p className={styles.forms_p}> Subject*</p>
-        <input placeholder="Subject" {...register('Subject', { required: true })} />
-        {errors?.Subject?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
         <p className={styles.forms_p}> Message*</p>
         <textarea
           placeholder="Message" {...register('Message', { required: true })}
