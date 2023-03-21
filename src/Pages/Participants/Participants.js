@@ -35,7 +35,6 @@ function Participants() {
 
     // adding USA list of states for select input
     const stateOptions = [
-        {value:"ALL", label: "All States"},
         { value: "AL", label: "Alabama" },
         { value: "AK", label: "Alaska" },
         { value: "AZ", label: "Arizona" },
