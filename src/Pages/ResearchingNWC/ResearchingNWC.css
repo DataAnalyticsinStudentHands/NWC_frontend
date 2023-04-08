@@ -156,7 +156,8 @@ SEARCH
 }
 
 .basic-multi-select {
-  padding-bottom: 30rem;
+  /* padding-bottom: 30rem; */
+  margin-bottom: 30rem;
 }
 
 .form-control {

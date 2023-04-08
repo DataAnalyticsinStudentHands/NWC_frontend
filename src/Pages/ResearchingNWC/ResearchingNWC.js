@@ -9,6 +9,8 @@ import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 import VARIABLES from "../../config/.env.js";
 
+import stateTerritories from '../../assets/stateTerritoriesByMasterSheet.json';
+
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
@@ -29,65 +31,14 @@ function ResearchingNWC() {
   const { register, handleSubmit, formState: { errors }, reset } = useForm();
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
-  const stateObj = {
-    AL: "Alabama",
-    AK: "Alaska",
-    AZ: "Arizona",
-    AR: "Arkansas",
-    CA: "California",
-    CO: "Colorado",
-    CT: "Connecticut",
-    DE: "Delaware",
-    FL: "Florida",
-    GA: "Georgia",
-    HI: "Hawaii",
-    ID: "Idaho",
-    IL: "Illinois",
-    IN: "Indiana",
-    IA: "Iowa",
-    KS: "Kansas",
-    KY: "Kentucky",
-    LA: "Louisiana",
-    ME: "Maine",
-    MD: "Maryland",
-    MA: "Massachusetts",
-    MI: "Michigan",
-    MN: "Minnesota",
-    MS: "Mississippi",
-    MO: "Missouri",
-    MT: "Montana",
-    NE: "Nebraska",
-    NV: "Nevada",
-    NH: "New Hampshire",
-    NJ: "New Jersey",
-    NM: "New Mexico",
-    NY: "New York",
-    NC: "North Carolina",
-    ND: "North Dakota",
-    OH: "Ohio",
-    OK: "Oklahoma",
-    OR: "Oregon",
-    PA: "Pennsylvania",
-    RI: "Rhode Island",
-    SC: "South Carolina",
-    SD: "South Dakota",
-    TN: "Tennessee",
-    TX: "Texas",
-    UT: "Utah",
-    VT: "Vermont",
-    VA: "Virginia",
-    WA: "Washington",
-    WV: "West Virginia",
-    WI: "Wisconsin",
-    WY: "Wyoming",
-  }
 
-  const stateData = ["TX"]
-  const stateOptions = stateData.map(state => {
-    return {value: state, label: stateObj[state]}
+  const stateOptions = []
+  Object.values(stateTerritories).forEach((state) => {
+    if (state.isActive) {
+      stateOptions.push({value: state.stateCode, label: state.state}) 
+    }
   })
 
-  const roleData = ["DELEGATES/ALTERNATES","NATIONAL COMMISSIONERS", "NOTABLE SPEAKERS"]
   const roleObj = {
     "DELEGATES/ALTERNATES": ["Delegate at the NWC", "Alternate at the NWC"],
     "NATIONAL COMMISSIONERS": "National Commissioner",
@@ -96,14 +47,12 @@ function ResearchingNWC() {
 
   const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
-  const educationData = ["High School", "College", "Graduate/Professional"]
   const educationObj = {
     "High School": ['some high school','high school diploma'],
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
   const politicalOfficeData = ["city level", "county level", "state level", "national level"]
-  const politicalPartyData = ["Democratic", "Republican", "Other"]
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
@@ -216,7 +165,7 @@ function ResearchingNWC() {
                 classNamePrefix="select"
               />
               <p>NWC ROLES</p>
-              {roleData.map((role, i) => {
+              {Object.keys(roleObj).map((role, i) => {
                 return(
                   <label className="form-control" key={role}>
                     <input type="checkbox" {...register(`role ${role}`)} />{role}
@@ -247,7 +196,7 @@ function ResearchingNWC() {
             </div>
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
-              {educationData.map((education)=>{
+              {Object.keys(educationObj).map((education)=>{
                 return(
                   <label className="form-control" key={education}>
                     <input type="checkbox" {...register(`education ${education}`)} />{education}
@@ -267,7 +216,7 @@ function ResearchingNWC() {
             </div>
             <div className='panel'>
               <p>POLITICAL PARTY MEMBERSHIP</p>
-              {politicalPartyData.map((political)=>{
+              {Object.keys(politicalPartyObj).map((political)=>{
                 return(
                   <label className="form-control" key={political}>
                     <input type="checkbox" {...register(`party ${political}`)} />{political}
