@@ -5,7 +5,7 @@ function Collapsible(props) {
     
     return (
         <div className="Collapsible">
-            <button className="toggle" onClick={() => setIsOpen(!isOpen)}> 
+            <button type="button" className="toggle" onClick={() => setIsOpen(!isOpen)}> 
             {props.label} 
             </button>
             {isOpen && <div className="content"> {props.children} </div>}

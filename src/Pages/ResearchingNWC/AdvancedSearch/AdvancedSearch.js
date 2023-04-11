@@ -1,12 +1,16 @@
-import './ResearchingNWC.css'
+import '../ResearchingNWC'
 import './AdvancedSearch.css'
 import Collapsible from './Collapsible'
 import Select from 'react-select';
 import { useState, useEffect } from "react";
-import VARIABLES from '../../config/.env';
+import VARIABLES from '../../../config/.env';
 import Tabs from "./Tabs";
+import { useForm } from 'react-hook-form';
+import {useHistory} from 'react-router-dom'
+import qs from 'qs'
 
 function AdvancedSearch() {
+
   // adding USA list of states for select input
   const stateOptions = [
     { value: "AL", label: "Alabama" },
@@ -100,14 +104,14 @@ function AdvancedSearch() {
   const [professions, setProfessions] = useState([[]]);
   
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, "api/career-categories"].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, "api/data-careers?sort=category_of_employment"].join('/'))
     .then(res => res.json())
     .then(data => {
         setProfessions(
             data.data.map(item => {
               return {
                 value: item.id,
-                label: item.attributes.career_category
+                label: item.attributes.category_of_employment
               }
             })
         )
@@ -172,7 +176,7 @@ function AdvancedSearch() {
       const [plank, setPlanks] = useState([[]]);
   
       useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/nwc-planks"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/nwc-planks?sort[0]=plank"].join('/'))
         .then(res => res.json())
         .then(data => {
             setPlanks(
@@ -187,15 +191,37 @@ function AdvancedSearch() {
         .catch(err => console.log(err));
         }, []); 
 
-
   const sexualOrientation = [
     { value: "Bisexual", label: "Bisexual" },
     { value: "Heterosexual", label: "Heterosexual" },
     { value: "Lesbian", label: "Lesbian" },
   ];
 
-  return (
+  const history = useHistory();
+
+  const {
+    register, 
+    handleSubmit,
+    formState: {errors},
+    reset
+
+
+  } = useForm()
+
+  const onSubmit = (data) => {
+    console.log({data})
+    let query = qs.stringify({data})
+    console.log(query)
     
+    history.push(`/AdvancedSearchResults?=${query}`)
+  }
+
+  const clearForm = () => {
+    reset()
+  }
+
+  return (
+    <form onSubmit={handleSubmit(onSubmit)}>
     <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
@@ -206,11 +232,11 @@ function AdvancedSearch() {
         </div>
       </div>
       <div className="advancedSearch"> 
-        <div className="advancedSearch_bar_container">
-            <form className="advancedSearch_bar">
+      <div className="advancedSearch_bar_container">
+        <div className="advancedSearch_bar">
             <input type="text" placeholder="SEARCH"/>
-            </form>
-        </div>  
+            </div>
+        </div>   
         </div>
         <div> 
           <Collapsible label="ROLE AT NATIONAL WOMEN'S CONFERENCE"> 
@@ -256,7 +282,7 @@ function AdvancedSearch() {
                 <label className="advancedSearch_form-control">
                 <input type="checkbox" />Unofficial Observer </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Other <input type="text" /></label>
+                <input type="checkbox" />Other </label>
                   </div> 
                 </div>
               </div>
@@ -275,7 +301,6 @@ function AdvancedSearch() {
                     </div>
                 </div>
             </div>   
-          
           </Tabs>
           </Collapsible>
 
@@ -347,17 +372,17 @@ function AdvancedSearch() {
                 <h1> marital</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Single </label>
+                <input type="checkbox" value="single" {...register('marital_classification')} />Single </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />married </label>
+                <input type="checkbox" value="married" {...register('marital_classification')} />married </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />partnered </label>
+                <input type="checkbox" {...register('marital_classification')}/>partnered </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />divorced</label>
+                <input type="checkbox" {...register('marital_classification')} />divorced</label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />widowed</label>
+                <input type="checkbox" {...register('marital_classification')}/>widowed</label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />unknown</label>
+                <input type="checkbox" {...register('marital_classification')}/>unknown</label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -394,13 +419,13 @@ function AdvancedSearch() {
                 <h1> gender</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Female</label>
+                <input type="checkbox" value="female" {...register('gender')}/>Female</label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Male </label>
+                <input type="checkbox" value="male" {...register('gender')}/>Male </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Transgender </label>
+                <input type="checkbox" {...register('gender')}/>Transgender </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Non-binary </label>
+                <input type="checkbox" {...register('gender')}/>Non-binary </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -717,16 +742,16 @@ function AdvancedSearch() {
                 </div>
               </div>
             </Tabs>
-            
           </Collapsible>
         </div>
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">
-        <button type="submit" value="Submit" className="advancedSearch_button_search"> Search </button>
-            <button type="submit" value="Submit" className="advancedSearch_button_reset"> Reset </button>
+          <button type="submit" value="Submit" className="advancedSearch_button_search"> Search </button>
+          <button type="reset" value="Reset" className="advancedSearch_button_reset"> Reset </button>
         </div>
         </div>
       </div>
+      </form>
   )
 }
 

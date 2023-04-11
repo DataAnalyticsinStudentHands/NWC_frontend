@@ -222,10 +222,6 @@
     margin-bottom: 10rem;
   }
 
-  .advancedSearch_form-control select {
-    width:500rem;
-  }
-
   .advancedSearch_form-control input {
     width:500rem;
   }
@@ -299,4 +295,18 @@
     border-width: 1px 1px 0 1px;
     color: var(--colorDarkBlue);
   }
+
+/* TABLE */
+th {
+  padding-left: 30rem;
+  padding-right: 30rem;
+  font-size: calc(35 * var(--xUnit));
+
+}
+
+td {
+  text-align: left;
+}
+
+
   

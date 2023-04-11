@@ -10,7 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
 import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
-import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
+import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
@@ -30,8 +30,8 @@ import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/Resou
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
-import OrganizationList from "./Pages/ResearchingNWC/OrganizationList";
-
+import OrganizationList from "./Pages/ResearchingNWC/AdvancedSearch/OrganizationList";
+import AdvancedSearchResults from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearchResults";
 function App() {
   return (
     <Router basename={'/dev'} className="App">
@@ -104,6 +104,9 @@ function App() {
         </Route>
         <Route path="/OrganizationList">
           <OrganizationList />
+        </Route>
+        <Route path="/AdvancedSearchResults">
+          <AdvancedSearchResults />
         </Route>
         <Route path="/">
           <Home />
