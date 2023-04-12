@@ -9,7 +9,7 @@ import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 import VARIABLES from "../../config/.env.js";
 
-import stateTerritories from '../../assets/stateTerritoriesByMasterSheet.json';
+import stateTerritories from '../../assets/stateTerritories.json';
 
 function ResearchingNWC() {
 
