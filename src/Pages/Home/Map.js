@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 
 // point format: [Name, x, y, Description]
 function Map({mapImg, points}) {
-  
   // one state to hold the regular page content loaded from Strapi
   const [state, setState] = useState({
     description: '',
@@ -21,7 +20,6 @@ function Map({mapImg, points}) {
     caption2: '',
     caption3: ''
   });
-
   // 2nd state to hold hover status
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
