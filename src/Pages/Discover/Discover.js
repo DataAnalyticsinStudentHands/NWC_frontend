@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import "./Discover.css";
 import discoverButton from "../../res/button-discover.png";
 import LCard from '../../Components/LCard/LCard';
@@ -27,22 +27,31 @@ function Discover() {
   const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
+  const listOfCards = useRef([])
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   const { fetchBaseUrl } = VARIABLES;
-  useEffect(() => {
+  
+  function setOffSet(){
+    if(currentOffSet === 0){
+      setCurrentOffSet(1)
+    }else{
+      setCurrentOffSet(0)
+    }
     
+  }
+  
+  useEffect(() => {
     fetch([fetchBaseUrl, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setFeatured);
-        
         setDataLength(data.data.length)
+        listOfCards.current = data.data
       }).catch(err => console.log(err));
   }, []); // eslint-disable-line
   
   useEffect(() => {
-    
     if(currentData === 'default'){
       fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
@@ -87,11 +96,56 @@ function Discover() {
       })
       .catch(err => console.log(err));
     }
+    if(currentData === 'search'){
+      let fullName = input.split(' ')
+      let firstname = fullName[0]
+      let lastname = fullName[1]
+      
+      if(currentData === 0){
+        fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+        .then(response => response.json())
+        .then(data => {
+          setDataLength(data.meta.pagination.total)
+          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          loadcards(data.data, setCards);
+        })
+        .catch(err => console.log(err));
+      }
+      if(fullName.length === 1){
+        fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+        .then(response => response.json())
+        .then(data => {
+          setDataLength(data.meta.pagination.total)
+          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          loadcards(data.data, setCards) 
+        })
+        .catch(err => console.log(err));
+    }
+    if(fullName.length === 2){
+      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        setDataLength(data.meta.pagination.total)
+        let totalPages = (Math.ceil(dataLength / postsPerPage))
+        loadcards(data.data, setCards) 
+      })
+      .catch(err => console.log(err));
+  }
+  if(fullName.length >= 3){
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    .then(response => response.json())
+    .then(data => {
+      setDataLength(data.meta.pagination.total)
+      let totalPages = (Math.ceil(dataLength / postsPerPage))
+      loadcards(data.data, setCards) 
+    })
+    .catch(err => console.log(err));
+}
+    }
     
   }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
-    
     fetch(`${fetchBaseUrl}/api/content-discover-stories-main`)
       .then(res => res.json())
       .then(data => {
@@ -105,106 +159,50 @@ function Discover() {
       })
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
-//doesn't get full api
-  function search() {
-    
-    let fullname = input.split(' ')
-    let firstname = fullname[0]
-    let lastname = fullname[1]
-    
-    if(fullname.length === 1){
-     
-      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => {
-        loadcards(data.data, setCards) 
-        setDataLength(data.data.length)
-        setCurrentOffSet(currentOffSet===0?1:0)
-        
-      })
-      .catch(err => console.log(err));
-    }else{
-      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&filters[$or][2][firstname][$containsi]=${lastname}&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => {
-        
-        loadcards(data.data, setCards)
-        setDataLength(data.data.length)
-        setCurrentOffSet(currentOffSet===0?1:0)
-        })
-      .catch(err => console.log(err));
-    }
 
-
-    
+  function resetData(){
+    currentData='default'
+    setOffSet()
   }
-  
+
   function firstNameSort() {
     currentData = 'firstname'
-    if(currentOffSet === 0){
-      setCurrentOffSet(1)
-    }else{
-      setCurrentOffSet(0)
-    }
+    setOffSet()
     
   }
 
   function lastNameSort() {
     currentData = 'lastname'
-    if(currentOffSet === 0){
-      setCurrentOffSet(1)
-    }else{
-      setCurrentOffSet(0)
-    }
-    // setCurrentOffSet(1)
-    
-
-      //This should reset the pagination back to page 1
-      // setCurrentOffSet(0)
+    setOffSet()
   }
 
   function sortRole() {
       currentData = 'role'
-      if(currentOffSet === 0){
-        setCurrentOffSet(1)
-      }else{
-        setCurrentOffSet(0)
-      }
-      // setCurrentOffSet(1)
-      
-      //This should reset the pagination back to page 1
-      // setCurrentOffSet(0)
+      setOffSet()
   }
 
   function sortState() {
       currentData = 'state'
-      if(currentOffSet === 0){
-        setCurrentOffSet(1)
-      }else{
-        setCurrentOffSet(0)
-      }
-      // setCurrentOffSet(1)
-     
+      setOffSet()
+  }
+  function search(){
+    currentData = 'search'
+    setOffSet()
   }
 
   //Cards shown amount
   function handleSelectChange(e) {
-    if(totalPages > 1){
-      setPostsPerPage(e.target.value);
-    }
-    
-    // setCurrentOffSet(0);
+    setPostsPerPage(e.target.value);
+    setOffSet()
   }
 
   //Pagination handleClick
   function handlePageClick(e) {
-   
     setCurrentOffSet(e.selected+1)
   }
 
   return (
     <div className="discover">
-      
       {/**BANNER */}
       <div className="discoverBanner">
         <img src={discoverButton} alt="Discover NWC Stories" />
@@ -270,8 +268,9 @@ function Discover() {
             <button onClick={handleSelectChange} value={24}>24</button>
             <button onClick={handleSelectChange} value={48}>48</button>
             <button onClick={handleSelectChange} value={96}>96</button>
+            
         </ul>
-          
+        <button className="resetButton" onClick={()=>resetData()} >Reset</button>
       </div>
 
       {/**CARDS */}
