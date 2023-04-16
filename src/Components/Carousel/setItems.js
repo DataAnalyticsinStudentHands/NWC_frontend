@@ -12,7 +12,7 @@ for(let x in item){
   items.push(
   <div key={item[x][1]} className='thumb_with_title'>
     <img src={item[x][2]} alt="" key={item[x][1]} />
-    <h3 className="thumb_with_title_h3">Coming Soon</h3>
+    <h3 className="thumb_with_title_h3"></h3>
   </div>):
   
  item[x][0]==='essay' && item[x][4]===true?
