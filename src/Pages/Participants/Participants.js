@@ -1,36 +1,36 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import { Link } from "react-router-dom";
 import './Participants.css';
 import VARIABLES from '../../config/.env';
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
+import BackToButton from '../../Components/Buttons/backTo';
 
 function Participants() {
     const [participants, setParticipants] = useState([]);
     // state for select
-    const [selectedValue, setSelectedValue] = useState();
-
+    const [selectedValue, setSelectedValue] = useState(null);
+    const listOfPartcipants = useRef([])
     // Pull Strapi Data
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?_sort=LastName:ASC&_limit=-1'].join('/')) // need to figure out how to sort in query, but for another day </3
+        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
+                listOfPartcipants.current = data.data
                 setParticipants(data.data)
             })
             .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    // handle onChange event of the dropdown
     const handleChange = e => {
-        setSelectedValue(e.label);
-        fetch([VARIABLES.fetchBaseUrl, `api/list-of-participants?States_contains=${selectedValue}`].join('/')) // need to figure out how to sort in query, but for another day </3
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data.data);
-                setParticipants(Array.isArray(data.data) ? data : [])
-            })
-            .catch(err => console.log(err));
+        
+        let selectedValues = e.map(e=>{return e.label})
+        setSelectedValue(selectedValues);
+        const list = listOfPartcipants.current.filter(fullList => selectedValues.includes(fullList.attributes.States)).map(p=>{
+            return p
+        })
+        selectedValues.length === 0?setParticipants(listOfPartcipants.current): setParticipants(list)
+        
     }
 
     // adding USA list of states for select input
@@ -90,24 +90,35 @@ function Participants() {
     return (
         <div className="participants">
             {/**BACK LINK */}
-            <div>
+            {/* <div class='backToDiscover'>
                 <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-            </div>
-
+            </div> */}
+            <p className='backToDiscover'>
+                <BackToButton name='Discover' link='/discover'/>
+            </p>
+            
             <h1>List of NWC Participants</h1>
             <div className='participantsOptions'>
             
             {/**FILTER */}
-            <div className="participantsFilter">
+            {/* <div className="participantsFilter"> */}
+               <div className='participantsFilter'>
                 <p>Filter by State: </p>
-                <Select
+                <Select id='select'
+                    isMulti
                     options={stateOptions}
                     onChange={handleChange}
+                    // onChange={onSelect}
+                    // value={selectedOptions}
                     value={stateOptions.find(obj => obj.value === selectedValue)}
-                    className="basic-multi-select participantsFilterSelect"
+                    className="basic-multi-select"
                     classNamePrefix="select"
-                />
-                <CSVLink
+                >
+                    
+                    
+                </Select>
+                </div>
+                <CSVLink 
                     data={[
                         ["Last Name", "First Name", "State"],
                         ...participants.map(p => [p.attributes.LastName, p.attributes.FirstName, p.attributes.States]),
@@ -116,7 +127,7 @@ function Participants() {
                 >
                     Download CSV
                 </CSVLink>
-                </div>
+                {/* </div> */}
             </div>
 
             {/**LIST */}

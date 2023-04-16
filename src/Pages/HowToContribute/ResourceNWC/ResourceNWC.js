@@ -43,12 +43,12 @@ function ResourceNWC() {
                 } = data
 
                 setState({
-                    Resources_for_Participants_Text: Resources_for_Participants_Text,
-                    Video_Url_Participants: Video_Url_Participants,
-                    Pdf_How_to_Contribute_Oral_Histories_NWCParticipants: Pdf_How_to_Contribute_Oral_Histories_NWCParticipants ? Pdf_How_to_Contribute_Oral_Histories_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_How_to_Contribute_Biographies_NWCParticipants: Pdf_How_to_Contribute_Biographies_NWCParticipants ? Pdf_How_to_Contribute_Biographies_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Resources_for_Participants_Text: Resources_for_Participants_Text?Resources_for_Participants_Text:undefined,
+                    Video_Url_Participants: Video_Url_Participants?Video_Url_Participants:undefined,
+                    Pdf_How_to_Contribute_Oral_Histories_NWCParticipants: Pdf_How_to_Contribute_Oral_Histories_NWCParticipants.data ? Pdf_How_to_Contribute_Oral_Histories_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_How_to_Contribute_Biographies_NWCParticipants: Pdf_How_to_Contribute_Biographies_NWCParticipants.data ? Pdf_How_to_Contribute_Biographies_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Technical_Guidelines: Pdf_Technical_Guidelines.data ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents.data ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
@@ -87,6 +87,28 @@ function ResourceNWC() {
 
             {/* RESEARCHER ICONS */}
             <div className="resourceNWCIconsTop">
+            {/* {
+                state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants !== undefined
+                ?<Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants}`}>
+                    <div className="iconContainer">
+                        <img src={oralIcon} alt="_"></img>
+                        <p>How to Contribute Oral Histories</p>
+                    </div>
+                </Link>
+                :''
+            
+            }
+            {
+                state.Pdf_How_to_Contribute_Biographies_NWCParticipants !== undefined
+                ?<Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_NWCParticipants}`}>
+                    <div className="iconContainer">
+                        <img src={contributeIcon} alt="_"></img>
+                        <p>How to Contribute Biographies</p>
+                    </div>
+                </Link>
+                :''
+            }
+             */}
             <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants}`}>
                     <div className="iconContainer">
                         <img src={oralIcon} alt="_"></img>

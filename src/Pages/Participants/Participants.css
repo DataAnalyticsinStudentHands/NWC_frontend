@@ -3,10 +3,16 @@
     font-family: var(--fontBabasNeue);
     padding: 1em 0;
     color: var(--colorDarkBlue);
+    
 }
 
 .participants a {
-    color: var(--colorDarkBlue);
+    color: var(--colorDeepRed);
+}
+
+.backToDiscover{
+    padding-left: 2em;
+
 }
 
 .participants a:hover {
@@ -20,23 +26,23 @@
 
 .participantsOptions {
     display: flex;
-    width: fit-content;
-    padding-left: 5em;
-    align-items: center;
-    justify-content: center;
+    /* width: fit-content; */
+    padding-right: 2em;
+    padding-left: 2em;
+    /* align-items: center; */
+    flex-direction: row;
+    justify-content: space-between;
+    
 }
 
 .participantsFilter {
     display: flex;
-    float: left; 
+    
+    /* float: left;  */
 }
 
-.participantsFilter > p{
-    margin-right: 2em;
-}
-
-.participantsFilterSelect {
-    margin-right: 2em; 
+#select{
+    padding-left: 2em;
 }
 
 .participantsDownloadButton {
@@ -44,28 +50,15 @@
 }
 
 .participantsList {
-    /* display: flex;
-    flex-flow: column wrap; */
-    /* background-color: rgba(117, 178, 224, .3); */
-    padding: 2em;
-    /* width: 80%; */
+    padding: 1em 2em 1em 2em;
     margin: auto;
-    /* font-family: var(--fontMontserrat);
-    font-size: .6em; */
-    /* max-height: 800em; */
-    /* border: dashed red; */
 }
 
 .participantContainer{
-    /* display: flex;
-    flex-flow: column wrap; */
     columns: 3;
     background-color: rgba(117, 178, 224, .3);
-    /* border: dashed blue; */
     padding: .5em;
     margin: auto;
-    /* margin: auto; */
-    
 }
 
 .participantContainer > ul{
@@ -73,8 +66,5 @@
     flex-flow: column wrap;
     font-family: var(--fontMontserrat);
     font-size: .5em;
-    /* max-height: 800em; */
-    /* background-color: rgba(117, 178, 224, .3); */
-    /* border: dashed green; */
 }
 
