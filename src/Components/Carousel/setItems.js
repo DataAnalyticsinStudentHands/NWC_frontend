@@ -1,5 +1,7 @@
 import comingsoon from "../../Pages/Why/res/comingsoon_thumb.png"
 import { Link } from 'react-router-dom';
+import  './Carousel3.scss'
+
 
 function getData(props){
 let item = props.images
@@ -22,13 +24,14 @@ for(let x in item){
       </Link>
   </div>):
 
- 
-  
   item[x][0]==='default' && item[x][4]=== true?
   items.push(  
-    <a href={item[x][5]}
+    <div className="parent">
+      <a className="defaultItems" href={item[x][5]}
       target="_blank" rel="noopener noreferrer"><img src={item[x][2]} alt=""/>
     </a>
+    </div>
+    
   ):console.log('')
 }
 return items
