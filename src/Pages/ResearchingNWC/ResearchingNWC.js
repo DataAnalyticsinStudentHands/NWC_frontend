@@ -57,7 +57,7 @@ const politicalOfficeObj = {
     "city level": "city level",
     "county level": "county level",
     "state level": "state level",
-    "nation level": "federal level"
+    "national level": "federal level"
 }
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
