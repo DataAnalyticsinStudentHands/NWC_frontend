@@ -52,7 +52,13 @@ function ResearchingNWC() {
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
-  const politicalOfficeData = ["city level", "county level", "state level", "national level"]
+  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
+const politicalOfficeObj = {
+    "city level": "city level",
+    "county level": "county level",
+    "state level": "state level",
+    "nation level": "federal level"
+}
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
@@ -95,7 +101,7 @@ function ResearchingNWC() {
           case 'education':
             query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
           case 'level':
-            query_array.push({ political_office_helds:{jurisdiction:Object.keys(data)[index].slice(6)}}); break;
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
           case 'party':
             query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
           default:
@@ -206,7 +212,7 @@ function ResearchingNWC() {
             </div>
             <div className='panel'>
               <p>POLITICAL OFFICES HELD</p>
-              {politicalOfficeData.map((office)=>{
+              {Object.keys(politicalOfficeObj).map((office)=>{
                 return(
                   <label className="form-control" key={office}>
                     <input type="checkbox" {...register(`level ${office}`)} />{office}
