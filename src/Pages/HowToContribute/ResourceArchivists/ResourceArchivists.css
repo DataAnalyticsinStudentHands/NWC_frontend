@@ -14,13 +14,13 @@ COLOR CORNER TOP RIGHT
 
 .colorRibbonArchRibbonBL {
     position: absolute;
-    margin-left: 2900rem;
-    margin-top: -775rem;
+    margin-left: -870rem;
+    margin-top: -700rem;
     -ms-transform: rotate(100deg); /* IE 9 */
     transform: rotate(90deg);
     object-fit: none;
-    height: 100px;
-    width: 100px;
+    height: 1rem;
+    width: 1rem;
     z-index: -1;
 }
 
@@ -92,7 +92,7 @@ VIDEO PLAYER
 /*
 ARCHIVISTS ICONS
 */
-.archivistsBannerIcons{
+/* .archivistsBannerIcons{
     vertical-align: top;
     display: inline-block;
     text-align: center;
@@ -112,7 +112,7 @@ ARCHIVISTS ICONS
     color: #142F45;
     margin-top: 50rem;
     font-size: 30rem;
-}
+} */
 
 /*
 MORE IDEAS CONTAINER

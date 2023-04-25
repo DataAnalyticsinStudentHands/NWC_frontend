@@ -82,7 +82,7 @@ VIDEO PLAYER
 /*
 ARCHIVISTS ICONS
 */
-.resourceNWCIconsTop{
+/* .resourceNWCIconsTop{
     vertical-align: top;
     display: inline-block;
     text-align: center;
@@ -104,7 +104,7 @@ ARCHIVISTS ICONS
     text-align: center;
     margin-top: 100rem;
     margin-left: 540rem;
-}
+} */
 
 /*
 MORE IDEAS CONTAINER
@@ -116,6 +116,7 @@ MORE IDEAS CONTAINER
     justify-content: center;
     margin-top:20rem;
     margin-bottom:40rem;
+    /* background-image:url('../res/dotRed.png') */
 }
 
 .ideaContainerIcon{
