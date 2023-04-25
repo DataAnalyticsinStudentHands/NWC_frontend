@@ -12,6 +12,8 @@ import permissionIcon from "../res/permissionIcon.png"
 import contributeIcon from "../res/contributeIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
+
 
 function ResourceNWC() {
 
@@ -86,29 +88,8 @@ function ResourceNWC() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="resourceNWCIconsTop">
-            {/* {
-                state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants !== undefined
-                ?<Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants}`}>
-                    <div className="iconContainer">
-                        <img src={oralIcon} alt="_"></img>
-                        <p>How to Contribute Oral Histories</p>
-                    </div>
-                </Link>
-                :''
-            
-            }
-            {
-                state.Pdf_How_to_Contribute_Biographies_NWCParticipants !== undefined
-                ?<Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_NWCParticipants}`}>
-                    <div className="iconContainer">
-                        <img src={contributeIcon} alt="_"></img>
-                        <p>How to Contribute Biographies</p>
-                    </div>
-                </Link>
-                :''
-            }
-             */}
+            <ContributeIcons type='participants' data={state}/>
+            {/* <div className="resourceNWCIconsTop">
             <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_NWCParticipants}`}>
                     <div className="iconContainer">
                         <img src={oralIcon} alt="_"></img>
@@ -142,24 +123,28 @@ function ResourceNWC() {
                     <p>HOW TO DONATE YOUR PAPERS</p>  
                 </div>
                 </Link>
-            </div>
+            </div> */}
 
             {/* MORE IDEAS CONTAINER */}
-            <Link to="/Forms/MoreIdeasForm">
-            <div className="ideaContainerNWC">
-                <div className="ideaContainerIcon">
-                    <img src={ideaIcon} alt="_"></img>
+            <div className='MoreIdeas'>
+                <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerNWC" >
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
                 </div>
-                <div className="ideaContainerText">
-                    <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                </div>
-            </div>
-            </Link>
+                </Link>
 
-            {/* COLOR CORNER TOP RIGHT */}
-            <div className="dotRed">
-                <img src={dotRed} alt="Red Dot Background"></img>
+                {/* COLOR CORNER TOP RIGHT */}
+                <div className="dotRed">
+                    <img src={dotRed} alt="Red Dot Background"></img>
+                </div>
+
             </div>
+            
 
         </div>
     )

@@ -8,7 +8,7 @@ import colorCorner from "../res/colorCorner.png"
 import techIcon from "../res/techIcon.png"
 import permissionIcon from "../res/permissionIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
-
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ReactPlayer from 'react-player';
 
 function ResourceArchivists() {
@@ -71,7 +71,7 @@ function ResourceArchivists() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="archivistsBannerIcons">
+            {/* <div className="archivistsBannerIcons">
                 <Link to="/Forms/HowToDonatePapersForm">
                     <div className="iconContainer">
                         <img src={archivalIcon} alt="_"></img>
@@ -90,7 +90,8 @@ function ResourceArchivists() {
                         <p>Permissions Documents</p>
                     </div>
                 </a>
-            </div>
+            </div> */}
+            <ContributeIcons type="archivists" data={state}/>
 
 
             {/* MORE IDEAS CONTAINER */}

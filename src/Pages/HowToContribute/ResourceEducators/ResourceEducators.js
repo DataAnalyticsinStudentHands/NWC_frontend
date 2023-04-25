@@ -12,7 +12,7 @@ import permissionIcon from "../res/permissionIcon.png"
 import contributeIcon from "../res/contributeIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
-
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
 function ResourceEducators() {
 
     // state to hold content from Strapi
@@ -89,7 +89,8 @@ function ResourceEducators() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="resourceNWCIconsTop">
+            <ContributeIcons type='educators' data={state}/>
+            {/* <div className="resourceNWCIconsTop">
 
                 <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Educators}`}>
                     <div className="iconContainer">
@@ -125,7 +126,7 @@ function ResourceEducators() {
                         <p>Permissions Documents</p>
                     </div>
                 </a>
-            </div>
+            </div> */}
 
             {/* MORE IDEAS CONTAINER */}
             <Link to="/Forms/MoreIdeasForm">

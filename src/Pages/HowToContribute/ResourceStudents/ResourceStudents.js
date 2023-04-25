@@ -11,6 +11,7 @@ import permissionIcon from "../res/permissionIcon.png"
 import contributeIcon from "../res/contributeIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
 
 function ResourceStudents() {
 
@@ -86,7 +87,8 @@ function ResourceStudents() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="resourceResearchersIcons">
+            <ContributeIcons type='students' data={state}/>
+            {/* <div className="resourceResearchersIcons">
                 <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers}`}>
                     <div className="iconContainer">
                         <img src={oralIcon} alt="_"></img>
@@ -111,7 +113,7 @@ function ResourceStudents() {
                         <p>Permissions Documents</p>
                     </div>
                 </a>
-            </div>
+            </div> */}
 
             {/* MORE IDEAS CONTAINER */}
             <Link to="/Forms/MoreIdeasForm">
