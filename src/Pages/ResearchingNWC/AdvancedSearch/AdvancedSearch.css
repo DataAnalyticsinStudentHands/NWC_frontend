@@ -280,7 +280,7 @@
     padding-top: calc(20 * var(--xUnit));
     padding-bottom: calc(15 * var(--xUnit));
 
-    margin-left: -53rem;
+    margin-left: -41rem;
     margin-right: 70rem;
     color: white
   }
@@ -297,16 +297,28 @@
   }
 
 /* TABLE */
-th {
+.advancedTable {
+  margin-top: -6.5rem;
+  margin-left: 1rem;
+  border-spacing: 0;
+}
+.advancedTable th {
   padding-left: 30rem;
   padding-right: 30rem;
-  font-size: calc(35 * var(--xUnit));
+  font-size: calc(30 * var(--xUnit));
+  border-bottom: 3px solid black;
 
 }
 
-td {
+.advancedTable td {
+  margin-left: 80rem;
   text-align: left;
+  font-size: calc(25 * var(--xUnit));
+  
 }
 
+.advancedTable tr:nth-child(even) {
+  background-color: #cadfee;
+}
 
   

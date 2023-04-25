@@ -8,6 +8,8 @@ import Tabs from "./Tabs";
 import { useForm } from 'react-hook-form';
 import {useHistory} from 'react-router-dom'
 import qs from 'qs'
+import axios from 'axios';
+
 
 function AdvancedSearch() {
 
@@ -197,8 +199,6 @@ function AdvancedSearch() {
     { value: "Lesbian", label: "Lesbian" },
   ];
 
-  const history = useHistory();
-
   const {
     register, 
     handleSubmit,
@@ -208,16 +208,30 @@ function AdvancedSearch() {
 
   } = useForm()
 
-  const onSubmit = (data) => {
-    console.log({data})
-    let query = qs.stringify({data})
-    console.log(query)
-    
-    history.push(`/AdvancedSearchResults?=${query}`)
+  const [data, setData] = useState([])
+
+  async function onSubmit(data) {
+    console.log(data)
+    const query = qs.stringify({
+      filters: {
+        $or: 
+        {
+          [0]: data,
+        }
+      },
+      populate: '*',
+    }, {
+      encodeValuesOnly: true, // prettify URL
+    });
+    console.log('query', query)
+    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    console.log(response)
+    setData(response.data.data)
   }
 
   const clearForm = () => {
-    reset()
+    reset();
+    setData([])
   }
 
   return (
@@ -470,15 +484,15 @@ function AdvancedSearch() {
                 <h1> Education completed</h1>
                 <div className="item_EDU">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Some high school </label>
+                <input type="checkbox" value="some high school" {...register(`highest_level_of_education_attained` )} />Some high school </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />High School Diploma</label>
+                <input type="checkbox" value="high school diploma" {...register(`highest_level_of_education_attained`)} />High School Diploma</label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Some college </label>
+                <input type="checkbox" value="some college" {...register(`highest_level_of_education_attained`)} />Some college </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />College degree </label>
+                <input type="checkbox" value="college degree" {...register(`highest_level_of_education_attained`)} />College degree </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />Graduate professional </label>
+                <input type="checkbox" value="graduate/professional degree" {...register(`highest_level_of_education_attained`)} />Graduate professional </label>
                 </div>
                </div>
                <div className="advancedSearch_container">
@@ -747,11 +761,47 @@ function AdvancedSearch() {
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">
           <button type="submit" value="Submit" className="advancedSearch_button_search"> Search </button>
-          <button type="reset" value="Reset" className="advancedSearch_button_reset"> Reset </button>
+          <button type="reset" value="Reset" className="advancedSearch_button_reset" onClick={clearForm}> Reset </button>
         </div>
         </div>
+        <div className="advancedSearch">
+            <Tabs>
+                <div label="Chart View">
+                    <table className="advancedTable">
+                        <tr style={{background: "#cadfee"}}>
+                            <th> NAME</th>
+                            <th> state/territory</th>
+                            <th> role</th>
+                            <th> race/ethnicity</th>
+                            <th> religion</th>
+                            <th> education</th>
+                            <th> political offices held</th>
+                            <th> political party membership</th>
+                        </tr>
+                        {data.map((val) => {
+                          return (
+                        <tr key={val.id}>
+                            <td> {val.attributes.first_name} {val.attributes.last_name} </td>
+                            <td> {val.attributes.residence_in_1977.data.attributes.residence_in_1977}</td> 
+                            <td> {val.attributes.role.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.role})} </td>
+                            <td> {val.attributes.races.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.race})}</td>
+                            <td> {val.attributes.religion}</td>
+                            <td> {val.attributes.highest_level_of_education_attained} </td>
+                            <td> {val.attributes.political_office_helds.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.political_office})} </td>
+                            <td> {val.attributes.political_party_membership} </td>
+
+                        </tr>
+                          )
+                        })}
+                    </table> 
+                </div>
+                <div label="Map View">            
+                </div>
+            </Tabs>
+            </div>
       </div>
       </form>
+      
   )
 }
 
