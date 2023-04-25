@@ -2,6 +2,7 @@ import './Carousel3.scss';
 import getData from './setItems.js'
 import Slider from 'react-slick';
 
+
 const Carousel3 = (props) => {
 
   let data = getData(props)

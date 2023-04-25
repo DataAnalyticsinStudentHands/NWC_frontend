@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import "./Why.css";
 import buttonwhy from "../../res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
-import comingsoon from "./res/comingsoon_thumb.png";
+// import comingsoon from "./res/comingsoon_thumb.png";
 import VARIABLES from '../../config/.env';
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
@@ -73,19 +73,19 @@ function Why() {
         .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    function EssayList(props) {
-        const essays = props.essays;
-        const listItems = essays.filter(essay => essay[3] === true)
-            .map((essay) => 
-            <div key={essay[0]} className="thumb_with_title">
-                <Link to={`essay?id=${essay[0]}`}>
-                    <img src={essay[1]} alt="" key={essay[0]} />
-                    <h3 className="thumb_with_title_h3">{essay[2]}</h3>
-                </Link>
-            </div>
-        );
-        return (listItems);
-    }
+    // function EssayList(props) {
+    //     const essays = props.essays;
+    //     const listItems = essays.filter(essay => essay[3] === true)
+    //         .map((essay) => 
+    //         <div key={essay[0]} className="thumb_with_title">
+    //             <Link to={`essay?id=${essay[0]}`}>
+    //                 <img src={essay[1]} alt="" key={essay[0]} />
+    //                 <h3 className="thumb_with_title_h3">{essay[2]}</h3>
+    //             </Link>
+    //         </div>
+    //     );
+    //     return (listItems);
+    // }
 
     return (
         <div className="why">

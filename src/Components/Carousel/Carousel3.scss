@@ -16,8 +16,6 @@
   font-family: '';
   opacity: 1;
   color: #FFF4E8;
-  
-  
  }
 
  .slick-next:hover{
@@ -31,3 +29,11 @@
   color: #B32525;
   font-size: 15px;
  }
+ .slick-dots {
+  bottom: -35px;
+ }
+
+.defaultItems img{
+  max-width: 300px;
+  aspect-ratio: 4 / 5;
+}

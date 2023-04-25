@@ -1,7 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
-mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
+import VARIABLES from "../../config/.env.js";
+
+mapboxgl.accessToken = VARIABLES.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function Map(props) {
     const mapContainer = useRef(null);
@@ -50,20 +52,23 @@ export default function Map(props) {
             <div className="table-container">
                 {props?.map_data?.length > 0 ? 
                     <table>
-                        <tbody>
+                        <thead>
                             <tr>
                                 <th>Last Name</th>
                                 <th>First Name</th>
                                 <th>Residence in 1977</th>
                                 <th>Role at NWC</th>
                             </tr>
+                        </thead>
+                        <tbody>
+
                             {props?.map_data?.map((val) => {
                                 return (
                                     <tr key={val.id}>
                                         <td>{val.attributes.last_name}</td>
                                         <td>{val.attributes.first_name}</td>
-                                        <td>{val.attributes.residence_in_1977.data?.attributes.city_state}</td>
-                                        <td>{val.attributes.role.data.map(e => { return e.attributes.role+'  '})}</td>
+                                        <td>{val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td>
+                                        <td>{val.attributes.role.data.map(e => { return e.attributes.role+'\n'})}</td>
                                     </tr>
                                 )
                             })}

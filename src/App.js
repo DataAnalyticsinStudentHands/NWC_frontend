@@ -10,7 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
 import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
-import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
+// import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
