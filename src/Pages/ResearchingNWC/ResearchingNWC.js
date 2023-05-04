@@ -41,7 +41,7 @@ function ResearchingNWC() {
 
   const roleObj = {
     "DELEGATES/ALTERNATES": ["Delegate at the NWC", "Alternate at the NWC"],
-    "NATIONAL COMMISSIONERS": "National Commissioner",
+    "NATIONAL COMMISSIONERS": ["Ford National Commissioner", "Carter National Commissioner"],
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
@@ -104,6 +104,14 @@ const politicalOfficeObj = {
             query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
           case 'party':
             query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
+          case 'era_for':
+            query_array.push({ planks_fors: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
+          case 'era_against':
+            query_array.push({ planks_againsts: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
           default:
             break;
         }
@@ -112,9 +120,6 @@ const politicalOfficeObj = {
     const query = qs.stringify({
       filters: {
         $or: query_array,
-        represented_state:{
-          $eq:'TX'
-        }
       },
       populate: '*',
     }, {
