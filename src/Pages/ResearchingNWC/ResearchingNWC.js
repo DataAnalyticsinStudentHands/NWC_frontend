@@ -88,7 +88,7 @@ const politicalOfficeObj = {
 
   // submit basic search query
   async function onSubmit(data) {
-    var query_array = [];
+    let query_array = [];
     Object.values(data).forEach((value, index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
@@ -111,7 +111,10 @@ const politicalOfficeObj = {
     });
     const query = qs.stringify({
       filters: {
-        $or: query_array
+        $or: query_array,
+        represented_state:{
+          $eq:'TX'
+        }
       },
       populate: '*',
     }, {
