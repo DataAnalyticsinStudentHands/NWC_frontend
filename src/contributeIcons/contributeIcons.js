@@ -8,6 +8,7 @@ import iconPapers from '../Pages/HowToContribute/res/iconPapers.png'
 import iconClass from '../Pages/HowToContribute/res/iconClass.png'
 import './contributeIcons.css'
 
+
 import { Link } from 'react-router-dom'
 
 function contributeIcons(props){
@@ -50,6 +51,7 @@ function contributeIcons(props){
     }
 
     return(
+        <div>
         <div className="resourceResearchersIcons">
             {howToContribute?
                 <Link to={`PDFViewer/${howToContribute}`}>
@@ -110,7 +112,22 @@ function contributeIcons(props){
                 :''
             }
 
+
+            
         </div>
+            {/* MORE IDEAS CONTAINER */}
+            <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerArchivists">
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
+                </div>
+            </Link>
+        </div>
+        
     )
 }
 export default contributeIcons;
