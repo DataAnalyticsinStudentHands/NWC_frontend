@@ -28,15 +28,14 @@ COLOR CORNER TOP RIGHT
 BANNER
 */
 
-.archivistsBanner{
-    display: flex;
-    align-items: center;
+/* .archivistsBanner{
+    display:block;
+    margin-top: 150rem;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150rem;
-}
+} */
 
-.archivistsBanner_header{
+/* .archivistsBanner_header{
     font-family:var(--fontBabasNeue);
     text-align:center;
     font-size:50rem;
@@ -54,19 +53,9 @@ BANNER
     font-size:25rem;
     width: 800rem;
     margin-left: 75rem;
-}
+} */
 
-.archivistsBanner_border {
-    float: left;
-    margin-left: 75rem;
-    margin-right: auto;
-    margin-bottom: 30rem;
-    width: 42.5vw;
-    border-top: 10rem solid var(--colorDeepRed); /*high*/
-    height: 30rem; /*mid*/
-    background-color: var(--colorDeepOrange);
-    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
-}
+
 
 .archivistsBanner_text{
     width: 10rem;
@@ -118,26 +107,26 @@ ARCHIVISTS ICONS
 MORE IDEAS CONTAINER
 */
 
-.ideaContainerArchivists{
+/* .ideaContainerArchivists{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top:20rem;
     margin-bottom:40rem;
-}
+} */
 
-.ideaContainerIcon{
+/* .ideaContainerIcon{
     max-width: 100%;
     margin-left: -150rem;
     margin-top:50rem;
     margin-bottom:30rem;
-}
+} */
 
-.ideaContainerText{
+/* .ideaContainerText{
     font-size: 20rem;
     font-family:var(--fontBabasNeue);
     color: #142F45;
     margin-top: 50rem;
     margin-left: 75rem;
     font-weight: 100;
-}
+} */
