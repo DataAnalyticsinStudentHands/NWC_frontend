@@ -8,8 +8,9 @@ import colorCorner from "../res/colorCorner.png"
 import techIcon from "../res/techIcon.png"
 import permissionIcon from "../res/permissionIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
-
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ReactPlayer from 'react-player';
+import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
 
 function ResourceArchivists() {
 
@@ -46,8 +47,14 @@ function ResourceArchivists() {
                 </div>
             </div>
 
+
+
             {/* BANNER */}
-            <div className="archivistsBanner">
+            <div className='archivistsBanner'>
+                <ResourcesFor type='archivists' resourceText={state.Resources_for_Archivists_Text}/>
+            </div>
+            
+            {/* <div className="archivistsBanner">
                 <div className="archivistsBanner_button">
                     <img src={archivists_button} alt="Archivists Button" />
                 </div>
@@ -56,8 +63,7 @@ function ResourceArchivists() {
                     <div className="archivistsBanner_border"></div>
                     <p>{state.Resources_for_Archivists_Text}</p>
                 </div>
-                {/* <LCard text={banner_card} /> */}
-            </div>
+            </div> */}
 
             {/* VIDEO PLAYER */}
             <div className="resourceVideoPlayer">
@@ -71,7 +77,7 @@ function ResourceArchivists() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="archivistsBannerIcons">
+            {/* <div className="archivistsBannerIcons">
                 <Link to="/Forms/HowToDonatePapersForm">
                     <div className="iconContainer">
                         <img src={archivalIcon} alt="_"></img>
@@ -90,11 +96,12 @@ function ResourceArchivists() {
                         <p>Permissions Documents</p>
                     </div>
                 </a>
-            </div>
+            </div> */}
+            <ContributeIcons type="archivists" data={state}/>
 
 
             {/* MORE IDEAS CONTAINER */}
-            <Link to="/Forms/MoreIdeasForm">
+            {/* <Link to="/Forms/MoreIdeasForm">
                 <div className="ideaContainerArchivists">
                     <div className="ideaContainerIcon">
                         <img src={ideaIcon} alt="_"></img>
@@ -103,7 +110,7 @@ function ResourceArchivists() {
                         <h1>HAVE MORE IDEAS? TELL US HERE</h1>
                     </div>
                 </div>
-            </Link>
+            </Link> */}
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonArchContainer">
