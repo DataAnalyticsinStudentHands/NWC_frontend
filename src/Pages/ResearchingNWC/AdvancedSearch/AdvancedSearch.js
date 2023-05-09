@@ -8,63 +8,17 @@ import Tabs from "./Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import axios from 'axios';
-
+import stateTerritories from '../../../assets/stateTerritories.json';
 
 function AdvancedSearch() {
 
   // adding USA list of states for select input
-  const stateOptions = [
-    { value: "AL", label: "Alabama" },
-    { value: "AK", label: "Alaska" },
-    { value: "AZ", label: "Arizona" },
-    { value: "AR", label: "Arkansas" },
-    { value: "CA", label: "California" },
-    { value: "CO", label: "Colorado" },
-    { value: "CT", label: "Connecticut" },
-    { value: "DE", label: "Delaware" },
-    { value: "FL", label: "Florida" },
-    { value: "GA", label: "Georgia" },
-    { value: "HI", label: "Hawaii" },
-    { value: "ID", label: "Idaho" },
-    { value: "IL", label: "Illinois" },
-    { value: "IN", label: "Indiana" },
-    { value: "IA", label: "Iowa" },
-    { value: "KS", label: "Kansas" },
-    { value: "KY", label: "Kentucky" },
-    { value: "LA", label: "Louisiana" },
-    { value: "ME", label: "Maine" },
-    { value: "MD", label: "Maryland" },
-    { value: "MA", label: "Massachusetts" },
-    { value: "MI", label: "Michigan" },
-    { value: "MN", label: "Minnesota" },
-    { value: "MS", label: "Mississippi" },
-    { value: "MO", label: "Missouri" },
-    { value: "MT", label: "Montana" },
-    { value: "NE", label: "Nebraska" },
-    { value: "NV", label: "Nevada" },
-    { value: "NH", label: "New Hampshire" },
-    { value: "NJ", label: "New Jersey" },
-    { value: "NM", label: "New Mexico" },
-    { value: "NY", label: "New York" },
-    { value: "NC", label: "North Carolina" },
-    { value: "ND", label: "North Dakota" },
-    { value: "OH", label: "Ohio" },
-    { value: "OK", label: "Oklahoma" },
-    { value: "OR", label: "Oregon" },
-    { value: "PA", label: "Pennsylvania" },
-    { value: "RI", label: "Rhode Island" },
-    { value: "SC", label: "South Carolina" },
-    { value: "SD", label: "South Dakota" },
-    { value: "TN", label: "Tennessee" },
-    { value: "TX", label: "Texas" },
-    { value: "UT", label: "Utah" },
-    { value: "VT", label: "Vermont" },
-    { value: "VA", label: "Virginia" },
-    { value: "WA", label: "Washington" },
-    { value: "WV", label: "West Virginia" },
-    { value: "WI", label: "Wisconsin" },
-    { value: "WY", label: "Wyoming" },
-  ]
+  const stateOptions = []
+  Object.values(stateTerritories).forEach((state) => {
+    if (state.isActive) {
+      stateOptions.push({value: state.stateCode, label: state.state}) 
+    }
+  })
 
   const populationOptions = [
     { value: "under5000", label: "under 5000" },
@@ -100,17 +54,21 @@ function AdvancedSearch() {
     fetch([VARIABLES.fetchBaseUrl, "api/data-careers?sort=category_of_employment"].join('/'))
     .then(res => res.json())
     .then(data => {
-        setProfessions(
-            data.data.map(item => {
-              return {
-                value: item.id,
-                label: item.attributes.category_of_employment
-              }
-            })
-        )
+      const uniqueProfessions = new Set();
+      data.data.forEach(item => {
+        uniqueProfessions.add(item.attributes.category_of_employment);
+      });
+      setProfessions(
+        Array.from(uniqueProfessions).map(label => {
+          return {
+            value: label,
+            label: label
+          }
+        })
+      );
     })
     .catch(err => console.log(err));
-    }, []); 
+  }, []); 
 
   const [memberships, setMemberships] = useState([[]]);
   
@@ -185,9 +143,9 @@ function AdvancedSearch() {
         }, []); 
 
   const sexualOrientation = [
-    { value: "Bisexual", label: "Bisexual" },
-    { value: "Heterosexual", label: "Heterosexual" },
-    { value: "Lesbian", label: "Lesbian" },
+    { value: "bisexual", label: "Bisexual" },
+    { value: "heterosexual", label: "Heterosexual" },
+    { value: "lesbian", label: "Lesbian" },
   ];
 
   const {
@@ -204,21 +162,31 @@ function AdvancedSearch() {
 
   async function onSubmit(data) {
     console.log('data:', data)
-    var array_query = [];
+    let array_query = [];
 
     Object.values(data).forEach((value, index) => {
-      console.log('index: ', index, 'value: ', value, ' ', typeof(value))
-      if (value !== undefined && value !== false && value !== '') {
-        const newObj = {};
-        newObj[Object.keys(data)[index]] = value;
-        array_query.push(newObj)
+      console.log('index: ', index, 'value: ', value)
+      if (value !== undefined && value !== false) {
+        let hasNonEmptyProp = false;
+        for (const prop in value) {
+          if (value[prop] !== undefined && value[prop] !== '' &&value[prop] !== false) {
+            hasNonEmptyProp = true;
+            break;
+          }
+        }
+        if (hasNonEmptyProp) {
+          const newObj = {};
+          newObj[Object.keys(data)[index]] = value;
+          array_query.push(newObj);
+        }
       }
-    })
+    });
     
     console.log('array:', array_query)
     const query = qs.stringify({
       filters: {
         $or: array_query,
+        // $contains: array_query
 
       },
       populate: '*',
@@ -230,7 +198,7 @@ function AdvancedSearch() {
       console.log('results: none')
     }
     else {
-    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`);
     console.log(response)
     setData(response.data.data)
     }
@@ -238,7 +206,9 @@ function AdvancedSearch() {
 
   const clearForm = () => {
     reset();
+    setSelectedOptions(null);
     setData([])
+    console.log('data: ', data)
   }
 
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -249,7 +219,7 @@ function AdvancedSearch() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} onReset={clearForm}>
     <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
@@ -356,19 +326,27 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
-                <h1> Region</h1>
-                <div className="item_DEMO">
-                  <div className="advancedSearch_form-control">
-                  <select> </select> </div>
-                </div>
-              </div>
-              <div className="advancedSearch_container">
                 <h1> State/territory</h1>
                 <div className="item_DEMO">
                   <div className="advancedSearch_form-control">
+                  <Controller 
+                    control={control}
+                    name="represented_state"
+                    render={({
+                      field: { onChange, onBlur, value, name, ref},
+                    }) => (
                   <Select
-                  isMulti
-                  options={stateOptions} /> </div>
+                  options={stateOptions} 
+                  onChange={(selectedOption) => {
+                    onChange(selectedOption.value);
+                  }}
+                  onBlur={onBlur}
+                  value={stateOptions.find(option => option.value === value)}
+                  name={name}
+                  ref={ref}                                   
+                  />
+                  )}
+                  /></div>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -437,22 +415,24 @@ function AdvancedSearch() {
                 <h1> religion</h1>
                 <div className="item_DEMO">
                   <div className="advancedSearch_form-control">
-                  {/* <Controller 
+                  <Controller 
                     control={control}
                     name="religion"
                     render={({
                       field: { onChange, onBlur, value, name, ref},
                     }) => (
                   <Select
-                    options={religionOptions} 
-                    onChange={onChange}
-                    onBlur={onBlur}
-                    value={value}
-                    name={name}
-                    ref={ref}                                  
+                  options={religionOptions} 
+                  onChange={(selectedOption) => {
+                    onChange(selectedOption.value);
+                  }}
+                  onBlur={onBlur}
+                  value={religionOptions.find(option => option.value === value)}
+                  name={name}
+                  ref={ref}                                   
                   />
                   )}
-                  /> */}
+                  />
                   </div>
                 </div>
               </div>
@@ -473,20 +453,34 @@ function AdvancedSearch() {
                 <h1> sexual orientation</h1>
                 <div className="item_DEMO">
                   <div className="advancedSearch_form-control">
+                  <Controller 
+                    control={control}
+                    name="sexual_orientation"
+                    render={({
+                      field: { onChange, onBlur, value, name, ref},
+                    }) => (
                   <Select
                   options={sexualOrientation} 
-                  />  </div>
+                  onChange={(selectedOption) => {
+                    onChange(selectedOption.value);
+                  }}
+                  onBlur={onBlur}
+                  value={sexualOrientation.find(option => option.value === value)}
+                  name={name}
+                  ref={ref}                                   
+                  />
+                  )} /> </div>
                 </div>
               </div>
               <div className="advancedSearch_container">
                 <h1>race and ethnicity</h1>
                 <div className="item_EDU">
-                  {/* {raceData.map((race, i) => {
+                  {raceData.map((race, i) => {
                     return (
                       <label className="advancedSearch_form-control" key={race}>
-                      <input type="checkbox" value={race} {...register('races.race')} /> {race} </label>
+                      <input type="checkbox" value={race} {...register(`races.race`)} /> {race} </label>
                     )
-                  })} */}
+                  })}
                 </div>
               </div>
 
@@ -529,9 +523,23 @@ function AdvancedSearch() {
                 <h1> job/profession</h1>
                 <div className="item">
                   <div className="advancedSearch_form-control">
+                  <Controller 
+                    control={control}
+                    name="careers.category_of_employment"
+                    render={({
+                      field: { onChange, onBlur, value, name, ref},
+                    }) => (
                   <Select
-                  isMulti
-                  options={professions} /> 
+                  options={professions} 
+                  onChange={(selectedOption) => {
+                    onChange(selectedOption.value);
+                  }}
+                  onBlur={onBlur}
+                  value={professions.find(option => option.value === value)}
+                  name={name}
+                  ref={ref}                                   
+                  />
+                  )} />
                   </div>
                 </div>
               </div>
@@ -539,7 +547,7 @@ function AdvancedSearch() {
                 <h1> job/profession keyword search</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="text" /> </label>
+                <input type="text" /* {...register('careers.job_profession')} *//> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -572,37 +580,37 @@ function AdvancedSearch() {
                   <h1> jurisdiction of political offices held </h1>
                   <div className="item_ELEC">
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />City </label>
+                  <input type="checkbox" value="city level" {...register('political_office_helds.jurisdiction')} />City </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />County </label>
+                  <input type="checkbox" value="county level" {...register('political_office_helds.jurisdiction')}/>County </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />State </label>
+                  <input type="checkbox" value="state level" {...register('political_office_helds.jurisdiction')}/>State </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />Federal </label>
+                  <input type="checkbox"value="federal level" {...register('political_office_helds.jurisdiction')}/>Federal </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />None </label>
+                  <input type="checkbox" value="" {...register('political_office_helds.jurisdiction')}/>None </label>
                   </div>
               </div>
               <div className="advancedSearch_container">
                 <h1> name of political offices held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text" /> </label>
+                <input type="text"/*  {...register('political_office_helds.political_office')} *//> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
                   <h1> jurisdiction of political offices sought but lost </h1>
                   <div className="item_ELEC">
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />City </label>
+                  <input type="checkbox" value="city level" {...register('political_office_losts.jurisdiction')}/>City </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />County </label>
+                  <input type="checkbox" value="county level" {...register('political_office_losts.jurisdiction')}/>County </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />State </label>
+                  <input type="checkbox"value="state level" {...register('political_office_losts.jurisdiction')}/>State </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />Federal </label>
+                  <input type="checkbox"value="federal level" {...register('political_office_losts.jurisdiction')}/>Federal </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" />None </label>
+                  <input type="checkbox"value="" {...register('political_office_losts.jurisdiction')}/>None </label>
                   </div>
               </div>
               <div className="advancedSearch_container">
@@ -784,15 +792,16 @@ function AdvancedSearch() {
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">
           <button type="submit" className="advancedSearch_button_search"> Search </button>
-          <button type="button" className="advancedSearch_button_reset" onClick={clearForm}> Reset </button>
+          <button type="reset" className="advancedSearch_button_reset" /* onClick={clearForm} */> Reset </button>
         </div>
         </div>
         <div className="advancedSearch">
-            <Tabs>
+            <Tabs style={{margin: 0}}>
                 <div label="Chart View">
                     <table className="advancedTable">
                         <tr style={{background: "#cadfee"}}>
-                            <th> NAME</th>
+                            <th> last name</th>
+                            <th> first name</th>
                             <th> state/territory</th>
                             <th> role</th>
                             <th> race/ethnicity</th>
@@ -804,7 +813,8 @@ function AdvancedSearch() {
                         {data.map((val) => {
                           return (
                         <tr key={val.id}>
-                            <td> {val.attributes.first_name} {val.attributes.last_name} </td>
+                            <td> {val.attributes.last_name} </td>
+                            <td> {val.attributes.first_name} </td>
                             <td> {val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td> 
                             <td> {val.attributes.role.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.role})} </td>
                             <td> {val.attributes.races.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.race})}</td>

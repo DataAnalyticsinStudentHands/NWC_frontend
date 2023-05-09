@@ -301,6 +301,8 @@
   margin-top: -6.5rem;
   margin-left: 1rem;
   border-spacing: 0;
+  width: 100%;
+  table-layout:fixed;
 }
 .advancedTable th {
   padding-left: 30rem;
@@ -312,9 +314,11 @@
 
 .advancedTable td {
   margin-left: 80rem;
-  text-align: left;
   font-size: calc(25 * var(--xUnit));
-  
+  vertical-align: text-top;
+  text-align: left;
+  word-wrap: break-word;
+
 }
 
 .advancedTable tr:nth-child(even) {
