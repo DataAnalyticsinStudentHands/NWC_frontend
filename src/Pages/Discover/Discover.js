@@ -27,7 +27,9 @@ function Discover() {
   const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
-  const listOfCards = useRef([])
+  const listOfCards = useRef([]);
+  const [activeCardsPerPage, setActiveCardsPerPage] = useState('12');
+  const [activeSortMethod, setActiveSortMethod] = useState(0);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   const { fetchBaseUrl } = VARIABLES;
@@ -167,22 +169,26 @@ function Discover() {
 
   function firstNameSort() {
     currentData = 'firstname'
+    setActiveSortMethod(1)
     setOffSet()
     
   }
 
   function lastNameSort() {
     currentData = 'lastname'
+    setActiveSortMethod(2)
     setOffSet()
   }
 
   function sortRole() {
       currentData = 'role'
+      setActiveSortMethod(3)
       setOffSet()
   }
 
   function sortState() {
       currentData = 'state'
+      setActiveSortMethod(4)
       setOffSet()
   }
   function search(){
@@ -193,6 +199,7 @@ function Discover() {
   //Cards shown amount
   function handleSelectChange(e) {
     setPostsPerPage(e.target.value);
+    setActiveCardsPerPage(e.target.value)
     setOffSet()
   }
 
@@ -248,14 +255,13 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => firstNameSort()}>FIRST NAME</p>
-          
+          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => lastNameSort()}>LAST NAME</p>
+          <p className={activeSortMethod === 2?'activeSortMethod':"discoverSearch_sorter"} onClick={() => lastNameSort()}>LAST NAME</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortRole()}>ROLE</p>
+          <p className= {activeSortMethod === 3?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortState()}>STATE</p>
+          <p className= {activeSortMethod === 4?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortState()}>STATE</p>
         </div>
       </div>
       
@@ -264,10 +270,10 @@ function Discover() {
           Cards per page
             </div>
       <ul className="cardsListPerPage">
-            <button onClick={handleSelectChange} value={12}>12</button>
-            <button onClick={handleSelectChange} value={24}>24</button>
-            <button onClick={handleSelectChange} value={48}>48</button>
-            <button onClick={handleSelectChange} value={96}>96</button>
+            <button key={1} className={activeCardsPerPage === '12'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={12}>12</button>
+            <button key={2} className={activeCardsPerPage === '24'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={24}>24</button>
+            <button key={3} className={activeCardsPerPage === '48'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={48}>48</button>
+            <button key={4} className={activeCardsPerPage === '96'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={96}>96</button>
             
         </ul>
         <button className="resetButton" onClick={()=>resetData()} >Reset</button>
