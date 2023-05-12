@@ -130,6 +130,7 @@ SEARCH
 .discoverSearch_sortBy {
     display: flex;
     font-size: .9em;
+    align-items:center;
 }
 
 .discoverSearch_sortBy > * {
@@ -211,9 +212,20 @@ PREV/NEXT
     font-size: 1.3em;
 }
 
-.cardsListPerPage button{
+.numberOfCards{
     font-family: var(--fontBabasNeue);
     background-color:var(--colorLightBlue);
+}
+
+.activeNumberOfCards{
+    background-color:var(--colorDarkBlue);
+}
+
+.activeSortMethod{
+    border-radius:30rem;
+    padding:5rem 25rem 5rem 25rem;
+    background-color:var(--colorDarkBlue);
+    color:white;
 }
 
 /*
