@@ -38,14 +38,19 @@ function AdvancedSearch() {
   ]
 
   const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
-
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+  const politicalData = ["American Independent Party", "Black Panther Party", "Communist Party USA", "Conservative Party of New York", "DC Statehood Party",
+                          "Democratic Party", "Liberal Party of New York", "Libertarian Party", "Minnesota Democratic-Farmer-Labor Party", "North Dakota Democratic-Nonpartisan-League Party",
+                          "Peace and Freedom Party", "Raza Unida Party", "Republican Party", "Socialist Party USA", "Socialist Workers Party", "Other"];
 
   const religionOptions = religionData.map((option) => {
     return {value: option, label: option}
   }
-  
-  
+  )
+
+  const politicalOptions = politicalData.map((option) => {
+    return {value: option, label: option}
+  }
   )
   
   const [professions, setProfessions] = useState([[]]);
@@ -158,7 +163,8 @@ function AdvancedSearch() {
 
   } = useForm()
 
-  const [data, setData] = useState([])
+  const [data, setData] = useState([]) // state used for data input
+  const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
 
   async function onSubmit(data) {
     console.log('data:', data)
@@ -166,7 +172,7 @@ function AdvancedSearch() {
 
     Object.values(data).forEach((value, index) => {
       console.log('index: ', index, 'value: ', value)
-      if (value !== undefined && value !== false) {
+      if (value !== undefined && value !== false) { // checks if search result is empty
         let hasNonEmptyProp = false;
         for (const prop in value) {
           if (value[prop] !== undefined && value[prop] !== '' &&value[prop] !== false) {
@@ -174,10 +180,12 @@ function AdvancedSearch() {
             break;
           }
         }
-        if (hasNonEmptyProp) {
+        if (hasNonEmptyProp) { // if result not empty, push
           const newObj = {};
           newObj[Object.keys(data)[index]] = value;
           array_query.push(newObj);
+          setIsButtonClicked(true);
+
         }
       }
     });
@@ -208,6 +216,9 @@ function AdvancedSearch() {
     reset();
     setSelectedOptions(null);
     setData([])
+    setIsButtonClicked(false);
+    
+
     console.log('data: ', data)
   }
 
@@ -595,7 +606,7 @@ function AdvancedSearch() {
                 <h1> name of political offices held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text"/*  {...register('political_office_helds.political_office')} *//> </label>
+                <input type="text" {...register('political_office_helds.political_office')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -640,8 +651,25 @@ function AdvancedSearch() {
                 <h1> political party membership</h1>
                 <div className="item_ELEC">
                   <div className="advancedSearch_form-control">
+                  <Controller 
+                    control={control}
+                    name="political_party_membership"
+                    render={({
+                      field: { onChange, onBlur, value, name, ref},
+                    }) => (
                   <Select
-                  options={memberships} /> 
+                  options={politicalOptions} 
+                  onChange={(selectedOptions) => {
+                    onChange(selectedOptions.value);
+                    
+                  }}
+                  onBlur={onBlur}
+                  value={politicalOptions.find(option => option.value === value)}
+                  name={name}
+                  ref={ref}                                   
+                  />
+                  )}
+                  />
                   </div>
                 </div>
               </div>
@@ -795,8 +823,9 @@ function AdvancedSearch() {
           <button type="reset" className="advancedSearch_button_reset" /* onClick={clearForm} */> Reset </button>
         </div>
         </div>
+        {isButtonClicked && (
         <div className="advancedSearch">
-            <Tabs style={{margin: 0}}>
+            <Tabs>
                 <div label="Chart View">
                     <table className="advancedTable">
                         <tr style={{background: "#cadfee"}}>
@@ -816,11 +845,11 @@ function AdvancedSearch() {
                             <td> {val.attributes.last_name} </td>
                             <td> {val.attributes.first_name} </td>
                             <td> {val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td> 
-                            <td> {val.attributes.role.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.role})} </td>
-                            <td> {val.attributes.races.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.race})}</td>
+                            <td> {val.attributes.role.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.role;} else { return [<br key={index} />, '• ' + e.attributes.role]; }})} </td>
+                            <td> {val.attributes.races.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.race;} else { return [<br key={index} />, '• ' + e.attributes.race]; }})} </td>
                             <td> {val.attributes.religion}</td>
                             <td> {val.attributes.highest_level_of_education_attained} </td>
-                            <td> {val.attributes.political_office_helds.data.map((e, index) => { return (index ? '/' : '' ) + e.attributes.political_office})} </td>
+                            <td> {val.attributes.political_office_helds.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.political_office;} else { return [<br key={index} />, '• ' + e.attributes.political_office]; }})} </td>
                             <td> {val.attributes.political_party_membership} </td>
 
                         </tr>
@@ -832,6 +861,7 @@ function AdvancedSearch() {
                 </div>
             </Tabs>
             </div>
+        )}
       </div>
       </form>
       

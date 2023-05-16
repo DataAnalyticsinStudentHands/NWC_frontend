@@ -10,6 +10,7 @@
     margin-left: 80rem;
     padding: .4em;
     display:flex
+    
 
 }
 
@@ -324,5 +325,4 @@
 .advancedTable tr:nth-child(even) {
   background-color: #cadfee;
 }
-
   
