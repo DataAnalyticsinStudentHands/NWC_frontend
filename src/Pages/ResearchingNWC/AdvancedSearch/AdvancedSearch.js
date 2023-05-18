@@ -52,6 +52,12 @@ function AdvancedSearch() {
     return {value: option, label: option}
   }
   )
+
+  const sexualOrientation = [
+    { value: "bisexual", label: "Bisexual" },
+    { value: "heterosexual", label: "Heterosexual" },
+    { value: "lesbian", label: "Lesbian" },
+  ];
   
   const [professions, setProfessions] = useState([[]]);
   
@@ -74,24 +80,6 @@ function AdvancedSearch() {
     })
     .catch(err => console.log(err));
   }, []); 
-
-  const [memberships, setMemberships] = useState([[]]);
-  
-  useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, "api/political-parties"].join('/'))
-    .then(res => res.json())
-    .then(data => {
-        setMemberships(
-            data.data.map(item => {
-              return {
-                value: item.id,
-                label: item.attributes.political_party
-              }
-            })
-        )
-    })
-    .catch(err => console.log(err));
-    }, []); 
 
   const [organizations, setOrganizations] = useState([[]]);
   
@@ -147,20 +135,12 @@ function AdvancedSearch() {
         .catch(err => console.log(err));
         }, []); 
 
-  const sexualOrientation = [
-    { value: "bisexual", label: "Bisexual" },
-    { value: "heterosexual", label: "Heterosexual" },
-    { value: "lesbian", label: "Lesbian" },
-  ];
-
   const {
     register, 
     handleSubmit,
     formState: {errors},
     reset,
     control
-
-
   } = useForm()
 
   const [data, setData] = useState([]) // state used for data input
@@ -175,9 +155,28 @@ function AdvancedSearch() {
       if (value !== undefined && value !== false) { // checks if search result is empty
         let hasNonEmptyProp = false;
         for (const prop in value) {
-          if (value[prop] !== undefined && value[prop] !== '' &&value[prop] !== false) {
-            hasNonEmptyProp = true;
-            break;
+          if (
+            value[prop] !== undefined &&
+            value[prop] !== '' &&
+            value[prop] !== false
+          ) {
+            let hasNonEmptyNestedProp = false;
+        
+            // Iterate over nested properties dynamically
+            for (const nestedProp in value[prop]) {
+              if (
+                value[prop][nestedProp] !== undefined &&
+                value[prop][nestedProp] !== '' &&
+                value[prop][nestedProp] !== false
+              ) {
+                hasNonEmptyNestedProp = true;
+                break;
+              }
+            }
+            if (hasNonEmptyNestedProp) {
+              hasNonEmptyProp = true;
+              break;
+            }
           }
         }
         if (hasNonEmptyProp) { // if result not empty, push
@@ -185,7 +184,6 @@ function AdvancedSearch() {
           newObj[Object.keys(data)[index]] = value;
           array_query.push(newObj);
           setIsButtonClicked(true);
-
         }
       }
     });
@@ -194,8 +192,6 @@ function AdvancedSearch() {
     const query = qs.stringify({
       filters: {
         $or: array_query,
-        // $contains: array_query
-
       },
       populate: '*',
     }, {
@@ -217,8 +213,6 @@ function AdvancedSearch() {
     setSelectedOptions(null);
     setData([])
     setIsButtonClicked(false);
-    
-
     console.log('data: ', data)
   }
 
@@ -227,6 +221,22 @@ function AdvancedSearch() {
   const onSelect = (options) => {
     setSelectedOptions(options);
     console.log(selectedOptions)
+  };
+  
+  //Used for setting up pagination
+  const itemsPerPage = 10; // Number of items to display per page
+  const [currentPage, setCurrentPage] = useState(1);
+
+  // Calculate the indexes of the items to display on the current page
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+
+  // Get the subset of items based on the current page
+  const displayedData = data.slice(startIndex, endIndex);
+
+  // Update the current page number
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
   };
 
   return (
@@ -364,14 +374,14 @@ function AdvancedSearch() {
                 <h1> place of birth</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="text" {...register('place_of_birth')} /> </label>
+                <input type="text" {...register('place_of_birth.$containsi')} /> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
                 <h1> city of residence in 1977</h1>
                 <div className="item_EDU">
                 <label className="advancedSearch_form-control">
-                <input type="text" {...register('residence_in_1977.residence_in_1977')}/> </label> 
+                <input type="text" {...register('residence_in_1977.residence_in_1977.$containsi')}/> </label> 
                 <div className="advancedSearch_form-control">
                   <Select
                   options={populationOptions} 
@@ -406,7 +416,7 @@ function AdvancedSearch() {
                 <h1>name of spouse</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="text" {...register('name_of_spouse')}/> </label>                
+                <input type="text" {...register('name_of_spouse.$containsi')}/> </label>                
                 </div>
               </div>
               
@@ -414,7 +424,7 @@ function AdvancedSearch() {
                 <h1> number of children</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />No children </label>
+                <input type="checkbox" {...register('total_number_of_children')}/>No children </label>
                 <label className="advancedSearch_form-control">
                 <input type="checkbox" />1-3 </label>
                 <label className="advancedSearch_form-control">
@@ -558,7 +568,7 @@ function AdvancedSearch() {
                 <h1> job/profession keyword search</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="text" /* {...register('careers.job_profession')} *//> </label>
+                <input type="text" {...register('careers.job_profession.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -576,7 +586,7 @@ function AdvancedSearch() {
                 <h1> spouse's job/profession</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="text" {...register('spouse_careers.spouse_profession')}/> </label>
+                <input type="text" {...register('spouse_careers.spouse_profession.$containsi')}/> </label>
                 </div>
               </div>
             </div>
@@ -828,34 +838,67 @@ function AdvancedSearch() {
             <Tabs>
                 <div label="Chart View">
                     <table className="advancedTable">
-                        <tr style={{background: "#cadfee"}}>
-                            <th> last name</th>
-                            <th> first name</th>
-                            <th> state/territory</th>
-                            <th> role</th>
-                            <th> race/ethnicity</th>
-                            <th> religion</th>
-                            <th> education</th>
-                            <th> political offices held</th>
-                            <th> political party membership</th>
-                        </tr>
-                        {data.map((val) => {
-                          return (
-                        <tr key={val.id}>
-                            <td> {val.attributes.last_name} </td>
-                            <td> {val.attributes.first_name} </td>
-                            <td> {val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td> 
-                            <td> {val.attributes.role.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.role;} else { return [<br key={index} />, '• ' + e.attributes.role]; }})} </td>
-                            <td> {val.attributes.races.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.race;} else { return [<br key={index} />, '• ' + e.attributes.race]; }})} </td>
-                            <td> {val.attributes.religion}</td>
-                            <td> {val.attributes.highest_level_of_education_attained} </td>
-                            <td> {val.attributes.political_office_helds.data.map((e, index) => { if (index === 0) { return '• ' + e.attributes.political_office;} else { return [<br key={index} />, '• ' + e.attributes.political_office]; }})} </td>
-                            <td> {val.attributes.political_party_membership} </td>
+                            <thead>
+                              <tr style={{ background: '#cadfee' }}>
+                                <th>last name</th>
+                                <th>first name</th>
+                                <th>state/territory</th>
+                                <th>role</th>
+                                <th>race/ethnicity</th>
+                                <th>religion</th>
+                                <th>education</th>
+                                <th>political offices held</th>
+                                <th>political party membership</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              {displayedData.map((val) => (
+                                <tr key={val.id}>
+                                  <td>{val.attributes.last_name}</td>
+                                  <td>{val.attributes.first_name}</td>
+                                  <td>{val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td>
+                                  <td>{val.attributes.role.data.map((e, index) => {
+                                      if (index === 0) {return '• ' + e.attributes.role; } else {return [<br key={index} />, '• ' + e.attributes.role];}
+                                    })}
+                                  </td>
+                                  <td>
+                                    {val.attributes.races.data.map((e, index) => {
+                                      if (index === 0) { return '• ' + e.attributes.race;} else {return [<br key={index} />, '• ' + e.attributes.race];}
+                                    })}
+                                  </td>
+                                  <td>{val.attributes.religion}</td>
+                                  <td>{val.attributes.highest_level_of_education_attained}</td>
+                                  <td>
+                                    {val.attributes.political_office_helds.data.map((e, index) => {if (index === 0) {return '• ' + e.attributes.political_office;} else {return [<br key={index} />, '• ' + e.attributes.political_office];
+                                      }
+                                    })}
+                                  </td>
+                                  <td>{val.attributes.political_party_membership}</td>
+                                </tr>
+                              ))}
+                            </tbody>
+                          </table>
 
-                        </tr>
-                          )
-                        })}
-                    </table> 
+                          {/* Pagination Controls */}
+                          <div className="advancedSearch">
+                          <div className="pagination">
+                            {Array.from({ length: Math.ceil(data.length / itemsPerPage) }, (_, index) => (
+                              <button
+                                key={index + 1}
+                                className={currentPage === index + 1 ? 'active' : ''}
+                                onClick={() => {
+                                  handlePageChange(index + 1);
+                                  const tableElement = document.querySelector('.advancedTable');
+                                  if (tableElement) {
+                                    tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                  }
+                                }}
+                              >
+                                {index + 1}
+                              </button>
+                            ))}
+                          </div>
+                          </div>
                 </div>
                 <div label="Map View">            
                 </div>
@@ -864,7 +907,6 @@ function AdvancedSearch() {
         )}
       </div>
       </form>
-      
   )
 }
 

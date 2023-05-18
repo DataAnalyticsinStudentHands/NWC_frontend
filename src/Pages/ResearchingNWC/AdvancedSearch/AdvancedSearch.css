@@ -304,6 +304,7 @@
   border-spacing: 0;
   width: 100%;
   table-layout:fixed;
+  
 }
 .advancedTable th {
   padding-left: 30rem;
@@ -325,4 +326,43 @@
 .advancedTable tr:nth-child(even) {
   background-color: #cadfee;
 }
+
+.pagination {
+  display: flex;
+  justify-content: center;
   
+}
+
+.pagination button {
+  background-color: #cadfee;
+  color: #000;
+  border: solid;
+  padding: 8px 16px;
+  border-radius: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  
+}
+
+.pagination button:hover {
+  background-color: #8ec9f7;
+}
+
+.pagination button:disabled {
+  background-color: #e8e8e8;
+  cursor: not-allowed;
+}
+
+.pagination span {
+  padding: 8px 16px;
+  background-color: #cadfee;
+  color: #000;
+  border: none;
+  margin: 0 4px;
+}
+  
+.pagination button.active {
+  /* Styles for the active button */
+  background-color: #f0f0f0;
+  color: #333;
+}
