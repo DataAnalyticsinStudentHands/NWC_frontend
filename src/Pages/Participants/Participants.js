@@ -38,11 +38,8 @@ function Participants() {
     // adding USA list of states for select input
     const stateOptions = []
     Object.values(stateTerritories).forEach((state) => {
-        if (state.isActive) {
         stateOptions.push({value: state.stateCode, label: state.state}) 
-        }
     })
-
     return (
         <div className="participants">
             {/**BACK LINK */}
