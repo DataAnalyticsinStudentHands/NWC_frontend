@@ -103,7 +103,7 @@ ESSAYS
 
 .whyEssays {
     background-color: var(--colorBeige);
-    padding: 40rem 120rem;
+    padding: 40rem 120rem 60rem 120rem;
     width: 80%;
     margin: 60rem auto;
 }
@@ -117,15 +117,21 @@ ESSAYS
 }
 
 .whyEssays_list {
-    display: flex;
+    display: flexbox;
     width: 100%;
-    overflow-x: auto;
-    justify-content: left;
+    
+    /* overflow-x: auto; */
+    /* justify-content: left; */
 }
 
 .thumb_with_title {
     position: relative;
     text-align: center;
+   
+}
+
+.thumb_with_title img{
+    aspect-ratio:4/5;
 }
 
 .thumb_with_title_h3 {
@@ -134,16 +140,19 @@ ESSAYS
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: var(--fontBabasNeue);
-    font-size: 45rem;
+    font-size: 40rem;
     color: var(--colorMediumBlue);
     font-weight: normal;
     width: 350rem;
+    padding-right: 30.5rem;
+    padding-left: 30.5rem;
 }
 
 .whyEssays_list img {
+    display: block;
     width: 350rem;
-    margin-right: 15rem;
-    margin-left: 15rem;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .whyEssays_list a:hover {

@@ -96,14 +96,16 @@ SEARCH
     outline: none;
     border-bottom: .1em solid var(--colorLightBlue);
     height: fit-content;
-    font-size: .7em;
+    font-size: .9em;
     margin: auto;
     padding-left: 1ch;
     margin-right: 1ch;
+    /* width: 19vw; */
 }
 
 .discoverSearch_bar > input::placeholder {
     color: lightgray;
+    font-size: .8em;
 }
 
 .discoverSearch_bar > input:focus {
@@ -127,6 +129,8 @@ SEARCH
 
 .discoverSearch_sortBy {
     display: flex;
+    font-size: .9em;
+    align-items:center;
 }
 
 .discoverSearch_sortBy > * {
@@ -199,17 +203,29 @@ PREV/NEXT
     width: calc(100% - 5em);
     display: flex;
     margin: auto;
-    padding: .4em;
+    padding: .4em 0em .4em .4em;
 }
 
 .cardsPerPageHeader{
-    margin-top:25rem;
+    margin-top:15rem;
     color: var(--colorLightBlue);
+    font-size: 1.3em;
 }
 
-.cardsListPerPage button{
+.numberOfCards{
     font-family: var(--fontBabasNeue);
     background-color:var(--colorLightBlue);
+}
+
+.activeNumberOfCards{
+    background-color:var(--colorDarkBlue);
+}
+
+.activeSortMethod{
+    border-radius:30rem;
+    padding:5rem 25rem 5rem 25rem;
+    background-color:var(--colorDarkBlue);
+    color:white;
 }
 
 /*
@@ -250,4 +266,10 @@ PAGINATION COMPONENET
 
 .pagination__link--disabled a {
     color: rgb(198, 197, 202);
+}
+
+.resetButton{
+    margin-left:auto;
+    background-color: var(--colorLightBlue);
+    margin-right:0;
 }

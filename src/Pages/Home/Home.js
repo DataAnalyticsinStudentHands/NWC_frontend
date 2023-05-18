@@ -23,20 +23,20 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
-import inperson from './res/inperson.png';
-import online from './res/online.png';
-import share from './res/share.png';
+import Carousel3 from '../../Components/Carousel/Carousel3';
 
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
+
+
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
 };
 
 const urlify = (str) => {
-  return [VARIABLES.fetchBaseUrl, str].join('/'); 
+  return `${VARIABLES.fetchBaseUrl}${str}`; 
 };
 
 // sort points of interest by first element (Name)
@@ -131,6 +131,8 @@ function Home() {
       .catch((err) => console.log(err));
   }, []);
 
+  const[images, setImages] = useState([[]])
+
   useEffect(() => {
     fetch([VARIABLES.fetchBaseUrl, 'api/content-home-maps?populate=*'].join('/'))
       .then((res) => res.json())
@@ -140,9 +142,9 @@ function Home() {
           return superSorter(
             getWhere(data.data, 'Map', map).map((p) => {
               const 
-                      {attributes:
-                        {x, y, Name, Description, citation1, citation2, citation3, 
-                          mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
+                  {attributes:
+                    {x, y, Name, Description, citation1, citation2, citation3, 
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
               const p2 = [];
               
               p2[0] = Name;
@@ -210,6 +212,27 @@ function Home() {
       points: homeAstrodome,
     },
   };
+
+  useEffect(() => {
+    fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
+    .then(res => res.json())
+    .then(data => {
+      
+        setImages(
+            data.data.map(d => {
+                const featured = d.attributes.Featured;
+                const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                // const thumbnail = 
+                const id = d.id;
+                const title = d.attributes.ShortTitle;
+                const link = d.attributes.home_highlights_link
+
+                return ['default', id, thumbnail, title, featured, link];
+            })
+        )
+    })
+    .catch(err => console.log(err));
+}, []); 
 
   return (
     <>
@@ -484,19 +507,12 @@ function Home() {
         <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
         <HighlightsCarousel/>
       </div> */}
-       {/*<div className="homeLaunch">
-      
-      <h1>JOIN US FOR THE LAUNCH</h1>
-      <p> Click on the images to find out more and RSVP</p>
-      <div className="homeLaunchPanel">
-        <a href="https://www.eventbrite.com/e/why-the-1977-national-womens-conference-matters-tickets-269032983897"
-        target="_blank" rel="noopener noreferrer"><img src={inperson} alt="inperson"/></a>
-        <a href="https://www.eventbrite.com/e/269039112227"
-        target="_blank" rel="noopener noreferrer"><img src={online} alt="online"/></a>
-        <a href="https://www.eventbrite.com/e/269045882477"
-        target="_blank" rel="noopener noreferrer"><img src={share} alt="share"/></a>
-      </div> 
-    </div>*/}
+      <div className="homeLaunch">
+        <h1>SITE HIGHLIGHTS</h1>
+      <div className='homeLaunchPanel'>
+        <Carousel3 images={images}/>
+      </div>
+    </div>
   </div>
       ) : (
         ''

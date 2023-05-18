@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useForm } from "react-hook-form";
-import * as qs from 'qs';
-
+import qs from 'qs';
+import axios from 'axios';
 import Map from "./Map";
-import VARIABLES from "../../config/.env.js";
 import './ResearchingNWC.css'
-
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
+import VARIABLES from "../../config/.env.js";
+
+import stateTerritories from '../../assets/stateTerritories.json';
 
 function ResearchingNWC() {
 
-  const { fetchBaseUrl } = VARIABLES;
+  const [contentMap, setContentMap] = useState([]);
 
-  // one state to hold the regular page content loaded from Strapi
-  const [state, setState] = useState({
-    banner_text: '',
-    bannerimage_credit: '',
-    bannerimagecredit_more: '',
-    basicsearch_text: ''
-  });
+  useEffect(() => {
+    async function fetchContentMap() {
+      let response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/content-mapping-nwc`);
+      setContentMap(response.data.data)
+    }
+    fetchContentMap();
+  },[]);
+
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
   // 3rd state for form search by name
@@ -30,321 +32,114 @@ function ResearchingNWC() {
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // submit text search query
-  const onSubmitSearch = (data) => {
-    var searchQuery = data.searchText;
+  const stateOptions = []
+  Object.values(stateTerritories).forEach((state) => {
+    if (state.isActive) {
+      stateOptions.push({value: state.stateCode, label: state.state}) 
+    }
+  })
 
-    fetch([VARIABLES.fetchBaseUrl, `api/participants?first_name_contains=${searchQuery}`].join('/'))
-      .then(response => response.json())
-      .then(data => {
-        setMap(data);
-      })
-      .catch(err => console.log(err));
+  const roleObj = {
+    "DELEGATES/ALTERNATES": ["Delegate at the NWC", "Alternate at the NWC"],
+    "NATIONAL COMMISSIONERS": ["Ford National Commissioner", "Carter National Commissioner"],
+    "NOTABLE SPEAKERS": "Notable Speaker",
+  }
+
+  const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
+  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+  const educationObj = {
+    "High School": ['some high school','high school diploma'],
+    "College": ['some college','college degree'],
+    "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
+  }
+  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
+const politicalOfficeObj = {
+    "city level": "city level",
+    "county level": "county level",
+    "state level": "state level",
+    "national level": "federal level"
+}
+  const politicalPartyObj = {
+    "Democratic": "Democratic Party",
+    "Republican": "Republican Party",
+    "Other": {$notIn:["Democratic Party", "Republican Party"]}
+  }
+
+  // // submit text search query
+  async function onSubmitSearch (data) {
+    let names = data.searchText.split(" ");
+    let query = {}
+    names[1] ? query = qs.stringify({
+      filters: {
+        $and: [
+          {first_name: names[0]},
+          {last_name: names[1]}
+        ]
+      }, populate: '*'
+    }, {encodeValuesOnly:true}) : query = qs.stringify({
+      filters: {
+        first_name: names[0]
+      }, populate: '*'
+    }, {encodeValuesOnly:true})
+
+    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    setMap(response.data.data);
   }
 
   // submit basic search query
-  const onSubmit = data => {
-    var query_array = [];
-
-    //build the query for state
-    if (selectedOptions) {
-      selectedOptions.forEach(state => {
-        query_array.push({ 'state': state.value });
-      });
-
-    }
-
-    //build the query for: Roles
-    if (data.delegate_alternate)
-      query_array.push({ 'nwc_roles.delegate_at_the_nwc': 1 });
-
-    if (data.national_commissioner) {
-      query_array.push({ 'nwc_roles.ford_national_commissioner': 1 });
-      query_array.push({ 'nwc_roles.carter_national_commissioner': 1 });
-    }
-
-    if (data.torch_relay_runner) {
-      query_array.push({ 'nwc_roles.torch_relay_runner': 1 });
-    }
-
-    if (data.notable_speaker) {
-      query_array.push({ 'nwc_roles.notable_speaker': 1 });
-    }
-
-    if (data.journalists_covering_the_nwc) {
-      query_array.push({ 'nwc_roles.journalists_covering_the_nwc': 1 });
-    }
-
-    if (data.staff_volunteer) {
-      query_array.push({ 'nwc_roles.volunteer': 1 });
-      query_array.push({ 'nwc_roles.paid_staff_member': 1 });
-    }
-
-    if (data.international_dignitary) {
-      query_array.push({ 'nwc_roles.international_dignitary': 1 });
-    }
-
-    if (data.official_observer) {
-      query_array.push({ 'nwc_roles.official_observer': 1 });
-    }
-
-    if (data.asian_americanpacific_islander) {
-      query_array.push({ 'nwc_races.asian_americanpacific_islander': 1 });
-    }
-
-    //build the query for: Race & Ethnicity
-    if (data.black) {
-      query_array.push({ 'nwc_races.black': 1 });
-    }
-
-    if (data.hispanic) {
-      query_array.push({ 'nwc_races.hispanic': 1 });
-    }
-
-    if (data.native_americanamerican_indian) {
-      query_array.push({ 'nwc_races.native_americanamerican_indian': 1 });
-    }
-
-    if (data.white) {
-      query_array.push({ 'nwc_races.white': 1 });
-    }
-
-    //build the query for: Religion
-    if (data.agnostic) {
-      query_array.push({ 'religion': 'agnostic' });
-    }
-
-    if (data.atheist) {
-      query_array.push({ 'religion': 'atheist' });
-    }
-
-    if (data.catholic) {
-      query_array.push({ 'religion': 'catholic' });
-    }
-
-    if (data.christian) {
-      query_array.push({ 'religion': 'jewish' });
-    }
-
-    if (data.eastern) {
-      query_array.push({ 'religion': 'eastern' });
-    }
-
-    if (data.jewish) {
-      query_array.push({ 'religion': 'jewish' });
-    }
-
-    if (data.mormon) {
-      query_array.push({ 'religion': 'mormon' });
-    }
-
-    if (data.muslim) {
-      query_array.push({ 'religion': 'muslim' });
-    }
-
-    if (data.unknown) {
-      query_array.push({ 'religion': 'unknown' });
-    }
-
-    //build the query for: Higest Level of Education
-    if (data.highschool) {
-      query_array.push({ 'highest_level_education': 'some_highschool' });
-      query_array.push({ 'highest_level_education': 'high_school_diploma' });
-    }
-
-    if (data.college) {
-      query_array.push({ 'highest_level_education': 'some_college' });
-      query_array.push({ 'highest_level_education': 'college_degree' });
-    }
-
-    if (data.graduate) {
-      query_array.push({ 'highest_level_education': 'graduate_professional_degree' });
-    }
-
-    //build the query for: Political offices held level
-    if (data.city_level) {
-      query_array.push({ 'jurisdiction_level_politicals.city_level': 1 });
-    }
-
-    if (data.county_level) {
-      query_array.push({ 'jurisdiction_level_politicals.county_level': 1 });
-    }
-
-    if (data.state_level) {
-      query_array.push({ 'jurisdiction_level_politicals.state_level': 1 });
-    }
-
-    if (data.federal_level) {
-      query_array.push({ 'jurisdiction_level_politicals.federal_level': 1 });
-    }
-
-    //build the query for: Political Party membership
-    if (data.democratic) {
-      query_array.push({ 'political_parties.democratic': 1 });
-    }
-
-    if (data.republican) {
-      query_array.push({ 'political_parties.republican': 1 });
-    }
-
-    if (data.third) {
-      query_array.push({ 'political_parties.american_independent': 1 });
-      query_array.push({ 'political_parties.black_panther': 1 });
-      query_array.push({ 'political_parties.cpusa': 1 });
-      query_array.push({ 'political_parties.conservative_party_of_new_york': 1 });
-      query_array.push({ 'political_parties.dc_statehood': 1 });
-      query_array.push({ 'political_parties.liberal_party_of_new_york': 1 });
-      query_array.push({ 'political_parties.minnesota_dfl': 1 });
-      query_array.push({ 'political_parties.north_dakota_dnl': 1 });
-      query_array.push({ 'political_parties.peace_and_freedom': 1 });
-      query_array.push({ 'political_parties.raza_unida': 1 });
-      query_array.push({ 'political_parties.socialist_party_usa': 1 });
-      query_array.push({ 'political_parties.socialist_workers': 1 });
-    }
-
-    //build the query for: Stance on ERA
-    if (data.for) {
-      query_array.push({ 'era_stance.for': 1 });
-    }
-
-    if (data.against) {
-      query_array.push({ 'era_stance.against': 1 });
-    }
-
-    const query = qs.stringify({
-      _where:
-      {
-        _or: query_array
+  async function onSubmit(data) {
+    let query_array = [];
+    Object.values(data).forEach((value, index) => {
+      if (value === true) {
+        switch(Object.keys(data)[index].split(' ')[0]){
+          case "role":
+            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
+          case 'race':
+            query_array.push({ races:{race:Object.keys(data)[index].slice(5)}}); break;
+          case 'religion':
+            query_array.push({ religion:Object.keys(data)[index].slice(9)}); break;
+          case 'education':
+            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
+          case 'level':
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
+          case 'party':
+            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
+          case 'era_for':
+            query_array.push({ planks_fors: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
+          case 'era_against':
+            query_array.push({ planks_againsts: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
+          default:
+            break;
+        }
       }
-    },
-      { encode: false });
-
-    fetch(`${fetchBaseUrl}/participants?${query}`)
-      .then(res => res.json())
-      .then(data => {
-        console.log(data)
-        setMap(maps => data);
-      })
-      .catch(err => console.log(err));
+    });
+    const query = qs.stringify({
+      filters: {
+        $or: query_array,
+      },
+      populate: '*',
+    }, {
+      encodeValuesOnly: true, // prettify URL
+    });
+    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    setMap(response.data.data);
   }
-
   // adding USA list of states for select input
-  const stateOptions = [
-    { value: "AL", label: "Alabama" },
-    { value: "AK", label: "Alaska" },
-    { value: "AZ", label: "Arizona" },
-    { value: "AR", label: "Arkansas" },
-    { value: "CA", label: "California" },
-    { value: "CO", label: "Colorado" },
-    { value: "CT", label: "Connecticut" },
-    { value: "DE", label: "Delaware" },
-    { value: "FL", label: "Florida" },
-    { value: "GA", label: "Georgia" },
-    { value: "HI", label: "Hawaii" },
-    { value: "ID", label: "Idaho" },
-    { value: "IL", label: "Illinois" },
-    { value: "IN", label: "Indiana" },
-    { value: "IA", label: "Iowa" },
-    { value: "KS", label: "Kansas" },
-    { value: "KY", label: "Kentucky" },
-    { value: "LA", label: "Louisiana" },
-    { value: "ME", label: "Maine" },
-    { value: "MD", label: "Maryland" },
-    { value: "MA", label: "Massachusetts" },
-    { value: "MI", label: "Michigan" },
-    { value: "MN", label: "Minnesota" },
-    { value: "MS", label: "Mississippi" },
-    { value: "MO", label: "Missouri" },
-    { value: "MT", label: "Montana" },
-    { value: "NE", label: "Nebraska" },
-    { value: "NV", label: "Nevada" },
-    { value: "NH", label: "New Hampshire" },
-    { value: "NJ", label: "New Jersey" },
-    { value: "NM", label: "New Mexico" },
-    { value: "NY", label: "New York" },
-    { value: "NC", label: "North Carolina" },
-    { value: "ND", label: "North Dakota" },
-    { value: "OH", label: "Ohio" },
-    { value: "OK", label: "Oklahoma" },
-    { value: "OR", label: "Oregon" },
-    { value: "PA", label: "Pennsylvania" },
-    { value: "RI", label: "Rhode Island" },
-    { value: "SC", label: "South Carolina" },
-    { value: "SD", label: "South Dakota" },
-    { value: "TN", label: "Tennessee" },
-    { value: "TX", label: "Texas" },
-    { value: "UT", label: "Utah" },
-    { value: "VT", label: "Vermont" },
-    { value: "VA", label: "Virginia" },
-    { value: "WA", label: "Washington" },
-    { value: "WV", label: "West Virginia" },
-    { value: "WI", label: "Wisconsin" },
-    { value: "WY", label: "Wyoming" },
-  ]
-
   //reset form fields and map data
   const onClear = () => {
-    reset({
-      delegate_alternate: 0,
-      national_commissioner: 0,
-      notable_speaker: 0,
-      journalists_covering_the_nwc: 0,
-      torch_relay_runner: 0,
-      staff_volunteer: 0,
-      international_dignitary: 0,
-      official_observer: 0,
-      asian_americanpacific_islander: 0,
-      black: 0,
-      hispanic: 0,
-      native_americanamerican_indian: 0,
-      white: 0,
-      agnostic: 0,
-      atheist: 0,
-      catholic: 0,
-      christian: 0,
-      eastern: 0,
-      jewish: 0,
-      mormon: 0,
-      muslim: 0,
-      unknown: 0,
-      none_of_the_above: 0,
-      highschool: 0,
-      college: 0,
-      graduate: 0,
-      democratic: 0,
-      republican: 0,
-      third: 0,
-      city_level: 0,
-      county_level: 0,
-      state_level: 0,
-      federal_level: 0,
-      for: 0,
-      against: 0,
-      selectInputRef: 0
-    });
+    reset();
     setSelectedOptions(null);
     setMap([])
   }
 
-  // updates from multi-select
+  // // updates from multi-select
   const onSelect = (options) => {
     setSelectedOptions(options);
   };
-
-  // grab page data from strapi on mount
-  useEffect(() => {
-    fetch(`${fetchBaseUrl}/content-mapping-nwc`)
-      .then(res => res.json())
-      .then(data => {
-        setState({
-          banner_text: data.Banner_text,
-          bannerimage_credit: data.BannerImage_Credit,
-          bannerimagecredit_more: data.BannerImageCredit_more,
-          basicsearch_text: data.BasicSearch_Text
-        });
-      })
-      .catch(err => console.log(err));
-  }, []); // eslint-disable-line
 
   return (
     <div className="mappingNWC">
@@ -353,27 +148,22 @@ function ResearchingNWC() {
       <div className="mappingNWCBanner">
         <img src={button} className="mappingNWC_button" alt="_" />
         <div className="mappingNWC_card">
-          <p>
-            {state.banner_text}
-          </p>
+          <p>{contentMap?.attributes?.Banner_text}</p>
         </div>
         <div className='mappingNWC_imgcontainer'>
-        <img src={component119} className="mappingNWC_component119" alt="_" />
-        <div className="mappingNWC_credit" title={state.bannerimagecredit_more}>
-          <p>PHOTO BY {state.bannerimage_credit}</p>
-        </div>
-        
-        
+          <img src={component119} className="mappingNWC_component119" alt="_" />
+          <div className="mappingNWC_credit" title={contentMap?.attributes?.BannerImageCredit_more}>
+            <p>PHOTO BY {contentMap?.attributes?.BannerImage_Credit}</p>
+          </div>
         </div>
         
       </div>
-
       {/**SEARCH */}
       <div className="mappingNWCSearch">
         <h1>HOW TO SEARCH this DATA</h1>
         <hr></hr>
         <h2>BASIC SEARCH</h2>
-        <p>{state.basicsearch_text}</p>
+        <p>{contentMap?.attributes?.Banner_text}</p>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
@@ -389,94 +179,71 @@ function ResearchingNWC() {
                 classNamePrefix="select"
               />
               <p>NWC ROLES</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("delegate_alternate")} />DELEGATES/ALTERNATES</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("national_commissioner")} />NATIONAL COMMISSIONERS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("notable_speaker")} />NOTABLE SPEAKERS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("journalists_covering_the_nwc")} />JOURNALISTS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("torch_relay_runner")} />TORCH RELAY RUNNERS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("staff_volunteer")} />STAFF/VOLUNTEERS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("international_dignitary")} />INTERNATIONAL DIGNITARIES</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("official_observer")} />OFFICIAL OBSERVERS</label>
+              {Object.keys(roleObj).map((role, i) => {
+                return(
+                  <label className="form-control" key={role}>
+                    <input type="checkbox" {...register(`role ${role}`)} />{role}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("asian_americanpacific_islander")} />ASIAN AMERICAN/PACIFIC ISLANDER</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("black")} />BLACK</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("hispanic")} />HISPANIC</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("native_americanamerican_indian")} />NATIVE AMERICAN/ AMERICAN INDIAN</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("white")} />WHITE</label>
+
+              {raceData.map((race, i)=>{
+                return(
+                  <label className="form-control" key={race}>
+                    <input type="checkbox" {...register(`race ${race}`)} />{race}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>RELIGION</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("agnostic")} />AGNOSTIC</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("atheist")} />ATHEIST</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("catholic")} />CATHOLIC</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("christian")} />CHRISTIAN NON CATHOLIC</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("eastern")} />EASTERN RELIGIONS</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("jewish")} />JEWISH</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("mormon")} />MORMON</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("muslim")} />MUSLIM</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("unknown")} />UNKNOWN</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("none_of_the_above")} />NONE OF THE ABOVE</label>
+              {religionData.map((religion, i)=>{
+                return(
+                  <label className="form-control" key={religion}>
+                    <input type="checkbox" {...register(`religion ${religion}`)} />{religion}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("highschool")} />HIGH SCHOOL</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("college")} />COLLEGE</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("graduate")} />GRADUATE/PROFESSIONAL</label>
+              {Object.keys(educationObj).map((education)=>{
+                return(
+                  <label className="form-control" key={education}>
+                    <input type="checkbox" {...register(`education ${education}`)} />{education}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>POLITICAL OFFICES HELD</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("city_level")} />CITY LEVEL</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("county_level")} />COUNTY LEVEL</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("state_level")} />STATE LEVEL</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("federal_level")} />FEDERAL LEVEL</label>
+              {Object.keys(politicalOfficeObj).map((office)=>{
+                return(
+                  <label className="form-control" key={office}>
+                    <input type="checkbox" {...register(`level ${office}`)} />{office}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>POLITICAL PARTY MEMBERSHIP</p>
-              <label className="form-control">
-                <input type="checkbox" {...register("democratic")} />DEMOCRATIC PARTY</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("republican")} />REPUBLICAN PARTY</label>
-              <label className="form-control">
-                <input type="checkbox" {...register("third")} />THIRD PARTY</label>
+              {Object.keys(politicalPartyObj).map((political)=>{
+                return(
+                  <label className="form-control" key={political}>
+                    <input type="checkbox" {...register(`party ${political}`)} />{political}
+                  </label>
+                )
+              })}
             </div>
             <div className='panel'>
               <p>EQUAL RIGHTS AMENDMENT STANCE</p>
               <label className="form-control">
-                <input type="checkbox" {...register("for")} />FOR</label>
+                <input type="checkbox" {...register("era_for")} />FOR</label>
               <label className="form-control">
-                <input type="checkbox" {...register("against")} />AGAINST</label>
+                <input type="checkbox" {...register("era_against")} />AGAINST</label>
             </div>
           </div>
           <div className="row">

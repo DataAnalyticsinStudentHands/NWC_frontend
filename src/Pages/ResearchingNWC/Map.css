@@ -42,15 +42,17 @@ button {
   display: flex;
   padding-top: 50rem;
   padding-bottom: 50rem;
+  flex: 1,1,1, auto
 }
+
   
 th {
-  padding-left: 30rem;
+  text-align: center;
   border-bottom: 1px solid black;
 }
   
-td {
-  padding-left: 30rem;
+td {  
+  padding: 10rem 30rem ;
   text-align: left;
 }
 

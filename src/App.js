@@ -10,7 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
 import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
-import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
+// import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
@@ -21,6 +21,7 @@ import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
 import CorrectionsForm from './Pages/Forms/CorrectionsForm';
+import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import ScrollToTop from "./Components/util/ScrollToTop";
@@ -33,8 +34,8 @@ import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/Resourc
 
 function App() {
   return (
-    // <Router basename={'/dev'} className="App">
-    <Router className="App">
+    <Router basename={'/dev'} className="App">
+    {/* </Router><Router className="App"> */}
       <Navigation />
       <ScrollToTop>
       <Switch>
@@ -56,9 +57,9 @@ function App() {
         <Route path="/Essay">
           <Essay />
         </Route>
-{/*          <Route path="/ResearchingNWC">
+         <Route path="/ResearchingNWC">
             <ResearchingNWC />
-        </Route>  */}
+        </Route> 
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>
@@ -76,6 +77,9 @@ function App() {
         </Route>
         <Route path="/Forms/CorrectionsForm">
           <CorrectionsForm />
+        </Route>
+        <Route path="/Forms/ContactUsForm">
+          <ContactUsForm />
         </Route>
         <Route path="/Forms/HowToDonatePapersForm">
           <HowToDonatePapersForm />

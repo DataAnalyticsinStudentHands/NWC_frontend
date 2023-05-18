@@ -473,14 +473,29 @@ HIGHLIGHTS
 }
 
 .homeLaunchPanel{
-  display: flex;
+  /* display: flex; */
   justify-content: center;
   padding-top: calc(100*var(--xUnit));
+  padding: 40rem 120rem;
+  width: 80%;
+  margin: 60rem auto;
 }
 
-.homeLaunchPanel a{
-  padding-left: calc(50*var(--xUnit));
+
+.homeLaunchPanel img{
+    display: block;
+    width: 350rem;
+    margin-right: auto;
+    margin-left: auto;
 }
+.homeLaunchPanel a:hover {
+  opacity: .6;
+}
+
+.homeLaunchPanel::-webkit-scrollbar {
+  width: 10px;
+}
+
 
 /*
 THE CSS FOR HANDLING THE ACTUAL INTERACTIVE MAP CAN BE FOUND IN

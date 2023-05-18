@@ -7,6 +7,7 @@
   margin: 1em;
   color: var(--colorDarkBlue);
   display: flex;
+  
 }
 
 .pdf__larr {
@@ -23,13 +24,46 @@
 .pdf__document {
   width: fit-content;
   margin: 4em auto;
-  padding: 4em 3em 4em;
+  padding: 2em 1.5em 2em;
   background-color: var(--colorBackgroundLightGray);
+  
 }
 .pdf__page {
   padding: 10px;
+  
 }
 
+/* .react-pdf__Page__canvas {
+  margin: 0 auto;
+  
+  border: solid black;
+  
+} */
 
+.downloadButton{
+  background-color: var(--colorDeepRed);
+  color:white;
+  border-radius: 8px;
+  font-family: var(--fontBabasNeue);
+  font-size: 0.7em;
+  width: fit-content;
+  margin: 2em auto;
+  
+}
 
+.downloadButton:hover{
+  background-color: white;
+  color: var(--colorDeepRed);
+  border: 2px solid var(--colorDeepRed);
+  cursor: pointer;
+}
 
+.dwButton{
+  display: grid;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.backButton{
+  padding: 1em 0em 0em 2em;
+}
