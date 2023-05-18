@@ -213,6 +213,7 @@ function AdvancedSearch() {
     setSelectedOptions(null);
     setData([])
     setIsButtonClicked(false);
+    setCurrentPage(1)
     console.log('data: ', data)
   }
 
