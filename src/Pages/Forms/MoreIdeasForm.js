@@ -52,6 +52,8 @@ function CorrectionsForm() {
         <p className={styles.corrections_p}>
         Is there an additional feature or concept you think should be included in our website? Would you like us to collect additional categories of biographies? Should we expand the range of our demographic datasets? Should we build additional timeline features? If you have ideas about how to improve Sharing Stories from 1977 for teachers, researchers, archivists, NWC participants, or students please tell us here.
         </p>
+        <p className={styles.corrections_preq}> All fields are required </p>
+
       </header>
 
       <input  placeholder="Name" {...register('Name', { required: true })} />

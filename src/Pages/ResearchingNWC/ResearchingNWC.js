@@ -9,7 +9,7 @@ import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 import VARIABLES from "../../config/.env.js";
 
-import stateTerritories from '../../assets/stateTerritoriesByMasterSheet.json';
+import stateTerritories from '../../assets/stateTerritories.json';
 
 function ResearchingNWC() {
 
@@ -41,7 +41,7 @@ function ResearchingNWC() {
 
   const roleObj = {
     "DELEGATES/ALTERNATES": ["Delegate at the NWC", "Alternate at the NWC"],
-    "NATIONAL COMMISSIONERS": "National Commissioner",
+    "NATIONAL COMMISSIONERS": ["Ford National Commissioner", "Carter National Commissioner"],
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
@@ -52,7 +52,13 @@ function ResearchingNWC() {
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
-  const politicalOfficeData = ["city level", "county level", "state level", "national level"]
+  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
+const politicalOfficeObj = {
+    "city level": "city level",
+    "county level": "county level",
+    "state level": "state level",
+    "national level": "federal level"
+}
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
@@ -82,7 +88,7 @@ function ResearchingNWC() {
 
   // submit basic search query
   async function onSubmit(data) {
-    var query_array = [];
+    let query_array = [];
     Object.values(data).forEach((value, index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
@@ -95,9 +101,17 @@ function ResearchingNWC() {
           case 'education':
             query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
           case 'level':
-            query_array.push({ political_office_helds:{jurisdiction:Object.keys(data)[index].slice(6)}}); break;
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
           case 'party':
             query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
+          case 'era_for':
+            query_array.push({ planks_fors: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
+          case 'era_against':
+            query_array.push({ planks_againsts: {
+              plank: 'Equal Rights Amendment Plank'
+            }}); break;
           default:
             break;
         }
@@ -105,7 +119,7 @@ function ResearchingNWC() {
     });
     const query = qs.stringify({
       filters: {
-        $or: query_array
+        $or: query_array,
       },
       populate: '*',
     }, {
@@ -206,7 +220,7 @@ function ResearchingNWC() {
             </div>
             <div className='panel'>
               <p>POLITICAL OFFICES HELD</p>
-              {politicalOfficeData.map((office)=>{
+              {Object.keys(politicalOfficeObj).map((office)=>{
                 return(
                   <label className="form-control" key={office}>
                     <input type="checkbox" {...register(`level ${office}`)} />{office}
