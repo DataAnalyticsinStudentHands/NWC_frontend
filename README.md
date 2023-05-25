@@ -27,13 +27,12 @@ Move/copy the `\build` directory into web server document root directory.
 
 ### Environment variables
 
-Change the variables found in config/.env.js e.g.:
+We are using [environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables) and the following must exists:
 
 ```
-const VARIABLES = {
-	fetchBaseUrl: "http://localhost:1337",
-	...
-}
-
-export default VARIABLES;
+REACT_APP_API_URL = 
+REACT_APP_MAPBOX_ACCESS_TOKEN = 
+REACT_APP_OVERLAYMP4 =
 ```
+
+
