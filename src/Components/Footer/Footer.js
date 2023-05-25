@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react'
 import "./Footer.css";
 import { Link } from 'react-router-dom';
 
-import VARIABLES from "../../config/.env";
-
 import icon from "./res/icon.png";
 import instagram from "./res/instagram.png";
 import twitter from "./res/twitter.png";
@@ -23,7 +21,7 @@ function Footer() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-footer"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-footer"].join('/'))
         .then(response => response.json())
         .then(data => {
             const {data:

@@ -80,60 +80,50 @@ function AdvancedSearch() {
     })
     .catch(err => console.log(err));
   }, []); 
-
-  const [organizations, setOrganizations] = useState([[]]);
-  
-  useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, "api/organizational-and-politicals"].join('/'))
-    .then(res => res.json())
-    .then(data => {
-        setOrganizations(
-            data.data.map(item => {
-              return {
-                value: item.id,
-                label: item.attributes.organizational_and_political
-              }
-            })
-        )
-    })
-    .catch(err => console.log(err));
-    }, []); 
     
-    const [leadership, setLeaderships] = useState([[]]);
+    const [leaderships, setLeaderships] = useState([[]]);
   
     useEffect(() => {
-      fetch([VARIABLES.fetchBaseUrl, "api/organizational-roles"].join('/'))
+      fetch([VARIABLES.fetchBaseUrl, "api/data-leadership-in-organizations?sort=role"].join('/'))
       .then(res => res.json())
       .then(data => {
-          setLeaderships(
-              data.data.map(item => {
-                return {
-                  value: item.id,
-                  label: item.attributes.organization_role
-                }
-              })
-          )
+        const uniqueLeadership = new Set();
+        data.data.forEach(item => {
+          uniqueLeadership.add(item.attributes.role);
+        });
+        setLeaderships(
+          Array.from(uniqueLeadership).map(label => {
+            return {
+              value: label,
+              label: label
+            }
+          })
+        );
       })
       .catch(err => console.log(err));
-      }, []); 
+    }, []); 
 
       const [plank, setPlanks] = useState([[]]);
   
       useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/nwc-planks?sort[0]=plank"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/nwc-planks?sort=plank"].join('/'))
         .then(res => res.json())
         .then(data => {
-            setPlanks(
-                data.data.map(item => {
-                  return {
-                    value: item.id,
-                    label: item.attributes.plank
-                  }
-                })
-            )
+          const uniquePlanks = new Set();
+          data.data.forEach(item => {
+            uniquePlanks.add(item.attributes.plank);
+          });
+          setPlanks(
+            Array.from(uniquePlanks).map(label => {
+              return {
+                value: label,
+                label: label
+              }
+            })
+          );
         })
         .catch(err => console.log(err));
-        }, []); 
+      }, []); 
 
   const {
     register, 
@@ -143,8 +133,9 @@ function AdvancedSearch() {
     control
   } = useForm()
 
-  const [data, setData] = useState([]) // state used for data input
+  const [formData, setFormData] = useState([]) // state used for data input
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
+  const [query, setQuery] = useState('')
 
   async function onSubmit(data) {
     console.log('data:', data)
@@ -197,24 +188,25 @@ function AdvancedSearch() {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    console.log('query', query)
+    
+    console.log('query', typeof(query), 'query', {query})
     if (array_query.length === 0) {
       console.log('results: none')
     }
     else {
     const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`);
     console.log(response)
-    setData(response.data.data)
+    setFormData(response.data.data)
     }
   }
 
   const clearForm = () => {
     reset();
     setSelectedOptions(null);
-    setData([])
+    setFormData([])
     setIsButtonClicked(false);
     setCurrentPage(1)
-    console.log('data: ', data)
+    console.log('data: ', formData)
   }
 
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -233,7 +225,7 @@ function AdvancedSearch() {
   const endIndex = startIndex + itemsPerPage;
 
   // Get the subset of items based on the current page
-  const displayedData = data.slice(startIndex, endIndex);
+  const displayedData = formData.slice(startIndex, endIndex);
 
   // Update the current page number
   const handlePageChange = (page) => {
@@ -310,12 +302,27 @@ function AdvancedSearch() {
             <div label="Plank position">
               <div className="advancedSearch_form">
                     <div className="advancedSearch_container">
-                      <h1> Select one or more Planks: </h1>
-                      <div className="item">
+                      <h1> Select a plank: </h1>
+                      <div className="item_EDU">
                         <div className="advancedSearch_form-control">
-                        <Select
-                        isMulti
-                        options={plank} /> 
+                        <Controller 
+                          control={control}
+                          name="plank"
+                          render={({ field: { onChange, onBlur, value, name, ref } }) => (
+                            <div className="advancedSearch_form-control">
+                              <Select
+                                options={plank} 
+                                onChange={(selectedOption) => {
+                                  onChange(selectedOption.value);
+                                }}
+                                onBlur={onBlur}
+                                value={plank.find(option => option.value === value)}
+                                name={name}
+                                ref={ref}                                   
+                              />
+                              </div>
+                            )}
+                          />
                         </div>
                       </div>
                     </div>
@@ -338,13 +345,12 @@ function AdvancedSearch() {
                 <h1> Age range</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />under 30 </label>
+                <input type="checkbox" value="16-25" {...register('age_range')}/>16-25 </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />30-45 </label>
+                <input type="checkbox" value="25-55" {...register('age_range')}/>25-55 </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />45-60 </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" />over 60 </label>
+                <input type="checkbox" value="55+" {...register('age_range')}/>55+ </label>
+
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -368,6 +374,7 @@ function AdvancedSearch() {
                   ref={ref}                                   
                   />
                   )}
+                  
                   /></div>
                 </div>
               </div>
@@ -425,11 +432,11 @@ function AdvancedSearch() {
                 <h1> number of children</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" {...register('total_number_of_children')}/>No children </label>
+                <input type="checkbox" value='0' {...register('total_number_of_children')}/>No children </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />1-3 </label>
+                <input type="checkbox" value="1-3" {...register('total_number_of_children')}/>1-3 </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" />4 or more </label>
+                <input type="checkbox" value='4' {...register('total_number_of_children.$gte')}/>4 or more </label>
                 </div>
               </div>
               
@@ -617,7 +624,7 @@ function AdvancedSearch() {
                 <h1> name of political offices held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text" {...register('political_office_helds.political_office')}/> </label>
+                <input type="text" {...register('political_office_helds.political_office.$containsi', { shouldUnregister: true })}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -639,7 +646,7 @@ function AdvancedSearch() {
                 <h1> name of political offices sought but lost</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text" /> </label>
+                <input type="text" {...register('political_office_losts.political_office.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -688,7 +695,7 @@ function AdvancedSearch() {
                 <h1> name of political offices spouse held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text" /> </label>
+                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -734,7 +741,7 @@ function AdvancedSearch() {
             </p>
             </div>
             <Tabs>
-              <div label="advocacy groups" >
+              {/* <div label="advocacy groups" >
                 <div className="advancedSearch_form">
                   <div className="advancedSearch_container">
                     <h1> Select from list </h1>
@@ -794,19 +801,16 @@ function AdvancedSearch() {
                     </div>      
                   </div>
                 </div>
-              </div>
+              </div> */}
 
               <div label="organization name">
               <div className="advancedSearch_form">
                 <div className="advancedSearch_container">
-                  <h1> Select Organizations </h1>
-                  <div className="item">
-                    <div className="advancedSearch_form-control">
-                    <Select
-                    isMulti
-                    options={organizations} /> 
-                    </div>
-                  </div>
+                  <h1> Organization Name </h1>
+                    <div className="item">
+                    <label className="advancedSearch_form-control">
+                    <input type="text" {...register('organizational_and_politicals.organizational_and_political.$containsi')}/> </label>
+                </div>
                 </div>
                 </div>
               </div>
@@ -817,9 +821,23 @@ function AdvancedSearch() {
                     <h1> Select Leadership Role</h1>
                     <div className="item">
                       <div className="advancedSearch_form-control">
-                      <Select
-                      isMulti
-                      options={leadership} /> 
+                      <Controller 
+                        control={control}
+                        name="leadership_in_organizations.role"
+                        render={({
+                          field: { onChange, onBlur, value, name, ref},
+                        }) => (
+                          <Select
+                          options={leaderships} 
+                          onChange={(selectedOption) => {
+                            onChange(selectedOption.value);
+                          }}
+                          onBlur={onBlur}
+                          value={leaderships.find(option => option.value === value)}
+                          name={name}
+                          ref={ref}                                   
+                          />
+                      )} />
                       </div>
                     </div>
                   </div>
@@ -837,7 +855,7 @@ function AdvancedSearch() {
         {isButtonClicked && (
         <div className="advancedSearch">
             <Tabs>
-                <div label="Chart View">
+                <div label="Chart View" className="tabs-container">
                     <table className="advancedTable">
                             <thead>
                               <tr style={{ background: '#cadfee' }}>
@@ -883,7 +901,7 @@ function AdvancedSearch() {
                           {/* Pagination Controls */}
                           <div className="advancedSearch">
                           <div className="pagination">
-                            {Array.from({ length: Math.ceil(data.length / itemsPerPage) }, (_, index) => (
+                            {Array.from({ length: Math.ceil(formData.length / itemsPerPage) }, (_, index) => (
                               <button
                                 key={index + 1}
                                 className={currentPage === index + 1 ? 'active' : ''}
@@ -891,7 +909,9 @@ function AdvancedSearch() {
                                   handlePageChange(index + 1);
                                   const tableElement = document.querySelector('.advancedTable');
                                   if (tableElement) {
-                                    tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    setTimeout(() => {
+                                      tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                    }, 100); // Adjust the delay as needed
                                   }
                                 }}
                               >

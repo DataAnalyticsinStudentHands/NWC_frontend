@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import { Link } from "react-router-dom";
 import './Participants.css';
-import VARIABLES from '../../config/.env';
+
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
 import BackToButton from '../../Components/Buttons/backTo';
@@ -15,7 +15,7 @@ function Participants() {
     const listOfPartcipants = useRef([])
     // Pull Strapi Data
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
+        fetch([process.env.REACT_APP_API_URL, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
             .then(res => res.json())
             .then(data => {
                 listOfPartcipants.current = data.data

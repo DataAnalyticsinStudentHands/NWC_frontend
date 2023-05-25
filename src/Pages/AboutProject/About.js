@@ -6,13 +6,9 @@ import button from "../../res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
 
-import VARIABLES from "../../config/.env.js";
-
 import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
 
 function About() {
-  const { fetchBaseUrl } = VARIABLES;
-
   // one state to hold the regular page content loaded from Strapi
   const [state, setState] = useState({
     aboutBanner_card: '',
@@ -32,7 +28,7 @@ function About() {
 
   // grab page data from strapi
   useEffect(() => {
-    fetch(`${fetchBaseUrl}/api/content-about?populate=*`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/content-about?populate=*`)
       .then(res => res.json())
       .then(data => {
         
@@ -57,16 +53,16 @@ function About() {
           aboutTimeline_3: aboutTimeline_3,
           aboutTimeline_4: aboutTimeline_4,
           aboutTimeline_5: aboutTimeline_5,
-          aboutDocuments_cblink: aboutDocuments_cblink.data !== null ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
-          aboutDocuments_aplink: aboutDocuments_aplink.data !== null ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
-          aboutDocuments_frlink: aboutDocuments_frlink.data !== null ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
-          aboutDocuments_eclink: aboutDocuments_eclink.data !== null ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
-          aboutDocuments_fmlink: aboutDocuments_fmlink.data !== null ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
-          aboutDocuments_tblink: aboutDocuments_tblink.data !== null ? fetchBaseUrl + aboutDocuments_tblink.data.attributes.url : undefined,
-          aboutDocuments_tdlink: aboutDocuments_tdlink.data !== null ? fetchBaseUrl + aboutDocuments_tdlink.data.attributes.url : undefined,
-          aboutDocuments_edlink: aboutDocuments_edlink.data !== null ? fetchBaseUrl + aboutDocuments_edlink.data.attributes.url : undefined,
-          aboutDocuments_ddlink: aboutDocuments_ddlink.data !== null ? fetchBaseUrl + aboutDocuments_ddlink.data.attributes.url : undefined,
-          aboutDocuments_collectionsGuide: aboutDocuments_collectionsGuide.data !== null ? fetchBaseUrl + aboutDocuments_collectionsGuide.data.attributes.url: undefined,
+          aboutDocuments_cblink: aboutDocuments_cblink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_cblink.data.attributes.url : undefined,
+          aboutDocuments_aplink: aboutDocuments_aplink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_aplink.data.attributes.url : undefined,
+          aboutDocuments_frlink: aboutDocuments_frlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_frlink.data.attributes.url : undefined,
+          aboutDocuments_eclink: aboutDocuments_eclink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_eclink.data.attributes.url : undefined,
+          aboutDocuments_fmlink: aboutDocuments_fmlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_fmlink.data.attributes.url : undefined,
+          aboutDocuments_tblink: aboutDocuments_tblink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_tblink.data.attributes.url : undefined,
+          aboutDocuments_tdlink: aboutDocuments_tdlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_tdlink.data.attributes.url : undefined,
+          aboutDocuments_edlink: aboutDocuments_edlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_edlink.data.attributes.url : undefined,
+          aboutDocuments_ddlink: aboutDocuments_ddlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_ddlink.data.attributes.url : undefined,
+          aboutDocuments_collectionsGuide: aboutDocuments_collectionsGuide.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_collectionsGuide.data.attributes.url: undefined,
         });
       })
       .catch(err => console.log(err));

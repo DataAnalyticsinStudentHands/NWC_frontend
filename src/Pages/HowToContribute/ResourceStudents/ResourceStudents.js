@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import VARIABLES from '../../../config/.env';
+
 import './ResourceStudents.css';
 import students_button from "../res/students_button.png"
 import oralIcon from "../res/oralIcon.png"
@@ -27,7 +27,7 @@ function ResourceStudents() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{
@@ -48,7 +48,7 @@ function ResourceStudents() {
                     Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_How_to_Contribute_Biographies_Students_Researchers: Pdf_How_to_Contribute_Biographies_Students_Researchers ? Pdf_How_to_Contribute_Biographies_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);

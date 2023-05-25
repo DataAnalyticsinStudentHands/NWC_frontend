@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
-// import axios from '';
 
 import ThankYou from './ThankYou';
-
-import VARIABLES from "../../config/.env.js";
 
 function HowToDonatePapersForm() {
 
@@ -24,13 +21,8 @@ function HowToDonatePapersForm() {
     let submission = data;
     submission.form = "DONATE PAPERS"
 
-  //   axios.post([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'), JSON.stringify(submission))
-  //       .then(response => setState({
-  //         formSent: true
-  //       }));
-  // }
 
-  fetch([VARIABLES.fetchBaseUrl, `api/forms/email`].join('/'),{
+  fetch([process.env.REACT_APP_API_URL, `api/forms/email`].join('/'),{
     method:'POST',
     headers:{
       'Content-type': 'application/json'

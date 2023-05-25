@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
 
-import VARIABLES from "../../config/.env.js";
 import {ThankYouContact} from './ThankYou';
 
 function ContactUsForm() {
@@ -24,7 +23,7 @@ function ContactUsForm() {
       submission.form = "CONTACTUS";
       console.log(submission)
   
-    fetch([VARIABLES.fetchBaseUrl, `api/contact`].join('/'),{
+    fetch([process.env.REACT_APP_API_URL, `api/contact`].join('/'),{
       method:'POST',
       headers:{
         'Content-type': 'application/json'

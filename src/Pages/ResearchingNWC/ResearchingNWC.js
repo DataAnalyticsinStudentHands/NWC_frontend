@@ -7,7 +7,6 @@ import Map from "./Map";
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
-import VARIABLES from "../../config/.env.js";
 
 import stateTerritories from '../../assets/stateTerritories.json';
 
@@ -17,7 +16,7 @@ function ResearchingNWC() {
 
   useEffect(() => {
     async function fetchContentMap() {
-      let response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/content-mapping-nwc`);
+      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
       setContentMap(response.data.data)
     }
     fetchContentMap();
@@ -82,7 +81,7 @@ const politicalOfficeObj = {
       }, populate: '*'
     }, {encodeValuesOnly:true})
 
-    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`);
     setMap(response.data.data);
   }
 
@@ -125,7 +124,7 @@ const politicalOfficeObj = {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
+    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`);
     setMap(response.data.data);
   }
   // adding USA list of states for select input
