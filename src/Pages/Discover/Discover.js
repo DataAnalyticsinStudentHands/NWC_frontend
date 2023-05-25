@@ -223,7 +223,7 @@ function Discover() {
         <div className="discoverFeatured_cards">
           {featuredCards
             .filter(value => value.featured === 'true')
-            .map((value, index) => <a href={`/discover/${value.id}`}><DiscoverCard
+            .map((value, index) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
               href={`/discover/${value.id}`}
@@ -233,7 +233,7 @@ function Discover() {
               role={value.role}
               state={value.state}
               profilepic={value.profilepic}
-            /></a>)
+            />)
           }
         </div>
       </div>

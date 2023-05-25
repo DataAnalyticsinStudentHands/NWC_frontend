@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 import Carousel3 from '../../Components/Carousel/Carousel3';
 
-//Clean up lorem ipsum
 function Why() {
     const [pageState, setPageState] = useState({
         historicalOverview: "",

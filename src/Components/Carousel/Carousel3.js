@@ -12,7 +12,7 @@ const Carousel3 = (props) => {
       return (
           <div
           className={className}
-          style={{ ...style, display: "flex", background: "#B32525", width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'align-items':'center', 'justifyContent':'center' }}
+          style={{ ...style, display: "flex", background: "#B32525", width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'alignItems':'center', 'justifyContent':'center' }}
           onClick={onClick}
           />
       );
@@ -22,7 +22,7 @@ const Carousel3 = (props) => {
       return (
         <div
           className={className}
-          style={{ ...style, display: "flex", background: "#B32525", zIndex:'1', width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'align-items':'center', 'justifyContent':'center' }}
+          style={{ ...style, display: "flex", background: "#B32525", zIndex:'1', width:'calc(50*var(--xUnit))', height:'calc(50*var(--xUnit))', "borderRadius":"calc(10*var(--xUnit))", 'alignItems':'center', 'justifyContent':'center' }}
           onClick={onClick}
         />
       );

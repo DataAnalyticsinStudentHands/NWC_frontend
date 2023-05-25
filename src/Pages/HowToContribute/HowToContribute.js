@@ -83,7 +83,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherBtn">
                     <img src={researcher_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                         <Link to="/ResourceResearchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
@@ -94,7 +94,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={archivists_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceArchivists">ARCHIVISTS</Link>
                         <p>{archivistsText}</p>
@@ -105,7 +105,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={nwc_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
@@ -116,7 +116,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={educators_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceEducators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
@@ -127,7 +127,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={students_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceStudents">STUDENTS</Link>
                         <p>{studentsText}</p>

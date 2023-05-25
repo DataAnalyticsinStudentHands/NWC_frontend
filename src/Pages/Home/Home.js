@@ -341,6 +341,7 @@ function Home() {
                   </div>
                   {Object.keys(maps).map((m) => (
                     <div
+                      key={Math.random()}
                       className={
                         (currMap === m) & !openingMap
                           ? 'homeMap_tab--active'
@@ -366,6 +367,7 @@ function Home() {
 
                 ].map((p) => (
                   <div 
+                    key={Math.random()}
                     style={{
                       position: 'absolute',
                       width: 'calc(35*var(--xUnit))',
@@ -399,6 +401,7 @@ function Home() {
                   </div>
                   {Object.keys(maps).map((m) => (
                     <div
+                      key={Math.random()}
                       className={
                         (currMap === m) & !openingMap
                           ? 'homeMap_tab--active'
@@ -492,15 +495,6 @@ function Home() {
           </div>
 
           {/**HIGHLIGHTS */}
-      {/* 
-      <div className="homeHighlights">
-        <div className="homeHighlights_frontDrop"></div>
-        <div className="homeHighlights_frontDrop2">
-          <h2>COMING SOON</h2>
-          </div>
-        <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
-        <HighlightsCarousel/>
-      </div> */}
       <div className="homeLaunch">
         <h1>SITE HIGHLIGHTS</h1>
       <div className='homeLaunchPanel'>
