@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import "./Discover.css";
 import discoverButton from "../../res/button-discover.png";
 import LCard from '../../Components/LCard/LCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
-import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
 import { Link } from 'react-router-dom';
@@ -27,24 +26,33 @@ function Discover() {
   const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
+  const listOfCards = useRef([]);
+  const [activeCardsPerPage, setActiveCardsPerPage] = useState('12');
+  const [activeSortMethod, setActiveSortMethod] = useState(0);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
-  const { fetchBaseUrl } = VARIABLES;
-  useEffect(() => {
+  function setOffSet(){
+    if(currentOffSet === 0){
+      setCurrentOffSet(1)
+    }else{
+      setCurrentOffSet(0)
+    }
     
-    fetch([fetchBaseUrl, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+  }
+  
+  useEffect(() => {
+    fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setFeatured);
-        
         setDataLength(data.data.length)
+        listOfCards.current = data.data
       }).catch(err => console.log(err));
   }, []); // eslint-disable-line
   
   useEffect(() => {
-    
     if(currentData === 'default'){
-      fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -52,7 +60,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'firstname'){
-      fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -61,7 +69,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'lastname'){
-      fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -70,7 +78,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'role'){
-      fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -79,7 +87,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'state'){
-      fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -87,12 +95,57 @@ function Discover() {
       })
       .catch(err => console.log(err));
     }
+    if(currentData === 'search'){
+      let fullName = input.split(' ')
+      let firstname = fullName[0]
+      let lastname = fullName[1]
+      
+      if(currentData === 0){
+        fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+        .then(response => response.json())
+        .then(data => {
+          setDataLength(data.meta.pagination.total)
+          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          loadcards(data.data, setCards);
+        })
+        .catch(err => console.log(err));
+      }
+      if(fullName.length === 1){
+        fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+        .then(response => response.json())
+        .then(data => {
+          setDataLength(data.meta.pagination.total)
+          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          loadcards(data.data, setCards) 
+        })
+        .catch(err => console.log(err));
+    }
+    if(fullName.length === 2){
+      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      .then(response => response.json())
+      .then(data => {
+        setDataLength(data.meta.pagination.total)
+        let totalPages = (Math.ceil(dataLength / postsPerPage))
+        loadcards(data.data, setCards) 
+      })
+      .catch(err => console.log(err));
+  }
+  if(fullName.length >= 3){
+    fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    .then(response => response.json())
+    .then(data => {
+      setDataLength(data.meta.pagination.total)
+      let totalPages = (Math.ceil(dataLength / postsPerPage))
+      loadcards(data.data, setCards) 
+    })
+    .catch(err => console.log(err));
+}
+    }
     
   }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
-    
-    fetch(`${fetchBaseUrl}/api/content-discover-stories-main`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories-main`)
       .then(res => res.json())
       .then(data => {
         const {data:{attributes:{BannerText, BannerImageCredit, BannerImageCredit_more, IntroductionText}}}=data;
@@ -105,106 +158,55 @@ function Discover() {
       })
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
-//doesn't get full api
-  function search() {
-    
-    let fullname = input.split(' ')
-    let firstname = fullname[0]
-    let lastname = fullname[1]
-    
-    if(fullname.length === 1){
-     
-      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => {
-        loadcards(data.data, setCards) 
-        setDataLength(data.data.length)
-        setCurrentOffSet(currentOffSet===0?1:0)
-        
-      })
-      .catch(err => console.log(err));
-    }else{
-      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&filters[$or][2][firstname][$containsi]=${lastname}&populate=*`].join('/'))
-      .then(response => response.json())
-      .then(data => {
-        
-        loadcards(data.data, setCards)
-        setDataLength(data.data.length)
-        setCurrentOffSet(currentOffSet===0?1:0)
-        })
-      .catch(err => console.log(err));
-    }
 
-
-    
+  function resetData(){
+    currentData='default'
+    setOffSet()
   }
-  
+
   function firstNameSort() {
     currentData = 'firstname'
-    if(currentOffSet === 0){
-      setCurrentOffSet(1)
-    }else{
-      setCurrentOffSet(0)
-    }
+    setActiveSortMethod(1)
+    setOffSet()
     
   }
 
   function lastNameSort() {
     currentData = 'lastname'
-    if(currentOffSet === 0){
-      setCurrentOffSet(1)
-    }else{
-      setCurrentOffSet(0)
-    }
-    // setCurrentOffSet(1)
-    
-
-      //This should reset the pagination back to page 1
-      // setCurrentOffSet(0)
+    setActiveSortMethod(2)
+    setOffSet()
   }
 
   function sortRole() {
       currentData = 'role'
-      if(currentOffSet === 0){
-        setCurrentOffSet(1)
-      }else{
-        setCurrentOffSet(0)
-      }
-      // setCurrentOffSet(1)
-      
-      //This should reset the pagination back to page 1
-      // setCurrentOffSet(0)
+      setActiveSortMethod(3)
+      setOffSet()
   }
 
   function sortState() {
       currentData = 'state'
-      if(currentOffSet === 0){
-        setCurrentOffSet(1)
-      }else{
-        setCurrentOffSet(0)
-      }
-      // setCurrentOffSet(1)
-     
+      setActiveSortMethod(4)
+      setOffSet()
+  }
+  function search(){
+    currentData = 'search'
+    setOffSet()
   }
 
   //Cards shown amount
   function handleSelectChange(e) {
-    if(totalPages > 1){
-      setPostsPerPage(e.target.value);
-    }
-    
-    // setCurrentOffSet(0);
+    setPostsPerPage(e.target.value);
+    setActiveCardsPerPage(e.target.value)
+    setOffSet()
   }
 
   //Pagination handleClick
   function handlePageClick(e) {
-   
     setCurrentOffSet(e.selected+1)
   }
 
   return (
     <div className="discover">
-      
       {/**BANNER */}
       <div className="discoverBanner">
         <img src={discoverButton} alt="Discover NWC Stories" />
@@ -250,14 +252,13 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => firstNameSort()}>FIRST NAME</p>
-          
+          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => lastNameSort()}>LAST NAME</p>
+          <p className={activeSortMethod === 2?'activeSortMethod':"discoverSearch_sorter"} onClick={() => lastNameSort()}>LAST NAME</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortRole()}>ROLE</p>
+          <p className= {activeSortMethod === 3?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
-          <p className="discoverSearch_sorter" onClick={() => sortState()}>STATE</p>
+          <p className= {activeSortMethod === 4?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortState()}>STATE</p>
         </div>
       </div>
       
@@ -266,12 +267,13 @@ function Discover() {
           Cards per page
             </div>
       <ul className="cardsListPerPage">
-            <button onClick={handleSelectChange} value={12}>12</button>
-            <button onClick={handleSelectChange} value={24}>24</button>
-            <button onClick={handleSelectChange} value={48}>48</button>
-            <button onClick={handleSelectChange} value={96}>96</button>
+            <button key={1} className={activeCardsPerPage === '12'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={12}>12</button>
+            <button key={2} className={activeCardsPerPage === '24'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={24}>24</button>
+            <button key={3} className={activeCardsPerPage === '48'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={48}>48</button>
+            <button key={4} className={activeCardsPerPage === '96'?'activeNumberOfCards': 'numberOfCards'} onClick={handleSelectChange} value={96}>96</button>
+            
         </ul>
-          
+        <button className="resetButton" onClick={()=>resetData()} >Reset</button>
       </div>
 
       {/**CARDS */}

@@ -22,8 +22,12 @@ function MeetIcon({img, imghover, name, role, pfp, popupText}) {
         <div className="meetIcon_popupText">
         
           <div className="meetIcon_popupHeader">
-          <span id='close' onclick='this.parentNode.parentNode.remove(); return false;'>x</span>
-            <h3>{name}</h3>
+            <div className='topLine'>
+              <h3>{name}</h3>
+              <div className='closeBorderIcon'>
+                <span id='close' onclick='this.parentNode.parentNode.remove(); return false;'>&#x2573;</span>
+              </div>
+            </div>
             <p>{role}</p>
           </div>
           <p>{popupText}</p>

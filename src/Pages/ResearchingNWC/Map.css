@@ -51,8 +51,8 @@ th {
   border-bottom: 1px solid black;
 }
   
-td {
-  padding-left: 30rem;
+td {  
+  padding: 10rem 30rem ;
   text-align: left;
 }
 

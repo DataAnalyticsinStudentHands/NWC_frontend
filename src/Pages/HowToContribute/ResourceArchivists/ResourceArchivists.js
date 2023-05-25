@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import VARIABLES from '../../../config/.env';
 import './ResourceArchivists.css';
 import archivists_button from "../res/archivist_button.png"
 import archivalIcon from "../res/archivalIcon.png"
@@ -8,8 +7,9 @@ import colorCorner from "../res/colorCorner.png"
 import techIcon from "../res/techIcon.png"
 import permissionIcon from "../res/permissionIcon.png"
 import ideaIcon from "../res/ideaIcon.png"
-
+import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ReactPlayer from 'react-player';
+import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
 
 function ResourceArchivists() {
 
@@ -22,7 +22,7 @@ function ResourceArchivists() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -31,7 +31,7 @@ function ResourceArchivists() {
                     Resources_for_Archivists_Text: Resources_for_Archivists_Text,
                     Video_Url_Archivists: Video_Url_Archivists,
                     Pdf_Technical_Guidelines_Archivists: Pdf_Technical_Guidelines_Archivists ? Pdf_Technical_Guidelines_Archivists.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
@@ -46,8 +46,14 @@ function ResourceArchivists() {
                 </div>
             </div>
 
+
+
             {/* BANNER */}
-            <div className="archivistsBanner">
+            <div className='archivistsBanner'>
+                <ResourcesFor type='archivists' resourceText={state.Resources_for_Archivists_Text}/>
+            </div>
+            
+            {/* <div className="archivistsBanner">
                 <div className="archivistsBanner_button">
                     <img src={archivists_button} alt="Archivists Button" />
                 </div>
@@ -56,8 +62,7 @@ function ResourceArchivists() {
                     <div className="archivistsBanner_border"></div>
                     <p>{state.Resources_for_Archivists_Text}</p>
                 </div>
-                {/* <LCard text={banner_card} /> */}
-            </div>
+            </div> */}
 
             {/* VIDEO PLAYER */}
             <div className="resourceVideoPlayer">
@@ -71,7 +76,7 @@ function ResourceArchivists() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="archivistsBannerIcons">
+            {/* <div className="archivistsBannerIcons">
                 <Link to="/Forms/HowToDonatePapersForm">
                     <div className="iconContainer">
                         <img src={archivalIcon} alt="_"></img>
@@ -90,11 +95,12 @@ function ResourceArchivists() {
                         <p>Permissions Documents</p>
                     </div>
                 </a>
-            </div>
+            </div> */}
+            <ContributeIcons type="archivists" data={state}/>
 
 
             {/* MORE IDEAS CONTAINER */}
-            <Link to="/Forms/MoreIdeasForm">
+            {/* <Link to="/Forms/MoreIdeasForm">
                 <div className="ideaContainerArchivists">
                     <div className="ideaContainerIcon">
                         <img src={ideaIcon} alt="_"></img>
@@ -103,7 +109,7 @@ function ResourceArchivists() {
                         <h1>HAVE MORE IDEAS? TELL US HERE</h1>
                     </div>
                 </div>
-            </Link>
+            </Link> */}
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonArchContainer">

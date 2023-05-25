@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
-// import axios from 'axios';
 
 import {ThankYouMoreIdeas} from './ThankYou';
-
-import VARIABLES from "../../config/.env.js";
 
 function CorrectionsForm() {
 
@@ -26,13 +23,7 @@ function CorrectionsForm() {
     submission.form = "MOREIDEAS";
     console.log(submission)
 
-  //   axios.post([VARIABLES.fetchBaseUrl, `forms/email`].join('/'), JSON.stringify(submission))
-  //       .then(response => setState({
-  //         formSent: true
-  //       }));
-  // }
-
-  fetch([VARIABLES.fetchBaseUrl, `api/form-moreidea`].join('/'),{
+  fetch([process.env.REACT_APP_API_URL, `api/form-moreidea`].join('/'),{
     method:'POST',
     headers:{
       'Content-type': 'application/json'
@@ -52,6 +43,8 @@ function CorrectionsForm() {
         <p className={styles.corrections_p}>
         Is there an additional feature or concept you think should be included in our website? Would you like us to collect additional categories of biographies? Should we expand the range of our demographic datasets? Should we build additional timeline features? If you have ideas about how to improve Sharing Stories from 1977 for teachers, researchers, archivists, NWC participants, or students please tell us here.
         </p>
+        <p className={styles.corrections_preq}> All fields are required </p>
+
       </header>
 
       <input  placeholder="Name" {...register('Name', { required: true })} />

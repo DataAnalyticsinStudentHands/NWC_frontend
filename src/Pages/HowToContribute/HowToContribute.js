@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import VARIABLES from '../../config/.env';
+
 import './HowToContribute.css';
 import htcBannerPic from "./res/htcBannerPic.png"
 import archivists_button from "./res/archivists_button.png"
@@ -24,7 +24,7 @@ function HowToContribute() {
     const [archivistsText, setArchivistsText] = useState("");
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-how-to-contribute"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-how-to-contribute"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{data:{attributes:{BannerText, BannerImageCredit, BannerImageCredit_more, ResearchersText, 

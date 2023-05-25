@@ -25,18 +25,14 @@ import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
 import Carousel3 from '../../Components/Carousel/Carousel3';
 
-import VARIABLES from '../../config/.env';
-
 import { useGlobalContext } from '../../context/GlobalProvider';
-
-
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
 };
 
 const urlify = (str) => {
-  return `${VARIABLES.fetchBaseUrl}${str}`; 
+  return `${process.env.REACT_APP_API_URL}${str}`; 
 };
 
 // sort points of interest by first element (Name)
@@ -53,8 +49,7 @@ const superSorter = (list) => {
 function Home() {
   const [globalState, globalDispatch] = useGlobalContext();
 
-  //temp
-  const overlaymp4 = VARIABLES.overlaymp4; //"https://www.w3schools.com/html/mov_bbb.mp4";
+  const overlaymp4 = process.env.REACT_APP_OVERLAYMP4; 
 
   const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
   const [homeDowntown, setHomeDowntown] = useState([]);
@@ -93,7 +88,7 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'api/content-home'].join('/'))
+    fetch([process.env.REACT_APP_API_URL, 'api/content-home'].join('/'))
       .then((res) => res.json())
       .then((data) => {
 
@@ -134,7 +129,7 @@ function Home() {
   const[images, setImages] = useState([[]])
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'api/content-home-maps?populate=*'].join('/'))
+    fetch([process.env.REACT_APP_API_URL, 'api/content-home-maps?populate=*'].join('/'))
       .then((res) => res.json())
       .then((data) => {
         
@@ -214,15 +209,14 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
+    fetch([process.env.REACT_APP_API_URL, "api/home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
       
         setImages(
             data.data.map(d => {
                 const featured = d.attributes.Featured;
-                const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
-                // const thumbnail = 
+                const thumbnail = [process.env.REACT_APP_API_URL, d.attributes.Thumbnail.data.attributes.url].join('')
                 const id = d.id;
                 const title = d.attributes.ShortTitle;
                 const link = d.attributes.home_highlights_link

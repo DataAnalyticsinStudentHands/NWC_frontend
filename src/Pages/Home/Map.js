@@ -6,7 +6,6 @@ import ReactMarkdown from 'react-markdown';
 
 // point format: [Name, x, y, Description]
 function Map({mapImg, points}) {
-  
   // one state to hold the regular page content loaded from Strapi
   const [state, setState] = useState({
     description: '',
@@ -21,12 +20,10 @@ function Map({mapImg, points}) {
     caption2: '',
     caption3: ''
   });
-
   // 2nd state to hold hover status
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
-
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}
@@ -104,10 +101,15 @@ function Map({mapImg, points}) {
                 className="homeMap_popupBack"
                 onClick={() => setPopup(false)}
               >
-                <div className="homeMap_popupBackArrow">
+                {/* <div className="homeMap_popupBackArrow">
                   <p className="backArrow">&larr;</p>
                 </div>
-                <p>BACK TO MAP</p>
+                <p>BACK TO MAP</p> */}
+                <div className='closeBorder'>
+                  <span className='close'>&#x2573;</span>
+                </div>
+                
+
               </div>
               <div className="homeMap_popupImg"><img src={state.mainImage} alt="_" /></div>
               <div className="homeMap_popupSrc">
