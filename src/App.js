@@ -31,7 +31,7 @@ import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceS
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
 import OrganizationList from "./Pages/ResearchingNWC/AdvancedSearch/OrganizationList";
-import AdvancedSearchResults from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearchResults";
+
 function App() {
   return (
     <Router basename={'/dev'} className="App">
@@ -104,9 +104,6 @@ function App() {
         </Route>
         <Route path="/OrganizationList">
           <OrganizationList />
-        </Route>
-        <Route path="/AdvancedSearchResults">
-          <AdvancedSearchResults />
         </Route>
         <Route path="/">
           <Home />
