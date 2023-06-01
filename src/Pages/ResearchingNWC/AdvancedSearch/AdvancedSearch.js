@@ -9,6 +9,8 @@ import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import axios from 'axios';
 import stateTerritories from '../../../assets/stateTerritories.json';
+import Map from "./Map";
+
 
 function AdvancedSearch() {
 
@@ -135,10 +137,9 @@ function AdvancedSearch() {
 
   const [formData, setFormData] = useState([]) // state used for data input
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
-  const [query, setQuery] = useState('')
 
   async function onSubmit(data) {
-    console.log('data:', data)
+    console.log('data: ', data)
     let array_query = [];
 
     Object.values(data).forEach((value, index) => {
@@ -174,7 +175,7 @@ function AdvancedSearch() {
           const newObj = {};
           newObj[Object.keys(data)[index]] = value;
           array_query.push(newObj);
-          setIsButtonClicked(true);
+          //setIsButtonClicked(true);
         }
       }
     });
@@ -195,26 +196,27 @@ function AdvancedSearch() {
     }
     else {
     const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`);
-    console.log(response)
-    setFormData(response.data.data)
+    console.log('response: ', response.data.data.length)
+    if (response.data.data.length === 0) {
+      console.log('no results')
     }
+    else {
+    setFormData(response.data.data)
+    setIsButtonClicked(true);
+    }
+  }
   }
 
   const clearForm = () => {
     reset();
-    setSelectedOptions(null);
+    setSelectedOptions({});
     setFormData([])
     setIsButtonClicked(false);
     setCurrentPage(1)
     console.log('data: ', formData)
   }
 
-  const [selectedOptions, setSelectedOptions] = useState([]);
-
-  const onSelect = (options) => {
-    setSelectedOptions(options);
-    console.log(selectedOptions)
-  };
+  const [selectedOptions, setSelectedOptions] = useState({});
   
   //Used for setting up pagination
   const itemsPerPage = 10; // Number of items to display per page
@@ -233,7 +235,7 @@ function AdvancedSearch() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} onReset={clearForm}>
+    <form onSubmit={handleSubmit(onSubmit)} /* onReset={clearForm} */>
     <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
@@ -316,7 +318,8 @@ function AdvancedSearch() {
                                   onChange(selectedOption.value);
                                 }}
                                 onBlur={onBlur}
-                                value={plank.find(option => option.value === value)}
+                                value={selectedOptions ? plank.find(option => option.value === selectedOptions) : null}
+                                placeholder="Select..."
                                 name={name}
                                 ref={ref}                                   
                               />
@@ -360,21 +363,23 @@ function AdvancedSearch() {
                   <Controller 
                     control={control}
                     name="represented_state"
-                    render={({
-                      field: { onChange, onBlur, value, name, ref},
-                    }) => (
-                  <Select
-                  options={stateOptions} 
-                  onChange={(selectedOption) => {
-                    onChange(selectedOption.value);
-                  }}
-                  onBlur={onBlur}
-                  value={stateOptions.find(option => option.value === value)}
-                  name={name}
-                  ref={ref}                                   
-                  />
-                  )}
-                  
+                    render={({ field }) => (
+                      <Select
+                        options={stateOptions} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            represented_state: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.represented_state ? stateOptions.find(option => option.value === selectedOptions.represented_state) : null}
+                        placeholder="Select..."
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
                   /></div>
                 </div>
               </div>
@@ -432,11 +437,11 @@ function AdvancedSearch() {
                 <h1> number of children</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" value='0' {...register('total_number_of_children')}/>No children </label>
+                <input type="checkbox" value={0} {...register('total_number_of_children', { valueAsNumber: true })}/>No children </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" value="1-3" {...register('total_number_of_children')}/>1-3 </label>
+                <input type="checkbox" value='' {...register('total_number_of_children')}/>1-3 </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" value='4' {...register('total_number_of_children.$gte')}/>4 or more </label>
+                <input type="checkbox" value={4} {...register('[1].total_number_of_children.$gte', { valueAsNumber: true })}/>4 or more </label>
                 </div>
               </div>
               
@@ -447,20 +452,23 @@ function AdvancedSearch() {
                   <Controller 
                     control={control}
                     name="religion"
-                    render={({
-                      field: { onChange, onBlur, value, name, ref},
-                    }) => (
-                  <Select
-                  options={religionOptions} 
-                  onChange={(selectedOption) => {
-                    onChange(selectedOption.value);
-                  }}
-                  onBlur={onBlur}
-                  value={religionOptions.find(option => option.value === value)}
-                  name={name}
-                  ref={ref}                                   
-                  />
-                  )}
+                    render={({ field }) => (
+                      <Select
+                        options={religionOptions} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            religion: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.religion ? stateOptions.find(option => option.value === selectedOptions.religion) : null}
+                        placeholder="Select..."
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
                   />
                   </div>
                 </div>
@@ -485,20 +493,24 @@ function AdvancedSearch() {
                   <Controller 
                     control={control}
                     name="sexual_orientation"
-                    render={({
-                      field: { onChange, onBlur, value, name, ref},
-                    }) => (
-                  <Select
-                  options={sexualOrientation} 
-                  onChange={(selectedOption) => {
-                    onChange(selectedOption.value);
-                  }}
-                  onBlur={onBlur}
-                  value={sexualOrientation.find(option => option.value === value)}
-                  name={name}
-                  ref={ref}                                   
-                  />
-                  )} /> </div>
+                    render={({ field }) => (
+                      <Select
+                        options={sexualOrientation} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            sexual_orientation: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.sexual_orientation ? stateOptions.find(option => option.value === selectedOptions.sexual_orientation) : null}
+                        placeholder="Select..."
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
+                  /> </div>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -552,23 +564,27 @@ function AdvancedSearch() {
                 <h1> job/profession</h1>
                 <div className="item">
                   <div className="advancedSearch_form-control">
-                  <Controller 
-                    control={control}
-                    name="careers.category_of_employment"
-                    render={({
-                      field: { onChange, onBlur, value, name, ref},
-                    }) => (
-                  <Select
-                  options={professions} 
-                  onChange={(selectedOption) => {
-                    onChange(selectedOption.value);
-                  }}
-                  onBlur={onBlur}
-                  value={professions.find(option => option.value === value)}
-                  name={name}
-                  ref={ref}                                   
-                  />
-                  )} />
+                      <Controller 
+                        control={control}
+                        name="careers.category_of_employment"
+                        render={({ field }) => (
+                          <Select
+                            options={professions} 
+                            onChange={(selectedOption) => {
+                              setSelectedOptions(prevOptions => ({
+                                ...prevOptions,
+                                "careers.category_of_employment": selectedOption.value
+                              }));
+                              field.onChange(selectedOption.value);
+                            }}
+                            onBlur={field.onBlur}
+                            value={selectedOptions["careers.category_of_employment"] ? professions.find(option => option.value === selectedOptions["careers.category_of_employment"]) : null}
+                            placeholder="Select..."
+                            name={field.name}
+                            ref={field.ref}
+                          />
+                        )}
+                      />
                   </div>
                 </div>
               </div>
@@ -650,19 +666,10 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
-                  <h1> spouse/partner's political offices held </h1>
-                  <div className="item_ELEC">
-                  <label className="advancedSearch_form-control">
-                  <input type="checkbox" />Yes </label>
-                  <label className="advancedSearch_form-control">
-                  <input type="checkbox" />No </label>
-                  </div>
-              </div>
-              <div className="advancedSearch_container">
-                <h1> name of political offices held</h1>
+                <h1> name of political offices spouse held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_form-control">
-                <input type="text" /> </label>
+                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -672,30 +679,25 @@ function AdvancedSearch() {
                   <Controller 
                     control={control}
                     name="political_party_membership"
-                    render={({
-                      field: { onChange, onBlur, value, name, ref},
-                    }) => (
-                  <Select
-                  options={politicalOptions} 
-                  onChange={(selectedOptions) => {
-                    onChange(selectedOptions.value);
-                    
-                  }}
-                  onBlur={onBlur}
-                  value={politicalOptions.find(option => option.value === value)}
-                  name={name}
-                  ref={ref}                                   
-                  />
-                  )}
+                    render={({ field }) => (
+                      <Select
+                        options={politicalOptions} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            political_party_membership: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.political_party_membership ? stateOptions.find(option => option.value === selectedOptions.political_party_membership) : null}
+                        placeholder="Select..."
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
                   />
                   </div>
-                </div>
-              </div>
-              <div className="advancedSearch_container">
-                <h1> name of political offices spouse held</h1>
-                <div className="item_ELEC">
-                <label className="advancedSearch_form-control">
-                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -814,7 +816,6 @@ function AdvancedSearch() {
                 </div>
                 </div>
               </div>
-
               <div label="leadership position">
                 <div className="advancedSearch_form">
                   <div className="advancedSearch_container">
@@ -824,20 +825,24 @@ function AdvancedSearch() {
                       <Controller 
                         control={control}
                         name="leadership_in_organizations.role"
-                        render={({
-                          field: { onChange, onBlur, value, name, ref},
-                        }) => (
+                        render={({ field }) => (
                           <Select
-                          options={leaderships} 
-                          onChange={(selectedOption) => {
-                            onChange(selectedOption.value);
-                          }}
-                          onBlur={onBlur}
-                          value={leaderships.find(option => option.value === value)}
-                          name={name}
-                          ref={ref}                                   
+                            options={leaderships} 
+                            onChange={(selectedOption) => {
+                              setSelectedOptions(prevOptions => ({
+                                ...prevOptions,
+                                "leadership_in_organizations.role": selectedOption.value
+                              }));
+                              field.onChange(selectedOption.value);
+                            }}
+                            onBlur={field.onBlur}
+                            value={selectedOptions["leadership_in_organizations.role"] ? professions.find(option => option.value === selectedOptions["leadership_in_organizations.role"]) : null}
+                            placeholder="Select..."
+                            name={field.name}
+                            ref={field.ref}
                           />
-                      )} />
+                        )}
+                      />
                       </div>
                     </div>
                   </div>
@@ -849,13 +854,13 @@ function AdvancedSearch() {
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">
           <button type="submit" className="advancedSearch_button_search"> Search </button>
-          <button type="reset" className="advancedSearch_button_reset" /* onClick={clearForm} */> Reset </button>
+          <button type="reset" className="advancedSearch_button_reset" onClick={clearForm}> Reset </button>
         </div>
         </div>
         {isButtonClicked && (
         <div className="advancedSearch">
             <Tabs>
-                <div label="Chart View" className="tabs-container">
+                <div label="Chart View">
                     <table className="advancedTable">
                             <thead>
                               <tr style={{ background: '#cadfee' }}>
@@ -921,14 +926,18 @@ function AdvancedSearch() {
                           </div>
                           </div>
                 </div>
-                <div label="Map View">            
+                <div label="Map View">      
+                <Map map_data={formData} />      
                 </div>
             </Tabs>
             </div>
+            
         )}
       </div>
+      
       </form>
   )
+  
 }
 
 export default AdvancedSearch

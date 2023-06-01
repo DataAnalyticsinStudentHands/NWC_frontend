@@ -268,23 +268,19 @@
 }
   
   .tab-list-item {
-    display: inline-block;
-    list-style: none;
-    margin-bottom: 5rem;
-    padding: 0.5rem 0.75rem;
-    width: calc(241 * var(--xUnit));
-    background-color: var(--colorDarkBlue);
-    border-radius: 20px 20px 0 0;
-    text-align: center;
-    font-size: calc(30 * var(--xUnit));
-    font-family: var(--fontBabasNeue);
-    font-weight: bold;
-    padding-top: calc(20 * var(--xUnit));
-    padding-bottom: calc(15 * var(--xUnit));
-    
-    margin-left: -41rem;
-    margin-right: 70rem;
-    color: white
+  list-style: none;
+  padding: 0.5rem 0.75rem;
+  width: calc(241 * var(--xUnit));
+  background-color: var(--colorDarkBlue);
+  border-radius: 20px 20px 0 0;
+  text-align: center;
+  font-size: calc(30 * var(--xUnit));
+  font-family: var(--fontBabasNeue);
+  font-weight: bold;
+  padding-top: calc(20 * var(--xUnit));
+  padding-bottom: calc(15 * var(--xUnit));
+  color: white;
+  margin-right: 40rem;
   }
 
   .tab-list-item:hover {
@@ -297,6 +293,13 @@
     border-width: 1px 1px 0 1px;
     color: var(--colorDarkBlue);
   }
+
+  .tab-list {
+    display: flex;
+    justify-content: left; /* Align tabs horizontally in the center */
+    margin-bottom: 5rem;
+  }
+  
 
 /* TABLE */
 .advancedTable {
@@ -321,6 +324,7 @@
   vertical-align: text-top;
   text-align: left;
   word-wrap: break-word;
+  
 
 }
 
@@ -334,6 +338,8 @@
   align-items: center;
   margin-top: 2rem; /* Adjust the margin-top value as needed */
   margin-bottom: 2rem; /* Add a margin-bottom value for spacing */
+  margin-left: -10%; /* Add this line to align the pagination to the left */
+
 }
 
 .pagination button {
@@ -344,8 +350,7 @@
   border-radius: 0;
   margin: 0 4px;
   cursor: pointer;
-  margin-top: -60rem
-  
+  margin-top: -60rem;
 }
 
 .pagination button:hover {
@@ -371,3 +376,15 @@
   color: #333;
   pointer-events: none;
 }
+
+.map-area1 {
+  margin-top: -5rem;
+  width:1750rem
+}
+
+.map-container1 {
+  height: 600px;
+  width:100%
+  
+}
+
