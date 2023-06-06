@@ -1,12 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Link } from "react-router-dom";
 import './Participants.css';
 
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
 import BackToButton from '../../Components/Buttons/backTo';
 import stateTerritories from '../../assets/stateTerritories.json';
-
 
 function Participants() {
     const [participants, setParticipants] = useState([]);

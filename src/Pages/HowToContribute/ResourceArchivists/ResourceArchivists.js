@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import './ResourceArchivists.css';
-import archivists_button from "../res/archivist_button.png"
-import archivalIcon from "../res/archivalIcon.png"
 import colorCorner from "../res/colorCorner.png"
-import techIcon from "../res/techIcon.png"
-import permissionIcon from "../res/permissionIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ReactPlayer from 'react-player';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';

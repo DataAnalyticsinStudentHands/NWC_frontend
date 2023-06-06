@@ -1,5 +1,5 @@
 import './backTo.css';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
 
 function BackToButton(props){
@@ -10,14 +10,11 @@ function BackToButton(props){
     return(
         name.toLowerCase() === 'previous' ? 
         <p className='back' onClick={() => history.goBack()}>
-            <span className='larr'>&larr;</span> <p>Back To Previous Page</p>
+            <span className='larr'>&larr;</span> <span>Back To Previous Page</span>
         </p>
         :
-        // <div>
-        //     <Link  className='larr' to={props.link}>&larr; <p>BACK TO DISCOVER PAGE</p></Link>
-        // </div>
         <p className='back' onClick={()=>window.location.href=props.link}>
-            <span className='larr'>&larr;</span><p>BACK TO {name} PAGE</p>
+            <span className='larr'>&larr;</span><span>BACK TO {name} PAGE</span>
         </p>
         )
     

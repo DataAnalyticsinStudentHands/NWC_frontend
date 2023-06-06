@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { Document, Page, pdfjs } from 'react-pdf/dist/esm/entry.webpack';
 import SubmitButton from '../../Components/Buttons/submit';
 // import PDFDownload from './PDFDownload'
@@ -11,7 +11,6 @@ import BackToButton from '../../Components/Buttons/backTo';
 function PDFViewer() {
   // params to set the pdf file
   let { pdffile } = useParams();
-  const history = useHistory();
 
   const [numPages, setNumPages] = useState(null);
 
