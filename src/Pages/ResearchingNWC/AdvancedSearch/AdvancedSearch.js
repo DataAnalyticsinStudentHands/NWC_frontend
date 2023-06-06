@@ -284,10 +284,10 @@ function AdvancedSearch() {
                   </label>
                 );
                 })}
-                    <label className="advancedSearch_form-control">
+                    {/* <label className="advancedSearch_form-control">
                     <input type="checkbox" value="Other Role" {...register("role.role.$containsi")} />
                     Other
-                  </label>
+                  </label> */}
                   </div> 
                 </div>
               </div>
