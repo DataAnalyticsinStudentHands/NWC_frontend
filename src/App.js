@@ -30,7 +30,6 @@ import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/Resou
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
-import OrganizationList from "./Pages/ResearchingNWC/AdvancedSearch/OrganizationList";
 
 function App() {
   return (
@@ -101,9 +100,6 @@ function App() {
         </Route>
         <Route path="/ResourceEducators">
           <ResourceEducators />
-        </Route>
-        <Route path="/OrganizationList">
-          <OrganizationList />
         </Route>
         <Route path="/">
           <Home />
