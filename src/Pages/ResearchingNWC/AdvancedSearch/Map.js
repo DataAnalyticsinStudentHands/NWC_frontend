@@ -1,12 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import '../Map'
-import VARIABLES from '../../../config/.env';
 import './AdvancedSearch.css'
 
 
 
-mapboxgl.accessToken = VARIABLES.REACT_APP_MAPBOX_ACCESS_TOKEN;
+mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function Map(props) {
     const mapContainer = useRef(null);
