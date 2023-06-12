@@ -9,6 +9,8 @@ import component119 from './res/component119.png';
 
 import stateTerritories from '../../assets/stateTerritories.json';
 
+import Search from '../../Components/SearchBox/Search';
+
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
@@ -73,25 +75,25 @@ const politicalOfficeObj = {
   }
 
   // // submit text search query
-  async function onSubmitSearch (props) {
-    let names = props.searchText.split(" ");
-    let query = {}
-    names[1] ? query = qs.stringify({
-      filters: {
-        $and: [
-          {first_name: names[0]},
-          {last_name: names[1]}
-        ]
-      }, populate: '*'
-    }, {encodeValuesOnly:true}) : query = qs.stringify({
-      filters: {
-        first_name: names[0]
-      }, populate: '*'
-    }, {encodeValuesOnly:true})
+  // async function onSubmitSearch (props) {
+  //   let names = props.searchText.split(" ");
+  //   let query = {}
+  //   names[1] ? query = qs.stringify({
+  //     filters: {
+  //       $and: [
+  //         {first_name: names[0]},
+  //         {last_name: names[1]}
+  //       ]
+  //     }, populate: '*'
+  //   }, {encodeValuesOnly:true}) : query = qs.stringify({
+  //     filters: {
+  //       first_name: names[0]
+  //     }, populate: '*'
+  //   }, {encodeValuesOnly:true})
 
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    setMap(response.data);
-  }
+  //   let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+  //   setMap(response.data);
+  // }
 
   // submit basic search query
   async function onSubmit(data) {
@@ -147,6 +149,26 @@ const politicalOfficeObj = {
   const onSelect = (options) => {
     setSelectedOptions(options);
   };
+
+  async function handleSearch({searchText}) {
+    let names = searchText.split(" ");
+    let query = {}
+    names[1] ? query = qs.stringify({
+      filters: {
+        $and: [
+          {first_name: names[0]},
+          {last_name: names[1]}
+        ]
+      }, populate: '*'
+    }, {encodeValuesOnly:true}) : query = qs.stringify({
+      filters: {
+        first_name: names[0]
+      }, populate: '*'
+    }, {encodeValuesOnly:true})
+
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    setMap(response.data);
+  }
 
   return (
     <div className="mappingNWC">
@@ -263,14 +285,12 @@ const politicalOfficeObj = {
           </div>
         </form>
 
-        <div className="nameSearch">
-          <p>You can also search participants by name:</p>
-          <form key={1} onSubmit={handleSubmitSearch(onSubmitSearch)} className="mappingNWCSearch_bar">
-            <input type="text" placeholder="SEARCH" {...registerSearch('searchText', { required: true })} />
-            {errorsSearch.searchText?.type === 'required' && "Please enter something for search."}
-            <button type="submit" className="mappingNWCSearch_icon"></button>
-          </form>
-        </div>
+        <Search 
+          handleSearch={handleSearch} 
+          handleSubmitSearch={handleSubmitSearch} 
+          errorsSearch={errorsSearch} 
+          registerSearch={registerSearch}
+        />
       </div>
       {/**MAP */}
       <Map map_data={maps} />
