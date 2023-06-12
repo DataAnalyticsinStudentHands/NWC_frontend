@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
-import axios from 'axios';
 import Map from "./Map";
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
@@ -16,9 +15,18 @@ function ResearchingNWC() {
 
   useEffect(() => {
     async function fetchContentMap() {
-      let response = await axios.get(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
-      setContentMap(response.data.data)
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        let data = await response.json();
+        setContentMap(data.data);
+      } catch (error) {
+        console.error('Error fetching content map:', error);
+      }
     }
+  
     fetchContentMap();
   },[]);
 
@@ -65,8 +73,8 @@ const politicalOfficeObj = {
   }
 
   // // submit text search query
-  async function onSubmitSearch (data) {
-    let names = data.searchText.split(" ");
+  async function onSubmitSearch (props) {
+    let names = props.searchText.split(" ");
     let query = {}
     names[1] ? query = qs.stringify({
       filters: {
@@ -81,8 +89,8 @@ const politicalOfficeObj = {
       }, populate: '*'
     }, {encodeValuesOnly:true})
 
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`);
-    setMap(response.data.data);
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    setMap(response.data);
   }
 
   // submit basic search query
@@ -124,8 +132,8 @@ const politicalOfficeObj = {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`);
-    setMap(response.data.data);
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    setMap(response.data);
   }
   // adding USA list of states for select input
   //reset form fields and map data
