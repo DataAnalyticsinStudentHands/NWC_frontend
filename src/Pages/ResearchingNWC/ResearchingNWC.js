@@ -74,27 +74,6 @@ const politicalOfficeObj = {
     "Other": {$notIn:["Democratic Party", "Republican Party"]}
   }
 
-  // // submit text search query
-  // async function onSubmitSearch (props) {
-  //   let names = props.searchText.split(" ");
-  //   let query = {}
-  //   names[1] ? query = qs.stringify({
-  //     filters: {
-  //       $and: [
-  //         {first_name: names[0]},
-  //         {last_name: names[1]}
-  //       ]
-  //     }, populate: '*'
-  //   }, {encodeValuesOnly:true}) : query = qs.stringify({
-  //     filters: {
-  //       first_name: names[0]
-  //     }, populate: '*'
-  //   }, {encodeValuesOnly:true})
-
-  //   let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-  //   setMap(response.data);
-  // }
-
   // submit basic search query
   async function onSubmit(data) {
     let query_array = [];
@@ -130,7 +109,8 @@ const politicalOfficeObj = {
       filters: {
         $or: query_array,
       },
-      populate: '*',
+      populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
     }, {
       encodeValuesOnly: true, // prettify URL
     });
@@ -155,15 +135,40 @@ const politicalOfficeObj = {
     let query = {}
     names[1] ? query = qs.stringify({
       filters: {
-        $and: [
-          {first_name: names[0]},
-          {last_name: names[1]}
+        $or:[
+          {$and: [
+            {first_name: {
+              $containsi:names[0]
+            }},
+            {last_name: {
+              $containsi:names[1]
+            }}
+          ]},
+          {residence_in_1977:{
+            residence_in_1977:{
+              $containsi:searchText
+            }
+          }}
         ]
-      }, populate: '*'
+      }, populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
     }, {encodeValuesOnly:true}) : query = qs.stringify({
       filters: {
-        first_name: names[0]
-      }, populate: '*'
+        $or: [
+          {first_name: {
+            $containsi:names[0]
+          }},
+          {last_name: {
+            $containsi:names[0]
+          }},
+          {residence_in_1977:{
+            residence_in_1977:{
+              $containsi:searchText
+            }
+          }}
+        ]
+      }, populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
     }, {encodeValuesOnly:true})
 
     let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
