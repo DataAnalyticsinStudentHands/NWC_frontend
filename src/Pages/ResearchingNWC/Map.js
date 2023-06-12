@@ -1,14 +1,10 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
-import DownloadCSVButton from '../../Components/downloadButton/DownloadButton';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
 export default function Map(props) {
-    const { map_data } = props;
-    const tbl = useRef(null);
-
     const mapContainer = useRef(null);
     const map = useRef(null);
 
@@ -52,17 +48,8 @@ export default function Map(props) {
     return (
         <div className='map-area'>
             <div ref={mapContainer} className="map-container" />
-
-            {
-                map_data?.length > 0 ? 
-                <DownloadCSVButton 
-                    tbl = {tbl} 
-                    fileName="Particpant" 
-                    sheetName='Search Result'
-                /> : null
-            }
-            <div ref={tbl} className="table-container">
-                {map_data?.length > 0 ? 
+            <div className="table-container">
+                {props?.map_data?.length > 0 ? 
                     <table>
                         <thead>
                             <tr>
@@ -74,13 +61,13 @@ export default function Map(props) {
                         </thead>
                         <tbody>
 
-                            {map_data?.map((val) => {
+                            {props?.map_data?.map((val) => {
                                 return (
                                     <tr key={val.id}>
                                         <td>{val.attributes.last_name}</td>
                                         <td>{val.attributes.first_name}</td>
                                         <td>{val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td>
-                                        <td>{val.attributes.role.data.map(e => { return e.attributes.role+';\n'})}</td>
+                                        <td>{val.attributes.role.data.map(e => { return e.attributes.role+'\n'})}</td>
                                     </tr>
                                 )
                             })}
