@@ -30,6 +30,7 @@ import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/Resou
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
+import Organizations from "./Pages/ResearchingNWC/Organizations"
 
 function App() {
   return (
@@ -38,6 +39,9 @@ function App() {
       <Navigation />
       <ScrollToTop>
       <Switch>
+        <Route path="/Organizations">
+          <Organizations />
+        </Route>
         <Route path="/MeetTheTeam">
           <MeetTheTeam />
         </Route>

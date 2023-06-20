@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import VARIABLES from '../../../config/.env';
 import './ResourceResearchers.css';
 import colorCorner from "../res/colorCorner.png"
 import colorCornerResearcher from "../res/colorCornerResearcher.png"

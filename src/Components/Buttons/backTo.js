@@ -1,5 +1,5 @@
 import './backTo.css';
-import { useHistory } from 'react-router-dom';
+import {useHistory} from 'react-router-dom';
 
 
 function BackToButton(props){

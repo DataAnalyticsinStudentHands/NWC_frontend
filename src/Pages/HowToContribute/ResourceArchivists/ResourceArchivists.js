@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import VARIABLES from '../../../config/.env';
 import './ResourceArchivists.css';
 import colorCorner from "../res/colorCorner.png"
 import ContributeIcons from '../../../contributeIcons/contributeIcons';

@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import VARIABLES from '../../../config/.env';
 
 import './ResourceEducators.css';
 import dotRed from "../res/dotRed.png"
