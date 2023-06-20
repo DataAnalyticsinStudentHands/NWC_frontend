@@ -17,7 +17,7 @@ function ResourceArchivists() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 console.log(data)
@@ -26,7 +26,7 @@ function ResourceArchivists() {
                     Resources_for_Archivists_Text: Resources_for_Archivists_Text,
                     Video_Url_Archivists: Video_Url_Archivists,
                     Pdf_Technical_Guidelines_Archivists: Pdf_Technical_Guidelines_Archivists ? Pdf_Technical_Guidelines_Archivists.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);

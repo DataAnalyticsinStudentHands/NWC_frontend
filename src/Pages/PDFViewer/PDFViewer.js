@@ -6,21 +6,18 @@ import SubmitButton from '../../Components/Buttons/submit';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import styles from './PDFViewer.module.css';
-import VARIABLES from '../../config/.env';
 import BackToButton from '../../Components/Buttons/backTo';
 
 function PDFViewer() {
   // params to set the pdf file
   let { pdffile } = useParams();
-  // const history = useHistory();
-
   const [numPages, setNumPages] = useState(null);
 
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
   let fileURL = `${VARIABLES.fetchBaseUrl}/uploads/${pdffile}`
-  
+ 
   return (
     <main className={styles.pdf}>
       {/* <p className={styles.pdf__back} onClick={() => history.goBack()}>

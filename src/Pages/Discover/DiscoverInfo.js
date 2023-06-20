@@ -5,7 +5,6 @@ import {
 } from "react-router-dom";
 import "./DiscoverInfo.css"; // This is section 1.
 import ReactMarkdown from 'react-markdown';
-import VARIABLES from '../../config/.env';
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
 import BackToButton from '../../Components/Buttons/backTo';
@@ -13,8 +12,6 @@ import BackToButton from '../../Components/Buttons/backTo';
 
 function DiscoverInfo() {
     const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA
-
-    const { fetchBaseUrl } = VARIABLES;
 
     // state to hold content from Strapi
     const [state, setState] = useState({
@@ -40,7 +37,7 @@ function DiscoverInfo() {
     // grab page data from strapi
     useEffect(() => {
         // this pattern is pretty much seen on all data-driven pages
-        fetch(`${fetchBaseUrl}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
             .then(res => res.json())
             .then(data => {
                 
@@ -53,7 +50,7 @@ function DiscoverInfo() {
                 let profilepic = state.profilepic
                 let profilepic_alt = state.profilepic_alt
                 if (data.data[0].attributes.profilepic.data) {
-                    profilepic = `${fetchBaseUrl}${data.data[0].attributes.profilepic.data.attributes.url}`;
+                    profilepic = `${process.env.REACT_APP_API_URL}${data.data[0].attributes.profilepic.data.attributes.url}`;
                     profilepic_alt = data.data[0].attributes.profilepic.data.attributes.alternativeText;
                 } else {
 
