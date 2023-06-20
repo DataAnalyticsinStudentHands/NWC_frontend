@@ -1,6 +1,3 @@
-import VARIABLES from "../../config/.env.js";
-const { fetchBaseUrl } = VARIABLES;
-
 function d2card(datum) {
     let profilepic = ""
     // let profilepic2 = ''
@@ -8,7 +5,7 @@ function d2card(datum) {
         profilepic = null
     }else{
         // profilepic = `https://dash.cs.uh.edu${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}
-        profilepic = `${fetchBaseUrl}${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
+        profilepic = `${process.env.REACT_APP_API_URL}${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
 
     }
     // datum.profilepic.length > 0

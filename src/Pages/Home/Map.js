@@ -36,6 +36,7 @@ function Map({mapImg, points}) {
           POINTS OF INTEREST
         </p>
         {points.map(p => <p
+          key={Math.random()}
           className={"homeMap_poiText " + (hovering === p[0] ? "homeMap_poiText--hovering" : "")}
           onMouseEnter={() => setHovering(p[0])}
           onMouseLeave={() => setHovering(false)}
@@ -64,7 +65,8 @@ function Map({mapImg, points}) {
       <div className="homeMap_interactive">
         <img className="homeMap_img" src={mapImg} alt="_" />
 
-        {points.map(p => <div 
+        {points.map(p => <div
+          key={Math.random()}
           className={
             "homeMap_dot " +
             (hovering === p[0] ? "homeMap_dot--hovering" : "")}

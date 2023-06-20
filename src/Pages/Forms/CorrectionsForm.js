@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
-// import axios from 'axios';
 
 import ThankYou from './ThankYou';
-
-import VARIABLES from "../../config/.env.js";
 
 function CorrectionsForm() {
 
@@ -26,13 +23,7 @@ function CorrectionsForm() {
     submission.form = "CORRECTIONS";
     console.log(submission)
 
-  //   axios.post([VARIABLES.fetchBaseUrl, `forms/email`].join('/'), JSON.stringify(submission))
-  //       .then(response => setState({
-  //         formSent: true
-  //       }));
-  // }
-
-  fetch([VARIABLES.fetchBaseUrl, `api/forms`].join('/'),{
+  fetch([process.env.REACT_APP_API_URL, `api/forms`].join('/'),{
     method:'POST',
     headers:{
       'Content-type': 'application/json'

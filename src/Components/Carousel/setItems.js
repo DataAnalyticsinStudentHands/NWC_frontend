@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import  './Carousel3.scss'
 
-
 function getData(props){
 let item = props.images
 let items = []
@@ -11,7 +10,6 @@ for(let x in item){
   items.push(
   <div key={item[x][1]} className='thumb_with_title'>
     <img src={item[x][2]} alt="" key={item[x][1]} />
-    <h3 className="thumb_with_title_h3"></h3>
   </div>):
   
  item[x][0]==='essay' && item[x][4]===true?
@@ -25,7 +23,9 @@ for(let x in item){
 
   item[x][0]==='default' && item[x][4]=== true?
   items.push(  
-    <div className="parent">
+    <div
+      key={Math.random()} 
+      className="parent">
       <a className="defaultItems" href={item[x][5]}
       target="_blank" rel="noopener noreferrer"><img src={item[x][2]} alt=""/>
     </a>

@@ -1,4 +1,3 @@
-
 import archivists_button from '../../Pages/HowToContribute/res/archivist_button.png'
 import educators_button from '../../Pages/HowToContribute/res/educators_button.png'
 import nwx_participants_button from '../../Pages/HowToContribute/res/nwc_participants_button.png'

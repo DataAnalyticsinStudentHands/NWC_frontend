@@ -2,13 +2,11 @@ import React, { useEffect, useState } from 'react'
 import "./Why.css";
 import buttonwhy from "../../res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
-// import comingsoon from "./res/comingsoon_thumb.png";
-import VARIABLES from '../../config/.env';
+
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 import Carousel3 from '../../Components/Carousel/Carousel3';
 
-//Clean up lorem ipsum
 function Why() {
     const [pageState, setPageState] = useState({
         historicalOverview: "",
@@ -23,7 +21,7 @@ function Why() {
     const [essays, setEssays] = useState([[]]);
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-why-the-nwc-matter?populate[PrimaryDocuments][populate]=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-why-the-nwc-matter?populate[PrimaryDocuments][populate]=*"].join('/'))
         .then(res => res.json())
         .then(data => {
             const {data:
@@ -35,8 +33,8 @@ function Why() {
             const primaryDocuments = PrimaryDocuments.map(pd => {
                 
                 // [THUMBNAIL, PDF]    
-                const thumbnail = [VARIABLES.fetchBaseUrl, pd.THUMBNAIL.data.attributes.url].join('');
-                const pdf = [VARIABLES.fetchBaseUrl, pd.PDF.data.attributes.url].join('');
+                const thumbnail = [process.env.REACT_APP_API_URL, pd.THUMBNAIL.data.attributes.url].join('');
+                const pdf = [process.env.REACT_APP_API_URL, pd.PDF.data.attributes.url].join('');
 
                 return [thumbnail, pdf];
             });
@@ -56,13 +54,13 @@ function Why() {
     }, []); // eslint-disable-line
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-essays?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-essays?populate=*"].join('/'))
         .then(res => res.json())
         .then(data => {
             setEssays(
                 data.data.map(d => {
                     const featured = d.attributes.Featured;
-                    let thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                    let thumbnail = [process.env.REACT_APP_API_URL, d.attributes.Thumbnail.data.attributes.url].join('')
                     const id = d.id;
                     const title = d.attributes.ShortTitle;
 

@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
-import axios from 'axios';
 import Map from "./Map";
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
-import VARIABLES from "../../config/.env.js";
 
 import stateTerritories from '../../assets/stateTerritories.json';
+
+import Search from '../../Components/SearchBox/Search';
 
 function ResearchingNWC() {
 
@@ -17,9 +17,18 @@ function ResearchingNWC() {
 
   useEffect(() => {
     async function fetchContentMap() {
-      let response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/content-mapping-nwc`);
-      setContentMap(response.data.data)
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        let data = await response.json();
+        setContentMap(data.data);
+      } catch (error) {
+        console.error('Error fetching content map:', error);
+      }
     }
+  
     fetchContentMap();
   },[]);
 
@@ -65,27 +74,6 @@ const politicalOfficeObj = {
     "Other": {$notIn:["Democratic Party", "Republican Party"]}
   }
 
-  // // submit text search query
-  async function onSubmitSearch (data) {
-    let names = data.searchText.split(" ");
-    let query = {}
-    names[1] ? query = qs.stringify({
-      filters: {
-        $and: [
-          {first_name: names[0]},
-          {last_name: names[1]}
-        ]
-      }, populate: '*'
-    }, {encodeValuesOnly:true}) : query = qs.stringify({
-      filters: {
-        first_name: names[0]
-      }, populate: '*'
-    }, {encodeValuesOnly:true})
-
-    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
-    setMap(response.data.data);
-  }
-
   // submit basic search query
   async function onSubmit(data) {
     let query_array = [];
@@ -121,12 +109,13 @@ const politicalOfficeObj = {
       filters: {
         $or: query_array,
       },
-      populate: '*',
+      populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    const response = await axios.get(`${VARIABLES.REACT_APP_API_URL}/nwc-participants?${query}`);
-    setMap(response.data.data);
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    setMap(response.data);
   }
   // adding USA list of states for select input
   //reset form fields and map data
@@ -140,6 +129,51 @@ const politicalOfficeObj = {
   const onSelect = (options) => {
     setSelectedOptions(options);
   };
+
+  async function handleSearch({searchText}) {
+    let names = searchText.split(" ");
+    let query = {}
+    names[1] ? query = qs.stringify({
+      filters: {
+        $or:[
+          {$and: [
+            {first_name: {
+              $containsi:names[0]
+            }},
+            {last_name: {
+              $containsi:names[1]
+            }}
+          ]},
+          {residence_in_1977:{
+            residence_in_1977:{
+              $containsi:searchText
+            }
+          }}
+        ]
+      }, populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
+    }, {encodeValuesOnly:true}) : query = qs.stringify({
+      filters: {
+        $or: [
+          {first_name: {
+            $containsi:names[0]
+          }},
+          {last_name: {
+            $containsi:names[0]
+          }},
+          {residence_in_1977:{
+            residence_in_1977:{
+              $containsi:searchText
+            }
+          }}
+        ]
+      }, populate: ['residence_in_1977','role'],
+      sort:[{'last_name':"asc"}],
+    }, {encodeValuesOnly:true})
+
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    setMap(response.data);
+  }
 
   return (
     <div className="mappingNWC">
@@ -256,14 +290,12 @@ const politicalOfficeObj = {
           </div>
         </form>
 
-        <div className="nameSearch">
-          <p>You can also search participants by name:</p>
-          <form key={1} onSubmit={handleSubmitSearch(onSubmitSearch)} className="mappingNWCSearch_bar">
-            <input type="text" placeholder="SEARCH" {...registerSearch('searchText', { required: true })} />
-            {errorsSearch.searchText?.type === 'required' && "Please enter something for search."}
-            <button type="submit" className="mappingNWCSearch_icon"></button>
-          </form>
-        </div>
+        <Search 
+          handleSearch={handleSearch} 
+          handleSubmitSearch={handleSubmitSearch} 
+          errorsSearch={errorsSearch} 
+          registerSearch={registerSearch}
+        />
       </div>
       {/**MAP */}
       <Map map_data={maps} />
