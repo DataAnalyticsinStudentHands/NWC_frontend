@@ -6,6 +6,7 @@ import SubmitButton from '../../Components/Buttons/submit';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 
 import styles from './PDFViewer.module.css';
+import VARIABLES from '../../config/.env';
 import BackToButton from '../../Components/Buttons/backTo';
 
 function PDFViewer() {

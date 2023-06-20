@@ -4,6 +4,7 @@ import discoverButton from "../../res/button-discover.png";
 import LCard from '../../Components/LCard/LCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
+import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
 import { Link } from 'react-router-dom';
@@ -31,6 +32,8 @@ function Discover() {
   const [activeSortMethod, setActiveSortMethod] = useState(0);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
+  const { fetchBaseUrl } = VARIABLES;
+  
   function setOffSet(){
     if(currentOffSet === 0){
       setCurrentOffSet(1)
@@ -41,7 +44,7 @@ function Discover() {
   }
   
   useEffect(() => {
-    fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?_limit=-1&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setFeatured);
@@ -52,7 +55,7 @@ function Discover() {
   
   useEffect(() => {
     if(currentData === 'default'){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -60,7 +63,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'firstname'){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -69,7 +72,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'lastname'){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -78,7 +81,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'role'){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -87,7 +90,7 @@ function Discover() {
       .catch(err => console.log(err));
     }
     if(currentData === 'state'){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -101,7 +104,7 @@ function Discover() {
       let lastname = fullName[1]
       
       if(currentData === 0){
-        fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
+        fetch([fetchBaseUrl, `api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`/* + `?_start=${page}&_limit=2`*/].join('/'))
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
@@ -111,7 +114,7 @@ function Discover() {
         .catch(err => console.log(err));
       }
       if(fullName.length === 1){
-        fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+        fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
@@ -121,7 +124,7 @@ function Discover() {
         .catch(err => console.log(err));
     }
     if(fullName.length === 2){
-      fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+      fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
       .then(response => response.json())
       .then(data => {
         setDataLength(data.meta.pagination.total)
@@ -131,7 +134,7 @@ function Discover() {
       .catch(err => console.log(err));
   }
   if(fullName.length >= 3){
-    fetch([process.env.REACT_APP_API_URL, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
+    fetch([fetchBaseUrl, `api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`].join('/'))
     .then(response => response.json())
     .then(data => {
       setDataLength(data.meta.pagination.total)
@@ -145,7 +148,7 @@ function Discover() {
   }, [currentOffSet, postsPerPage]); // eslint-disable-line
 
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories-main`)
+    fetch(`${fetchBaseUrl}/api/content-discover-stories-main`)
       .then(res => res.json())
       .then(data => {
         const {data:{attributes:{BannerText, BannerImageCredit, BannerImageCredit_more, IntroductionText}}}=data;
@@ -223,7 +226,7 @@ function Discover() {
         <div className="discoverFeatured_cards">
           {featuredCards
             .filter(value => value.featured === 'true')
-            .map((value, index) => <DiscoverCard
+            .map((value, index) => <a href={`/discover/${value.id}`}><DiscoverCard
               key={Math.random()}
               color={"teal"}
               href={`/discover/${value.id}`}
@@ -233,7 +236,7 @@ function Discover() {
               role={value.role}
               state={value.state}
               profilepic={value.profilepic}
-            />)
+            /></a>)
           }
         </div>
       </div>
@@ -313,9 +316,9 @@ function Discover() {
         <Link to="/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
         </Link>
-        <Link to="/organizations">
+        {/* <Link to="/organizations">
           <div className="discoverButtons_participants">VIEW FULL LIST OF ORGANIZATIONS</div>
-        </Link>
+        </Link> */}
       </div>
     </div>
   )
