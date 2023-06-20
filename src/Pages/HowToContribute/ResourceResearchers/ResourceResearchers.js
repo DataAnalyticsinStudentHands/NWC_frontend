@@ -1,15 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import VARIABLES from '../../../config/.env';
 import './ResourceResearchers.css';
-import researcher_button from "../res/researcher_button.png"
-import oralIcon from "../res/oralIcon.png"
 import colorCorner from "../res/colorCorner.png"
 import colorCornerResearcher from "../res/colorCornerResearcher.png"
-import techIcon from "../res/techIcon.png"
-import permissionIcon from "../res/permissionIcon.png"
-import contributeIcon from "../res/contributeIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';

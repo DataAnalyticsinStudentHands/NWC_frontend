@@ -24,6 +24,7 @@ function Map({mapImg, points}) {
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
+
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}
@@ -118,17 +119,17 @@ function Map({mapImg, points}) {
                 <p>{state.caption3}</p>
               </div>
               <div className="homeMap_popupFeed">
-                <Link to={`PDFViewer/${state.pdf1.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf1.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img1} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf2.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf2.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img2} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf3.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf3.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img3} alt="_" />
                   </div>

@@ -1,4 +1,3 @@
-import comingsoon from "../../Pages/Why/res/comingsoon_thumb.png"
 import { Link } from 'react-router-dom';
 import  './Carousel3.scss'
 

@@ -1,16 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import VARIABLES from '../../../config/.env';
 import './ResourceEducators.css';
-import oralIcon from "../res/oralIcon.png"
-import iconClass from "../res/iconClass.png"
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
-import techIcon from "../res/techIcon.png"
-import educators_button from "../res/educators_button.png"
-import permissionIcon from "../res/permissionIcon.png"
-import contributeIcon from "../res/contributeIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';

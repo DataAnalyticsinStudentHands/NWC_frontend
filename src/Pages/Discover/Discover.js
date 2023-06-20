@@ -108,7 +108,7 @@ function Discover() {
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
-          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          totalPages = (Math.ceil(dataLength / postsPerPage))
           loadcards(data.data, setCards);
         })
         .catch(err => console.log(err));
@@ -118,7 +118,7 @@ function Discover() {
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
-          let totalPages = (Math.ceil(dataLength / postsPerPage))
+          totalPages = (Math.ceil(dataLength / postsPerPage))
           loadcards(data.data, setCards) 
         })
         .catch(err => console.log(err));
@@ -128,7 +128,7 @@ function Discover() {
       .then(response => response.json())
       .then(data => {
         setDataLength(data.meta.pagination.total)
-        let totalPages = (Math.ceil(dataLength / postsPerPage))
+        totalPages = (Math.ceil(dataLength / postsPerPage))
         loadcards(data.data, setCards) 
       })
       .catch(err => console.log(err));
@@ -138,7 +138,7 @@ function Discover() {
     .then(response => response.json())
     .then(data => {
       setDataLength(data.meta.pagination.total)
-      let totalPages = (Math.ceil(dataLength / postsPerPage))
+      totalPages = (Math.ceil(dataLength / postsPerPage))
       loadcards(data.data, setCards) 
     })
     .catch(err => console.log(err));
@@ -315,6 +315,9 @@ function Discover() {
       <div className="discoverButtons">
         <Link to="/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
+        </Link>
+        <Link to="/organizations">
+          <div className="discoverButtons_participants">VIEW FULL LIST OF ORGANIZATIONS</div>
         </Link>
       </div>
     </div>
