@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import VARIABLES from '../../../config/.env';
 
 import './ResourceEducators.css';
 import dotRed from "../res/dotRed.png"
@@ -7,7 +6,6 @@ import dotBlue from "../res/dotBlue.png"
 import ReactPlayer from 'react-player';
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
-
 
 function ResourceEducators() {
 

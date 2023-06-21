@@ -17,7 +17,7 @@ function PDFViewer() {
   function onDocumentLoadSuccess({ numPages }) {
     setNumPages(numPages);
   }
-  let fileURL = `${VARIABLES.fetchBaseUrl}/uploads/${pdffile}`
+  let fileURL = `${process.env.REACT_APP_API_URL}/uploads/${pdffile}`
  
   return (
     <main className={styles.pdf}>

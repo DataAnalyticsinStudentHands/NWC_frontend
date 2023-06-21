@@ -316,9 +316,6 @@ function Discover() {
         <Link to="/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
         </Link>
-        {/* <Link to="/organizations">
-          <div className="discoverButtons_participants">VIEW FULL LIST OF ORGANIZATIONS</div>
-        </Link> */}
       </div>
     </div>
   )
