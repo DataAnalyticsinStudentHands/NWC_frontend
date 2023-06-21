@@ -4,7 +4,6 @@ import discoverButton from "../../res/button-discover.png";
 import LCard from '../../Components/LCard/LCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
-import VARIABLES from "../../config/.env.js";
 import { loadcards } from './cardloader';
 import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
 import { Link } from 'react-router-dom';
@@ -32,7 +31,7 @@ function Discover() {
   const [activeSortMethod, setActiveSortMethod] = useState(0);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
-  const { fetchBaseUrl } = VARIABLES;
+  const { fetchBaseUrl } = process.env.REACT_APP_API_URL;
   
   function setOffSet(){
     if(currentOffSet === 0){
