@@ -2,7 +2,6 @@ import React, { useEffect, useState, useRef } from 'react'
 import './listOf.css';
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
-import BackToButton from '../../Components/Buttons/backTo';
 import stateTerritories from '../../assets/stateTerritories.json';
 
 var currentData = 'default'
@@ -89,7 +88,6 @@ function ListOf(props){
     })
 
     function handleLetterChange(letter){
-        console.log('42', letter)
         setActiveLetter(letter)
         if(letter === 'reset'){
             setListData(listOfData.current)

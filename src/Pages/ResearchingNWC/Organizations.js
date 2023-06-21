@@ -64,31 +64,6 @@ function Organizations() {
             { <p className='backToDiscover'>
                 <BackToButton name='Researching The NWC' link='/ResearchingNWC'/>
             </p> }
-            
-            {/* <h1>List of NWC organizations</h1>
-            
-            <div className="organizationSearch">
-                <div className="organizationSearch_bar">
-                    <input placeholder="Search Organization by Name" value={input} onChange={e => setInput(e.target.value)} />
-                    <button className="organizationSearch_icon" onClick={() => search()}></button>
-                </div>
-            </div>
-            <div className='organizationOptions'>
-            
-            </div>
-
-           
-            <div className="organizationsList">
-                
-                <ul className='organizationContainer'>
-                    {
-                        organizations.length === 0
-                            ? "No organizations Found."
-                            : organizations.map(organization => <ul key={Math.random()}>{organization.attributes.organizational_and_political}</ul>)
-                    }
-                </ul>
-            
-            </div> */}
             <ListOf dataType='Organizations'/>
         </div>
     )
