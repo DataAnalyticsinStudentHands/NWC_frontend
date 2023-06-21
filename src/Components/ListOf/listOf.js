@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
 import './listOf.css';
-import VARIABLES from '../../config/.env';
 import { CSVLink } from "react-csv";
 import Select from 'react-select';
 import BackToButton from '../../Components/Buttons/backTo';
@@ -9,7 +8,6 @@ import stateTerritories from '../../assets/stateTerritories.json';
 var currentData = 'default'
 
 function ListOf(props){
-    const { fetchBaseUrl } = VARIABLES;
     let dataType = props.dataType
     const [listData, setListData] = useState([]);
     const [selectedValue, setSelectedValue] = useState(null);
@@ -23,7 +21,7 @@ function ListOf(props){
 
     useEffect(() => {
         if(dataType === 'Participants'){
-            fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
+            fetch([process.env.REACT_APP_API_URL, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
                     .then(res => res.json())
                     .then(data => {
                         listOfData.current = data.data
@@ -35,7 +33,7 @@ function ListOf(props){
 
         if(dataType === 'Organizations'){
             if(currentData === 'search'){
-                fetch([fetchBaseUrl, `api/organizational-and-politicals?filters[organizational_and_political][$containsi]=${input}&sort[0]=organizational_and_political:asc`].join('/'))
+                fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?filters[organizational_and_political][$containsi]=${input}&sort[0]=organizational_and_political:asc`].join('/'))
                 .then(response => response.json())
                 .then(data => {
                     
@@ -46,7 +44,7 @@ function ListOf(props){
                 })
                 .catch(err => console.log(err));
             }else{
-                fetch([VARIABLES.fetchBaseUrl, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
+                fetch([process.env.REACT_APP_API_URL, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
                     .then(res => res.json())
                     .then(data => {
                         listOfData.current = data.data
