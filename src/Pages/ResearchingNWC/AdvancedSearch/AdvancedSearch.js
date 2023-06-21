@@ -6,10 +6,8 @@ import { useState, useEffect, } from "react";
 import Tabs from "./Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
-import axios from 'axios';
 import stateTerritories from '../../../assets/stateTerritories.json';
-import Map from "./Map";
-
+import Results from "./Results";
 
 function AdvancedSearch() {
 
@@ -62,81 +60,81 @@ function AdvancedSearch() {
   const [professions, setProfessions] = useState([]);
   
   useEffect(() => {
-    axios.get(`${process.env.REACT_APP_API_URL}/api/data-careers?sort=category_of_employment`)
-    .then(res => {
-      const data = res.data
-      const uniqueProfessions = new Set();
-      data.data.forEach(item => {
-        uniqueProfessions.add(item.attributes.category_of_employment);
-      });
-      setProfessions(
-        Array.from(uniqueProfessions).map(label => {
-          return {
-            value: label,
-            label: label
-          }
-        })
-      );
-    })
-    .catch(err => console.log(err));
-  }, []); 
-    
-    const [leaderships, setLeaderships] = useState([]);
-  
-    useEffect(() => {
-      axios.get(`${process.env.REACT_APP_API_URL}/api/data-leadership-in-organizations?sort=role`)
-      .then(res => {
-        const data = res.data
-        const uniqueLeadership = new Set();
+    fetch(`${process.env.REACT_APP_API_URL}/api/data-careers?sort=category_of_employment`)
+      .then(res => res.json())
+      .then(data => {
+        const uniqueProfessions = new Set();
         data.data.forEach(item => {
-          uniqueLeadership.add(item.attributes.role);
+          uniqueProfessions.add(item.attributes.category_of_employment);
         });
-        setLeaderships(
-          Array.from(uniqueLeadership).map(label => {
+        setProfessions(
+          Array.from(uniqueProfessions).map(label => {
             return {
               value: label,
               label: label
-            }
+            };
           })
         );
       })
       .catch(err => console.log(err));
-    }, []); 
-
-      const [plank, setPlanks] = useState([]);
+  }, []);
+    
+    const [leaderships, setLeaderships] = useState([]);
   
-      useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-planks?sort=plank`)
-        .then(res => {
-          const data = res.data
-          const uniquePlanks = new Set();
+    useEffect(() => {
+      fetch(`${process.env.REACT_APP_API_URL}/api/data-leadership-in-organizations?sort=role`)
+        .then(res => res.json())
+        .then(data => {
+          const uniqueLeadership = new Set();
           data.data.forEach(item => {
-            uniquePlanks.add(item.attributes.plank);
+            uniqueLeadership.add(item.attributes.role);
           });
-          setPlanks(
-            Array.from(uniquePlanks).map(label => {
+          setLeaderships(
+            Array.from(uniqueLeadership).map(label => {
               return {
                 value: label,
                 label: label
-              }
+              };
             })
           );
         })
         .catch(err => console.log(err));
+    }, []);
+
+      const [plank, setPlanks] = useState([]);
+  
+      useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/nwc-planks?sort=plank`)
+          .then(res => res.json())
+          .then(data => {
+            const uniquePlanks = new Set();
+            data.data.forEach(item => {
+              uniquePlanks.add(item.attributes.plank);
+            });
+            setPlanks(
+              Array.from(uniquePlanks).map(label => {
+                return {
+                  value: label,
+                  label: label
+                };
+              })
+            );
+          })
+          .catch(err => console.log(err));
       }, []); 
 
       const [role, setRoles] = useState([])
 
       useEffect(() => {
-        axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-roles?sort=role&filters[role][$notContainsi]=Other Role`)
-        .then(res => {
-            const data = res.data
+        fetch(`${process.env.REACT_APP_API_URL}/api/nwc-roles?sort=role&filters[role][$notContainsi]=Other Role`)
+          .then(res => res.json())
+          .then(data => {
             const roles = data.data.map(item => item.attributes.role);
             setRoles(
               roles.map(label => {
                 return {
                   value: label,
-                  label: label 
+                  label: label
                 };
               })
             );
@@ -192,6 +190,17 @@ function AdvancedSearch() {
         }
       }
     });
+
+    if (isAgeCheckboxChecked) {
+      // Handle the case when the age '40-64' checkbox is checked
+      const ageRangeQuery = {
+        $gte: 40,
+        $lte: 64,
+      };
+      array_query.push({
+        'age_in_1977': ageRangeQuery,
+      });
+    }
     
     const query = qs.stringify({
       filters: {
@@ -206,16 +215,22 @@ function AdvancedSearch() {
       alert('No search input')
     }
     else {
-    const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`);
-    if (response.data.data.length === 0) {
-      alert('No results found')
+    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`).then(res => res.json());
+    if (response.data.length === 0) {
+      setNumResults(0)
+      setIsButtonClicked(true);
+
     }
     else {
-      setFormData(response.data.data)
+      setFormData(response.data)
+      setNumResults(response.data.length)
       setIsButtonClicked(true);
     }
   }
   }
+  //state for number of results
+  const [numResults, setNumResults] = useState(0)
+
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
@@ -223,28 +238,18 @@ function AdvancedSearch() {
     setSelectedOptions({});
     setFormData([])
     setIsButtonClicked(false);
-    setCurrentPage(1)
     }, 50)
+    setNumResults(0)
   }
 
   const [selectedOptions, setSelectedOptions] = useState({});
+
+  const [isAgeCheckboxChecked, setIsAgeCheckboxChecked] = useState(false);
+
+  function handleAgeCheckboxChange(checked) {
+    setIsAgeCheckboxChecked(checked);
+  }
   
-  //Used for setting up pagination
-  const itemsPerPage = 10; // Number of items to display per page
-  const [currentPage, setCurrentPage] = useState(1);
-
-  // Calculate the indexes of the items to display on the current page
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
-
-  // Get the subset of items based on the current page
-  const displayedData = formData.slice(startIndex, endIndex);
-
-  // Update the current page number
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="advancedSearch_font">
@@ -285,7 +290,7 @@ function AdvancedSearch() {
                 );
                 })}
                     {/* <label className="advancedSearch_form-control">
-                    <input type="checkbox" value="Other Role" {...register("role.role.$containsi")} />
+                    <input type="checkbox" value="Other Role" {...register("role.role[$containsi]")} />
                     Other
                   </label> */}
                   </div> 
@@ -300,7 +305,6 @@ function AdvancedSearch() {
                   <div className="advancedSearch_form-control">
                     <Controller
                       control={control}
-                      name="plank"
                       render={({ field }) => (
                         <Select
                         styles={{
@@ -312,9 +316,11 @@ function AdvancedSearch() {
                               ...prevOptions,
                               plank: selectedOption.value,
                             }));
+                            field.onChange(selectedOption.value);
+                            reset({ planks_fors: { plank: false }, planks_againsts: { plank: false }, planks_spoke_fors: { plank: false } }); // Reset checkbox values
                           }}
                           onBlur={field.onBlur}
-                          value={selectedOptions.plank ? stateOptions.find((option) => option.value === selectedOptions.plank) : null }
+                          value={selectedOptions.plank ? plank.find((option) => option.value === selectedOptions.plank) : null }
                           placeholder="Select..."
                           ref={field.ref}
                         />
@@ -325,21 +331,22 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 {selectedOptions.plank && (
                   <>
-                    <h1>position</h1>
+                    <h1>position (required) </h1>
                     <div className="item">
                       <label className="advancedSearch_form-control">
-                        <input type="radio" value={selectedOptions.plank} {...register("planks_fors.plank")}/>
+                        <input type="checkbox" value={selectedOptions.plank} {...register("planks_fors.plank")}/>
                         for
                       </label>
                       <label className="advancedSearch_form-control"> 
-                      <input type="radio" value={selectedOptions.plank} {...register("planks_againsts.plank")}/>
+                      <input type="checkbox" value={selectedOptions.plank} {...register("planks_againsts.plank")}/>
                         against
                       </label>
                       <label className="advancedSearch_form-control">
-                        <input type="radio" value={selectedOptions.plank} {...register("planks_spoke_fors.plank")} />
+                        <input type="checkbox" value={selectedOptions.plank} {...register("planks_spoke_fors.plank")} />
                         spoke for
                       </label>
                     </div>
+                    
                   </>
                 )}
               </div>
@@ -363,7 +370,7 @@ function AdvancedSearch() {
                 <label className="advancedSearch_form-control">
                 <input type="checkbox" value='39' {...register('age_in_1977.$lte')}/> 1-39 </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" value="40-64" {...register('[2].age_in_1977')}/>40-64  </label>
+                <input type="checkbox" {...register('[2].age_in_1977')} onChange={(e) => handleAgeCheckboxChange(e.target.checked)} /> 40-64 </label>
                 <label className="advancedSearch_form-control">
                 <input type="checkbox" value="65" {...register('[1].age_in_1977.$gte')}/>65+ </label>
                 </div>
@@ -499,7 +506,7 @@ function AdvancedSearch() {
                           field.onChange(selectedOption.value);
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.religion ? stateOptions.find(option => option.value === selectedOptions.religion) : null}
+                        value={selectedOptions.religion ? religionOptions.find(option => option.value === selectedOptions.religion) : null}
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
@@ -541,7 +548,7 @@ function AdvancedSearch() {
                           field.onChange(selectedOption.value);
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.sexual_orientation ? stateOptions.find(option => option.value === selectedOptions.sexual_orientation) : null}
+                        value={selectedOptions.sexual_orientation ? sexualOrientation.find(option => option.value === selectedOptions.sexual_orientation) : null}
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
@@ -726,7 +733,7 @@ function AdvancedSearch() {
                           field.onChange(selectedOption.value);
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.political_party_membership ? stateOptions.find(option => option.value === selectedOptions.political_party_membership) : null}
+                        value={selectedOptions.political_party_membership ? politicalOptions.find(option => option.value === selectedOptions.political_party_membership) : null}
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
@@ -895,75 +902,13 @@ function AdvancedSearch() {
         </div>
         {isButtonClicked && (
         <div className="advancedSearch">
-            <Tabs>
-                <div label="Chart View">
-                    <table className="advancedTable">
-                            <thead>
-                              <tr style={{ background: '#cadfee' }}>
-                                <th>last name</th>
-                                <th>first name</th>
-                                <th>state/territory</th>
-                                <th>role</th>
-                                <th>race/ethnicity</th>
-                                <th>religion</th>
-                                <th>education</th>
-                                <th>political offices held</th>
-                                <th>political party membership</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              {displayedData.map((val) => (
-                                <tr key={val.id}>
-                                  <td>{val.attributes.last_name}</td>
-                                  <td>{val.attributes.first_name}</td>
-                                  <td>{val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td>
-                                  <td>{val.attributes.role.data.map((e, index) => {
-                                      if (index === 0) {return '• ' + e.attributes.role; } else {return [<br key={index} />, '• ' + e.attributes.role];}
-                                    })}
-                                  </td>
-                                  <td>
-                                    {val.attributes.races.data.map((e, index) => {
-                                      if (index === 0) { return '• ' + e.attributes.race;} else {return [<br key={index} />, '• ' + e.attributes.race];}
-                                    })}
-                                  </td>
-                                  <td>{val.attributes.religion}</td>
-                                  <td>{val.attributes.highest_level_of_education_attained}</td>
-                                  <td>
-                                    {val.attributes.political_office_helds.data.map((e, index) => {if (index === 0) {return '• ' + e.attributes.political_office;} else {return [<br key={index} />, '• ' + e.attributes.political_office];
-                                    }})}
-                                  </td>
-                                  <td>{val.attributes.political_party_membership}</td>
-                                </tr>
-                              ))}
-                            </tbody>
-                          </table>
-                          {/* Pagination Controls */}
-                          <div className="advancedSearch">
-                          <div className="pagination" style={{left: "0px", marginLeft: "0px", right: "0px", marginTop: "5px"}}>
-                            {Array.from({ length: Math.ceil(formData.length / itemsPerPage) }, (_, index) => (
-                              <button
-                                key={index + 1}
-                                className={currentPage === index + 1 ? 'active' : ''}
-                                onClick={() => {
-                                  handlePageChange(index + 1);
-                                  const tableElement = document.querySelector('.advancedTable');
-                                  if (tableElement) {
-                                    setTimeout(() => {
-                                      tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                                    }, 100); // Adjust the delay as needed
-                                  }
-                                }} >
-                                {index + 1}
-                              </button>
-                            ))}
-                          </div>
-                          </div>
-                </div>
-                <div label="Map View">      
-                <Map map_data={formData} />      
-                </div>
-            </Tabs>
-            </div>
+          <p> Results found: {numResults} </p>
+        </div>
+        )}
+        {isButtonClicked && numResults !== 0 && (
+        <div className="advancedSearch1">
+          <Results map_data={formData}/>
+        </div>
         )}
       </div>
       </form>
