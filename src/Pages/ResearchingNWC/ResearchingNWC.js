@@ -54,9 +54,13 @@ function ResearchingNWC() {
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
-  // const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
-  //AAPI pending
-const raceData = ["Black", "Native American/American Indian", "Hispanic", "white"].sort();
+const raceObj = {
+  "AAPI": "Asian American/Pacific Islander",
+  "Black": "Black",
+  "Native American/American Indian": "Native American/American Indian",
+  "Hispanic": "Hispanic",
+  "white": "white"
+}
 const religionObj = {
   Catholic: "Catholic",
   Jewish: "Jewish",
@@ -72,7 +76,6 @@ const religionObj = {
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
-  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
 const politicalOfficeObj = {
     "City": "city level",
     "County": "county level",
@@ -96,7 +99,7 @@ const politicalOfficeObj = {
           case "role":
             query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'race':
-            query_array.push({ races:{race:Object.keys(data)[index].slice(5)}}); break;
+            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'religion':
             query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]}); break;
           case 'education':
@@ -237,13 +240,22 @@ const politicalOfficeObj = {
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
 
-              {raceData.map((race)=>{
+              {/* {raceData.map((race)=>{
                 return(
                   <label className="form-control" key={race}>
                     <input type="checkbox" {...register(`race ${race}`)} />{race}
                   </label>
                 )
-              })}
+              })} */}
+              {
+                Object.keys(raceObj).map((race)=>{
+                  return(
+                    <label className="form-control" key={race}>
+                      <input type="checkbox" {...register(`race ${race}`)} />{race}
+                    </label>
+                  )
+                })
+              }
             </div>
             <div className='panel'>
               <p>RELIGION</p>
