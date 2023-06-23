@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
-import Map from "./Map";
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
@@ -10,6 +9,8 @@ import component119 from './res/component119.png';
 import stateTerritories from '../../assets/stateTerritories.json';
 
 import Search from '../../Components/SearchBox/Search';
+import { Map } from '../../Components/Map/Map';
+import { ResearchTable } from '../../Components/ResearchTable/ResearchTable';
 
 function ResearchingNWC() {
 
@@ -34,6 +35,7 @@ function ResearchingNWC() {
 
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
+  const [tableData, setTableData] = useState([]);
   // 3rd state for form search by name
   const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
@@ -130,8 +132,26 @@ const politicalOfficeObj = {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    setMap(response.data);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+
+    const mapData = response.data.map((person) => {
+      return{
+        lat:person.attributes.lat,
+        lon:person.attributes.lon,
+        first_name:person.attributes.first_name,
+        last_name:person.attributes.last_name,
+      }
+    })
+    setMap(mapData);
+    const tableData = response.data.map((person) => {
+      return{
+          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
+          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
+          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+      }
+    })
+    setTableData(tableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
@@ -139,6 +159,7 @@ const politicalOfficeObj = {
     reset();
     setSelectedOptions(null);
     setMap([])
+    setTableData([])
   }
 
   // // updates from multi-select
@@ -183,12 +204,29 @@ const politicalOfficeObj = {
             }
           }}
         ]
-      }, populate: ['residence_in_1977','role'],
+      }, populate: ['residence_in_1977','role', 'basic_races'],
       sort:[{'last_name':"asc"}],
     }, {encodeValuesOnly:true})
 
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    setMap(response.data);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    const mapData = response.data.map((person) => {
+      return{
+        lat:person.attributes.lat,
+        lon:person.attributes.lon,
+        first_name:person.attributes.first_name,
+        last_name:person.attributes.last_name,
+      }
+    })
+    setMap(mapData);
+    const tableData = response.data.map((person) => {
+      return{
+          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
+          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
+          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+      }
+    })
+    setTableData(tableData);
   }
 
   return (
@@ -239,14 +277,6 @@ const politicalOfficeObj = {
             </div>
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
-
-              {/* {raceData.map((race)=>{
-                return(
-                  <label className="form-control" key={race}>
-                    <input type="checkbox" {...register(`race ${race}`)} />{race}
-                  </label>
-                )
-              })} */}
               {
                 Object.keys(raceObj).map((race)=>{
                   return(
@@ -325,7 +355,10 @@ const politicalOfficeObj = {
         />
       </div>
       {/**MAP */}
+
       <Map map_data={maps} />
+
+      <ResearchTable data={tableData} />
 
     </div>
   )
