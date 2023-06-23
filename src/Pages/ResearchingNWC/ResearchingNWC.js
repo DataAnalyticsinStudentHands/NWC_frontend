@@ -54,8 +54,12 @@ function ResearchingNWC() {
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
-  const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
-  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+  // const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
+  //AAPI pending
+const raceData = ["Black", "Native American/American Indian", "Hispanic", "white"].sort();
+  // const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+  // Protestant pending
+const religionData = ["Catholic", "Jewish", "Other", 'None'].sort();
   const educationObj = {
     "High School": ['some high school','high school diploma'],
     "College": ['some college','college degree'],
@@ -63,15 +67,15 @@ function ResearchingNWC() {
   }
   // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
 const politicalOfficeObj = {
-    "city level": "city level",
-    "county level": "county level",
-    "state level": "state level",
-    "national level": "federal level"
+    "City": "city level",
+    "County": "county level",
+    "State": "state level",
+    "Federal": "federal level"
 }
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
-    "Other": {$notIn:["Democratic Party", "Republican Party"]}
+    "Third Part": {$notIn:["Democratic Party", "Republican Party"]}
   }
 
   // submit basic search query
