@@ -1,0 +1,24 @@
+.table-container {
+    font-size: calc(1vw + 2px);
+    font-family: var(--fontMontserrat);
+    display: flex;
+    flex: 1,1,1, auto;
+    padding: 50rem 25rem;
+  }
+  
+    
+  th {
+    text-align: center;
+    border-bottom: 1px solid black;
+  }
+    
+  td {  
+    padding: 10rem 30rem ;
+    text-align: left;
+  }
+
+  ul {
+    /* list-style-type: none; */
+    padding: 0;
+    margin: 0;
+  }

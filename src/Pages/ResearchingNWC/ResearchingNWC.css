@@ -237,11 +237,19 @@ button {
 }
 
 .searchButton {
-  background-color: var(--colorDeepRed);
+  background-color: var(--colorDeepRed); 
+  padding: 10rem 50rem;
+  color: white;
+  border-radius: 30rem;
+  font-size: 30rem;
 }
 
 .resetButton {
   background-color: var(--colorDarkBlue);
+  padding: 10rem 50rem;
+  color: white;
+  border-radius: 30rem;
+  font-size: 30rem;
 }
 
 button:hover {
