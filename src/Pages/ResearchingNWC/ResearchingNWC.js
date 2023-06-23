@@ -54,24 +54,40 @@ function ResearchingNWC() {
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
-  const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
-  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+const raceObj = {
+  "AAPI": "Asian American/Pacific Islander",
+  "Black": "Black",
+  "Native American/American Indian": "Native American/American Indian",
+  "Hispanic": "Hispanic",
+  "white": "white"
+}
+const religionObj = {
+  Catholic: "Catholic",
+  Jewish: "Jewish",
+  Protestant: "Christian non-Catholic",
+  None: "None",
+  Other: {
+    $notIn: ["Catholic", "Jewish", "Christian non-Catholic", "None"]
+  },
+}
+
   const educationObj = {
     "High School": ['some high school','high school diploma'],
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
-  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
 const politicalOfficeObj = {
-    "city level": "city level",
-    "county level": "county level",
-    "state level": "state level",
-    "national level": "federal level"
+    "City": "city level",
+    "County": "county level",
+    "State": "state level",
+    "Federal": "federal level"
 }
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
-    "Other": {$notIn:["Democratic Party", "Republican Party"]}
+    "Third Part": {
+      $notIn:["Democratic Party", "Republican Party"]
+    }
   }
 
   // submit basic search query
@@ -83,9 +99,9 @@ const politicalOfficeObj = {
           case "role":
             query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'race':
-            query_array.push({ races:{race:Object.keys(data)[index].slice(5)}}); break;
+            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'religion':
-            query_array.push({ religion:Object.keys(data)[index].slice(9)}); break;
+            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]}); break;
           case 'education':
             query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
           case 'level':
@@ -109,7 +125,7 @@ const politicalOfficeObj = {
       filters: {
         $or: query_array,
       },
-      populate: ['residence_in_1977','role'],
+      populate: ['residence_in_1977','role', 'basic_races'],
       sort:[{'last_name':"asc"}],
     }, {
       encodeValuesOnly: true, // prettify URL
@@ -213,7 +229,7 @@ const politicalOfficeObj = {
                 classNamePrefix="select"
               />
               <p>NWC ROLES</p>
-              {Object.keys(roleObj).map((role, i) => {
+              {Object.keys(roleObj).map((role) => {
                 return(
                   <label className="form-control" key={role}>
                     <input type="checkbox" {...register(`role ${role}`)} />{role}
@@ -224,23 +240,34 @@ const politicalOfficeObj = {
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
 
-              {raceData.map((race, i)=>{
+              {/* {raceData.map((race)=>{
                 return(
                   <label className="form-control" key={race}>
                     <input type="checkbox" {...register(`race ${race}`)} />{race}
                   </label>
                 )
-              })}
+              })} */}
+              {
+                Object.keys(raceObj).map((race)=>{
+                  return(
+                    <label className="form-control" key={race}>
+                      <input type="checkbox" {...register(`race ${race}`)} />{race}
+                    </label>
+                  )
+                })
+              }
             </div>
             <div className='panel'>
               <p>RELIGION</p>
-              {religionData.map((religion, i)=>{
-                return(
-                  <label className="form-control" key={religion}>
-                    <input type="checkbox" {...register(`religion ${religion}`)} />{religion}
-                  </label>
-                )
-              })}
+              {
+                Object.keys(religionObj).map((religion)=>{
+                  return(
+                    <label className="form-control" key={religion}>
+                      <input type="checkbox" {...register(`religion ${religion}`)} />{religion}
+                    </label>
+                  )
+                })
+              }
             </div>
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
