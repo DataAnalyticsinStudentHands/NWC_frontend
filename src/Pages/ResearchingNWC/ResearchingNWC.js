@@ -113,7 +113,7 @@ const politicalOfficeObj = {
       filters: {
         $or: query_array,
       },
-      populate: ['residence_in_1977','role'],
+      populate: ['residence_in_1977','role', 'basic_races'],
       sort:[{'last_name':"asc"}],
     }, {
       encodeValuesOnly: true, // prettify URL

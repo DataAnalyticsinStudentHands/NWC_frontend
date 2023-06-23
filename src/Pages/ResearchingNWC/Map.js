@@ -66,8 +66,8 @@ export default function Map(props) {
                     <table>
                         <thead>
                             <tr>
-                                <th>Last Name</th>
-                                <th>First Name</th>
+                                <th>Name</th>
+                                <th>Race</th>
                                 <th>Residence in 1977</th>
                                 <th>Role at NWC</th>
                             </tr>
@@ -76,8 +76,17 @@ export default function Map(props) {
                             {map_data.map((val) => {
                                 return (
                                     <tr key={val.id}>
-                                        <td>{val.attributes.last_name}</td>
-                                        <td>{val.attributes.first_name}</td>
+                                        <td>{val.attributes.last_name}, {val.attributes.first_name}</td>
+                                        <td>{val.attributes.basic_races.data
+                                            .map((e) => {
+                                                return (
+                                                    <span key={e.id}>
+                                                        {e.attributes.basic_race}
+                                                        <br />
+                                                    </span>
+                                                )
+                                            })
+                                        }</td>
                                         <td>{val.attributes.residence_in_1977.data?.attributes.residence_in_1977}</td>
                                         <td>{val.attributes.role.data
                                             .filter(e => !e.attributes.role.startsWith('Nominated') || !e.attributes.role.startsWith('Votes'))
