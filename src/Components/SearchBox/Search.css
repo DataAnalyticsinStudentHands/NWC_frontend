@@ -31,10 +31,10 @@
 .mappingNWCSearch_icon {
 	background-image: url("./res/searchicon.png");
 	background-size: contain;
-
 	background-repeat: no-repeat;
 	border-radius: 0;
 	cursor: pointer;
+	padding:15rem
 }
 
 .mappingNWCSearch_icon:hover {

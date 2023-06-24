@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
-import Map from "./Map";
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
@@ -10,6 +9,8 @@ import component119 from './res/component119.png';
 import stateTerritories from '../../assets/stateTerritories.json';
 
 import Search from '../../Components/SearchBox/Search';
+import { Map } from '../../Components/Map/Map';
+import { ResearchTable } from '../../Components/ResearchTable/ResearchTable';
 
 function ResearchingNWC() {
 
@@ -34,6 +35,7 @@ function ResearchingNWC() {
 
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
+  const [tableData, setTableData] = useState([]);
   // 3rd state for form search by name
   const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
@@ -54,24 +56,40 @@ function ResearchingNWC() {
     "NOTABLE SPEAKERS": "Notable Speaker",
   }
 
-  const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
-  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+const raceObj = {
+  "AAPI": "Asian American/Pacific Islander",
+  "Black": "Black",
+  "Native American/American Indian": "Native American/American Indian",
+  "Hispanic": "Hispanic",
+  "white": "white"
+}
+const religionObj = {
+  Catholic: "Catholic",
+  Jewish: "Jewish",
+  Protestant: "Christian non-Catholic",
+  None: "None",
+  Other: {
+    $notIn: ["Catholic", "Jewish", "Christian non-Catholic", "None"]
+  },
+}
+
   const educationObj = {
     "High School": ['some high school','high school diploma'],
     "College": ['some college','college degree'],
     "Graduate/Professional": ['some graduate/professional','graduate/professional degree']
   }
-  // const politicalOfficeData = ["city level", "county level", "state level", "federal level"]
 const politicalOfficeObj = {
-    "city level": "city level",
-    "county level": "county level",
-    "state level": "state level",
-    "national level": "federal level"
+    "City": "city level",
+    "County": "county level",
+    "State": "state level",
+    "Federal": "federal level"
 }
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
-    "Other": {$notIn:["Democratic Party", "Republican Party"]}
+    "Third Part": {
+      $notIn:["Democratic Party", "Republican Party"]
+    }
   }
 
   // submit basic search query
@@ -83,9 +101,9 @@ const politicalOfficeObj = {
           case "role":
             query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'race':
-            query_array.push({ races:{race:Object.keys(data)[index].slice(5)}}); break;
+            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}}); break;
           case 'religion':
-            query_array.push({ religion:Object.keys(data)[index].slice(9)}); break;
+            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]}); break;
           case 'education':
             query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
           case 'level':
@@ -109,13 +127,31 @@ const politicalOfficeObj = {
       filters: {
         $or: query_array,
       },
-      populate: ['residence_in_1977','role'],
+      populate: ['residence_in_1977','role', 'basic_races'],
       sort:[{'last_name':"asc"}],
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    setMap(response.data);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+
+    const mapData = response.data.map((person) => {
+      return{
+        lat:person.attributes.lat,
+        lon:person.attributes.lon,
+        first_name:person.attributes.first_name,
+        last_name:person.attributes.last_name,
+      }
+    })
+    setMap(mapData);
+    const tableData = response.data.map((person) => {
+      return{
+          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
+          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
+          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+      }
+    })
+    setTableData(tableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
@@ -123,6 +159,7 @@ const politicalOfficeObj = {
     reset();
     setSelectedOptions(null);
     setMap([])
+    setTableData([])
   }
 
   // // updates from multi-select
@@ -167,12 +204,29 @@ const politicalOfficeObj = {
             }
           }}
         ]
-      }, populate: ['residence_in_1977','role'],
+      }, populate: ['residence_in_1977','role', 'basic_races'],
       sort:[{'last_name':"asc"}],
     }, {encodeValuesOnly:true})
 
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    setMap(response.data);
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    const mapData = response.data.map((person) => {
+      return{
+        lat:person.attributes.lat,
+        lon:person.attributes.lon,
+        first_name:person.attributes.first_name,
+        last_name:person.attributes.last_name,
+      }
+    })
+    setMap(mapData);
+    const tableData = response.data.map((person) => {
+      return{
+          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
+          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
+          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+      }
+    })
+    setTableData(tableData);
   }
 
   return (
@@ -213,7 +267,7 @@ const politicalOfficeObj = {
                 classNamePrefix="select"
               />
               <p>NWC ROLES</p>
-              {Object.keys(roleObj).map((role, i) => {
+              {Object.keys(roleObj).map((role) => {
                 return(
                   <label className="form-control" key={role}>
                     <input type="checkbox" {...register(`role ${role}`)} />{role}
@@ -223,24 +277,27 @@ const politicalOfficeObj = {
             </div>
             <div className='panel'>
               <p>RACE AND ETHNICITY IDENTIFIERS</p>
-
-              {raceData.map((race, i)=>{
-                return(
-                  <label className="form-control" key={race}>
-                    <input type="checkbox" {...register(`race ${race}`)} />{race}
-                  </label>
-                )
-              })}
+              {
+                Object.keys(raceObj).map((race)=>{
+                  return(
+                    <label className="form-control" key={race}>
+                      <input type="checkbox" {...register(`race ${race}`)} />{race}
+                    </label>
+                  )
+                })
+              }
             </div>
             <div className='panel'>
               <p>RELIGION</p>
-              {religionData.map((religion, i)=>{
-                return(
-                  <label className="form-control" key={religion}>
-                    <input type="checkbox" {...register(`religion ${religion}`)} />{religion}
-                  </label>
-                )
-              })}
+              {
+                Object.keys(religionObj).map((religion)=>{
+                  return(
+                    <label className="form-control" key={religion}>
+                      <input type="checkbox" {...register(`religion ${religion}`)} />{religion}
+                    </label>
+                  )
+                })
+              }
             </div>
             <div className='panel'>
               <p>HIGHEST LEVEL OF EDUCATION</p>
@@ -298,7 +355,10 @@ const politicalOfficeObj = {
         />
       </div>
       {/**MAP */}
+
       <Map map_data={maps} />
+
+      <ResearchTable data={tableData} />
 
     </div>
   )
