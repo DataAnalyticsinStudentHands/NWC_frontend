@@ -273,3 +273,20 @@ PAGINATION COMPONENET
     background-color: var(--colorLightBlue);
     margin-right:0;
 }
+
+
+.cardsListPerPage button{
+    font-size: 30rem;
+    font-family: var(--fontBabasNeue);
+    margin-top: 20rem;
+    margin-bottom: 20rem;
+    margin-right: 50rem;
+    border: none;
+    color: #fff;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    padding: 10rem 50rem;
+    border-radius: 30rem;
+    transition: color .5s,background-color .5s;
+}
