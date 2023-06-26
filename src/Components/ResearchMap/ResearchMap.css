@@ -1,7 +1,3 @@
-/*
-Map
-*/
-
 .map-area {
   padding-left: 50rem;
   padding-right: 50rem;
@@ -15,8 +11,8 @@ Map
   Reset button styles
   It takes a little bit of work to achieve a “blank slate” look.
 */
+/* Cant have basic tage style in this level, Needs fix*/
 button {
-  /* padding: 0; */
   border: none;
   font: inherit;
   color: white;

@@ -1,7 +1,6 @@
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
 import './Map.css'
-import DownloadCSVButton from '../../Components/downloadButton/DownloadButton';
 
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
@@ -52,15 +51,6 @@ export default function Map(props) {
     return (
         <div className='map-area'>
             <div ref={mapContainer} className="map-container" />
-
-            {
-                map_data?.length > 0 ? 
-                <DownloadCSVButton 
-                    tbl = {tbl} 
-                    fileName="Particpant" 
-                    sheetName='Search Result'
-                /> : null
-            }
             <div ref={tbl} className="table-container">
                 {map_data?.length > 0 ? 
                     <table>
