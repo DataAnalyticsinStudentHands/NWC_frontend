@@ -56,8 +56,8 @@ export const ResearchMap = (props) => {
 	}, [lng, lat, zoom, map_data]);
 
 	return (
-        <div className="map-area">
-            <div ref={mapContainer} className="map-container" />
+        <div className="research-map-area">
+            <div ref={mapContainer} className="research-map-container" />
         </div>
 	);
 };
