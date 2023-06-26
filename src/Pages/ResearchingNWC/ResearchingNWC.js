@@ -9,9 +9,8 @@ import component119 from './res/component119.png';
 import stateTerritories from '../../assets/stateTerritories.json';
 
 import Search from '../../Components/SearchBox/Search';
-import { Map } from '../../Components/Map/Map';
-import { ResearchTable } from '../../Components/ResearchTable/ResearchTable';
 
+import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
@@ -354,11 +353,12 @@ const politicalOfficeObj = {
           registerSearch={registerSearch}
         />
       </div>
-      {/**MAP */}
 
-      <Map map_data={maps} />
-
-      <ResearchTable data={tableData} />
+      {tableData.length >0 && 
+        <div className='Result-Continer'>
+          <ResultTableMap data={tableData} map_data={maps}/>
+        </div>
+      }
 
     </div>
   )

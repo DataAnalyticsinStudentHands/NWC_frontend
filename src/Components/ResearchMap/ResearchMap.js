@@ -1,10 +1,10 @@
 import React, { useRef, useEffect, useState } from "react";
-import "./Map.css";
+import "./ResearchMap.css";
 
 import mapboxgl from "!mapbox-gl"; // eslint-disable-line import/no-webpack-loader-syntax
 mapboxgl.accessToken = process.env.REACT_APP_MAPBOX_ACCESS_TOKEN;
 
-export const Map = (props) => {
+export const ResearchMap = (props) => {
     const { map_data } = props
 
 	const mapContainer = useRef(null);
