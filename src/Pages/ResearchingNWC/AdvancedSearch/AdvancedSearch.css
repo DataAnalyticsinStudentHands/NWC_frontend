@@ -11,6 +11,13 @@
     padding: .4em;
     display:flex
 }
+.advancedSearch1 {
+  margin-right: 80rem;
+  margin-top: 50rem;
+  margin-left: 80rem;
+  padding: .4em;
+  display:flex
+}
 
 .advancedSearch_text h1 {
     font-size:45rem;
@@ -117,16 +124,14 @@
 }
 
 .Collapsible .toggle::after {
-    content: "\2303";
-    float:right;
-    -webkit-transform: rotate(180deg);
-    -moz-transform: rotate(180deg);
-    transform:rotate(180deg);
+  content: "\2303";
+  float: right;
+  transition: transform 0.3s;
+  transform: rotate(180deg);
 }
 
-.Collapsible .toggle .active{
-  content: "\2303";
-  float:right;
+.Collapsible.active .toggle::after {
+  transform: rotate(0deg);
 }
 
 /* FORM */

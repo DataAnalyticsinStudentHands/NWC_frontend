@@ -1,13 +1,8 @@
-/*
-Map
-*/
+/* .research-map-area {
 
-.map-area {
-  padding-left: 50rem;
-  padding-right: 50rem;
-}
+} */
 
-.map-container {
+.research-map-container {
   height: 600px;
 }
 
@@ -15,16 +10,12 @@ Map
   Reset button styles
   It takes a little bit of work to achieve a “blank slate” look.
 */
+/* Cant have basic tage style in this level, Needs fix*/
 button {
-  padding: 0;
   border: none;
   font: inherit;
-  color: inherit;
+  color: white;
   background-color: transparent;
-  /*
-    Show a hand cursor on hover instead of the default arrow cursor
-    (Some argue that we should keep the default arrow cursor for buttons, to be consistent with how desktop operating systems treat buttons.)
-  */
   cursor: pointer;
 }
 
@@ -35,6 +26,7 @@ button {
   height: 30px;
   cursor: pointer;
 }
+
 
 
 
