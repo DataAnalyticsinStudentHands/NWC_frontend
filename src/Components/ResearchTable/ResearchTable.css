@@ -1,10 +1,12 @@
 .result-table {
 	margin-top: -5rem;
 	border-spacing: 0;
-	width: 100%;
-	table-layout: fixed;
 	font-family: var(--fontMontserrat);
-  min-height: 600px;
+	/* Same high as map */
+	min-height: 600px;
+	width: 100%;
+	border-collapse: collapse;
+	table-layout: auto;
 }
 .result-table thead tr {
 	background: #cadfee;
@@ -13,18 +15,19 @@
 .result-table th {
 	/* padding-right: 0rem; */
 	font-size: calc(30 * var(--xUnit));
-	border-bottom: 3px solid black;
-	padding: 15rem 0rem;
+	padding: 15rem 30rem;
 	text-align: center;
 	border-bottom: 1px solid black;
+	width: auto;
+	white-space: nowrap;
 }
 
 .result-table td {
-	padding-left: 20rem;
+	/* padding-left: 20rem; */
 	font-size: calc(21 * var(--xUnit));
-	vertical-align: text-top;
+	/* vertical-align: text-top; */
 	text-align: left;
-	word-wrap: break-word;
+	/* word-wrap: break-word; */
 	padding: 10rem 30rem;
 }
 
