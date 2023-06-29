@@ -1,13 +1,19 @@
 import '../ResearchingNWC'
 import './AdvancedSearch.css'
+import '../ResearchingNWC.css'
 import Collapsible from './Collapsible'
 import Select from 'react-select';
 import { useState, useEffect, } from "react";
-import Tabs from "./Tabs";
+import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
-import Results from "./Results";
+import Map from "./Map"
+
+//import Results from "./Results";
+import '../ResearchingNWC.css'
+import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
+
 
 function AdvancedSearch() {
 
@@ -149,7 +155,9 @@ function AdvancedSearch() {
     control,
   } = useForm()
 
-  const [formData, setFormData] = useState([]) // state used for data input
+  const [maps, setMap] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
 
   async function onSubmit(data) {
@@ -206,7 +214,8 @@ function AdvancedSearch() {
       filters: {
         $or: array_query,
       },
-      populate: '*',
+      populate: ['residence_in_1977','role', 'races'],
+
     }, {
       encodeValuesOnly: true, // prettify URL
     });
@@ -215,31 +224,44 @@ function AdvancedSearch() {
       alert('No search input')
     }
     else {
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`).then(res => res.json());
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
     if (response.data.length === 0) {
-      setNumResults(0)
       setIsButtonClicked(true);
 
     }
     else {
-      setFormData(response.data)
-      setNumResults(response.data.length)
+      const mapData = response.data.map((person) => {
+        return{
+          lat:person.attributes.lat,
+          lon:person.attributes.lon,
+          first_name:person.attributes.first_name,
+          last_name:person.attributes.last_name,
+        }
+      })
+      setMap(mapData);
+      const tableData = response.data.map((person) => {
+        return{
+            'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
+            'Race': person.attributes.races.data.map((race)=> race.attributes.race),
+            'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+            'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+        }
+      })
+      setTableData(tableData);
       setIsButtonClicked(true);
     }
   }
   }
-  //state for number of results
-  const [numResults, setNumResults] = useState(0)
 
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
     reset();
     setSelectedOptions({});
-    setFormData([])
+    setTableData([])
+    setMap([])
     setIsButtonClicked(false);
     }, 50)
-    setNumResults(0)
   }
 
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -900,16 +922,16 @@ function AdvancedSearch() {
           <button type="reset" className="advancedSearch_button_reset" onClick={clearForm}> Reset </button>
         </div>
         </div>
-        {isButtonClicked && (
-        <div className="advancedSearch">
-          <p> Results found: {numResults} </p>
+        {isButtonClicked && tableData.length > 0 && (
+        <div className='Result-Continer'>
+          <ResultTableMap data={tableData} map_data={maps}/>
         </div>
         )}
-        {isButtonClicked && numResults !== 0 && (
-        <div className="advancedSearch1">
-          <Results map_data={formData}/>
-        </div>
-        )}
+        {isButtonClicked && tableData.length === 0 && (
+          <div style={{textAlign: "center", marginBottom: "50rem"}}> 
+         <p> No results found </p>
+         </div>
+        )} 
       </div>
       </form>
   )

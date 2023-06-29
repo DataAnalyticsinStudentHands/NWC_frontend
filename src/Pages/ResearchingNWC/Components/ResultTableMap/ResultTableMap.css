@@ -45,3 +45,36 @@
 	border-radius: 30rem;
 	background-color: var(--colorDarkBlue);
 }
+
+.TableInfor-Sort-Button {
+	font-size: 30rem;
+	color: var(--colorLightBlue);
+	text-decoration: none;
+}
+
+.TableInfor-Sort-Button:hover {
+	text-decoration:none;
+}
+
+.TableInfor-Sort-Button.active {
+	background-color: var(--colorDarkBlue);
+	color: white;
+	border-radius: 5rem;
+	border-radius: 30rem;
+	padding: 10rem 20rem;
+  }
+
+  .TableInfor-Reset-Button {
+	font-size: 30rem;
+	color: #ffffff;
+	background-color: var(--colorDarkBlue);
+	text-decoration: none;
+	border-radius: 30rem;
+	padding: 10rem 20rem;
+
+}
+
+.TableInfor-Reset-Button:hover {
+	text-decoration: none;
+
+}
