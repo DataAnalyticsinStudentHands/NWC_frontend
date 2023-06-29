@@ -5,6 +5,7 @@ import {
 } from "react-router-dom";
 import "./DiscoverInfo.css"; // This is section 1.
 import ReactMarkdown from 'react-markdown';
+import MDEditor from '@uiw/react-md-editor';
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
 import BackToButton from '../../Components/Buttons/backTo';
@@ -40,7 +41,6 @@ function DiscoverInfo() {
         fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
             .then(res => res.json())
             .then(data => {
-                
                 const {attributes:
                             {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, firstname, lastname, role, rolesAtNwc, 
                                 sources, VideoUrl, usertags}}= data.data[0]
@@ -144,7 +144,8 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            <p>{state.bigquote1}</p>
+                            <p><MDEditor.Markdown source={state.bigquote1}  style={{'background-color': 'transparent', 'font-size':'1em' }}/></p>
+
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}
@@ -153,6 +154,9 @@ function DiscoverInfo() {
                         <ReactMarkdown>
                             {state.maintext}
                         </ReactMarkdown>
+                            
+                        
+                        
                     </div>
 
                     {state.bigquote2 !== '' && state.bigquote2 !== null ?
@@ -160,8 +164,8 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            
-                            <p>{state.bigquote2}</p>
+                            <p><MDEditor.Markdown source={state.bigquote2}  style={{'background-color': 'transparent', 'font-size':'1em' }}/></p>
+                            {/* <p>{state.bigquote2}</p> */}
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}
