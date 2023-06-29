@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import Map from './Map';
-import HighlightsCarousel from './HighlightsCarousel';
 import './OverlayVid.css';
 
 import opening from './res/openingmap.png';
@@ -16,30 +15,38 @@ import astro from './res/astro.png';
 import toform from './res/toform.png';
 import aboutpeople from './res/aboutpeople.png';
 import minorityrightsplank from './res/minority_rights_plank.png';
-import button1 from './res/button1.png';
-import button2 from './res/button2.png';
-import button3 from './res/button3.png';
-import button4 from './res/button4.png';
+import button1 from '../../res/button-why-the-nwc-matters.png';
+import button2 from '../../res/button-discover.png';
+import button3 from '../../res/button-research-the-nwc.png';
+import button4 from '../../res/button-how-to-contribute.png';
 import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
+import Carousel3 from '../../Components/Carousel/Carousel3';
 
 import VARIABLES from '../../config/.env';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 
+
+
 const getWhere = (data, key, value) => {
-  return data.filter((e) => e[key] === value);
+  return data.filter((e) => e.attributes[key] === value);
 };
 
 const urlify = (str) => {
-  return [VARIABLES.fetchBaseUrl, str].join('/'); // VARIABLES.axiosBaseURL.slice(0, VARIABLES.axiosBaseURL.length-1) + "" + str;
+  return `${VARIABLES.fetchBaseUrl}${str}`; 
 };
 
-export const superSorter = (list) => {
-  const cpy = [...list];
-  cpy.sort((a, b) => a[0] - b[0]);
+// sort points of interest by first element (Name)
+const superSorter = (list) => {
+  let cpy = [...list];
+  cpy = cpy.sort(function(a, b) { 
+    if (a[0] < b[0]) return -1;
+    if (a[0] > b[0]) return 1;
+      return 0;
+  });
   return cpy;
 };
 
@@ -49,30 +56,36 @@ function Home() {
   //temp
   const overlaymp4 = VARIABLES.overlaymp4; //"https://www.w3schools.com/html/mov_bbb.mp4";
 
-  const jack = '_';
-  const [homeAbout_p1, setHomeAbout_p1] = useState(jack + jack);
-  const [homeAbout_p2, setHomeAbout_p2] = useState(jack);
-  const [homeMap_text, setHomeMap_text] = useState(jack + jack + jack);
   const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
-  const [homeAboutImgCredit, setHomeAboutImgCredit] = useState('Jane Doe');
-  const [homeExplore_text, setHomeExplore_text] = useState(jack + jack);
-  const [homeButton1_text, setHomeButton1_text] = useState(jack);
-  const [homeButton1_link, setHomeButton1_link] = useState('/');
-  const [homeButton2_text, setHomeButton2_text] = useState(jack);
-  const [homeButton2_link, setHomeButton2_link] = useState('/');
-  const [homeButton3_text, setHomeButton3_text] = useState(jack);
-  const [homeButton3_link, setHomeButton3_link] = useState('/');
-  const [homeButton4_text, setHomeButton4_text] = useState(jack);
-  const [homeButton4_link, setHomeButton4_link] = useState('/');
   const [homeDowntown, setHomeDowntown] = useState([]);
   const [homeThirdward_uh, setHomeThirdward_uh] = useState([]);
   const [homeMuseum_district, setHomeMuseum_district] = useState([]);
   const [homeMagnolia_park, setHomeMagnolia_park] = useState([]);
   const [homeAstrodome, setHomeAtrodome] = useState([]);
-  const [photoByExplore, setPhotoByExplore] = useState([]);
-  const [aboutImgCredit_more, setAboutImgCredit_more] = useState([]);
-  const [photoByExplore_more, setPhotoByExplore_more] = useState([]);
   const [openingMap, setOpeningMap] = useState(true);
+  
+  const [state, setState] = useState({
+
+    photoByExplore: "",
+    photoByExplore_more:  "",
+    aboutImgCredit: "",
+    aboutImgCredit_more: "",
+    createdAt:"",
+    homeAbout_p: "",
+    homeAbout_p1: "",
+    homeAbout_p2: "",
+    homeButton1_link: "",
+    homeButton1_text: "",
+    homeButton2_link: "",
+    homeButton2_text: "",
+    homeButton3_link: "",
+    homeButton3_text: "",
+    homeButton4_link: "",
+    homeExplore_text: "",
+    homeHighlights_content2: "",
+    homeMap_text: ""
+  
+  });
 
   const scroll = () => {
     window.scrollTo(0, 0);
@@ -80,85 +93,88 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'content-homes'].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, 'api/content-home'].join('/'))
       .then((res) => res.json())
       .then((data) => {
-        const get = (section) => {
-          return getWhere(data, 'Section', section)[0]['Content'];
-        };
 
-        setHomeAbout_p1(get('homeAbout_p1'));
+        const {data:
+                {attributes:
+                  {PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2, homeButton1_link, homeButton1_text,
+                    homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text, homeExplore_text, homeHighlights_content2, homeMap_text
+                  }
+                }
+              } = data;
 
-        setHomeAbout_p2(get('homeAbout_p2'));
-
-        setHomeAboutImgCredit(get('aboutImgCredit'));
-
-        setHomeMap_text(get('homeMap_text'));
-
-        setHomeExplore_text(get('homeExplore_text'));
-
-        setHomeButton1_text(get('homeButton1_text'));
-
-        setHomeButton1_link(get('homeButton1_link'));
-
-        setHomeButton2_text(get('homeButton2_text'));
-
-        setHomeButton2_link(get('homeButton2_link'));
-
-        setHomeButton3_text(get('homeButton3_text'));
-
-        setHomeButton3_link(get('homeButton3_link'));
-
-        setHomeButton4_text(get('homeButton4_text'));
-
-        setHomeButton4_link(get('homeButton4_link'));
-
-        setPhotoByExplore(get('PhotoByExplore'));
-
-        setPhotoByExplore_more(get('PhotoByExplore_more'));
-
-        setAboutImgCredit_more(get('aboutImgCredit_more'));
+        setState({
+          photoByExplore: PhotoByExplore,
+          photoByExplore_more: PhotoByExplore_more,
+          aboutImgCredit: aboutImgCredit,
+          aboutImgCredit_more: aboutImgCredit_more,
+          createdAt: createdAt,
+          homeAbout_p: homeAbout_p,
+          homeAbout_p1: homeAbout_p1,
+          homeAbout_p2: homeAbout_p2,
+          homeButton1_link: homeButton1_link,
+          homeButton1_text: homeButton1_text,
+          homeButton2_link: homeButton2_link,
+          homeButton2_text: homeButton2_text,
+          homeButton3_link: homeButton3_link,
+          homeButton3_text: homeButton3_text,
+          homeButton4_link: homeButton4_link,
+          homeButton4_text: homeButton4_text,
+          homeExplore_text: homeExplore_text,
+          homeHighlights_content2: homeHighlights_content2,
+          homeMap_text: homeMap_text
+        })
+        
       })
       .catch((err) => console.log(err));
   }, []);
 
+  const[images, setImages] = useState([[]])
+
   useEffect(() => {
-    fetch([VARIABLES.fetchBaseUrl, 'content-home-maps'].join('/'))
+    fetch([VARIABLES.fetchBaseUrl, 'api/content-home-maps?populate=*'].join('/'))
       .then((res) => res.json())
       .then((data) => {
+        
         const get = (map) => {
           return superSorter(
-            getWhere(data, 'Map', map).map((p) => {
+            getWhere(data.data, 'Map', map).map((p) => {
+              const 
+                  {attributes:
+                    {x, y, Name, Description, citation1, citation2, citation3, 
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
               const p2 = [];
-              p2[0] = p['Name'];
-              p2[1] = p['x'];
-              p2[2] = p['y'];
-              p2[3] = p['Description'];
-              p2[4] = p.mainImage[0] ? urlify(p.mainImage[0].url) : undefined;
-              p2[5] = p.pdf1[0] ? urlify(p.pdf1[0].url) : undefined;
-              p2[6] = p.pdf2[0] ? urlify(p.pdf2[0].url) : undefined;
-              p2[7] = p.pdf3[0] ? urlify(p.pdf3[0].url) : undefined;
+              
+              p2[0] = Name;
+              p2[1] = x;
+              p2[2] = y;
+              p2[3] = Description;
+              p2[4] = mainImage.data.attributes.url ? urlify(mainImage.data.attributes.url) : undefined;
+              p2[5] = pdf1.data.attributes.url ? urlify(pdf1.data.attributes.url) : undefined;
+              p2[6] = pdf2.data.attributes.url ? urlify(pdf2.data.attributes.url) : undefined;
+              p2[7] = pdf3.data.attributes.url ? urlify(pdf3.data.attributes.url) : undefined;
               //p2[8] = p.pdf4[0] ? urlify(p.pdf4[0].url) : undefined;
-              p2[9] = p.img1[0] ? urlify(p.img1[0].url) : undefined;
-              p2[10] = p.img2[0] ? urlify(p.img2[0].url) : undefined;
-              p2[11] = p.img3[0] ? urlify(p.img3[0].url) : undefined;
+              p2[9] = img1.data.attributes.url ? urlify(img1.data.attributes.url) : undefined;
+              p2[10] = img2.data.attributes.url ? urlify(img2.data.attributes.url) : undefined;
+              p2[11] = img3.data.attributes.url ? urlify(img3.data.attributes.url) : undefined;
               //p2[12] = p.img4[0] ? urlify(p.img4[0].url) : undefined;
               /*p2[4] = [
               p2[9], p2[10], p2[11], p2[12]
             ]*/
               //p2[4] = p2[4][Math.floor(Math.random()*p2[4].length)];
               //console.log(p);
-              p2[13] = p['citation1'] ? p['citation1'] : '';
+              p2[13] = citation1 ? citation1: '';
               //console.log(p);
-              p2[14] = p.citation2 !== undefined ? p.citation2 : '';
-              p2[15] = p.citation3 !== undefined ? p.citation3 : '';
+              p2[14] = citation2 !== undefined ? citation2 : '';
+              p2[15] = citation3 !== undefined ? citation3 : '';
               //p2[16] = p.citation4 !== undefined ? p.citation4 : "";
-
               return p2;
             })
           );
         };
-
+        
         setHomeDowntown(get('downtown'));
         setHomeThirdward_uh(get('thirdward_uh'));
         setHomeMuseum_district(get('museum_district'));
@@ -197,7 +213,26 @@ function Home() {
     },
   };
 
-  const [videoOn, setVideoOn] = useState(true);
+  useEffect(() => {
+    fetch([VARIABLES.fetchBaseUrl, "api/home-highlights?populate=*"].join('/'))
+    .then(res => res.json())
+    .then(data => {
+      
+        setImages(
+            data.data.map(d => {
+                const featured = d.attributes.Featured;
+                const thumbnail = [VARIABLES.fetchBaseUrl, d.attributes.Thumbnail.data.attributes.url].join('')
+                // const thumbnail = 
+                const id = d.id;
+                const title = d.attributes.ShortTitle;
+                const link = d.attributes.home_highlights_link
+
+                return ['default', id, thumbnail, title, featured, link];
+            })
+        )
+    })
+    .catch(err => console.log(err));
+}, []); 
 
   return (
     <>
@@ -263,9 +298,9 @@ function Home() {
 
                 {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
                 <div className="homeAbout_peas">
-                  <p className="homeAbout_p1">{homeAbout_p1}</p>
+                  <p className="homeAbout_p1">{state.homeAbout_p1}</p>
                   {homeAboutReadmore ? (
-                    <p className="homeAbout_p2">{homeAbout_p2}</p>
+                    <p className="homeAbout_p2">{state.homeAbout_p2}</p>
                   ) : (
                     ''
                   )}
@@ -280,9 +315,10 @@ function Home() {
 
               <div className="homeAbout_chicks">
                 <img src={aboutpeople} alt="female_athletes" />
-                <div title={aboutImgCredit_more} className="homeAbout_imgCred">
-                  <p title={aboutImgCredit_more}>
-                    PHOTO BY {homeAboutImgCredit}
+                <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
+                  <p title={state.aboutImgCredit_more}>
+                    {/* PHOTO BY {state.homeAboutImgCredit} */}
+                    PHOTO BY {state.aboutImgCredit}
                   </p>
                 </div>
               </div>
@@ -297,7 +333,7 @@ function Home() {
               <div className="homeMap_headerBackdrop"></div>
               <p className="homeMap_header">INTERACTIVE MAP</p>
               <div className="homeMap_cardHr"></div>
-              <p className="homeMap_text">{homeMap_text}</p>
+              <p className="homeMap_text">{state.homeMap_text}</p>
             </div>
 
             {openingMap ? (
@@ -328,20 +364,23 @@ function Home() {
                 <div className="homeMap_tabsHr"></div>
 
                 {[
-                  { color: 'red', x: '700', y: '600', mapName: 'dt' },
-                  { color: 'blue', x: '800', y: '400', mapName: 'tw' },
-                  { color: 'green', x: '400', y: '400', mapName: 'museo' },
-                  { color: 'pink', x: '600', y: '600', mapName: 'mag' },
+                  { color: '#3FA490', x: '930', y: '754', mapName: 'dt' },
+                  { color: '#615FBF', x: '960', y: '852', mapName: 'tw' },
+                  { color: '#9EC7E1', x: '890', y: '849', mapName: 'museo' },
+                  { color: '#142F45', x: '1070', y: '810', mapName: 'mag' },
+                  { color: '#FFD048', x: '795', y: '964', mapName: 'astro' },
+
                 ].map((p) => (
-                  <div
+                  <div 
                     style={{
                       position: 'absolute',
-                      width: 'calc(20*var(--xUnit))',
-                      height: 'calc(20*var(--xUnit))',
+                      width: 'calc(35*var(--xUnit))',
+                      height: 'calc(35*var(--xUnit))',
                       backgroundColor: p.color,
                       borderRadius: '999px',
                       marginLeft: `calc(${p.x}*var(--xUnit))`,
                       marginTop: `calc(${p.y}*var(--xUnit))`,
+                      cursor: 'pointer',
                     }}
                     onClick={() => {
                       setCurrMap(p.mapName);
@@ -396,14 +435,14 @@ function Home() {
               <div className="homeExplore_headerBackdrop"></div>
               <p className="homeExplore_header">EXPLORE THE SITE</p>
               <div className="homeExplore_hr"></div>
-              <p className="homeExplore_text">{homeExplore_text}</p>
+              <p className="homeExplore_text">{state.homeExplore_text}</p>
             </div>
 
             <div className="homeExplore_img">
               <img src={minorityrightsplank} alt="minority_rights_plank" />
             </div>
-            <div className="homeExplore_imgSrc" title={photoByExplore_more}>
-              <p>PHOTO BY {photoByExplore}</p>
+            <div className="homeExplore_imgSrc" title={state.photoByExplore_more}>
+              <p>PHOTO BY {state.photoByExplore}</p>
             </div>
 
             <div className="homeExplore_borderBot"></div>
@@ -411,31 +450,30 @@ function Home() {
 
           {/**BUTTONS */}
           <div className="homeButtons">
-            <Link to={homeButton1_link}>
+            <Link to={state.homeButton1_link}>
               <div className="homeButtons_button homeButtons_button1">
                 <img src={button1} alt="button_2" />
-                <p>{homeButton1_text}</p>
+                <p>{state.homeButton1_text}</p>
               </div>
             </Link>
-
-            {/*<a href={homeButton2_link}>*/}
-            <div className="homeButtons_button homeButtons_button2">
-              <img src={button2} alt="button_2" />
-              <p>{homeButton2_text}</p>
-            </div>
-            {/*</a>*/}
-            {/*<a href={homeButton3_link}>*/}
-            <div className="homeButtons_button homeButtons_button3">
-              <img src={button3} alt="button_3" />
-              <p>{homeButton3_text}</p>
-            </div>
-            {/*</a>*/}
-            {/* <a href={homeButton4_link}>*/}
-            <div className="homeButtons_button homeButtons_button4">
-              <img src={button4} alt="button_4" />
-              <p>{homeButton4_text}</p>
-            </div>
-            {/*</a>*/}
+            <Link to={state.homeButton2_link}>
+              <div className="homeButtons_button homeButtons_button2">
+                <img src={button2} alt="button_2" />
+                <p>{state.homeButton2_text}</p>
+              </div>
+            </Link>
+            <Link to={state.homeButton3_link}>
+              <div className="homeButtons_button homeButtons_button3">
+                <img src={button3} alt="button_3" />
+                <p>{state.homeButton3_text}</p>
+              </div>
+            </Link>
+            <Link to={state.homeButton4_link}>
+              <div className="homeButtons_button homeButtons_button4">
+                <img src={button4} alt="button_4" />
+                <p>{state.homeButton4_text}</p>
+              </div>
+            </Link>
 
             <img
               className="homeButtons_dots homeButtons_dots1"
@@ -460,15 +498,22 @@ function Home() {
           </div>
 
           {/**HIGHLIGHTS */}
-          <div className="homeHighlights">
-            <div className="homeHighlights_frontDrop"></div>
-            <div className="homeHighlights_frontDrop2">
-              <h2>COMING SOON</h2>
-            </div>
-            <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
-            <HighlightsCarousel />
+      {/* 
+      <div className="homeHighlights">
+        <div className="homeHighlights_frontDrop"></div>
+        <div className="homeHighlights_frontDrop2">
+          <h2>COMING SOON</h2>
           </div>
-        </div>
+        <p className="homeHighlights_header">SITE HIGHLIGHTS</p>
+        <HighlightsCarousel/>
+      </div> */}
+      <div className="homeLaunch">
+        <h1>SITE HIGHLIGHTS</h1>
+      <div className='homeLaunchPanel'>
+        <Carousel3 images={images}/>
+      </div>
+    </div>
+  </div>
       ) : (
         ''
       )}

@@ -5,84 +5,79 @@ import "./Essay.css";
 import Layout1 from './Layouts/Layout1';
 import Layout2 from './Layouts/Layout2';
 import Layout3 from './Layouts/Layout3';
+import Torch from './Layouts/Torch';
 
 function Essay() {
+
     const { search } = useLocation();
     const id = search.split('=')[1];
 
     const [state, setState] = useState({
-        header: "SENECAL FALLS SOUTH",
-        quote: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section1_p1: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section1_p2: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section2: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section3Text: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section3Quote: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        section4: "Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum interdum odio diam, quis rutrum enim laoreet sit amet. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Quisque blandit, est sed porta finibus, velit turpis sodales nisi, eu dapibus risus augue vel dolor. Nam a orci sollicitudin, interdum ligula eu, viverra sem. Etiam vitae mollis nunc, quis pellentesque sem. Vivamus vestibulum sodales dui eget tempor. Fusce eget ultrices justo, at bibendum velit. Duis commodo non ex vel euismod.",
-        authorCred: "Written by Jane Doe",
-        sources: ["Source A", "Source B",],
-        PreferredCitation: "",
-        LayoutChoice: "Layout3", // this is the default layout because it's simple
+        layoutChoice: 'Layout3', // this is the default layout because it's simple
+        title: '',
+        headerImage: '',
+        pullQuote1: '',
+        section1: '',
+        section2: '',
+        section3: '',
+        section4: '',
+        captionedImage1: '',
+        captionedImage2: '',
+        captionedImage3: '',
+        captionedImage4: '',
+        bigImage1: '',
+        bigImage2: '',
+        pullQuote2: '',
+        authorCredit: '',
+        preferredCitation: '',
+        sources: [],
+        timeLineURL: ''
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, `content-essays/${id}`].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, `api/content-essays/${id}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
         .then(res => res.json())
         .then(data => {
-            function processImage(img) {
-                // [imgurl, credit]
-                try {
-                    return [
-                        [VARIABLES.fetchBaseUrl, img.Image[0].url].join(''),
-                        img.ImgCredit
-                    ];
-                } catch(err) {
-                    console.log(err);
-                }
-            }
-
+            const {data:
+                        {attributes:
+                            {
+                                LayoutChoice, Title, HeaderImage, PullQuote1, Section1, Section2, Section3, Section4, CaptionedImage1, CaptionedImage2, CaptionedImage3, 
+                                CaptionedImage4, BigImage1, BigImage2, PullQuote2, AuthorCredit, PreferredCitation, Sources, TimeLineURL
+                            }}} = data;
             setState({
-                ...state,
-                ...data,
-                header: data.Title,
-                quote: data.PullQuote1,
-                section1_p1: data.Paragraph1 ? data.Paragraph1.slice(0, parseInt(data.Paragraph1.length / 2)) + "-" : '',
-                section1_p2: data.Paragraph1 ? data.Paragraph1.slice(parseInt(data.Paragraph1.length / 2)) : '',
-                section2: data.Paragraph2,
-                section3Text: data.Paragraph3,
-                section3Quote: data.PullQuote2,
-                section4: data.Paragraph4,
-                authorCred: data.AuthorCredit,
-                sources: data.Sources.map(src => src.text),
-                PreferredCitation: data.PreferredCitation,
-                Image1: processImage(data.Image1),
-                Image2: processImage(data.Image2),
-                Image3: processImage(data.Image3),
-                MainImage: processImage(data.MainImage),
-                TallImage: processImage(data.TallImage),
+                layoutChoice: LayoutChoice,
+                title: Title,
+                headerImage: HeaderImage ? [VARIABLES.fetchBaseUrl, HeaderImage.Image.data.attributes.url].join('') : '',
+                pullQuote1: PullQuote1,
+                section1: Section1,
+                section2: Section2,
+                section3: Section3,
+                section4: Section4,
+                captionedImage1: CaptionedImage1 !== null ? CaptionedImage1: '',
+                captionedImage2: CaptionedImage2 !== null ? CaptionedImage2: '',
+                captionedImage3: CaptionedImage3 !== null ? CaptionedImage3: '',
+                captionedImage4: CaptionedImage4 !== null ? CaptionedImage4: '',
+                bigImage1: BigImage1 !== null ? BigImage1: '',
+                bigImage2: BigImage2 !== null ? BigImage2: '',
+                pullQuote2: PullQuote2,
+                authorCredit: AuthorCredit,
+                preferredCitation: PreferredCitation,
+                sources: Sources.map(src => src.text),
+                timeLineURL: TimeLineURL
             })
         });
         window.scrollTo(0, 0);
     }, []); // eslint-disable-line
 
     return (<div className="essay">
-        {   // LAYOUT SWITCH
-            // DEPENDS ON state.LayoutChoice,
-            // which is provided by STRAPI
+        {// LAYOUT SWITCH set via state.layoutChoice,
+            {
+                'Layout1': <Layout1 props={state} />,
+                'Layout2': <Layout2 props={state} />,
+                'Layout3': <Layout3 props={state} />,
+                'TorchRelay': <Torch props={state} />
 
-            // if layout is layout 1
-            state.LayoutChoice === "Layout1" ? 
-            // return layout 1
-            <Layout1 props={ state } /> :
-            // else
-            (
-                // if layout is layout 2
-                state.LayoutChoice === "Layout2" ?
-                // return layout 2
-                <Layout2 props={ state } /> :
-                // else return layout 3
-                <Layout3 props={ state }  />
-            )
+            }[state.layoutChoice]
         }
     </div>)
 }

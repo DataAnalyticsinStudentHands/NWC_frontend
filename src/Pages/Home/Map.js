@@ -1,31 +1,29 @@
 import React, { useState } from 'react'
+import { Link } from 'react-router-dom';
 import './Map.css';
 import maptick from './res/maptick.png';
-
-import Arrow from './Arrow';
 import ReactMarkdown from 'react-markdown';
 
 // point format: [Name, x, y, Description]
 function Map({mapImg, points}) {
-  const description = "ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ALL WORK AND NO PLAY MAKES JACK A DULL BOY. ";
-
+  // one state to hold the regular page content loaded from Strapi
+  const [state, setState] = useState({
+    description: '',
+    mainImage: '',
+    pdf1: '',
+    pdf2: '',
+    pdf3: '',
+    img1: '',
+    img2: '',
+    img3: '',
+    caption1: '',
+    caption2: '',
+    caption3: ''
+  });
+  // 2nd state to hold hover status
   const [hovering, setHovering] = useState(false);
+  // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
-  const [desc, setDesc] = useState(description);
-  const [mainImage, setMainImage] = useState("");
-  const [pdf1, setPdf1] = useState("");
-  const [pdf2, setPdf2] = useState("");
-  const [pdf3, setPdf3] = useState("");
-  //const [pdf4, setPdf4] = useState("");
-  const [img1, setimg1] = useState("");
-  const [img2, setimg2] = useState("");
-  const [img3, setimg3] = useState("");
-  //const [img4, setimg4] = useState("");
-  const [caption1, setcaption1] = useState("");
-  const [caption2, setcaption2] = useState("");
-  const [caption3, setcaption3] = useState("");
-  //const [caption4, setcaption4] = useState("");
-
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}
@@ -42,20 +40,19 @@ function Map({mapImg, points}) {
           onMouseLeave={() => setHovering(false)}
           onClick={() => {
             setPopup(p[0]);
-            setDesc(p[3]);
-            setMainImage(p[4]);
-            setPdf1(p[5]);
-            setPdf2(p[6]);
-            setPdf3(p[7]);
-            //setPdf4(p[8]);
-            setimg1(p[9]);
-            setimg2(p[10]);
-            setimg3(p[11]);
-            //setimg4(p[12]);
-            setcaption1(p[13]);
-            setcaption2(p[14]);
-            setcaption3(p[15]);
-            //setcaption4(p[16]);
+            setState({
+              description: p[3],
+              mainImage: p[4],
+              pdf1: p[5],
+              pdf2: p[6],
+              pdf3: p[7],
+              img1: p[9],
+              img2: p[10],
+              img3: p[11],
+              caption1: p[12],
+              caption2: p[14],
+              caption3: p[15]
+            });
           }}
         >
           {p[0]}
@@ -79,20 +76,19 @@ function Map({mapImg, points}) {
         >
           <img onClick={() => {
             setPopup(p[0]);
-            setDesc(p[3]);
-            setMainImage(p[4]);
-            setPdf1(p[5]);
-            setPdf2(p[6]);
-            setPdf3(p[7]);
-            //setPdf4(p[8]);
-            setimg1(p[9]);
-            setimg2(p[10]);
-            setimg3(p[11]);
-            //setimg4(p[12]);
-            setcaption1(p[13]);
-            setcaption2(p[14]);
-            setcaption3(p[15]);
-            //setcaption4(p[16]);
+            setState({
+              description: p[3],
+              mainImage: p[4],
+              pdf1: p[5],
+              pdf2: p[6],
+              pdf3: p[7],
+              img1: p[9],
+              img2: p[10],
+              img3: p[11],
+              caption1: p[12],
+              caption2: p[14],
+              caption3: p[15]
+            });
         }} src={maptick} alt="_" />
           <div className="homeMap_dotLabel">{p[0]}</div>
         </div>)}
@@ -105,45 +101,44 @@ function Map({mapImg, points}) {
                 className="homeMap_popupBack"
                 onClick={() => setPopup(false)}
               >
-                <div className="homeMap_popupBackArrow">
-                  <Arrow direction="left" color="#CCC9C9"/>
+                {/* <div className="homeMap_popupBackArrow">
+                  <p className="backArrow">&larr;</p>
                 </div>
-                <p>BACK TO MAP</p>
+                <p>BACK TO MAP</p> */}
+                <div className='closeBorder'>
+                  <span className='close'>&#x2573;</span>
+                </div>
+                
+
               </div>
-              <div className="homeMap_popupImg"><img src={mainImage} alt="_" /></div>
+              <div className="homeMap_popupImg"><img src={state.mainImage} alt="_" /></div>
               <div className="homeMap_popupSrc">
-                <p>{caption1}</p>
-                <p>{caption2}</p>
-                <p>{caption3}</p>
-                {/*<p>{caption4}</p>*/}
+                <p>{state.caption1}</p>
+                <p>{state.caption2}</p>
+                <p>{state.caption3}</p>
               </div>
               <div className="homeMap_popupFeed">
-                <a href={pdf1} target="_blank" rel="noreferrer" >
-                <div className="homeMap_popupFeedImg">
-                  <img src={img1} alt="_" />
-                </div>
-                </a>
-                <a href={pdf2} target="_blank" rel="noreferrer" >
-                <div className="homeMap_popupFeedImg">
-                  <img src={img2} alt="_" />
-                </div>
-                </a>
-                <a href={pdf3} target="_blank" rel="noreferrer">
-                <div className="homeMap_popupFeedImg">
-                  <img src={img3} alt="_" />
-                </div>
-                </a>
-                {/*<a href={pdf4} target="_blank">
-                <div className="homeMap_popupFeedImg">
-                  <img src={img4}/>
-                </div>
-                </a>*/}
+                <Link to={`PDFViewer/${state.pdf1.split('/')[5]}`}>
+                  <div className="homeMap_popupFeedImg">
+                    <img src={state.img1} alt="_" />
+                  </div>
+                </Link>
+                <Link to={`PDFViewer/${state.pdf2.split('/')[5]}`}>
+                  <div className="homeMap_popupFeedImg">
+                    <img src={state.img2} alt="_" />
+                  </div>
+                </Link>
+                <Link to={`PDFViewer/${state.pdf3.split('/')[5]}`}>
+                  <div className="homeMap_popupFeedImg">
+                    <img src={state.img3} alt="_" />
+                  </div>
+                </Link>
               </div>
             </div>
 
             <div className="homeMap_popupLocation">{popup}</div>
             <div className="homeMap_popupDescription">
-              <ReactMarkdown>{desc}</ReactMarkdown>
+              <ReactMarkdown>{state.description}</ReactMarkdown>
             </div>
           </div>
         :""}

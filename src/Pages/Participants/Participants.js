@@ -1,66 +1,99 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
+import { Link } from "react-router-dom";
 import './Participants.css';
 import VARIABLES from '../../config/.env';
-import { CSVLink, CSVDownload } from "react-csv";
+import { CSVLink } from "react-csv";
+import Select from 'react-select';
+import BackToButton from '../../Components/Buttons/backTo';
+import stateTerritories from '../../assets/stateTerritories.json';
+
 
 function Participants() {
     const [participants, setParticipants] = useState([]);
-
+    // state for select
+    const [selectedValue, setSelectedValue] = useState(null);
+    const listOfPartcipants = useRef([])
     // Pull Strapi Data
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, 'list-of-participants?_sort=name:ASC'].join('/')) // need to figure out how to sort in query, but for another day </3
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data);
-            setParticipants(data)
-        })
-        .catch(err => console.log(err));
+        fetch([VARIABLES.fetchBaseUrl, 'api/list-of-participants?sort[0]=LastName'].join('/')) // need to figure out how to sort in query, but for another day </3
+            .then(res => res.json())
+            .then(data => {
+                listOfPartcipants.current = data.data
+                setParticipants(data.data)
+            })
+            .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    function filterState(state) {
-
-        console.log([VARIABLES.fetchBaseUrl, `list-of-participants?States_contains=${state}`].join('/'));
-        fetch([VARIABLES.fetchBaseUrl, `list-of-participants?States_contains=${state}`].join('/')) // need to figure out how to sort in query, but for another day </3
-        .then(res => res.json())
-        .then(data => {
-            // console.log(data);
-            setParticipants(Array.isArray(data) ? data : [])
+    const handleChange = e => {
+        
+        let selectedValues = e.map(e=>{return e.label})
+        setSelectedValue(selectedValues);
+        const list = listOfPartcipants.current.filter(fullList => selectedValues.includes(fullList.attributes.States)).map(p=>{
+            return p
         })
-        .catch(err => console.log(err));
-    };
+        selectedValues.length === 0?setParticipants(listOfPartcipants.current): setParticipants(list)
+        
+    }
 
-    const geostates = ["", "Texas", "Louisiana", "Arkansas"];
-
+    // adding USA list of states for select input
+    const stateOptions = []
+    Object.values(stateTerritories).forEach((state) => {
+        stateOptions.push({value: state.stateCode, label: state.state}) 
+    })
     return (
         <div className="participants">
+            {/**BACK LINK */}
+            {/* <div class='backToDiscover'>
+                <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
+            </div> */}
+            <p className='backToDiscover'>
+                <BackToButton name='Discover' link='/discover'/>
+            </p>
+            
             <h1>List of NWC Participants</h1>
-            <span className="participants_dl">
-            <CSVLink
-                data={[
-                    ["Last", "First"],
-                    ...participants.map(p => [p.LastName, p.FirstName]),
-                ]}
-                filename={`participants-${Date.now()}.csv`}
-            >
-                Download the CSV
-            </CSVLink>
-            </span>
-
+            <div className='participantsOptions'>
+            
             {/**FILTER */}
-            <div className="participantsFilter">
+            {/* <div className="participantsFilter"> */}
+               <div className='participantsFilter'>
                 <p>Filter by State: </p>
-                <select onChange={e => filterState(e.target.value)}>
-                    {geostates.map(g => <option>{g}</option>)}
-                </select>
+                <Select id='select'
+                    isMulti
+                    options={stateOptions}
+                    onChange={handleChange}
+                    // onChange={onSelect}
+                    // value={selectedOptions}
+                    value={stateOptions.find(obj => obj.value === selectedValue)}
+                    className="basic-multi-select"
+                    classNamePrefix="select"
+                >
+                    
+                    
+                </Select>
+                </div>
+                <CSVLink 
+                    data={[
+                        ["Last Name", "First Name", "State"],
+                        ...participants.map(p => [p.attributes.LastName, p.attributes.FirstName, p.attributes.States]),
+                    ]}
+                    filename={`participants-${Date.now()}.csv`}
+                >
+                    Download CSV
+                </CSVLink>
+                {/* </div> */}
             </div>
 
             {/**LIST */}
             <div className="participantsList">
+                
+                <ul className='participantContainer'>
                 {
-                participants.length === 0
-                ? "No Participants Found."
-                : participants.map(p => <p key={Math.random()}>{p.LastName} {p.FirstName}</p>)
+                    participants.length === 0
+                        ? "No Participants Found."
+                        : participants.map(participant => <ul key={Math.random()}>{participant.attributes.LastName}, {participant.attributes.FirstName}, {participant.attributes.States}</ul>)
                 }
+                </ul>
+            
             </div>
         </div>
     )

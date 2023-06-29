@@ -3,6 +3,20 @@
     font-family: var(--fontBabasNeue);
     padding: 1em 0;
     color: var(--colorDarkBlue);
+    
+}
+
+.participants a {
+    color: var(--colorDeepRed);
+}
+
+.backToDiscover{
+    padding-left: 2em;
+
+}
+
+.participants a:hover {
+    text-decoration: underline;
 }
 
 .participants > h1 {
@@ -10,36 +24,47 @@
     margin-bottom: 1em;
 }
 
-.participants_dl {
-    display: block;
-    margin: auto;
-    width: fit-content;
-}
-
-.participantsFilter > p {
-    text-align: center;
-}
-
-.participantsFilter > select {
-    display: block;
-    margin: auto;
-    margin-bottom: 4em;
+.participantsOptions {
+    display: flex;
+    /* width: fit-content; */
+    padding-right: 2em;
+    padding-left: 2em;
+    /* align-items: center; */
+    flex-direction: row;
+    justify-content: space-between;
+    
 }
 
 .participantsFilter {
-    width: fit-content;
-    margin-left: 6em;
+    display: flex;
+    
+    /* float: left;  */
+}
+
+#select{
+    padding-left: 2em;
+}
+
+.participantsDownloadButton {
+    float: right;
 }
 
 .participantsList {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    background-color: rgba(117, 178, 224, .3);
-    padding: 2em;
-    width: 80%;
+    padding: 1em 2em 1em 2em;
     margin: auto;
-    font-family: var(--fontMontserrat);
-    font-size: .7em;
-    max-height: 20em;
 }
+
+.participantContainer{
+    columns: 3;
+    background-color: rgba(117, 178, 224, .3);
+    padding: .5em;
+    margin: auto;
+}
+
+.participantContainer > ul{
+    display: flex;
+    flex-flow: column wrap;
+    font-family: var(--fontMontserrat);
+    font-size: .5em;
+}
+

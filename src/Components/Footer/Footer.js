@@ -4,85 +4,75 @@ import { Link } from 'react-router-dom';
 
 import VARIABLES from "../../config/.env";
 
-import icon from "../../res/imgs/icon.png";
-import instagram from "../../res/imgs/instagram.png";
-import twitter from "../../res/imgs/twitter.png";
-import facebook from "../../res/imgs/facebook.png";
-import natendow from "../../res/imgs/natendow.png";
-
-const getWhere = (data, key, value) => {
-    return data.filter(e => e[key] === value);
-}
+import icon from "./res/icon.png";
+import instagram from "./res/instagram.png";
+import twitter from "./res/twitter.png";
+import facebook from "./res/facebook.png";
+import natendow from "./res/natendow.png";
 
 function Footer() {
 
-    const [donateLink, setDonateLink] = useState("");
-    const [facebookLink, setFacebookLink] = useState("");
-    const [instagramLink, setInstagramLink] = useState("");
-    const [twitterLink, setTwitterLink] = useState("");
-    const [contactEmail, setContactEmail] = useState("");
-    const [paragraph, setParagraph] = useState("");
+    const [state, setState] = useState({
+        donateLink: '',
+        facebookLink: '',
+        instagramLink: '',
+        twitterLink: '',
+        contactEmail: '',
+        paragraph: '',
+
+    });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "content-footers"].join('/'))
+        fetch([VARIABLES.fetchBaseUrl, "api/content-footer"].join('/'))
         .then(response => response.json())
         .then(data => {
-            const get = (section) => {
-                return getWhere(data, 'Section', section)[0]['Content'];
-              };
+            const {data:
+                    {attributes:
+                        {DonateLink, FacebookLink, InstagramLink, TwitterLink, contactEmail, paragraph}
+                    }} = data;
+            setState({
+                donateLink: DonateLink,
+                facebookLink: FacebookLink,
+                instagramLink: InstagramLink,
+                twitterLink: TwitterLink,
+                contactEmail: contactEmail,
+                paragraph: paragraph
+            });
 
-            setDonateLink (
-                get("DonateLink")
-            );
-
-            setFacebookLink (
-                get("FacebookLink")
-            );
-
-            setInstagramLink (
-                get("InstagramLink")
-            );
-
-            setTwitterLink (
-                get("TwitterLink")
-            );
-      
-            setContactEmail (
-              get("contactEmail")
-            );
-
-            setParagraph (
-                get("paragraph")
-            );
           })
         }, []);  /* eslint-disable-line */
-
+        
     return (
         <div className="footer">
                 <div className="footer_top icon">
+                    <div className="footer_top icon centered">
                     <img src={icon} alt="project_icon"/>
+                    <p style={{marginTop: "20rem"}}>Designer of IWY Symbol: Valerie Pettis</p>
+                    </div>
+                    
                 </div>
                 <div className="footer_top home">
                     <Link to={'/'}>HOME</Link>
                 </div>
                 <div className="footer_top contact">
-                    <a href={`mailto:${contactEmail}`}><p>CONTACT</p></a>
+                    <Link to='/Forms/ContactUsForm'> CONTACT </Link>
                 </div>
                 <div className="footer_top donate">
-                    <a href={donateLink}>DONATE</a>
+                    <a href={state.donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>
+                    
                 </div>
                 <div className="footer_top social">
                     <div className="socialMedia">
                         <p>SOCIAL MEDIA</p>
                     </div>
                     <div className="instagram">
-                        <a href={instagramLink}><img src={instagram} alt="instagram_logo"/></a>
+                        <a href={state.instagramLink}><img src={instagram} alt="instagram_logo"/></a>
                     </div>
                     <div className="twitter">
-                        <a href={twitterLink}><img src={twitter} alt="twitter_logo"/></a>
+                        <a href={state.twitterLink}><img src={twitter} alt="twitter_logo"/></a>
                     </div>
                     <div className="facebook">
-                        <a href={facebookLink}><img src={facebook} alt="facebook_logo"/></a>
+                        <a href={state.facebookLink}><img src={facebook} alt="facebook_logo"/></a>
                     </div>
                 </div>
             <div className="footer_bot">
@@ -92,7 +82,7 @@ function Footer() {
                 <div className="footer_seal">
                     <img src={natendow} alt="NEH_seal"/> 
                 </div>
-                {paragraph}
+                {state.paragraph}
             </div>
         </div>
     )

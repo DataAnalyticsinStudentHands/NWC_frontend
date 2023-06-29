@@ -1,0 +1,65 @@
+/*
+Map
+*/
+
+.map-area {
+  padding-left: 50rem;
+  padding-right: 50rem;
+}
+
+.map-container {
+  height: 600px;
+}
+
+/*
+  Reset button styles
+  It takes a little bit of work to achieve a “blank slate” look.
+*/
+button {
+  padding: 0;
+  border: none;
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  /*
+    Show a hand cursor on hover instead of the default arrow cursor
+    (Some argue that we should keep the default arrow cursor for buttons, to be consistent with how desktop operating systems treat buttons.)
+  */
+  cursor: pointer;
+}
+
+.marker {
+  background-image: url('./res/marker_map_icon.png');
+  background-size: cover;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+}
+
+.table-container {
+  font-size: calc(1vw + 2px);
+  font-family: var(--fontMontserrat);
+  display: flex;
+  padding-top: 50rem;
+  padding-bottom: 50rem;
+  flex: 1,1,1, auto
+}
+
+  
+th {
+  text-align: center;
+  border-bottom: 1px solid black;
+}
+  
+td {  
+  padding: 10rem 30rem ;
+  text-align: left;
+}
+
+
+
+
+
+
+
+

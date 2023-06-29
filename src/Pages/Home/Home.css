@@ -4,7 +4,7 @@ SPLASH
 
 .homeSplash {
   display: flex;
-  background: url('./res/mapbg.png');
+  background: url('../../res/mapbg.png');
   padding-left: 160rem;
   padding-top: 156.33rem;
   padding-bottom: 106.17rem;
@@ -453,49 +453,49 @@ BUTTONS
 HIGHLIGHTS
 */
 
-.homeHighlights {
-  background: url('./res/mapbg.png');
-  height: calc(1453.28 * var(--xUnit));
-  padding-top: calc(212 * var(--xUnit));
+.homeLaunch {
+  background: url("../../res/mapbg.png");
+  height: calc(1000*var(--xUnit));
+  padding-top: calc(212*var(--xUnit));
 }
 
-.homeHighlights_frontDrop {
-  background-color: var(--colorBeige);
-  width: calc(1427 * var(--xUnit));
-  height: calc(970 * var(--xUnit));
-  position: absolute;
-  margin-left: calc(256 * var(--xUnit));
-}
-
-.homeHighlights_frontDrop2 {
-  width: calc(1427 * var(--xUnit));
-  height: calc(970 * var(--xUnit));
-  position: absolute;
-  margin-left: calc(256 * var(--xUnit));
-  font-size: 60rem;
-  font-family: 'subway_ds';
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgba(0, 0, 0, 0.69);
-  color: white;
-  z-index: 5;
-  flex-direction: column;
-}
-
-.homeHighlights_frontDrop2 p {
-  font-size: 34.5rem;
+.homeLaunch h1{
   font-family: 'babas_neue', 'normal';
-}
-
-.homeHighlights_header {
-  font-family: 'babas_neue', 'normal';
-  font-size: calc(80 * var(--xUnit));
+  font-size: calc(80*var(--xUnit));
   color: var(--colorDeepRed);
-  position: absolute;
-  margin-top: calc(60 * var(--xUnit));
-  margin-left: calc(764 * var(--xUnit));
+  text-align: center;
 }
+
+.homeLaunch p{
+  font-family: 'neobulletin';
+  font-size: calc(30*var(--xUnit));
+  text-align: center;
+}
+
+.homeLaunchPanel{
+  /* display: flex; */
+  justify-content: center;
+  padding-top: calc(100*var(--xUnit));
+  padding: 40rem 120rem;
+  width: 80%;
+  margin: 60rem auto;
+}
+
+
+.homeLaunchPanel img{
+    display: block;
+    width: 350rem;
+    margin-right: auto;
+    margin-left: auto;
+}
+.homeLaunchPanel a:hover {
+  opacity: .6;
+}
+
+.homeLaunchPanel::-webkit-scrollbar {
+  width: 10px;
+}
+
 
 /*
 THE CSS FOR HANDLING THE ACTUAL INTERACTIVE MAP CAN BE FOUND IN

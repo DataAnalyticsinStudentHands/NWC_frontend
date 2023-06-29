@@ -1,0 +1,56 @@
+/* 
+COLOR CORNER TOP RIGHT 
+*/
+.colorRibbonTR {
+    position: absolute;
+    margin-left: 1200rem;
+    margin-top: -1000rem;
+    height:100%;
+    width: 100%;
+    z-index: -1;
+  }
+
+.colorRibbonResearchersBL{
+    position: absolute;
+    margin-left: -870rem;
+    margin-top: -700rem;
+    object-fit: none;
+    max-width: 100%;
+    z-index: -1;
+}
+
+/*
+BANNER
+*/
+
+.researchersBanner_border {
+    float: left;
+    margin-left: 75rem;
+    margin-right: auto;
+    margin-bottom: 30rem;
+    width: 45.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+.researchersBanner_text{
+    width: 10rem;
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 15rem;
+}
+
+.researchersBanner_button{
+    margin-left:300rem;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+
+    margin-top: 100rem;
+  }

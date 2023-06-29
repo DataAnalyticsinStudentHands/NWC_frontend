@@ -1,0 +1,57 @@
+/* 
+COLOR CORNER TOP RIGHT 
+*/
+.colorRibbonTopRight {
+    position: absolute;
+    height:100%;
+    width: 100%;
+    margin-top:-315rem;
+    margin-left:790rem;
+    -ms-transform: rotate(200deg); /* IE 9 */
+    transform: rotate(200deg);
+    z-index: -1;
+  }
+
+.colorRibbonStudentBL{
+    position: absolute;
+    z-index: -1;
+    margin-left: -780rem;
+    margin-top: -580rem;
+    object-fit: cover;
+}
+
+/*
+BANNER
+*/
+
+.researchersBanner_border {
+    float: left;
+    margin-left: 75rem;
+    margin-right: auto;
+    margin-bottom: 30rem;
+    width: 45.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+.researchersBanner_text{
+    width: 10rem;
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 15rem;
+}
+
+.researchersBanner_button{
+    margin-left:300rem;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+
+    margin-top: 100rem;
+  }

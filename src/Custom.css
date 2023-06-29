@@ -12,6 +12,7 @@ body {
 /*THEMING*/
 
 :root{
+  --colorBackgroundLightGray: #E2E2E2; /*Like seen in the background for the pdf viewer*/
   --colorLightGray: #CCC9C9; /*Like seen in the text of homeMap's popup*/
   --colorLightGrayFont: #A5A5A5; /*Like seen in the text for essays*/
   --colorDarkBlue: #142F45; /*Like seen in the background of the Navigation*/
@@ -21,7 +22,7 @@ body {
   --colorDeepOrange: #CB4E28; /*Like seen on the border of Navigation*/
   --colorDeepYellow: #FFD048; /*Like seen on the bottom border of the homeAbout Section*/
   --colorBeige: #FFF4E8; /*Like seen the homeAbout section*/
-  --colorLighterBlue: rgba(117, 178, 224, .5);
+  --colorLighterBlue: #F1F8FD; /*Like seen as background color in Biographies */
 
   --fontBabasNeue: 'babas_neue';
   --fontGotham: 'gotham';

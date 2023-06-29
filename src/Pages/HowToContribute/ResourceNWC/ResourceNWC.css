@@ -1,0 +1,52 @@
+/* 
+COLOR CORNER TOP RIGHT 
+*/
+.dotBlue {
+    position: absolute;
+    z-index: -1;
+    margin-left: -200rem;
+  }
+
+.dotRed {
+    position: absolute;
+    z-index: -1;
+    margin-left: 1600rem;
+    margin-top: -750rem;
+}
+
+/*
+BANNER
+*/
+
+.resourceNWCBanner_border {
+    float: left;
+    margin-left: 75rem;
+    margin-right: auto;
+    margin-bottom: 30rem;
+    width: 45.5vw;
+    border-top: 10rem solid var(--colorDeepRed); /*high*/
+    height: 30rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
+}
+
+.resourceNWCBanner_text{
+    width: 10rem;
+    font-family:var(--fontBabasNeue);
+    text-align:center;
+    font-size: 15rem;
+}
+
+.resourceNWCBanner_button{
+    margin-left:300rem;
+}
+
+/* 
+VIDEO PLAYER 
+*/
+
+.resourceVideoPlayer{
+    display: flex;
+    justify-content: center;
+    margin-top: 100rem;
+  }
