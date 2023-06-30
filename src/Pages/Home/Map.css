@@ -245,13 +245,16 @@ POPUP
 .close{
   color: var(--colorLightGrayFont);
   font-size: calc(20*var(--xUnit));
-  text-align: center;
+  /* text-align: center; */
 
 }
 
 
 .closeBorder{
+  display:flex;
   margin-left:auto;
+  justify-content:center;
+  align-items:center;
   width: 1.5em;
   height: 1.5em;
   border:solid var(--colorLightGrayFont);

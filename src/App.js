@@ -10,7 +10,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
 import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
-// import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
+import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
@@ -30,7 +30,7 @@ import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/Resou
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
-
+import Organizations from "./Pages/ResearchingNWC/Organizations"
 
 function App() {
   return (
@@ -39,6 +39,9 @@ function App() {
       <Navigation />
       <ScrollToTop>
       <Switch>
+        <Route path="/Organizations">
+          <Organizations />
+        </Route>
         <Route path="/MeetTheTeam">
           <MeetTheTeam />
         </Route>
@@ -63,9 +66,9 @@ function App() {
         <Route path="/HowToContribute">
           <HowToContribute />
         </Route>
-{/*         <Route path="/AdvancedSearch">
+        <Route path="/AdvancedSearch">
           <AdvancedSearch />
-        </Route> */}
+        </Route> 
         <Route path="/About">
           <About></About>
         </Route>

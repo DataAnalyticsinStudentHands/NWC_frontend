@@ -1,0 +1,47 @@
+.Research-Pagination {
+	list-style: none;
+	gap: 30px;
+
+	display: flex;
+	cursor: pointer;
+	justify-content: center;
+}
+
+.Research-Pagination a {
+	font-style: normal;
+	font-weight: 400;
+	font-size: 48rem;
+	line-height: 72px;
+	display: flex;
+	align-items: center;
+
+	color: #cadfee;
+
+	transition: 0.1s;
+}
+.Research-Pagination a:hover {
+	color: var(--colorDarkBlue);
+}
+.Research-Pagination .active a {
+	color: var(--colorDarkBlue);
+	font-size: 60rem;
+}
+
+.Research-Pagination .disabled a {
+	/* color: #cadfee; */
+	color: var(--colorDarkBlue);
+}
+
+.TableInfor {
+	display: flex;
+	justify-content: space-between;
+}
+
+.TableInfor-Right-Button {
+	font-size: 30rem;
+	padding: 10rem 50rem;
+	color: white;
+	border-radius: 5rem;
+	border-radius: 30rem;
+	background-color: var(--colorDarkBlue);
+}

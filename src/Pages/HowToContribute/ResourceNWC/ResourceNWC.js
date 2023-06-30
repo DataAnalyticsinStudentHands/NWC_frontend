@@ -1,16 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import VARIABLES from '../../../config/.env';
 import './ResourceNWC.css';
-import nwc_participants_button from "../res/nwc_participants_button.png"
-import oralIcon from "../res/oralIcon.png"
-import iconPapers from "../res/iconPapers.png"
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
-import techIcon from "../res/techIcon.png"
-import permissionIcon from "../res/permissionIcon.png"
-import contributeIcon from "../res/contributeIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
@@ -29,7 +20,7 @@ function ResourceNWC() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{
@@ -51,7 +42,7 @@ function ResourceNWC() {
                     Pdf_How_to_Contribute_Oral_Histories_NWCParticipants: Pdf_How_to_Contribute_Oral_Histories_NWCParticipants.data ? Pdf_How_to_Contribute_Oral_Histories_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
                     Pdf_How_to_Contribute_Biographies_NWCParticipants: Pdf_How_to_Contribute_Biographies_NWCParticipants.data ? Pdf_How_to_Contribute_Biographies_NWCParticipants.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Technical_Guidelines: Pdf_Technical_Guidelines.data ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents.data ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents.data ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);

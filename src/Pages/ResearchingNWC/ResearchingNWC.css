@@ -219,6 +219,7 @@ input[type="checkbox"]:disabled {
   cursor: not-allowed;
 }
 
+/* Need Fix, can have basic tage in this level */
 button {
   font-size: 30rem;
   font-family: var(--fontBabasNeue);
@@ -237,62 +238,28 @@ button {
 }
 
 .searchButton {
-  background-color: var(--colorDeepRed);
+  background-color: var(--colorDeepRed); 
+  padding: 10rem 50rem;
+  color: white;
+  border-radius: 30rem;
+  font-size: 30rem;
 }
 
 .resetButton {
   background-color: var(--colorDarkBlue);
+  padding: 10rem 50rem;
+  color: white;
+  border-radius: 30rem;
+  font-size: 30rem;
 }
 
 button:hover {
   text-decoration: underline;
 }
 
-
-.nameSearch {
-  display: flex;
-  margin-top: 30rem;
+.Result-Continer{
+    margin: 50rem 80rem;
 }
-
-.mappingNWCSearch_bar {
-  width: fit-content;
-  display: flex;
-  padding: 0 .2em;
-}
-
-.mappingNWCSearch_bar > input {
-  border: none;
-  outline: none;
-  border-bottom: .1em solid var(--colorLightBlue);
-  height: fit-content;
-  font-size: .7em;
-  margin: auto;
-  padding-left: 1ch;
-  margin-right: 1ch;
-}
-
-.mappingNWCSearch_bar > input::placeholder {
-  color: lightgray;
-}
-
-.mappingNWCSearch_bar > input:focus {
-  border-bottom: .1em solid var(--colorDeepRed);
-}
-
-.mappingNWCSearch_icon {
-  background-image: url("./res/searchicon.png");
-  background-repeat: no-repeat;
-  border-radius: 0;
-  background-size: 30%;
-  cursor: pointer;
-}
-
-.mappingNWCSearch_icon:hover {
-  cursor: pointer;
-  color: var(--colorDeepRed);
-  transform: scale(1.04);
-}
-
 
 
 

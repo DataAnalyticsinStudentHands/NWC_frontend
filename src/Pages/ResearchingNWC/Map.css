@@ -16,7 +16,7 @@ Map
   It takes a little bit of work to achieve a “blank slate” look.
 */
 button {
-  padding: 0;
+  /* padding: 0; */
   border: none;
   font: inherit;
   color: inherit;
@@ -36,25 +36,6 @@ button {
   cursor: pointer;
 }
 
-.table-container {
-  font-size: calc(1vw + 2px);
-  font-family: var(--fontMontserrat);
-  display: flex;
-  padding-top: 50rem;
-  padding-bottom: 50rem;
-  flex: 1,1,1, auto
-}
-
-  
-th {
-  text-align: center;
-  border-bottom: 1px solid black;
-}
-  
-td {  
-  padding: 10rem 30rem ;
-  text-align: left;
-}
 
 
 

@@ -24,6 +24,7 @@ function Map({mapImg, points}) {
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
+
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}
@@ -35,6 +36,7 @@ function Map({mapImg, points}) {
           POINTS OF INTEREST
         </p>
         {points.map(p => <p
+          key={Math.random()}
           className={"homeMap_poiText " + (hovering === p[0] ? "homeMap_poiText--hovering" : "")}
           onMouseEnter={() => setHovering(p[0])}
           onMouseLeave={() => setHovering(false)}
@@ -63,7 +65,8 @@ function Map({mapImg, points}) {
       <div className="homeMap_interactive">
         <img className="homeMap_img" src={mapImg} alt="_" />
 
-        {points.map(p => <div 
+        {points.map(p => <div
+          key={Math.random()}
           className={
             "homeMap_dot " +
             (hovering === p[0] ? "homeMap_dot--hovering" : "")}
@@ -118,17 +121,17 @@ function Map({mapImg, points}) {
                 <p>{state.caption3}</p>
               </div>
               <div className="homeMap_popupFeed">
-                <Link to={`PDFViewer/${state.pdf1.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf1.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img1} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf2.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf2.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img2} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf3.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf3.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img3} alt="_" />
                   </div>

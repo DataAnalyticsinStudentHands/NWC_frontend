@@ -1,6 +1,5 @@
 import React from 'react';
 import styles from './Forms.module.css';
-import { Link } from 'react-router-dom';
 
 function ThankYou() {
   return (

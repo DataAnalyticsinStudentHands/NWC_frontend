@@ -1,20 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import VARIABLES from '../../../config/.env';
+
 import './ResourceEducators.css';
-import oralIcon from "../res/oralIcon.png"
-import iconClass from "../res/iconClass.png"
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
-import techIcon from "../res/techIcon.png"
-import educators_button from "../res/educators_button.png"
-import permissionIcon from "../res/permissionIcon.png"
-import contributeIcon from "../res/contributeIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
 import ContributeIcons from '../../../contributeIcons/contributeIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
-
 
 function ResourceEducators() {
 
@@ -30,7 +21,7 @@ function ResourceEducators() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{
@@ -54,7 +45,7 @@ function ResourceEducators() {
                     Pdf_How_to_Contribute_Biographies_Educators: Pdf_How_to_Contribute_Biographies_Educators ? Pdf_How_to_Contribute_Biographies_Educators.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Classroom_Ideas: Pdf_Classroom_Ideas ? Pdf_Classroom_Ideas.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
