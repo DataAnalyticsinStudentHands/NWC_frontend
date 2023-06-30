@@ -128,3 +128,7 @@ package-lock.json
 yarn-debug.log*
 yarn-error.log*
 .vscode
+package_dev.json
+.htaccess_dev
+App_dev.js
+Navigation_dev.js
