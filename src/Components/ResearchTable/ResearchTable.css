@@ -3,13 +3,17 @@
 	border-spacing: 0;
 	font-family: var(--fontMontserrat);
 	/* Same high as map */
-	min-height: 600px;
+	min-height: 400px;
 	width: 100%;
 	border-collapse: collapse;
 	table-layout: auto;
 }
 .result-table thead tr {
 	background: #cadfee;
+}
+
+.result-table thead tr:hover {
+	cursor: pointer;
 }
 
 .result-table th {
@@ -34,3 +38,11 @@
 .result-table tr:nth-child(even) {
 	background-color: #cadfee;
 }
+
+.TableInfor-Left {
+	display: flex;
+	justify-content: center;
+	margin-top: 10rem
+  }
+
+  

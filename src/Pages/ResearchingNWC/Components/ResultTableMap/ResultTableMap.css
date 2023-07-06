@@ -1,10 +1,10 @@
 .Research-Pagination {
 	list-style: none;
 	gap: 30px;
-
 	display: flex;
 	cursor: pointer;
 	justify-content: center;
+	padding-left: 0px
 }
 
 .Research-Pagination a {
@@ -14,9 +14,7 @@
 	line-height: 72px;
 	display: flex;
 	align-items: center;
-
 	color: #cadfee;
-
 	transition: 0.1s;
 }
 .Research-Pagination a:hover {
@@ -44,37 +42,4 @@
 	border-radius: 5rem;
 	border-radius: 30rem;
 	background-color: var(--colorDarkBlue);
-}
-
-.TableInfor-Sort-Button {
-	font-size: 30rem;
-	color: var(--colorLightBlue);
-	text-decoration: none;
-}
-
-.TableInfor-Sort-Button:hover {
-	text-decoration:none;
-}
-
-.TableInfor-Sort-Button.active {
-	background-color: var(--colorDarkBlue);
-	color: white;
-	border-radius: 5rem;
-	border-radius: 30rem;
-	padding: 10rem 20rem;
-  }
-
-  .TableInfor-Reset-Button {
-	font-size: 30rem;
-	color: #ffffff;
-	background-color: var(--colorDarkBlue);
-	text-decoration: none;
-	border-radius: 30rem;
-	padding: 10rem 20rem;
-
-}
-
-.TableInfor-Reset-Button:hover {
-	text-decoration: none;
-
 }

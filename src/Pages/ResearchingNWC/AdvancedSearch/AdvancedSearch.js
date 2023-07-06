@@ -210,6 +210,7 @@ function AdvancedSearch() {
       });
     }
     
+    console.log('array: ', array_query)
     const query = qs.stringify({
       filters: {
         $or: array_query,
@@ -225,6 +226,8 @@ function AdvancedSearch() {
     }
     else {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    console.log('data: ', response)
+
     if (response.data.length === 0) {
       setIsButtonClicked(true);
 
@@ -252,7 +255,6 @@ function AdvancedSearch() {
     }
   }
   }
-
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
