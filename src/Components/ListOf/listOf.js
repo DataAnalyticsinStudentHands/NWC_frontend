@@ -35,9 +35,7 @@ function ListOf(props){
                 fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?filters[organizational_and_political][$containsi]=${input}&sort[0]=organizational_and_political:asc`].join('/'))
                 .then(response => response.json())
                 .then(data => {
-                    
                     listOfData.current = data.data
-                    console.log('43', data.data)
                     setListData(data.data)
                     setSearchBar(true)
                 })
@@ -46,6 +44,7 @@ function ListOf(props){
                 fetch([process.env.REACT_APP_API_URL, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
                     .then(res => res.json())
                     .then(data => {
+                        console.log('49')
                         listOfData.current = data.data
                         setListData(data.data)
                         setSearchBar(true)
@@ -94,26 +93,21 @@ function ListOf(props){
             return
         }
         if(dataType === 'Participants'){
-            const letterList = stateChoices.length === 0?
-            listOfData.current.filter(stateList => letter.includes(stateList.attributes.LastName[0].toLowerCase()))
+            const letterList = stateChoices.length === 0
+            ?listOfData.current.filter(stateList => letter.includes(stateList.attributes.LastName[0].toLowerCase()))
             :stateChoices.filter(stateList => letter.includes(stateList.attributes.LastName[0].toLowerCase()))
             setListData(letterList)
         }
         if(dataType === 'Organizations'){
-            // const letterList = activeLetter === null
-            // ?
-            // listOfData.current.filter(orgList => letter.includes(orgList.attributes.organizational_and_political[0].toLowerCase()))
-            // :listData.filter(orgList => letter.includes(orgList.attributes.organizational_and_political[0].toLowerCase()))
-            const letterList = activeLetter === null
+            const letterList = letter === null
             ? listOfData.current
             :listOfData.current.filter(orgList => letter.includes(orgList.attributes.organizational_and_political[0].toLowerCase()))
             setListData(letterList)
+        
         }
 
         
     }
-
-
 
     return(
         <div className="listOf">
