@@ -209,13 +209,16 @@ function AdvancedSearch() {
         'age_in_1977': ageRangeQuery,
       });
     }
+    const unformatted = array_query.map((item) => {
+      const key = Object.keys(item)[0];
+      return key
+    })
     
-    console.log('array: ', array_query)
     const query = qs.stringify({
       filters: {
         $or: array_query,
       },
-      populate: ['residence_in_1977','role', 'races'],
+      populate: '*',
 
     }, {
       encodeValuesOnly: true, // prettify URL
@@ -226,8 +229,21 @@ function AdvancedSearch() {
     }
     else {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    console.log('data: ', response)
+    let uniqueArray = new Set()
 
+    response.data.forEach((item) => {    
+      Object.keys(item.attributes).forEach((key) => {
+        unformatted.forEach((item2) => {
+          if (key === item2) {
+            uniqueArray.add(item2);
+          }
+        })
+      });
+    });
+
+    const newArray = Array.from(uniqueArray);
+
+    console.log('new:', newArray)
     if (response.data.length === 0) {
       setIsButtonClicked(true);
 
@@ -242,14 +258,36 @@ function AdvancedSearch() {
         }
       })
       setMap(mapData);
+
       const tableData = response.data.map((person) => {
-        return{
-            'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
-            'Race': person.attributes.races.data.map((race)=> race.attributes.race),
-            'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
-            'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
-        }
-      })
+        const tableItem = {
+          'Name': `${person.attributes.last_name}, ${person.attributes.first_name}`,
+        };
+      
+        newArray.forEach((element) => {
+          const formattedKey = element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase()); //formats table header
+      
+          const nestedProperties = element.split('.');
+          let nestedValue = person.attributes;
+          let key; // Declare key variable without assignment
+      
+          nestedProperties.forEach((property) => {
+            const modifiedProperty = property.endsWith('s') ? property.slice(0, -1) : property;
+      
+            if (typeof nestedValue[property] === 'object' && property in nestedValue) {
+              nestedValue = nestedValue[property].data.map((item) => item.attributes[modifiedProperty]);
+              key = modifiedProperty.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase()); //formats table header; // Update key if the condition is true
+            } else {
+              nestedValue = nestedValue[property];
+            }
+          });
+      
+          tableItem[key || formattedKey] = nestedValue;
+        });
+      
+        return tableItem;
+      });
+
       setTableData(tableData);
       setIsButtonClicked(true);
     }
@@ -263,6 +301,7 @@ function AdvancedSearch() {
     setTableData([])
     setMap([])
     setIsButtonClicked(false);
+    setIsAgeCheckboxChecked(false);
     }, 50)
   }
 
