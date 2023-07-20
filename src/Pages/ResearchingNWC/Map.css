@@ -16,7 +16,7 @@ Map
   It takes a little bit of work to achieve a “blank slate” look.
 */
 button {
-  padding: 0;
+  /* padding: 0; */
   border: none;
   font: inherit;
   color: inherit;
