@@ -13,22 +13,26 @@ export const ResearchTable = (props) => {
 
 	const handleSort = (key) => {
 		if (sortKey === key) {
-		// Reverse the sort order if the same column is clicked again
-		setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+		  // Reverse the sort order if the same column is clicked again
+		  setSortOrder(sortOrder === "asc" ? "desc" : "asc");
 		} else {
-		// Sort in ascending order by default for a new column
-		setSortKey(key);
-		setSortOrder("asc");
+		  // Sort in ascending order by default for a new column
+		  setSortKey(key);
+		  setSortOrder("asc");
 		}
-	};
-
-	const sortedData = data.sort((a, b) => {
+	  };
+	  
+	  const sortedData = [...data].sort((a, b) => {
 		if (sortOrder === "asc") {
-		return a[sortKey] > b[sortKey] ? 1 : -1;
+		  if (a[sortKey] === null) return 1;
+		  if (b[sortKey] === null) return -1;
+		  return a[sortKey] > b[sortKey] ? 1 : -1;
 		} else {
-		return a[sortKey] < b[sortKey] ? 1 : -1;
+		  if (a[sortKey] === null) return -1;
+		  if (b[sortKey] === null) return 1;
+		  return a[sortKey] < b[sortKey] ? 1 : -1;
 		}
-	});
+	  });
 
 	const pageCount = Math.ceil(data.length / coinsPerPage);
 	const currentData = sortedData.slice(
@@ -43,6 +47,7 @@ export const ResearchTable = (props) => {
 
 	return (
 		<>
+		<div className="table-container">
 		<table className="result-table">
 			<thead>
 			<tr>
@@ -77,7 +82,7 @@ export const ResearchTable = (props) => {
 			})}
 			</tbody>
 		</table>
-
+		</div>
 		{pageCount > 1 && (
 			<ReactPaginate
 			containerClassName="Research-Pagination"

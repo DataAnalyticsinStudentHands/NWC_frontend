@@ -10,7 +10,6 @@ import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
 import Map from "./Map"
 
-//import Results from "./Results";
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 
@@ -46,7 +45,7 @@ function AdvancedSearch() {
   const politicalData = ["American Independent Party", "Black Panther Party", "Communist Party USA", "Conservative Party of New York", "DC Statehood Party",
                           "Democratic Party", "Liberal Party of New York", "Libertarian Party", "Minnesota Democratic-Farmer-Labor Party", "North Dakota Democratic-Nonpartisan-League Party",
                           "Peace and Freedom Party", "Raza Unida Party", "Republican Party", "Socialist Party USA", "Socialist Workers Party", "Other"];
-
+  
   const religionOptions = religionData.map((option) => {
     return {value: option, label: option}
   }
@@ -159,71 +158,111 @@ function AdvancedSearch() {
   const [tableData, setTableData] = useState([]);
 
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
+  const [ageCheckboxState, setAgeCheckboxState] = useState({
+    age1to39: false,
+    age40to64: false,
+    age65plus: false,
+  });
+
+  const handleAgeCheckboxChange = (name, checked) => {
+    setAgeCheckboxState({
+      ...ageCheckboxState,
+      [name]: checked,
+    });
+  };
 
   async function onSubmit(data) {
+    console.log('data: ', data)
     let array_query = [];
 
-    Object.values(data).forEach((value, index) => {
-      if (value !== undefined && value !== false) { // loop checks if any search value is null
-        let hasNonEmptyProp = false;
-        for (const prop in value) {
-          if (
-            value[prop] !== undefined &&
-            value[prop] !== '' &&
-            value[prop] !== false
-          ) {
-            let hasNonEmptyNestedProp = false;
-        
-            // Iterate over nested properties dynamically
-            for (const nestedProp in value[prop]) {
-              if (
-                value[prop][nestedProp] !== undefined &&
-                value[prop][nestedProp] !== '' &&
-                value[prop][nestedProp] !== false
-              ) {
-                hasNonEmptyNestedProp = true;
-                break;
-              }
-            }
-            if (hasNonEmptyNestedProp) {
-              hasNonEmptyProp = true;
-              break;
-            }
-          }
-        }
-        if (hasNonEmptyProp) { // if result not empty, push
-          const newObj = {};
-          newObj[Object.keys(data)[index]] = value;
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== undefined && value !== false && typeof value === 'object') {
+        const filteredValue = filterEmptyStringsInNestedStructure(value);
+        if (Object.keys(filteredValue).length > 0) {
+          const newObj = { [key]: filteredValue };
           array_query.push(newObj);
         }
       }
+      else if (value !== undefined && value !== false){
+        const newObj = { [key]: value };
+        array_query.push(newObj)
+      }
     });
 
-    if (isAgeCheckboxChecked) {
-      // Handle the case when the age '40-64' checkbox is checked
+    function filterEmptyStringsInNestedStructure(obj) {
+      const filteredObj = {};
+    
+      for (const prop in obj) {
+        if (typeof obj[prop] === 'object') {
+          const filteredNested = filterEmptyStringsInNestedStructure(obj[prop]);
+    
+          if (Object.keys(filteredNested).length > 0) {
+            filteredObj[prop] = filteredNested;
+          }
+        } else if (obj[prop] !== '' && obj[prop] !== undefined && obj[prop] !== false) {
+          filteredObj[prop] = obj[prop];
+        }
+      }
+      return filteredObj;
+    }
+    //checks age ranges
+    if (ageCheckboxState.age40to64) {
       const ageRangeQuery = {
         $gte: 40,
         $lte: 64,
       };
-      array_query.push({
-        'age_in_1977': ageRangeQuery,
-      });
+      array_query.push({ 'age_in_1977': ageRangeQuery });
     }
+
+    // Handle the '1-39' checkbox
+    if (ageCheckboxState.age1to39) {
+      const ageRangeQuery = {
+        $gte: 1,
+        $lte: 39,
+      };
+      array_query.push({ 'age_in_1977': ageRangeQuery });
+    }
+
+    // Handle the '65+' checkbox
+    if (ageCheckboxState.age65plus) {
+      const ageRangeQuery = {
+        $gte: 65,
+      };
+      array_query.push({ 'age_in_1977': ageRangeQuery });
+    }
+    
+    const categories = [];
+    function extractAttributes(obj) {
+      const keys = Object.keys(obj);
+      categories.push(...keys);
+
+      for (const key of keys) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          // If the value is an object (nested attribute), recursively extract its attributes
+          extractAttributes(value);
+        }
+      }
+    }
+    array_query.forEach((item) => {
+      extractAttributes(item);
+    });
+
     const unformatted = array_query.map((item) => {
       const key = Object.keys(item)[0];
       return key
     })
-    
+    console.log('arrayq: ', array_query)
     const query = qs.stringify({
       filters: {
         $or: array_query,
       },
-      populate: '*',
+      populate: unformatted,
 
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    console.log('query: ', query)
+
     if (array_query.length === 0) {
       alert('No search input')
     }
@@ -243,7 +282,6 @@ function AdvancedSearch() {
 
     const newArray = Array.from(uniqueArray);
 
-    console.log('new:', newArray)
     if (response.data.length === 0) {
       setIsButtonClicked(true);
 
@@ -265,34 +303,78 @@ function AdvancedSearch() {
         };
       
         newArray.forEach((element) => {
-          const formattedKey = element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase()); //formats table header
+          const formattedKey = element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
       
           const nestedProperties = element.split('.');
           let nestedValue = person.attributes;
-          let key; // Declare key variable without assignment
-      
+          // Recursive function to flatten nested arrays
+
+          function flattenArray(arr, result = []) {
+            for (const item of arr) {
+              if (Array.isArray(item)) {
+                flattenArray(item, result);
+              } else {
+                result.push(item);
+              }
+            }
+            return result;
+          }
+
+          // Create an empty array to store all the values
+          let nestedValuesArray = [];
+
           nestedProperties.forEach((property) => {
-            const modifiedProperty = property.endsWith('s') ? property.slice(0, -1) : property;
-      
-            if (typeof nestedValue[property] === 'object' && property in nestedValue) {
-              nestedValue = nestedValue[property].data.map((item) => item.attributes[modifiedProperty]);
-              key = modifiedProperty.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase()); //formats table header; // Update key if the condition is true
+            if (
+              typeof nestedValue[property] === 'object' &&
+              property in nestedValue &&
+              nestedValue[property] !== null
+            ) {
+              const filteredValues = nestedValue[property].data.map((item) => {
+                const attributes = item.attributes;
+                const filteredAttributes = Object.entries(attributes).reduce((acc, [key, value]) => {
+                  if (key !== 'createdAt' && key !== 'updatedAt' && categories.includes(key)) {
+                    acc[key] = convertBooleanToString(value); // Convert boolean values to "yes" or "no"
+                  }
+                  return acc;
+                }, {});
+          
+                // Return only the values of the filtered attributes (without 'createdAt' and 'updatedAt' keys and values)
+                return Object.values(filteredAttributes);
+              });
+          
+              // Append the filtered values to the nestedValuesArray
+              nestedValuesArray.push(...filteredValues);
             } else {
-              nestedValue = nestedValue[property];
+              nestedValuesArray.push(convertBooleanToString(nestedValue[property]));
             }
           });
-      
-          tableItem[key || formattedKey] = nestedValue;
-        });
-      
-        return tableItem;
-      });
+          
+          function convertBooleanToString(value) {
+            if (value === true || value === "true") {
+              return "yes";
+            } else if (value === false || value === "false") {
+              return "no";
+            } else {
+              return value;
+            }
+          }
 
-      setTableData(tableData);
-      setIsButtonClicked(true);
-    }
-  }
-  }
+          // Flatten the nestedValuesArray and remove duplicates using the recursive function
+          const flatNestedValue = flattenArray(nestedValuesArray);
+          const uniqueValues = [...new Set(flatNestedValue)];
+
+          // Assign the unique values to tableItem
+          tableItem[formattedKey] = uniqueValues;
+              });
+              
+              return tableItem;
+            });
+
+            setTableData(tableData);
+            setIsButtonClicked(true);
+          }
+      }
+ }
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
@@ -301,18 +383,15 @@ function AdvancedSearch() {
     setTableData([])
     setMap([])
     setIsButtonClicked(false);
-    setIsAgeCheckboxChecked(false);
+    setAgeCheckboxState({
+      age1to39: false,
+      age40to64: false,
+      age65plus: false,
+    });
     }, 50)
   }
-
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  const [isAgeCheckboxChecked, setIsAgeCheckboxChecked] = useState(false);
-
-  function handleAgeCheckboxChange(checked) {
-    setIsAgeCheckboxChecked(checked);
-  }
-  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="advancedSearch_font">
@@ -430,12 +509,30 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> Age range</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value='39' {...register('age_in_1977.$lte')}/> 1-39 </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" {...register('[2].age_in_1977')} onChange={(e) => handleAgeCheckboxChange(e.target.checked)} /> 40-64 </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="65" {...register('[1].age_in_1977.$gte')}/>65+ </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age1to39}
+                      onChange={(e) => handleAgeCheckboxChange('age1to39', e.target.checked)}
+                    />
+                    1-39
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age40to64}
+                      onChange={(e) => handleAgeCheckboxChange('age40to64', e.target.checked)}
+                    />
+                    40-64
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age65plus}
+                      onChange={(e) => handleAgeCheckboxChange('age65plus', e.target.checked)}
+                    />
+                    65+
+                  </label>
                 </div>
               </div>
               <div className="advancedSearch_container">

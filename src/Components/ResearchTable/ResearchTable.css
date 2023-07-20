@@ -1,5 +1,11 @@
-.result-table {
+.table-container {
+	overflow-x: auto;
+	max-width: 100%;
 	margin-top: -5rem;
+  }
+  
+
+.result-table {
 	border-spacing: 0;
 	font-family: var(--fontMontserrat);
 	/* Same high as map */
