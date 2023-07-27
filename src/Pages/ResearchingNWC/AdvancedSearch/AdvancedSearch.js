@@ -8,13 +8,31 @@ import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
-import Map from "./Map"
 
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 
 
 function AdvancedSearch() {
+
+  const [contentMap, setContentMap] = useState([]);
+
+  useEffect(() => {
+    async function fetchContentMap() {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        let data = await response.json();
+        setContentMap(data.data);
+      } catch (error) {
+        console.error('Error fetching content map:', error);
+      }
+    }
+  
+    fetchContentMap();
+  },[]);
 
   // adding USA list of states for select input
   const stateOptions = []
@@ -252,7 +270,6 @@ function AdvancedSearch() {
       const key = Object.keys(item)[0];
       return key
     })
-    console.log('arrayq: ', array_query)
     const query = qs.stringify({
       filters: {
         $or: array_query,
@@ -281,7 +298,6 @@ function AdvancedSearch() {
     });
 
     const newArray = Array.from(uniqueArray);
-
     if (response.data.length === 0) {
       setIsButtonClicked(true);
 
@@ -329,6 +345,10 @@ function AdvancedSearch() {
               property in nestedValue &&
               nestedValue[property] !== null
             ) {
+              if (typeof nestedValue[property].data.attributes === 'object') {
+                nestedValuesArray.push(nestedValue[property].data.attributes[property])
+              }
+              else {
               const filteredValues = nestedValue[property].data.map((item) => {
                 const attributes = item.attributes;
                 const filteredAttributes = Object.entries(attributes).reduce((acc, [key, value]) => {
@@ -343,7 +363,7 @@ function AdvancedSearch() {
               });
           
               // Append the filtered values to the nestedValuesArray
-              nestedValuesArray.push(...filteredValues);
+              nestedValuesArray.push(...filteredValues); }
             } else {
               nestedValuesArray.push(convertBooleanToString(nestedValue[property]));
             }
@@ -398,9 +418,7 @@ function AdvancedSearch() {
       <div className="advancedSearch">
         <div className="advancedSearch_text">
           <h1> ADVANCED SEARCH PAGE</h1>
-          <p> We invite researchers to explore the richness of the NWC participant data in open searches or by cross-referencing data gathered within the six demographic categories below: Role at National Women's Conference, Participant Demographics, Education and Career, Electoral Politics, Organizational Memberships, and Leadership in Organizations </p>
-          <p> Users can use keywords and Boolean operators by putting exact search terms in quotation marks and dividing search terms with AND/OR.</p>
-          <p>Users can pull up all the demographic data located for one participant, if they know that participant's name, by doing a keyword search for that particpant's name.</p>
+          <p> {contentMap?.attributes?.AdvancedSearch_Banner}</p>
         </div>
       </div>
       <div className="advancedSearch"> 
@@ -411,11 +429,9 @@ function AdvancedSearch() {
         </div>   
         </div>
         <div> 
-          <Collapsible label="ROLE AT NATIONAL WOMEN'S CONFERENCE"> 
+          <Collapsible label="NATIONAL WOMEN'S CONFERENCE PARTICIPATION"> 
           <div style={{marginBottom: "80rem"}}>
-          <p>This search allows users to filter conference participants by category of participation. Additionally, users can keyword search the other, smaller roles at the NWC such as IWY
-            Coordinating Committee membership or leader of a particular caucus. Data in this category also captures participant views about each of the twenty-six planks deliberated
-            in Houston and submitted to President Jimmy Carter in 1978. Users can search NWC participant views about each of the planks: for, against, or spoke about with position unknown.</p> 
+          <p>{contentMap?.attributes?.AdvancedSearch_NWC}</p> 
           </div>
           <Tabs> 
             <div label="ROLE AT NWC">
@@ -496,14 +512,9 @@ function AdvancedSearch() {
             </div>   
           </Tabs>
           </Collapsible>
-          <Collapsible label="PARTICIPANTS DEMOGRAPHICS"> 
+          <Collapsible label="PARTICIPANT DEMOGRAPHICS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Participant Demographics captures the following: residence in 1977, gender, religion, marital status, number of children, sexual orientation, and racial and ethnic background.</p> 
-            <p> We made no assumptions about identity, but instead followed what participants said about themselves in NWC registration forms, in the media, and their own writings.</p>
-            <p> Participants with more than one racial or ethnic identity are noted according to all identities claimed.</p>
-            <p> Aspects of identity, especially regarding sexual orientation, that might have changed after 1977 are explained in the biographical essays. Partcipants who publicy identified as bisexual
-              or lesbian are reflected as such. Participants married to a person of the opposite gender are identified as heterosexual. Participants who identified their sexual orientation in different
-              ways at different points in their life are noted here according to all known orientations. </p>
+            <p>{contentMap?.attributes?.AdvancedSearch_Participants}</p>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -732,11 +743,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="EDUCATION AND CAREER"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Education and Career captures education level obtained, degree received, year of graduation, college attended, military service, occupation, and income level.</p> 
-            <p>Users can sort participants by level of education. Once an educational level is selected, users can keyword search for colleges and universities where participants studied. 
-              They can also keyword search degrees earned, and employment held. If users do not wish to undertake keyword searching, they can simply sort by level of education obtained.</p>
-            <p>Users can sort participants by category of employment broken down by economic sectors. Additionally, users can keyword search specific jobs and careers</p>
-            <p>Data about income level corresponds with categories used by the NWC to ensure balanced participation across social class.</p>
+            <p>{contentMap?.attributes?.AdvancedSearch_Education}</p>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -819,8 +826,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="ELECTORAL POLITICS"> 
             <div style={{marginBottom: "80rem"}}>
-              <p>Electoral Politics captures elected, appointed, and senior staff political/policy positions. Users can search participants by the jurisdictional level of service-city, county, state, and federal-or they can keyword search by named offices.</p> 
-              <p>Other searches and sorting features include political party membership, spousal political office holding, participant self-identification as a feminist, and service on city, county, and state level Commissions on the Status of Women.</p>
+              <p>{contentMap?.attributes?.AdvancedSearch_Politics}</p>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -929,21 +935,9 @@ function AdvancedSearch() {
               </div>
             </div>       
           </Collapsible>
-          <Collapsible label="ORGANIZATIONAL MEMBERSHIPS"> 
+          <Collapsible label="ORGANIZATIONS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Organizational Memberships is the most comprehensive of the categories. 
-              In gathering this data, we were equally interested in capturing information
-              for nationally known organizations such as the National Organization for
-              Women (NOW) that claimed hundreds of NWC participants in its ranks and less well-known community 
-              specific organizations that perhaps claimed only one NWC participant as a member</p> 
-            <p> We grouped the organizations with which NWC participants were affiliated into twenty-seven
-              thematic categories. Users can select one or more categories and find all participants who held
-              memberships in those organizations. Click here to see the full list of organizations grouped by
-              thematic category.
-            </p>
-            <p>Users can also keyword search the hundreds of organizations in which participants held memberships
-              to find all participants in any one organization. To find a list of all organizations, click here.
-            </p>
+            <p>{contentMap?.attributes?.AdvancedSearch_Organizations} </p>
             </div>
             <Tabs>
               {/* <div label="advocacy groups" >
@@ -1007,7 +1001,7 @@ function AdvancedSearch() {
                   </div>
                 </div>
               </div> */}
-              <div label="organization name">
+              <div label="organizational memberships by name">
               <div className="advancedSearch_form">
                 <div className="advancedSearch_container">
                   <h1> Organization Name </h1>
@@ -1018,7 +1012,7 @@ function AdvancedSearch() {
                 </div>
                 </div>
               </div>
-              <div label="leadership position">
+              <div label="organizational leadership positions">
                 <div className="advancedSearch_form">
                   <div className="advancedSearch_container">
                     <h1> Select Leadership Role</h1>
