@@ -5,58 +5,62 @@ import ListOf from '../../Components/ListOf/listOf';
 var currentData = 'default'
 
 function Organizations() {
-    const [organizations, setOrganizations] = useState([]);
-    const [currentOffSet, setCurrentOffSet] = useState(0);
-    const [input, setInput] = useState("");
-    const listOfOrganizations = useRef([])
-    // Pull Strapi Data
-    useEffect(() => {
+    // const [organizations, setOrganizations] = useState([]);
+    // const [currentOffSet, setCurrentOffSet] = useState(0);
+    // const [input, setInput] = useState("");
+    // const listOfOrganizations = useRef([])
+    // // Pull Strapi Data
 
-        if(currentData === 'default'){
-            fetch([process.env.REACT_APP_API_URL, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
-            .then(res => res.json())
-            .then(data => {
+    // function setOffset(){
+    //     if(currentOffSet === 0){
+    //         setCurrentOffSet(1)
+    //       }else{
+    //         setCurrentOffSet(0)
+    //       }    
+    // }
+
+    // useEffect(() => {
+
+    //     if(currentData === 'default'){
+    //         fetch([process.env.REACT_APP_API_URL, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
+    //         .then(res => res.json())
+    //         .then(data => {
                 
-                listOfOrganizations.current = data.data
-                setOrganizations(data.data)
-            })
-            .catch(err => console.log(err));
-        }
-        if(currentData === 'search'){
-            if(input){
-                fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?filters[organizational_and_political][$containsi]=${input}&sort[0]=organizational_and_political:asc`].join('/'))
-                .then(response => response.json())
-                .then(data => {
+    //             listOfOrganizations.current = data.data
+    //             setOrganizations(data.data)
+    //         })
+    //         .catch(err => console.log(err));
+    //     }
+    //     if(currentData === 'search'){
+    //         if(input){
+    //             fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?filters[organizational_and_political][$containsi]=${input}&sort[0]=organizational_and_political:asc`].join('/'))
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('line 39')
+    //                 listOfOrganizations.current = data.data
+    //                 setOrganizations(data.data)
                     
-                    listOfOrganizations.current = data.data
-                    setOrganizations(data.data)
-                })
-                .catch(err => console.log(err));
-              }else{
-                fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?sort[0]=organizational_and_political:asc`].join('/'))
-                .then(response => response.json())
-                .then(data => {
+    //             })
+    //             .catch(err => console.log(err));
+    //           }else{
+    //             fetch([process.env.REACT_APP_API_URL, `api/organizational-and-politicals?sort[0]=organizational_and_political:asc`].join('/'))
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 console.log('line 49')
+    //                 listOfOrganizations.current = data.data
+    //                 setOrganizations(data.data)
                     
-                    listOfOrganizations.current = data.data
-                    setOrganizations(data.data)
-                })
-                .catch(err => console.log(err));
-              }       
-        }
-    }, [currentOffSet]); // eslint-disable-line
+    //             })
+    //             .catch(err => console.log(err));
+    //           }       
+    //     }
+    // }, [currentOffSet]); 
     
-    function setOffset(){
-        if(currentOffSet === 0){
-            setCurrentOffSet(1)
-          }else{
-            setCurrentOffSet(0)
-          }    
-    }
+    
 
-    function search(){
-        
-        setOffset()
-      }
+    // function search(){
+    //     setOffset()
+    //   }
 
     return (
         <div className="organizations">

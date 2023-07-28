@@ -4,7 +4,11 @@
 }
 
 .captionedImg > img {
+    display: inline-block;
+    vertical-align: bottom;
+    position: relative;
     width: 100%;
+    
 }
 
 .captionedImg_caption {
