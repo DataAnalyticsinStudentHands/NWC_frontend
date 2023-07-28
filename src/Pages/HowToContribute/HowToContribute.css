@@ -22,7 +22,7 @@ html {
 
 .contributeBanner > img {
   width: 25%;
-
+  
 }
 
 .contributeBanner > .lcard {
@@ -33,14 +33,14 @@ html {
 .contributeBanner > .captionedImg {
   width: 30%;
   align-self: flex-end;
-  margin-bottom: -3rem;
+  /* margin-bottom: -3rem; */
   margin-right: -40rem;
 }
 
 .captionedImg{
   position: relative;
   width: 100%;
-  height: 775rem;
+  /* height: 770rem; */
 }
 
 .captionedImg p{

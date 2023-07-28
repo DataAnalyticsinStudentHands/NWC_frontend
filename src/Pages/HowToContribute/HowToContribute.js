@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import './HowToContribute.css';
-import htcBannerPic from "./res/htcBannerPic.png"
+import htcBannerPic from "./res/htcBannerPic1.png"
 import archivists_button from "./res/archivists_button.png"
 import researcher_button from "./res/researcher_button.png"
 import educators_button from "./res/educators_button.png"
