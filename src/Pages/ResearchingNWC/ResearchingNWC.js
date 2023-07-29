@@ -250,7 +250,7 @@ const politicalOfficeObj = {
         <h1>HOW TO SEARCH this DATA</h1>
         <hr></hr>
         <h2>BASIC SEARCH</h2>
-        <p>{contentMap?.attributes?.Banner_text}</p>
+        <p>{contentMap?.attributes?.BasicSearch_Text}</p>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
