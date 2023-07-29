@@ -44,7 +44,6 @@ function ListOf(props){
                 fetch([process.env.REACT_APP_API_URL, 'api/organizational-and-politicals?sort[0]=organizational_and_political:asc'].join('/')) // need to figure out how to sort in query, but for another day </3
                     .then(res => res.json())
                     .then(data => {
-                        console.log('49')
                         listOfData.current = data.data
                         setListData(data.data)
                         setSearchBar(true)
