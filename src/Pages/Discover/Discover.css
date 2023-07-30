@@ -13,6 +13,9 @@ BANNER
     background: url("../../res/mapbg.png");
 }
 
+/*
+Control the individal space for each item in the banner
+*/
 .discoverBanner > img {
     width: 25%;
 }
@@ -24,7 +27,6 @@ BANNER
 
 .discoverBanner > .captionedImg {
     width: 30%;
-    align-self: flex-end;
 }
 
 /*

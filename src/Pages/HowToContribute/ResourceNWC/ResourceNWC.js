@@ -3,7 +3,7 @@ import './ResourceNWC.css';
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
 import ReactPlayer from 'react-player';
-import ContributeIcons from '../../../contributeIcons/contributeIcons';
+import ContribIcons from '../../../Components/ContribIcons/ContribIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
 
 
@@ -72,7 +72,7 @@ function ResourceNWC() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <ContributeIcons type='participants' data={state}/>
+            <ContribIcons type='participants' data={state}/>
             
 
             {/* MORE IDEAS CONTAINER */}

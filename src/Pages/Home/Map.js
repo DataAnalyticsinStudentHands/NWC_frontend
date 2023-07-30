@@ -1,8 +1,9 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+
 import './Map.css';
 import maptick from './res/maptick.png';
-import ReactMarkdown from 'react-markdown';
 
 // point format: [Name, x, y, Description]
 function Map({mapImg, points}) {

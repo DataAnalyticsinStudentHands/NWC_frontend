@@ -232,13 +232,8 @@ POPUP
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: calc(16*var(--xUnit));
-  margin-top: calc(20*var(--xUnit));
-  margin-left: calc(97*var(--xUnit));
-}
-
-
-.homeMap_popupDescription {
   margin-top: calc(3*var(--xUnit));
+  margin-left: calc(97*var(--xUnit));
   width: calc(560*var(--xUnit));
 }
 
