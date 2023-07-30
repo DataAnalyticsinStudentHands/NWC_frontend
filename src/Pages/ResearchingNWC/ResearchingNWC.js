@@ -5,6 +5,8 @@ import qs from 'qs';
 import './ResearchingNWC.css'
 import button from "../../res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
+import LCard from "../../Components/LCard/LCard";
+import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import stateTerritories from '../../assets/stateTerritories.json';
 
@@ -231,20 +233,16 @@ const politicalOfficeObj = {
   return (
     <div className="mappingNWC">
 
-      {/**BANNER */}
+      {/* BANNER */}
       <div className="mappingNWCBanner">
-        <img src={button} className="mappingNWC_button" alt="_" />
-        <div className="mappingNWC_card">
-          <p>{contentMap?.attributes?.Banner_text}</p>
-        </div>
-        <div className='mappingNWC_imgcontainer'>
-          <img src={component119} className="mappingNWC_component119" alt="_" />
-          <div className="mappingNWC_credit" title={contentMap?.attributes?.BannerImageCredit_more}>
-            <p>PHOTO BY {contentMap?.attributes?.BannerImage_Credit}</p>
-          </div>
-        </div>
-        
+        <img src={button} alt="_" />
+        <LCard text={contentMap?.attributes?.Banner_text} />
+        <CaptionedImg
+                    src={component119}
+                    caption={"Photo by " + contentMap?.attributes?.BannerImage_Credit}
+                    caption_more={contentMap?.attributes?.BannerImageCredit_more} />
       </div>
+        
       {/**SEARCH */}
       <div className="mappingNWCSearch">
         <h1>HOW TO SEARCH this DATA</h1>

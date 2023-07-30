@@ -3,7 +3,7 @@ import './ResourceStudents.css';
 import colorCorner from "../res/colorCorner.png"
 import colorCornerStudent from "../res/colorCornerStudent.png"
 import ReactPlayer from 'react-player';
-import ContributeIcons from '../../../contributeIcons/contributeIcons';
+import ContribIcons from '../../../Components/ContribIcons/ContribIcons';
 import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
 
 function ResourceStudents() {
@@ -72,7 +72,7 @@ function ResourceStudents() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <ContributeIcons type='students' data={state}/>
+            <ContribIcons type='students' data={state}/>
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonStudentContainer">

@@ -5,6 +5,8 @@ import "./About.css";
 import button from "../../res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
+import LCard from "../../Components/LCard/LCard";
+import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
 
@@ -73,14 +75,12 @@ function About() {
 
       {/**BANNER */}
       <div className="aboutBanner">
-        <img src={button} className="aboutBanner_button" alt="_" />
-        <div className="aboutBanner_card">
-          <p>
-            {state.banner_text}
-          </p>
-        </div>
-        <div className="aboutBanner_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div>
-        <img src={barbarajordan} className="aboutBanner_chick" alt="barbara-jordan" />
+        <img src={button} alt="_" />
+        <LCard text={state.banner_text} />
+        <CaptionedImg
+          src={barbarajordan} 
+          caption={"Photo by " + state.bannerimage_credit}
+          caption_more={state.bannerimagecredit_more} />
       </div>
 
       {/**TIMELINE */}
