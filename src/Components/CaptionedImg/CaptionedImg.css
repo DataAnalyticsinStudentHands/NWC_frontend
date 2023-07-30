@@ -1,17 +1,16 @@
 .captionedImg {
     font-size: calc(16px + 1vw);
     font-family: var(--fontBabasNeue);
+    position: relative;
 }
 
 .captionedImg > img {
-    display: inline-block;
-    vertical-align: bottom;
-    position: relative;
     width: 100%;
-    
+    vertical-align: bottom;
 }
 
 .captionedImg_caption {
+    position: absolute; 
     height: 2em;
     color: var(--colorBeige);
     padding-left: 1em;
@@ -20,9 +19,6 @@
     align-items: center;
     justify-content: center;
     background-color: var(--colorDarkBlue);
-    border: 1px solid black;
-    width: fit-content;
-    margin-top: -2.5em;
-    position: relative;
     font-size: .8em;
+    bottom: 0;
 }

@@ -6,59 +6,28 @@
 /*
 BANNER
 */
-
 .mappingNWCBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background: url("../../res/mapbg.png");
-  display: flex;
 }
 
-.mappingNWC_button {
-  width: 30%;
-  height: 30%;
+/*
+Control the individal space for each item in the banner
+*/
+.mappingNWCBanner > img {
+  width: 25%;
 }
 
-.mappingNWC_card {
-  width: 800rem;
-  height: 350rem;
-  min-height: 350rem;
-  background-color: white;
-  border-left: 12rem solid var(--colorDeepRed);
-  padding-top: 50rem;
-  margin-top: 200rem;
+.mappingNWCBanner > .lcard {
+  width: 40%;
+  font-size: calc(1vw + 5px);
 }
 
-.mappingNWC_card p {
-  font-family: var(--fontNeoBulletin);
-  font-size: 25rem;
-  font-weight: bold;
-  width: 760rem;
-  margin: 20rem;
-}
-
-.mappingNWC_imgcontainer {
-  display: flex;
-  align-items: flex-end;
-  padding-left: 200rem;
-}
-
-.mappingNWC_credit {
-  min-width: 323rem;
-  height: 84rem;
-  background-color: var(--colorDarkBlue);
-  color: var(--colorBeige);
-  font-size: 36rem;
-  font-family: var(--fontBabasNeue);
-  margin-left: -600rem;
-}
-
-.mappingNWC_credit p {
-  text-align: center;
-  margin: 20rem;
-}
-
-.mappingNWC_component119 {
-  right: 0;
-  height: 90%;
+.mappingNWCBanner > .captionedImg {
+  width: 25%;
+  margin-left: 4em;
 }
 
 .marker {

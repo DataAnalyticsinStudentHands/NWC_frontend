@@ -1,17 +1,17 @@
-import oralIcon from '../Pages/HowToContribute/res/oralIcon.png'
-import contributeIcon from '../Pages/HowToContribute/res/contributeIcon.png'
-import techIcon from '../Pages/HowToContribute/res/techIcon.png'
-import permissionIcon from '../Pages/HowToContribute/res/permissionIcon.png'
-import ideaIcon from '../Pages/HowToContribute/res/ideaIcon.png'
-import archivalIcon from '../Pages/HowToContribute/res/archivalIcon.png'
-import iconPapers from '../Pages/HowToContribute/res/iconPapers.png'
-import iconClass from '../Pages/HowToContribute/res/iconClass.png'
-import './contributeIcons.css'
+import oralIcon from './res/oralIcon.png'
+import contributeIcon from './res/contributeIcon.png'
+import techIcon from './res/techIcon.png'
+import permissionIcon from './res/permissionIcon.png'
+import ideaIcon from './res/ideaIcon.png'
+import archivalIcon from './res/archivalIcon.png'
+import iconPapers from './res/iconPapers.png'
+import iconClass from './res/iconClass.png'
+import './ContribIcons.css'
 
 
 import { Link } from 'react-router-dom'
 
-function contributeIcons(props){
+function ContribIcons(props){
     let state = props.data
     let type = props.type
     let howToContribute = '', technicalGuidelines = '',biographies = '', permissionDocuemnts = '', classIdeas = '' 
@@ -130,4 +130,4 @@ function contributeIcons(props){
         
     )
 }
-export default contributeIcons;
+export default ContribIcons;
