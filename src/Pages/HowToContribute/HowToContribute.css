@@ -16,7 +16,7 @@ html {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: url("../../res/mapbg.png");
+  background: url("../../assets/res/mapbg.png");
 }
 
 /*
@@ -26,7 +26,7 @@ Control the individal space for each item in the banner
   width: 25%;
 }
 
-.contributeBanner > .lcard {
+.contributeBanner > .bannercard {
   width: 50%;
   margin: 2em 0;
 }

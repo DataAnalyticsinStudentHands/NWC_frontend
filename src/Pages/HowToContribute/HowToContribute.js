@@ -8,8 +8,8 @@ import researcher_button from "./res/researcher_button.png"
 import educators_button from "./res/educators_button.png"
 import students_button from "./res/students_button.png"
 import nwc_button from "./res/nwc_participants_button.png"
-import how_to_contribute_button from "../../res/button-how-to-contribute.png"
-import LCard from "../../Components/LCard/LCard";
+import how_to_contribute_button from "../../assets/res/button-how-to-contribute.png"
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 function HowToContribute() {
@@ -62,7 +62,7 @@ function HowToContribute() {
             {/* BANNER */}
             <div className="contributeBanner">
                 <img src={how_to_contribute_button} alt="How to Contribute" />
-                <LCard text={banner_card} />
+                <BannerCard text={banner_card} />
                 <CaptionedImg
                     src={htcBannerPic}
                     caption={"Photo by " + imgCredit}

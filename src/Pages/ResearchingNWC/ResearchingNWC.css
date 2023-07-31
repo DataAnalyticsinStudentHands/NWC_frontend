@@ -10,7 +10,7 @@ BANNER
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background: url("../../res/mapbg.png");
+  background: url("../../assets/res/mapbg.png");
 }
 
 /*
@@ -20,7 +20,7 @@ Control the individal space for each item in the banner
   width: 25%;
 }
 
-.mappingNWCBanner > .lcard {
+.mappingNWCBanner > .bannercard {
   width: 40%;
   font-size: calc(1vw + 5px);
 }
