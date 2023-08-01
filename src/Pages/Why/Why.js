@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Why.css";
-import buttonwhy from "../../res/button-why-the-nwc-matters.png";
+import buttonwhy from "../../assets/res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
 
 import { Link } from 'react-router-dom';

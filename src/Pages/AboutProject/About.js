@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "../../res/button-50th-anniversary.png";
+import button from "../../assets/res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
-import LCard from "../../Components/LCard/LCard";
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
@@ -76,7 +76,7 @@ function About() {
       {/**BANNER */}
       <div className="aboutBanner">
         <img src={button} alt="_" />
-        <LCard text={state.banner_text} />
+        <BannerCard text={state.banner_text} />
         <CaptionedImg
           src={barbarajordan} 
           caption={"Photo by " + state.bannerimage_credit}

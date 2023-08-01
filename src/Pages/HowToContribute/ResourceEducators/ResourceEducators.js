@@ -4,8 +4,8 @@ import './ResourceEducators.css';
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
 import ReactPlayer from 'react-player';
-import ContribIcons from '../../../Components/ContribIcons/ContribIcons';
-import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 function ResourceEducators() {
 

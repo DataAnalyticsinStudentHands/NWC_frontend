@@ -67,8 +67,6 @@ function ListOf(props){
         setOffset()
       }
 
-
-
     const handleChange = e => {
         let selectedValues = e.map(e=>{return e.label})
         setSelectedValue(selectedValues);
@@ -79,7 +77,6 @@ function ListOf(props){
         selectedValues.length === 0?setListData(listOfData.current): setListData(list)
     }
 
-    // adding USA list of states for select input
     const stateOptions = []
     Object.values(stateTerritories).forEach((state) => {
         stateOptions.push({value: state.stateCode, label: state.state}) 
@@ -104,17 +101,10 @@ function ListOf(props){
             setListData(letterList)
         
         }
-
-        
     }
 
     return(
         <div className="listOf">
-            {/**BACK LINK */}
-            {/* <p className='backToDiscover'>
-                <BackToButton name='Discover' link='/discover'/>
-            </p> */}
-            
             <h1>List of NWC {dataType}</h1>
             <div className='listOfOptions'>
             {
@@ -127,8 +117,7 @@ function ListOf(props){
                 </div>
                 :''
             }
-            {/**FILTER */}
-            {/* <div className="listOfFilter"> */}
+            {/* FILTER */}
             {
                 filter
                 ?<div className='listOfFilter'>
@@ -149,10 +138,7 @@ function ListOf(props){
                 :''
 
             }
-               
-                
                 <CSVLink 
-
                     data={
                             dataType === 'Participants'
                             ?[["Last Name", "First Name", "State"],...listData.map(p => [p.attributes.LastName, p.attributes.FirstName, p.attributes.States]),]
@@ -166,7 +152,6 @@ function ListOf(props){
                 >
                     Download CSV
                 </CSVLink>
-                {/* </div> */}
             </div>
             
             <div className='alphabetList'>
@@ -224,9 +209,8 @@ function ListOf(props){
                 <p className='resetLetterSort' onClick={() => handleLetterChange('reset')}>Reset</p>
             </div>
 
-            {/**LIST */}
+            {/* LIST */}
             <div className="listOfList">
-                
                 <ul className='listOfContainer'>
                     {
                         listData.length === 0

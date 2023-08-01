@@ -91,12 +91,8 @@ function DiscoverInfo() {
         <div className="discoverInfo">
             {/**BANNER */}
             <div className="discoverInfoBanner">
-                {/* <div className="discoverInfoBanner_left">
-                    <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-                    <h1>{state.firstname} {state.lastname}</h1>
-                </div> */}
                 <div className='discoverInfoBanner_left'>
-                    <BackToButton name='Discover' link='/discover'/>
+                    <BackToButton name='Discover' link='/Discover'/>
                     <h1>{state.firstname} {state.lastname}</h1>
                 </div>
                 
