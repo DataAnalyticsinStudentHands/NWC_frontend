@@ -337,7 +337,7 @@ function Home() {
                     className={openingMap ? 'homeMap_tab--active' : ''}
                     onClick={() => setOpeningMap(true)}
                   >
-                    <p>HOUSTON</p>
+                    <p>HOUSTON 1977</p>
                   </div>
                   {Object.keys(maps).map((m) => (
                     <div
