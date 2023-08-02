@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router';
-import VARIABLES from '../../config/.env';
+
 import "./Essay.css";
 import Layout1 from './Layouts/Layout1';
 import Layout2 from './Layouts/Layout2';
@@ -35,7 +35,7 @@ function Essay() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, `api/content-essays/${id}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
+        fetch([process.env.REACT_APP_API_URL, `api/content-essays/${id}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
         .then(res => res.json())
         .then(data => {
             const {data:
@@ -47,7 +47,7 @@ function Essay() {
             setState({
                 layoutChoice: LayoutChoice,
                 title: Title,
-                headerImage: HeaderImage ? [VARIABLES.fetchBaseUrl, HeaderImage.Image.data.attributes.url].join('') : '',
+                headerImage: HeaderImage ? [process.env.REACT_APP_API_URL, HeaderImage.Image.data.attributes.url].join('') : '',
                 pullQuote1: PullQuote1,
                 section1: Section1,
                 section2: Section2,

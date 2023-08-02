@@ -1,11 +1,8 @@
 import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
-// import axios from 'axios';
 
 import ThankYou from './ThankYou';
-
-import VARIABLES from "../../config/.env.js";
 
 function CorrectionsForm() {
 
@@ -26,13 +23,7 @@ function CorrectionsForm() {
     submission.form = "CORRECTIONS";
     console.log(submission)
 
-  //   axios.post([VARIABLES.fetchBaseUrl, `forms/email`].join('/'), JSON.stringify(submission))
-  //       .then(response => setState({
-  //         formSent: true
-  //       }));
-  // }
-
-  fetch([VARIABLES.fetchBaseUrl, `api/forms`].join('/'),{
+  fetch([process.env.REACT_APP_API_URL, `api/forms`].join('/'),{
     method:'POST',
     headers:{
       'Content-type': 'application/json'
@@ -46,7 +37,7 @@ function CorrectionsForm() {
   return (
     <main className={styles.forms}>
     {!state.formSent ? 
-    <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)}>
+    <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)} noValidate>
       <header>
         <h1 className={styles.corrections_heading}>Corrections</h1>
         <p className={styles.corrections_p}>
@@ -62,8 +53,9 @@ function CorrectionsForm() {
         {...register('Affiliation', { required: true })}
       />
       {errors?.Affiliation?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
-      <input placeholder="Email" {...register('Email', { required: true })} type="email" />
+      <input placeholder="Email" {...register('Email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} type="email" />
       {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
+      {errors?.Email?.type === 'pattern' && <p className={styles.corrections_validate}> Email is invalid </p>}
       <input
         placeholder="Name of Page Needing Correction (please also include corresponding URL)"
         {...register('Page', { required: true })}

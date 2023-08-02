@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
+import ReactMarkdown from 'react-markdown';
+
 import './Map.css';
 import maptick from './res/maptick.png';
-import ReactMarkdown from 'react-markdown';
 
 // point format: [Name, x, y, Description]
 function Map({mapImg, points}) {
-  
   // one state to hold the regular page content loaded from Strapi
   const [state, setState] = useState({
     description: '',
@@ -21,7 +21,6 @@ function Map({mapImg, points}) {
     caption2: '',
     caption3: ''
   });
-
   // 2nd state to hold hover status
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
@@ -38,6 +37,7 @@ function Map({mapImg, points}) {
           POINTS OF INTEREST
         </p>
         {points.map(p => <p
+          key={Math.random()}
           className={"homeMap_poiText " + (hovering === p[0] ? "homeMap_poiText--hovering" : "")}
           onMouseEnter={() => setHovering(p[0])}
           onMouseLeave={() => setHovering(false)}
@@ -66,7 +66,8 @@ function Map({mapImg, points}) {
       <div className="homeMap_interactive">
         <img className="homeMap_img" src={mapImg} alt="_" />
 
-        {points.map(p => <div 
+        {points.map(p => <div
+          key={Math.random()}
           className={
             "homeMap_dot " +
             (hovering === p[0] ? "homeMap_dot--hovering" : "")}
@@ -104,10 +105,15 @@ function Map({mapImg, points}) {
                 className="homeMap_popupBack"
                 onClick={() => setPopup(false)}
               >
-                <div className="homeMap_popupBackArrow">
+                {/* <div className="homeMap_popupBackArrow">
                   <p className="backArrow">&larr;</p>
                 </div>
-                <p>BACK TO MAP</p>
+                <p>BACK TO MAP</p> */}
+                <div className='closeBorder'>
+                  <span className='close'>&#x2573;</span>
+                </div>
+                
+
               </div>
               <div className="homeMap_popupImg"><img src={state.mainImage} alt="_" /></div>
               <div className="homeMap_popupSrc">
@@ -116,17 +122,17 @@ function Map({mapImg, points}) {
                 <p>{state.caption3}</p>
               </div>
               <div className="homeMap_popupFeed">
-                <Link to={`PDFViewer/${state.pdf1.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf1.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img1} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf2.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf2.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img2} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf3.split('/')[5]}`}>
+                <Link to={`PDFViewer/${state.pdf3.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img3} alt="_" />
                   </div>

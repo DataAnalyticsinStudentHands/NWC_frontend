@@ -3,16 +3,16 @@ import {
     useParams,
     Link,
 } from "react-router-dom";
-import "./DiscoverInfo.css"; // This is section 1.
+import "./DiscoverInfo.css";
 import ReactMarkdown from 'react-markdown';
-import VARIABLES from '../../config/.env';
+
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
+import BackToButton from '../../Components/Buttons/backTo';
+
 
 function DiscoverInfo() {
-    const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA
-
-    const { fetchBaseUrl } = VARIABLES;
+    const { storyId } = useParams();
 
     // state to hold content from Strapi
     const [state, setState] = useState({
@@ -38,10 +38,9 @@ function DiscoverInfo() {
     // grab page data from strapi
     useEffect(() => {
         // this pattern is pretty much seen on all data-driven pages
-        fetch(`${fetchBaseUrl}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?filters[id][$eq]=${storyId}&populate=*`)
             .then(res => res.json())
             .then(data => {
-                
                 const {attributes:
                             {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, firstname, lastname, role, rolesAtNwc, 
                                 sources, VideoUrl, usertags}}= data.data[0]
@@ -51,7 +50,7 @@ function DiscoverInfo() {
                 let profilepic = state.profilepic
                 let profilepic_alt = state.profilepic_alt
                 if (data.data[0].attributes.profilepic.data) {
-                    profilepic = `${fetchBaseUrl}${data.data[0].attributes.profilepic.data.attributes.url}`;
+                    profilepic = `${process.env.REACT_APP_API_URL}${data.data[0].attributes.profilepic.data.attributes.url}`;
                     profilepic_alt = data.data[0].attributes.profilepic.data.attributes.alternativeText;
                 } else {
 
@@ -92,10 +91,11 @@ function DiscoverInfo() {
         <div className="discoverInfo">
             {/**BANNER */}
             <div className="discoverInfoBanner">
-                <div className="discoverInfoBanner_left">
-                    <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
+                <div className='discoverInfoBanner_left'>
+                    <BackToButton name='Discover' link='/Discover'/>
                     <h1>{state.firstname} {state.lastname}</h1>
                 </div>
+                
             </div>
 
             {/**BODY */}
@@ -140,15 +140,13 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            <p>{state.bigquote1}</p>
+                            <p><ReactMarkdown>{state.bigquote1}</ReactMarkdown></p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}
 
                     <div className="discoverInfoBody_text">
-                        <ReactMarkdown>
-                            {state.maintext}
-                        </ReactMarkdown>
+                        <ReactMarkdown>{state.maintext}</ReactMarkdown>
                     </div>
 
                     {state.bigquote2 !== '' && state.bigquote2 !== null ?
@@ -156,8 +154,7 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            
-                            <p>{state.bigquote2}</p>
+                            <p><ReactMarkdown>{state.bigquote2}</ReactMarkdown></p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}

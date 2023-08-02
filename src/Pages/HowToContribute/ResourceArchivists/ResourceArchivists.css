@@ -14,13 +14,13 @@ COLOR CORNER TOP RIGHT
 
 .colorRibbonArchRibbonBL {
     position: absolute;
-    margin-left: 2900rem;
-    margin-top: -775rem;
+    margin-left: -870rem;
+    margin-top: -700rem;
     -ms-transform: rotate(100deg); /* IE 9 */
     transform: rotate(90deg);
     object-fit: none;
-    height: 100px;
-    width: 100px;
+    height: 1rem;
+    width: 1rem;
     z-index: -1;
 }
 
@@ -28,15 +28,14 @@ COLOR CORNER TOP RIGHT
 BANNER
 */
 
-.archivistsBanner{
-    display: flex;
-    align-items: center;
+/* .archivistsBanner{
+    display:block;
+    margin-top: 150rem;
     margin-left: auto;
     margin-right: auto;
-    margin-top: 150rem;
-}
+} */
 
-.archivistsBanner_header{
+/* .archivistsBanner_header{
     font-family:var(--fontBabasNeue);
     text-align:center;
     font-size:50rem;
@@ -54,19 +53,9 @@ BANNER
     font-size:25rem;
     width: 800rem;
     margin-left: 75rem;
-}
+} */
 
-.archivistsBanner_border {
-    float: left;
-    margin-left: 75rem;
-    margin-right: auto;
-    margin-bottom: 30rem;
-    width: 42.5vw;
-    border-top: 10rem solid var(--colorDeepRed); /*high*/
-    height: 30rem; /*mid*/
-    background-color: var(--colorDeepOrange);
-    border-bottom: 10rem solid var(--colorDeepYellow); /*low*/
-}
+
 
 .archivistsBanner_text{
     width: 10rem;
@@ -92,12 +81,18 @@ VIDEO PLAYER
 /*
 ARCHIVISTS ICONS
 */
-.archivistsBannerIcons{
+/* .archivistsBannerIcons{
     vertical-align: top;
     display: inline-block;
     text-align: center;
     margin-top: 100rem;
-    margin-left: 300rem;
+    margin-left: -100rem;
+}
+
+.iconContainer{
+    
+    margin-left: -100rem;
+    margin-right: 100rem;
 }
 
 .iconContainer p{
@@ -106,32 +101,32 @@ ARCHIVISTS ICONS
     color: #142F45;
     margin-top: 50rem;
     font-size: 30rem;
-}
+} */
 
 /*
 MORE IDEAS CONTAINER
 */
 
-.ideaContainerArchivists{
+/* .ideaContainerArchivists{
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top:20rem;
     margin-bottom:40rem;
-}
+} */
 
-.ideaContainerIcon{
+/* .ideaContainerIcon{
     max-width: 100%;
     margin-left: -150rem;
     margin-top:50rem;
     margin-bottom:30rem;
-}
+} */
 
-.ideaContainerText{
+/* .ideaContainerText{
     font-size: 20rem;
     font-family:var(--fontBabasNeue);
     color: #142F45;
     margin-top: 50rem;
     margin-left: 75rem;
     font-weight: 100;
-}
+} */

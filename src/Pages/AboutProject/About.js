@@ -2,17 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "../../res/button-50th-anniversary.png";
+import button from "../../assets/res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
-
-import VARIABLES from "../../config/.env.js";
+import BannerCard from "../../Components/BannerCard/BannerCard";
+import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
 
 function About() {
-  const { fetchBaseUrl } = VARIABLES;
-
   // one state to hold the regular page content loaded from Strapi
   const [state, setState] = useState({
     aboutBanner_card: '',
@@ -26,22 +24,24 @@ function About() {
     aboutDocuments_ddlink: '',
     aboutDocuments_cblink: '',
     aboutDocuments_aplink: '',
-    aboutDocuments_frlink: ''
+    aboutDocuments_frlink: '',
+    aboutDocuments_collectionsGuide:''
   });
 
   // grab page data from strapi
   useEffect(() => {
-    fetch(`${fetchBaseUrl}/api/content-about?populate=*`)
+    fetch(`${process.env.REACT_APP_API_URL}/api/content-about?populate=*`)
       .then(res => res.json())
       .then(data => {
-        //
+        
         const {data:
                 {attributes:
                   {
                     Banner_text, BannerImage_Credit, BannerImageCredit_more, aboutTimeline_1, aboutTimeline_2, aboutTimeline_3, aboutTimeline_4, aboutTimeline_5, 
                     aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
-                    aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink,
-                    // aboutDocuments_aplink
+                    aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink, 
+                    aboutDocuments_collectionsGuide,
+                    aboutDocuments_aplink
                   }
                 }
               } = data;
@@ -55,15 +55,16 @@ function About() {
           aboutTimeline_3: aboutTimeline_3,
           aboutTimeline_4: aboutTimeline_4,
           aboutTimeline_5: aboutTimeline_5,
-          aboutDocuments_cblink: aboutDocuments_cblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_cblink.data.attributes.url : undefined,
-          // aboutDocuments_aplink: aboutDocuments_aplink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_aplink.data.attributes.url : undefined,
-          aboutDocuments_frlink: aboutDocuments_frlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_frlink.data.attributes.url : undefined,
-          aboutDocuments_eclink: aboutDocuments_eclink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_eclink.data.attributes.url : undefined,
-          aboutDocuments_fmlink: aboutDocuments_fmlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_fmlink.data.attributes.url : undefined,
-          aboutDocuments_tblink: aboutDocuments_tblink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tblink.data.attributes.url : undefined,
-          aboutDocuments_tdlink: aboutDocuments_tdlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_tdlink.data.attributes.url : undefined,
-          aboutDocuments_edlink: aboutDocuments_edlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_edlink.data.attributes.url : undefined,
-          aboutDocuments_ddlink: aboutDocuments_ddlink.data.length !== 0 ? fetchBaseUrl + aboutDocuments_ddlink.data.attributes.url : undefined,
+          aboutDocuments_cblink: aboutDocuments_cblink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_cblink.data.attributes.url : undefined,
+          aboutDocuments_aplink: aboutDocuments_aplink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_aplink.data.attributes.url : undefined,
+          aboutDocuments_frlink: aboutDocuments_frlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_frlink.data.attributes.url : undefined,
+          aboutDocuments_eclink: aboutDocuments_eclink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_eclink.data.attributes.url : undefined,
+          aboutDocuments_fmlink: aboutDocuments_fmlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_fmlink.data.attributes.url : undefined,
+          aboutDocuments_tblink: aboutDocuments_tblink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_tblink.data.attributes.url : undefined,
+          aboutDocuments_tdlink: aboutDocuments_tdlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_tdlink.data.attributes.url : undefined,
+          aboutDocuments_edlink: aboutDocuments_edlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_edlink.data.attributes.url : undefined,
+          aboutDocuments_ddlink: aboutDocuments_ddlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_ddlink.data.attributes.url : undefined,
+          aboutDocuments_collectionsGuide: aboutDocuments_collectionsGuide.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_collectionsGuide.data.attributes.url: undefined,
         });
       })
       .catch(err => console.log(err));
@@ -74,14 +75,12 @@ function About() {
 
       {/**BANNER */}
       <div className="aboutBanner">
-        <img src={button} className="aboutBanner_button" alt="_" />
-        <div className="aboutBanner_card">
-          <p>
-            {state.banner_text}
-          </p>
-        </div>
-        <div className="aboutBanner_credit" title={state.bannerimagecredit_more}><p>PHOTO BY {state.bannerimage_credit}</p></div>
-        <img src={barbarajordan} className="aboutBanner_chick" alt="barbara-jordan" />
+        <img src={button} alt="_" />
+        <BannerCard text={state.banner_text} />
+        <CaptionedImg
+          src={barbarajordan} 
+          caption={"Photo by " + state.bannerimage_credit}
+          caption_more={state.bannerimagecredit_more} />
       </div>
 
       {/**TIMELINE */}
@@ -167,6 +166,13 @@ function About() {
           <Link to={`PDFViewer/${state.aboutDocuments_frlink.split('/')[4]}`}>
             <div>
               FURTHER READING
+            </div>
+          </Link>
+        }
+        {state.aboutDocuments_collectionsGuide  &&
+          <Link to={`PDFViewer/${state.aboutDocuments_collectionsGuide.split('/')[4]}`}>
+            <div>
+              COLLECTIONS GUIDE
             </div>
           </Link>
         }

@@ -14,26 +14,26 @@ html {
 
 .contributeBanner {
   display: flex;
-  width: 100%;
   align-items: center;
   justify-content: space-around;
-  background: url("../../res/mapbg.png");
+  background: url("../../assets/res/mapbg.png");
 }
 
+/*
+Control the individal space for each item in the banner
+*/
 .contributeBanner > img {
   width: 25%;
 }
 
-.contributeBanner > .lcard {
-  width: 35%;
+.contributeBanner > .bannercard {
+  width: 50%;
   margin: 2em 0;
 }
 
 .contributeBanner > .captionedImg {
-  width: 30%;
-  align-self: flex-end;
-  margin-bottom: -3rem;
-  margin-right: -40rem;
+  width: 25%;
+  margin-left: 4em;
 }
 
 /* 

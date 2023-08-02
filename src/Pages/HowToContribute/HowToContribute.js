@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import VARIABLES from '../../config/.env';
+
 import './HowToContribute.css';
 import htcBannerPic from "./res/htcBannerPic.png"
 import archivists_button from "./res/archivists_button.png"
@@ -8,8 +8,8 @@ import researcher_button from "./res/researcher_button.png"
 import educators_button from "./res/educators_button.png"
 import students_button from "./res/students_button.png"
 import nwc_button from "./res/nwc_participants_button.png"
-import how_to_contribute_button from "../../res/button-how-to-contribute.png"
-import LCard from "../../Components/LCard/LCard";
+import how_to_contribute_button from "../../assets/res/button-how-to-contribute.png"
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 function HowToContribute() {
@@ -24,7 +24,7 @@ function HowToContribute() {
     const [archivistsText, setArchivistsText] = useState("");
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-how-to-contribute"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-how-to-contribute"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{data:{attributes:{BannerText, BannerImageCredit, BannerImageCredit_more, ResearchersText, 
@@ -62,7 +62,7 @@ function HowToContribute() {
             {/* BANNER */}
             <div className="contributeBanner">
                 <img src={how_to_contribute_button} alt="How to Contribute" />
-                <LCard text={banner_card} />
+                <BannerCard text={banner_card} />
                 <CaptionedImg
                     src={htcBannerPic}
                     caption={"Photo by " + imgCredit}
@@ -83,7 +83,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherBtn">
                     <img src={researcher_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                         <Link to="/ResourceResearchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
@@ -94,7 +94,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={archivists_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceArchivists">ARCHIVISTS</Link>
                         <p>{archivistsText}</p>
@@ -105,7 +105,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={nwc_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
@@ -116,7 +116,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={educators_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceEducators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
@@ -127,7 +127,7 @@ function HowToContribute() {
                 <div className="howToContributeInvolved_researcherImg">
                     <img src={students_button} alt="_"></img>
                 </div>
-                <div class="howToContributeInvolved_content">
+                <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
                     <Link to="/ResourceStudents">STUDENTS</Link>
                         <p>{studentsText}</p>

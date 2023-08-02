@@ -1,0 +1,161 @@
+.listOf {
+    font-size: calc(16px + 1vw);
+    font-family: var(--fontBabasNeue);
+    padding: 1em 0;
+    color: var(--colorDarkBlue);  
+}
+
+.listOf a {
+    color: var(--colorDeepRed);
+}
+
+.listOf a:hover {
+    text-decoration: underline;
+}
+
+.listOf > h1 {
+    text-align: center;
+    margin-bottom: 1em;
+}
+
+.listOfOptions {
+    display: flex;
+    /* width: fit-content; */
+    padding-right: 2.3em;
+    padding-left: 1.3em;
+    /* align-items: center; */
+    flex-direction: row;
+    justify-content: space-between;
+    
+}
+
+.listOfFilter {
+    display: flex;
+    padding-left:.7em;
+}
+
+#select{
+    padding-left: 2em;
+}
+
+.listOfDownloadButton {
+    float: right;
+}
+
+.listOfList {
+    padding: 0em 2em 1em 2em;
+    margin: auto;
+    height: 20em;
+    overflow-y: auto;
+}
+
+.listOfContainer{
+    columns: 3;
+    background-color: rgba(117, 178, 224, .3);
+    padding: .5em;
+    /* margin: auto; */
+   
+}
+
+.listOfContainer > ul{
+    display: flex;
+    flex-flow: column wrap;
+    font-family: var(--fontMontserrat);
+    font-size: .5em;
+
+}
+
+.alphabetList {
+    padding: 0em 3em .5em 2em;
+    padding-left: 2em;
+    padding-right: 3.0em;
+    display:flex;
+    gap:.3em;
+    
+}
+
+/* .alphabetList p{
+    color: rgba(117, 178, 224, .3);
+} */
+
+.activeLetter{
+    color:var(--colorDarkBlue); 
+}
+
+.letterSeperator{
+    color: rgba(117, 178, 224, .3);
+}
+
+.letterSort{
+    color: rgba(117, 178, 224, .3);
+}
+
+.letterSort:hover {
+    
+    cursor: pointer;
+    opacity: .7;
+    transform: scale(1.04);
+}
+
+.resetLetterSort{
+    color: rgba(117, 178, 224, .3);
+    margin-left:auto;
+}
+
+.resetLetterSort:hover {
+    cursor: pointer;
+    opacity: .7;
+    transform: scale(1.04);
+}
+
+.organizationSearch {
+    width: calc(100% - 5em);
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    
+    padding: .4em;
+    align-items: center;
+}
+
+.organizationSearch_bar {
+    width: fit-content;
+    display: flex;
+    padding: 0.2em .2em;
+}
+
+.organizationSearch_bar > input {
+    border: none;
+    outline: none;
+    border-bottom: .1em solid var(--colorLightBlue);
+    height: fit-content;
+    font-size: .9em;
+    margin: auto;
+    padding-left: 1ch;
+    margin-right: 1ch;
+    /* width: 19vw; */
+}
+
+.organizationSearch_bar > input::placeholder {
+    color: lightgray;
+    font-size: .8em;
+}
+
+.organizationSearch_bar > input:focus {
+    border-bottom: .1em solid var(--colorDeepRed);
+}
+
+.organizationSearch_icon {
+    background-image: url("./res/searchicon.png");
+    background-repeat: no-repeat;
+    border-radius: 0;
+    background-size: 30%;
+    cursor: pointer;
+    margin: 0;
+}
+
+.organizationSearch_icon:hover {
+    cursor: pointer;
+    color: var(--colorDeepRed);
+    transform: scale(1.04);
+}

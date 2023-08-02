@@ -40,4 +40,30 @@
   
 } */
 
+.downloadButton{
+  background-color: var(--colorDeepRed);
+  color:white;
+  border-radius: 8px;
+  font-family: var(--fontBabasNeue);
+  font-size: 0.7em;
+  width: fit-content;
+  margin: 2em auto;
+  
+}
 
+.downloadButton:hover{
+  background-color: white;
+  color: var(--colorDeepRed);
+  border: 2px solid var(--colorDeepRed);
+  cursor: pointer;
+}
+
+.dwButton{
+  display: grid;
+  justify-content: flex-end;
+  padding-right: 10px;
+}
+
+.backButton{
+  padding: 1em 0em 0em 2em;
+}

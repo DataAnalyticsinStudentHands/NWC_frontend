@@ -119,15 +119,17 @@ POPUP
   height: fit-content;
   border-radius: calc(75*var(--xUnit)) calc(75*var(--xUnit)) calc(36*var(--xUnit)) 0;
   background-color: white;
-  padding-top: calc(64*var(--xUnit));
+  padding-top: calc(24*var(--xUnit));
   box-shadow: 0 calc(3*var(--xUnit)) calc(6*var(--xUnit)) #00000029;
 }
 
 .homeMap_popupBack {
   font-family: 'babas_neue', 'normal';
   display: flex;
+  flex-direction:row;
   align-items: center;
-  margin-left: calc(30*var(--xUnit));
+  margin-left: calc(55*var(--xUnit));
+  margin-right: calc(30*var(--xUnit));
   margin-bottom: calc(11*var(--xUnit));
 }
 
@@ -142,15 +144,15 @@ POPUP
 }
 
 .backArrow {
-  background-color: #FAFAFA;
+  /* background-color: #FAFAFA; */
   color: #141311;
   width: calc(50*var(--xUnit));
   height: calc(50*var(--xUnit));
-  border-radius: calc(10*var(--xUnit));
+  /* border-radius: calc(10*var(--xUnit)); */
   justify-content: center;
   display: flex;
   align-items: center;
-  border: calc(2*var(--xUnit)) solid #F1F9FF;
+  /* border: calc(2*var(--xUnit)) solid #F1F9FF; */
 }
 
 .homeMap_popupBack:hover .homeMap_popupBackArrow {
@@ -230,12 +232,42 @@ POPUP
   color: white;
   font-family: 'Montserrat', sans-serif;
   font-size: calc(16*var(--xUnit));
-  margin-top: calc(20*var(--xUnit));
+  margin-top: calc(3*var(--xUnit));
   margin-left: calc(97*var(--xUnit));
+  width: calc(560*var(--xUnit));
+}
+
+.close{
+  color: var(--colorLightGrayFont);
+  font-size: calc(20*var(--xUnit));
+  /* text-align: center; */
+
 }
 
 
-.homeMap_popupDescription {
-  margin-top: calc(3*var(--xUnit));
-  width: calc(560*var(--xUnit));
+.closeBorder{
+  display:flex;
+  margin-left:auto;
+  justify-content:center;
+  align-items:center;
+  width: 1.5em;
+  height: 1.5em;
+  border:solid var(--colorLightGrayFont);
+  border-radius: 50%;
+  font-size: calc(30*var(--xUnit));
+  text-align: center;
+}
+
+.closeBorder:hover{
+  width: 1.5em;
+  height: 1.5em;
+  border:solid var(--colorLightBlue);
+  border-radius: 50%;
+  font-size: calc(30*var(--xUnit));
+
+  
+}
+.close:hover{
+  color: var(--colorLightBlue);
+  font-size: calc(20*var(--xUnit));
 }

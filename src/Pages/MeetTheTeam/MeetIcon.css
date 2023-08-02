@@ -37,7 +37,7 @@
 
 .meetIcon_popup > img{
     width:400px;
-    height:600px;
+    height:auto;
 }
 .popup_img{
     width:100%;
@@ -46,22 +46,30 @@
 
 
 #close {
-    position: relative;
-    float: right;
-    right: .5em;
-    border: solid white;
-    border-radius: 50%;
-    width: 1.5em;
-    height: 1.5em;
-    align-items: center;
-    text-align: center;
+    
+    /* right: .5em; */
+  
     font-family: var(--fontBabasNeue);
     font-weight: normal;
     color: white;
-    padding:2px 5px;
-    font-size: .8em;
-    /* background:#ccc; */
+    /* padding-left:.5em;
+    padding-top:.2em; */
+    font-size: .5em;
     
+}
+
+.closeBorderIcon{
+    display:flex;
+    /* position: relative;
+    float: right; */
+    justify-content:center;
+    align-items:center;
+    margin-left:auto;
+    border: solid white;
+    border-radius: 50%;
+    width: 1.1em;
+    height: 1.1em;
+    text-align:center;
 }
 
 .meetIcon_popupHeader {
@@ -69,12 +77,18 @@
     color: white;
     text-align: left;
     padding-left: 1ch;
+    padding-right: 1ch;
     padding-top: .5em;
     padding-bottom: .5em;
     
 }
 
-.meetIcon_popupHeader > h3 {
+.topLine{
+    display:flex;
+    /* align-items:center; */
+}
+
+.topLine > h3 {
     font-family: var(--fontBabasNeue);
     font-weight: normal;
     max-width: 20em;
@@ -91,4 +105,8 @@
     font-size: .6em;
     text-align: left;
     padding: .8em;
+    max-width: 900px;
+    max-height: 400px;
+    white-space: normal;
+    overflow: auto;
 }

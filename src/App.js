@@ -1,4 +1,6 @@
 import React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 import {
   BrowserRouter as Router,
   Switch,
@@ -10,7 +12,7 @@ import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
 import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
-// import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch";
+import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearch";
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
@@ -24,13 +26,21 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ScrollToTop from "./Components/util/ScrollToTop";
 import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
 import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
+import Organizations from "./Pages/ResearchingNWC/Organizations"
 
+const ScrollToTop = (props) => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return <>{props.children}</>
+};
 
 function App() {
   return (
@@ -39,17 +49,11 @@ function App() {
       <Navigation />
       <ScrollToTop>
       <Switch>
+      <Route path="/About">
+          <About></About>
+        </Route>
         <Route path="/MeetTheTeam">
           <MeetTheTeam />
-        </Route>
-        <Route path="/DiscoverNWCStories">
-          <Discover />{/*<DiscoverNWCStories/>*/}
-        </Route>
-        <Route path="/discover/:storyId">
-          <DiscoverInfo />
-        </Route>
-        <Route path="/Discover">
-          <Discover />
         </Route>
         <Route path="/Why">
           <Why />
@@ -57,17 +61,20 @@ function App() {
         <Route path="/Essay">
           <Essay />
         </Route>
+        <Route path="/Discover/:storyId">
+          <DiscoverInfo />
+        </Route>
+        <Route path="/Discover">
+          <Discover />
+        </Route>
          <Route path="/ResearchingNWC">
             <ResearchingNWC />
         </Route> 
-        <Route path="/HowToContribute">
-          <HowToContribute />
-        </Route>
-{/*         <Route path="/AdvancedSearch">
+        <Route path="/AdvancedSearch">
           <AdvancedSearch />
-        </Route> */}
-        <Route path="/About">
-          <About></About>
+        </Route> 
+        <Route path="/Organizations">
+          <Organizations />
         </Route>
         <Route path="/Participants">
           <Participants />
@@ -86,6 +93,9 @@ function App() {
         </Route>
         <Route path="/Forms/MoreIdeasForm">
           <MoreIdeasForm />
+        </Route>
+        <Route path="/HowToContribute">
+          <HowToContribute />
         </Route>
         <Route path="/ResourceResearchers">
           <ResourceResearchers />

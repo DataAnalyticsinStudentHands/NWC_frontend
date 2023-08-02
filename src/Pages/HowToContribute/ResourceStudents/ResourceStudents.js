@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import VARIABLES from '../../../config/.env';
 import './ResourceStudents.css';
-import students_button from "../res/students_button.png"
-import oralIcon from "../res/oralIcon.png"
 import colorCorner from "../res/colorCorner.png"
 import colorCornerStudent from "../res/colorCornerStudent.png"
-import techIcon from "../res/techIcon.png"
-import permissionIcon from "../res/permissionIcon.png"
-import contributeIcon from "../res/contributeIcon.png"
-import ideaIcon from "../res/ideaIcon.png"
 import ReactPlayer from 'react-player';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 function ResourceStudents() {
 
@@ -25,7 +19,7 @@ function ResourceStudents() {
     });
 
     useEffect(() => {
-        fetch([VARIABLES.fetchBaseUrl, "api/content-toolkit?populate=*"].join('/'))
+        fetch([process.env.REACT_APP_API_URL, "api/content-toolkit?populate=*"].join('/'))
             .then(res => res.json())
             .then(data => {
                 const{
@@ -46,7 +40,7 @@ function ResourceStudents() {
                     Pdf_How_to_Contribute_Oral_Histories_Students_Researchers: Pdf_How_to_Contribute_Oral_Histories_Students_Researchers ? Pdf_How_to_Contribute_Oral_Histories_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_How_to_Contribute_Biographies_Students_Researchers: Pdf_How_to_Contribute_Biographies_Students_Researchers ? Pdf_How_to_Contribute_Biographies_Students_Researchers.data.attributes.url.split('/')[2] : undefined,
                     Pdf_Technical_Guidelines: Pdf_Technical_Guidelines ? Pdf_Technical_Guidelines.data.attributes.url.split('/')[2] : undefined,
-                    Pdf_Permission_Documents: Pdf_Permission_Documents ? VARIABLES.fetchBaseUrl + Pdf_Permission_Documents.data.attributes.url : undefined,
+                    Pdf_Permission_Documents: Pdf_Permission_Documents ? process.env.REACT_APP_API_URL + Pdf_Permission_Documents.data.attributes.url : undefined,
                 });
             })
     }, []);
@@ -63,15 +57,7 @@ function ResourceStudents() {
 
             {/* BANNER */}
             <div className="researchersBanner">
-                <div className="researchersBanner_button">
-                    <img src={students_button} alt="Researcher Button" />
-                </div>
-                <div className="researchersBanner_header">
-                    <h1>RESOURCES FOR STUDENTS</h1>
-                    <div className="researchersBanner_border"></div>
-                    <p>{state.Resources_for_Students_Text}</p>
-                </div>
-                {/* <LCard text={banner_card} /> */}
+                <ResourcesFor type='students' resourceText={state.Resources_for_Students_Text}/>
             </div>
 
             {/* VIDEO PLAYER */}
@@ -86,45 +72,7 @@ function ResourceStudents() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <div className="resourceResearchersIcons">
-                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Oral_Histories_Students_Researchers}`}>
-                    <div className="iconContainer">
-                        <img src={oralIcon} alt="_"></img>
-                        <p>How to Contribute Oral Histories</p>
-                    </div>
-                </Link>
-                <Link to={`PDFViewer/${state.Pdf_How_to_Contribute_Biographies_Students_Researchers}`}>
-                    <div className="iconContainer">
-                        <img src={contributeIcon} alt="_"></img>
-                        <p>How to Contribute Biographies</p>
-                    </div>
-                </Link>
-                <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines}`}>
-                    <div className="iconContainer">
-                        <img src={techIcon} alt="_"></img>
-                        <p>Technical Guidelines</p>
-                    </div>
-                </Link>
-                <a href={`${state.Pdf_Permission_Documents}`} download>
-                    <div className="iconContainer">
-                        <img src={permissionIcon} alt="_"></img>
-                        <p>Permissions Documents</p>
-                    </div>
-                </a>
-            </div>
-
-            {/* MORE IDEAS CONTAINER */}
-            <Link to="/Forms/MoreIdeasForm">
-            <div className="ideaContainerStudents">
-                <div className="ideaContainerIcon">
-                    <img src={ideaIcon} alt="_"></img>
-                </div>
-                <div className="ideaContainerText">
-                    <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                </div>
-                
-            </div>
-            </Link>
+            <ContribIcons type='students' data={state}/>
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonStudentContainer">

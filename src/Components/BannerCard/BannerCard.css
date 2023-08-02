@@ -1,0 +1,37 @@
+.bannercard {
+    font-family: var(--fontNeoBulletin);
+    font-size: 30rem;
+    font-weight: bold;
+    width: fit-content;
+    min-width: 10em;
+    min-height: 4em;
+    height: fit-content;
+    background-color: white;
+    padding: 1em;
+}
+
+.bannercard_topright {
+    border-top: .2em solid var(--colorDeepRed);
+    border-right: .2em solid var(--colorDeepRed);
+    position: relative;
+    float: right;
+    width: 4em;
+    height: 2em;
+    margin-right: -2em;
+    margin-top: -2em;
+}
+
+.bannercard_text {
+    margin-top: .4em;
+}
+
+.bannercard_bottomleft {
+    position: absolute;
+    display: flex;
+    border-bottom: .2em solid var(--colorDeepRed);
+    border-left: .2em solid var(--colorDeepRed);
+    width: 4em;
+    height: 2em;
+    align-items: flex-end;
+    margin-left: -2em;
+}
