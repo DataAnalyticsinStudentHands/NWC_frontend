@@ -1,16 +1,14 @@
-import React, {useState, useCallback} from "react";
-import  {utils, writeFile } from "xlsx";
+import React, {useState , useEffect} from "react";
 import Tabs from "../Tabs";
-
 import { ResearchTable } from "../../../../Components/ResearchTable";
 import { ResearchMap } from '../../../../Components/ResearchMap/ResearchMap';
 import "./ResultTableMap.css";
 import ReactPaginate from "react-paginate";
-import { isArray } from "lodash";
+import { CSVLink } from "react-csv";
 
 export const ResultTableMap = (props) => {
 	const { data, map_data } = props;
-
+    const [downloadData, setDownloadData] = useState([]);
     const [itemOffset, setItemOffset] = useState(0);
     const coinsPerPage = 10;
     const endOffset = itemOffset + coinsPerPage;
@@ -21,22 +19,15 @@ export const ResultTableMap = (props) => {
       const newOffset = (event.selected * coinsPerPage) % data.length;
       setItemOffset(newOffset);
     };
-
-    /* get state data and export to XLSX */
-    const exportFile = useCallback(() => {
-        const exportData = data.map((participant) => {
-            Object.entries(participant).forEach(([key, value]) => {
-                isArray(value) ? (participant[key] = value.join('; ')): (participant[key] = value);
-            });
-            return participant;
-        });
-        /* generate worksheet from state */
-        const ws = utils.json_to_sheet(exportData);
-        /* create workbook and append worksheet */
-        const wb = utils.book_new();
-        utils.book_append_sheet(wb, ws, "Table Result");
-        /* export to XLSX */
-        writeFile(wb, "Participants.xlsx");
+    useEffect(() => {
+        setDownloadData(
+            data.map((participant) => {
+                Object.entries(participant).forEach(([key, value]) => {
+                    Array.isArray(value) ? participant[key] = value.join('; ') : participant[key] = value;
+                });
+                return participant;
+            })
+        )
     }, [data]);
 
 	return (
@@ -46,7 +37,16 @@ export const ResultTableMap = (props) => {
                 <span className="TableInfor-Left-Text">Showing {itemOffset + 1} to {endOffset} of {data.length} Participants</span>
             </div>
             <div className="TableInfor-Right">
-                <button className="TableInfor-Right-Button" onClick={exportFile}>Download</button>
+                <CSVLink
+                    data={downloadData}
+                    headers={Object.keys(data[0]).map((key) => {
+                        return { label: key, key: key };
+                    })}
+                    filename={`Participants_Results_${Date.now()}.csv`}
+                    className="TableInfor-Right-Button" 
+                >
+                    Download CSV
+                </CSVLink>
             </div>
         </div>
 		<Tabs>
