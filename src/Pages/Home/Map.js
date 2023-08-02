@@ -122,17 +122,17 @@ function Map({mapImg, points}) {
                 <p>{state.caption3}</p>
               </div>
               <div className="homeMap_popupFeed">
-                <Link to={`PDFViewer/${state.pdf1.split('/')[4]}`}>
+                <Link to={`pdfviewer/${state.pdf1.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img1} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf2.split('/')[4]}`}>
+                <Link to={`pdfviewer/${state.pdf2.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img2} alt="_" />
                   </div>
                 </Link>
-                <Link to={`PDFViewer/${state.pdf3.split('/')[4]}`}>
+                <Link to={`pdfviewer/${state.pdf3.split('/')[4]}`}>
                   <div className="homeMap_popupFeedImg">
                     <img src={state.img3} alt="_" />
                   </div>
