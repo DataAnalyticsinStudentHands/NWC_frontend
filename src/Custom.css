@@ -42,7 +42,7 @@ body {
 
 @font-face {
   font-family: 'babas_neue';
-  src: url('res/SS_Fonts/bebas_neue/BebasNeue-Regular.woff') format('woff');
+  src: url('assets/SS_Fonts/bebas_neue/BebasNeue-Regular.woff') format('woff');
   font-weight: normal;
   font-size: normal;
 }
@@ -52,7 +52,7 @@ body {
 
 @font-face {
   font-family: 'gotham';
-  src: url('res/SS_Fonts/gotham_book/gotham_book_regular/gotham_book_regular.woff') format('woff');
+  src: url('assets/SS_Fonts/gotham_book/gotham_book_regular/gotham_book_regular.woff') format('woff');
   font-weight: normal;
   font-size: normal;
 }
@@ -62,7 +62,7 @@ body {
 
 @font-face {
   font-family: 'neobulletin';
-  src: url('res/SS_Fonts/neobulletin/neobulletin_limited_free_version.woff') format('woff');
+  src: url('assets/SS_Fonts/neobulletin/neobulletin_limited_free_version.woff') format('woff');
   font-weight: normal;
   font-size: normal;
 }
@@ -72,7 +72,7 @@ body {
 
 @font-face {
   font-family: 'subway_ds';
-  src: url('res/SS_Fonts/subway_ds/subway_black.woff') format('woff');
+  src: url('assets/SS_Fonts/subway_ds/subway_black.woff') format('woff');
   font-weight: normal;
   font-size: normal;
 }

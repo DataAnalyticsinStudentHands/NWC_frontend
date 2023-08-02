@@ -4,8 +4,8 @@ import './ResourceEducators.css';
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
 import ReactPlayer from 'react-player';
-import ContributeIcons from '../../../contributeIcons/contributeIcons';
-import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 function ResourceEducators() {
 
@@ -75,7 +75,7 @@ function ResourceEducators() {
             </div>
 
             {/* RESEARCHER ICONS */}
-            <ContributeIcons type='educators' data={state}/>
+            <ContribIcons type='educators' data={state}/>
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="dotBlueEducator">

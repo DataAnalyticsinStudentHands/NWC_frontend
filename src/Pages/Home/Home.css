@@ -4,7 +4,7 @@ SPLASH
 
 .homeSplash {
   display: flex;
-  background: url('../../res/mapbg.png');
+  background: url('../../assets/res/mapbg.png');
   padding-left: 160rem;
   padding-top: 156.33rem;
   padding-bottom: 106.17rem;
@@ -454,7 +454,7 @@ HIGHLIGHTS
 */
 
 .homeLaunch {
-  background: url("../../res/mapbg.png");
+  background: url("../../assets/res/mapbg.png");
   height: calc(1000*var(--xUnit));
   padding-top: calc(212*var(--xUnit));
 }

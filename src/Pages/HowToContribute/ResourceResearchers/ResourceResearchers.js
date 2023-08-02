@@ -3,8 +3,8 @@ import './ResourceResearchers.css';
 import colorCorner from "../res/colorCorner.png"
 import colorCornerResearcher from "../res/colorCornerResearcher.png"
 import ReactPlayer from 'react-player';
-import ContributeIcons from '../../../contributeIcons/contributeIcons';
-import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 
 function ResourceResearchers() {
@@ -71,7 +71,7 @@ function ResourceResearchers() {
                 />
             </div>
 
-            <ContributeIcons type='researchers' data={state} />
+            <ContribIcons type='researchers' data={state} />
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonResearchersContainer">

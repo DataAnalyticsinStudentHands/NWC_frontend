@@ -3,16 +3,16 @@ import {
     useParams,
     Link,
 } from "react-router-dom";
-import "./DiscoverInfo.css"; // This is section 1.
+import "./DiscoverInfo.css";
 import ReactMarkdown from 'react-markdown';
-import MDEditor from '@uiw/react-md-editor';
+
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
 import BackToButton from '../../Components/Buttons/backTo';
 
 
 function DiscoverInfo() {
-    const { storyId } = useParams(); // WILL BE USED TO GRAB STRAPI DATA
+    const { storyId } = useParams();
 
     // state to hold content from Strapi
     const [state, setState] = useState({
@@ -91,12 +91,8 @@ function DiscoverInfo() {
         <div className="discoverInfo">
             {/**BANNER */}
             <div className="discoverInfoBanner">
-                {/* <div className="discoverInfoBanner_left">
-                    <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-                    <h1>{state.firstname} {state.lastname}</h1>
-                </div> */}
                 <div className='discoverInfoBanner_left'>
-                    <BackToButton name='Discover' link='/discover'/>
+                    <BackToButton name='Discover' link='/Discover'/>
                     <h1>{state.firstname} {state.lastname}</h1>
                 </div>
                 
@@ -144,19 +140,13 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            <p><MDEditor.Markdown source={state.bigquote1}  style={{'background-color': 'transparent', 'font-size':'1em' }}/></p>
-
+                            <p><ReactMarkdown>{state.bigquote1}</ReactMarkdown></p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}
 
                     <div className="discoverInfoBody_text">
-                        <ReactMarkdown>
-                            {state.maintext}
-                        </ReactMarkdown>
-                            
-                        
-                        
+                        <ReactMarkdown>{state.maintext}</ReactMarkdown>
                     </div>
 
                     {state.bigquote2 !== '' && state.bigquote2 !== null ?
@@ -164,8 +154,7 @@ function DiscoverInfo() {
                         <div className="discoverInfoBody_bigquote">
                             <div className="quote_topleft"></div>
                             <div className="quote_topright"></div>
-                            <p><MDEditor.Markdown source={state.bigquote2}  style={{'background-color': 'transparent', 'font-size':'1em' }}/></p>
-                            {/* <p>{state.bigquote2}</p> */}
+                            <p><ReactMarkdown>{state.bigquote2}</ReactMarkdown></p>
                             <div className="quote_bottomleft"></div>
                             <div className="quote_bottomright"></div>
                         </div> : null}

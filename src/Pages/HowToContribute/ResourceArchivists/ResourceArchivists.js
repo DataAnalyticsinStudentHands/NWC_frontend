@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ResourceArchivists.css';
 import colorCorner from "../res/colorCorner.png"
-import ContributeIcons from '../../../contributeIcons/contributeIcons';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
 import ReactPlayer from 'react-player';
-import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 function ResourceArchivists() {
 
@@ -40,23 +40,10 @@ function ResourceArchivists() {
                 </div>
             </div>
 
-
-
             {/* BANNER */}
             <div className='archivistsBanner'>
                 <ResourcesFor type='archivists' resourceText={state.Resources_for_Archivists_Text}/>
             </div>
-            
-            {/* <div className="archivistsBanner">
-                <div className="archivistsBanner_button">
-                    <img src={archivists_button} alt="Archivists Button" />
-                </div>
-                <div className="archivistsBanner_header">
-                    <h1>RESOURCES FOR ARCHIVISTS</h1>
-                    <div className="archivistsBanner_border"></div>
-                    <p>{state.Resources_for_Archivists_Text}</p>
-                </div>
-            </div> */}
 
             {/* VIDEO PLAYER */}
             <div className="resourceVideoPlayer">
@@ -69,28 +56,7 @@ function ResourceArchivists() {
                 />
             </div>
 
-            {/* RESEARCHER ICONS */}
-            {/* <div className="archivistsBannerIcons">
-                <Link to="/Forms/HowToDonatePapersForm">
-                    <div className="iconContainer">
-                        <img src={archivalIcon} alt="_"></img>
-                        <p>How to Contribute Archival Information</p>
-                    </div>
-                </Link>
-                <Link to={`PDFViewer/${state.Pdf_Technical_Guidelines_Archivists}`}>
-                    <div className="iconContainer">
-                        <img src={techIcon} alt="_"></img>
-                        <p>Technical Guidelines</p>
-                    </div>
-                </Link>
-                <a href={`${state.Pdf_Permission_Documents}`} download>
-                    <div className="iconContainer">
-                        <img src={permissionIcon} alt="_"></img>
-                        <p>Permissions Documents</p>
-                    </div>
-                </a>
-            </div> */}
-            <ContributeIcons type="archivists" data={state}/>
+            <ContribIcons type="archivists" data={state}/>
 
 
             {/* MORE IDEAS CONTAINER */}

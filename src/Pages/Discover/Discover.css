@@ -10,21 +10,23 @@ BANNER
     display: flex;
     align-items: center;
     justify-content: space-around;
-    background: url("../../res/mapbg.png");
+    background: url("../../assets/res/mapbg.png");
 }
 
+/*
+Control the individal space for each item in the banner
+*/
 .discoverBanner > img {
     width: 25%;
 }
 
-.discoverBanner > .lcard {
+.discoverBanner > .bannercard {
     width: 45%;
     margin: 2em 0;
 }
 
 .discoverBanner > .captionedImg {
     width: 30%;
-    align-self: flex-end;
 }
 
 /*

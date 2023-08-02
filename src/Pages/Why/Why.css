@@ -12,7 +12,7 @@ a {
     justify-content: space-between;
     position: relative;
     align-items: center;
-    background: url("../../res/mapbg.png");
+    background: url("../../assets/res/mapbg.png");
 }
 
 .whyBanner_button {
