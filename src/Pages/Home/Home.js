@@ -4,7 +4,7 @@ import './Home.css';
 import Map from './Map';
 import './OverlayVid.css';
 
-import opening from './res/openingmap.png';
+import opening from './res/City of Houston Map.png';
 
 import dt from './res/dt.png';
 import tw from './res/tw.png';
