@@ -2,8 +2,8 @@ import React from "react";
 import { useEffect } from "react";
 import { useLocation } from "react-router";
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
   Route
 } from "react-router-dom";
 
@@ -44,81 +44,37 @@ const ScrollToTop = (props) => {
 
 function App() {
   return (
-    <Router basename={'/dev'} className="App">
+    <BrowserRouter basename={'/dev'} className="App">
     {/* </Router><Router className="App"> */}
       <Navigation />
       <ScrollToTop>
-      <Switch>
-      <Route path="/About">
-          <About></About>
-        </Route>
-        <Route path="/MeetTheTeam">
-          <MeetTheTeam />
-        </Route>
-        <Route path="/Why">
-          <Why />
-        </Route>
-        <Route path="/Essay">
-          <Essay />
-        </Route>
-        <Route path="/Discover/:storyId">
-          <DiscoverInfo />
-        </Route>
-        <Route path="/Discover">
-          <Discover />
-        </Route>
-         <Route path="/ResearchingNWC">
-            <ResearchingNWC />
-        </Route> 
-        <Route path="/AdvancedSearch">
-          <AdvancedSearch />
-        </Route> 
-        <Route path="/Organizations">
-          <Organizations />
-        </Route>
-        <Route path="/Participants">
-          <Participants />
-        </Route>
-        <Route path="/PDFViewer/:pdffile">
-          <PDFViewer />
-        </Route>
-        <Route path="/Forms/CorrectionsForm">
-          <CorrectionsForm />
-        </Route>
-        <Route path="/Forms/ContactUsForm">
-          <ContactUsForm />
-        </Route>
-        <Route path="/Forms/HowToDonatePapersForm">
-          <HowToDonatePapersForm />
-        </Route>
-        <Route path="/Forms/MoreIdeasForm">
-          <MoreIdeasForm />
-        </Route>
-        <Route path="/HowToContribute">
-          <HowToContribute />
-        </Route>
-        <Route path="/ResourceResearchers">
-          <ResourceResearchers />
-        </Route>
-        <Route path="/ResourceArchivists">
-          <ResourceArchivists />
-        </Route>
-        <Route path="/ResourceStudents">
-          <ResourceStudents />
-        </Route>
-        <Route path="/ResourceNWC">
-          <ResourceNWC />
-        </Route>
-        <Route path="/ResourceEducators">
-          <ResourceEducators />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="about" element={<About />} />
+        <Route path="meetTheTeam" element={<MeetTheTeam />} />
+        <Route path="why" element={<Why />} />
+        <Route path="essay/:essayId" element={<Essay />} />
+        <Route path="discover/:storyId" element={<DiscoverInfo />} />
+        <Route path="discover" element={ <Discover />} />
+        <Route path="researchingNWC" element={<ResearchingNWC />} />
+        <Route path="advancedSearch" element={<AdvancedSearch />} />
+        <Route path="organizations" element={<Organizations />} />
+        <Route path="participants" element={<Participants />} />
+        <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
+        <Route path="forms/corrections" element={<CorrectionsForm />} />
+        <Route path="forms/contactus" element={ <ContactUsForm />} />
+        <Route path="forms/donatepapers" element={ <HowToDonatePapersForm />} />
+        <Route path="forms/moreideas" element={<MoreIdeasForm />} />
+        <Route path="howtocontribute" element={<HowToContribute />} />
+        <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
+        <Route path="howtocontribute/archivists" element={<ResourceArchivists />} />
+        <Route path="howtocontribute/students" element={<ResourceStudents />} />
+        <Route path="howtocontribute/nwc" element={<ResourceNWC />} />
+        <Route path="howtocontribute/educators" element={<ResourceEducators />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
       </ScrollToTop>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 
