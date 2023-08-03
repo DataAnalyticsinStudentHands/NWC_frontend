@@ -41,6 +41,10 @@
   .result-table tr {
 	border: 1px solid #000;
   }
+
+  .result-table thead tr:hover {
+	cursor: pointer;
+}
   
   /* Table header cell styles */
   .result-table th {

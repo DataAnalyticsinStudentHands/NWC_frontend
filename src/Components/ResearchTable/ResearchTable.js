@@ -1,27 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { isArray, startsWith } from "lodash";
-import ReactPaginate from "react-paginate";
 import "./ResearchTable.css";
 
-export const ResearchTable = (props) => {
-	const { data } = props;
-	const [sortKey, setSortKey] = useState(null);
-	const [sortOrder, setSortOrder] = useState("asc");
-	const [itemOffset, setItemOffset] = useState(0);
-	const coinsPerPage = 10;
-	const endOffset = (itemOffset + coinsPerPage) > data.length ? data.length : itemOffset + coinsPerPage;
-
-	const handleSort = (key) => {
-		if (sortKey === key) {
-		  // Reverse the sort order if the same column is clicked again
-		  setSortOrder(sortOrder === "asc" ? "desc" : "asc");
-		} else {
-		  // Sort in ascending order by default for a new column
-		  setSortKey(key);
-		  setSortOrder("asc");
-		}
-	  };
-	  
+export const ResearchTable = ({ data, sortKey, sortOrder, handleSort }) => {  
 	  const sortedData = [...data].sort((a, b) => {
 		if (sortOrder === "asc") {
 		  if (a[sortKey] === null) return 1;
@@ -34,29 +15,22 @@ export const ResearchTable = (props) => {
 		}
 	  });
 
-	const pageCount = Math.ceil(data.length / coinsPerPage);
-	const currentData = sortedData.slice(
-		itemOffset,
-		itemOffset + coinsPerPage
-	);
-	
-	const handlePageClick = (event) => {
-		const newOffset = event.selected * coinsPerPage;
-		setItemOffset(newOffset);
-	};
-
 	return (
 		<div className="result-table">
 			<table>
 				<thead>
 					<tr>
-						{Object.keys(data[0]).map((val) => {
-							return <th key={val}>{val}</th>;
+						{Object.keys(sortedData[0]).map((val) => {
+											return (
+												<th key={val} onClick={() => handleSort(val)}>
+												{val}
+												</th>
+											);
 						})}
 					</tr>
 				</thead>
 				<tbody>
-					{data.map((val, index) => {
+					{sortedData.map((val, index) => {
 						return (
 							<tr key={index}>
 								{Object.values(val).map((e, index) => {

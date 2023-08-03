@@ -7,14 +7,15 @@ import ReactPaginate from "react-paginate";
 import { CSVLink } from "react-csv";
 import LeftButtonIcon from '../../res/Left Button.svg';
 import RightButtonIcon from '../../res/Right Button.svg';
+
 export const ResultTableMap = (props) => {
 	const { data, map_data } = props;
     const [downloadData, setDownloadData] = useState([]);
     const [itemOffset, setItemOffset] = useState(0);
+    const [sortKey, setSortKey] = useState(null);
+    const [sortOrder, setSortOrder] = useState("asc");
     const coinsPerPage = 10;
-    const endOffset = itemOffset + coinsPerPage;
-    const currentData =data.slice(itemOffset, endOffset);
-    const pageCount = Math.ceil(data.length / coinsPerPage);
+
   
     const handlePageClick = (event) => {
       const newOffset = (event.selected * coinsPerPage) % data.length;
@@ -30,6 +31,31 @@ export const ResultTableMap = (props) => {
             })
         )
     }, [data]);
+
+    const sortedData = [...data].sort((a, b) => {
+		if (sortOrder === "asc") {
+		  if (a[sortKey] === null) return 1;
+		  if (b[sortKey] === null) return -1;
+		  return a[sortKey] > b[sortKey] ? 1 : -1;
+		} else {
+		  if (a[sortKey] === null) return -1;
+		  if (b[sortKey] === null) return 1;
+		  return a[sortKey] < b[sortKey] ? 1 : -1;
+		}
+	  });
+
+      const endOffset = itemOffset + coinsPerPage;
+      const currentData = sortedData.slice(itemOffset, endOffset);
+      const pageCount = Math.ceil(data.length / coinsPerPage);
+
+      const handleSort = (key) => {
+        if (sortKey === key) {
+          setSortOrder(sortOrder === "asc" ? "desc" : "asc");
+        } else {
+          setSortKey(key);
+          setSortOrder("asc");
+        }
+      };
 
     return (
       <>
@@ -52,7 +78,7 @@ export const ResultTableMap = (props) => {
         </div>
 		<Tabs>
 			<div label="Chart View" className="TableContiner">
-                <ResearchTable data={currentData} />
+                <ResearchTable data={currentData} sortKey={sortKey} sortOrder={sortOrder} handleSort={handleSort}/>
                 {
                     data.length > 10 && (
                         <ReactPaginate

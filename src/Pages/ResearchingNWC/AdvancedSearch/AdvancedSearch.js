@@ -8,10 +8,10 @@ import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
-
+import ReactMarkdown from 'react-markdown';
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
-
+import { processTableData } from './TableHeaders'
 
 function AdvancedSearch() {
 
@@ -190,7 +190,6 @@ function AdvancedSearch() {
   };
 
   async function onSubmit(data) {
-    console.log('data: ', data)
     let array_query = [];
 
     Object.entries(data).forEach(([key, value]) => {
@@ -249,10 +248,10 @@ function AdvancedSearch() {
       array_query.push({ 'age_in_1977': ageRangeQuery });
     }
     
-    const categories = [];
-    function extractAttributes(obj) {
+    const allCategories = [];
+    function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
       const keys = Object.keys(obj);
-      categories.push(...keys);
+      allCategories.push(...keys);
 
       for (const key of keys) {
         const value = obj[key];
@@ -266,15 +265,16 @@ function AdvancedSearch() {
       extractAttributes(item);
     });
 
-    const unformatted = array_query.map((item) => {
+    const categories = array_query.map((item) => { //grabs categories with a proper name
       const key = Object.keys(item)[0];
       return key
     })
+
     const query = qs.stringify({
       filters: {
         $or: array_query,
       },
-      populate: unformatted,
+      populate: categories,
 
     }, {
       encodeValuesOnly: true, // prettify URL
@@ -285,19 +285,7 @@ function AdvancedSearch() {
     }
     else {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    let uniqueArray = new Set()
-
-    response.data.forEach((item) => {    
-      Object.keys(item.attributes).forEach((key) => {
-        unformatted.forEach((item2) => {
-          if (key === item2) {
-            uniqueArray.add(item2);
-          }
-        })
-      });
-    });
-
-    const newArray = Array.from(uniqueArray);
+    
     if (response.data.length === 0) {
       setIsButtonClicked(true);
 
@@ -313,87 +301,12 @@ function AdvancedSearch() {
       })
       setMap(mapData);
 
-      const tableData = response.data.map((person) => {
-        const tableItem = {
-          'Name': `${person.attributes.last_name}, ${person.attributes.first_name}`,
-        };
-      
-        newArray.forEach((element) => {
-          const formattedKey = element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
-      
-          const nestedProperties = element.split('.');
-          let nestedValue = person.attributes;
-          // Recursive function to flatten nested arrays
+      const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
 
-          function flattenArray(arr, result = []) {
-            for (const item of arr) {
-              if (Array.isArray(item)) {
-                flattenArray(item, result);
-              } else {
-                result.push(item);
-              }
-            }
-            return result;
-          }
-
-          // Create an empty array to store all the values
-          let nestedValuesArray = [];
-
-          nestedProperties.forEach((property) => {
-            if (
-              typeof nestedValue[property] === 'object' &&
-              property in nestedValue &&
-              nestedValue[property] !== null
-            ) {
-              if (typeof nestedValue[property].data.attributes === 'object') {
-                nestedValuesArray.push(nestedValue[property].data.attributes[property])
-              }
-              else {
-              const filteredValues = nestedValue[property].data.map((item) => {
-                const attributes = item.attributes;
-                const filteredAttributes = Object.entries(attributes).reduce((acc, [key, value]) => {
-                  if (key !== 'createdAt' && key !== 'updatedAt' && categories.includes(key)) {
-                    acc[key] = convertBooleanToString(value); // Convert boolean values to "yes" or "no"
-                  }
-                  return acc;
-                }, {});
-          
-                // Return only the values of the filtered attributes (without 'createdAt' and 'updatedAt' keys and values)
-                return Object.values(filteredAttributes);
-              });
-          
-              // Append the filtered values to the nestedValuesArray
-              nestedValuesArray.push(...filteredValues); }
-            } else {
-              nestedValuesArray.push(convertBooleanToString(nestedValue[property]));
-            }
-          });
-          
-          function convertBooleanToString(value) {
-            if (value === true || value === "true") {
-              return "yes";
-            } else if (value === false || value === "false") {
-              return "no";
-            } else {
-              return value;
-            }
-          }
-
-          // Flatten the nestedValuesArray and remove duplicates using the recursive function
-          const flatNestedValue = flattenArray(nestedValuesArray);
-          const uniqueValues = [...new Set(flatNestedValue)];
-
-          // Assign the unique values to tableItem
-          tableItem[formattedKey] = uniqueValues;
-              });
-              
-              return tableItem;
-            });
-
-            setTableData(tableData);
-            setIsButtonClicked(true);
-          }
+      setTableData(tableData);
+      setIsButtonClicked(true);
       }
+    }
  }
   //Reset funnction for button
   const clearForm = () => {
@@ -418,7 +331,7 @@ function AdvancedSearch() {
       <div className="advancedSearch">
         <div className="advancedSearch_text">
           <h1> ADVANCED SEARCH PAGE</h1>
-          <p> {contentMap?.attributes?.AdvancedSearch_Banner}</p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Banner}</ReactMarkdown>
         </div>
       </div>
       <div className="advancedSearch"> 
@@ -431,7 +344,7 @@ function AdvancedSearch() {
         <div> 
           <Collapsible label="NATIONAL WOMEN'S CONFERENCE PARTICIPATION"> 
           <div style={{marginBottom: "80rem"}}>
-          <p>{contentMap?.attributes?.AdvancedSearch_NWC}</p> 
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_NWC}</ReactMarkdown>
           </div>
           <Tabs> 
             <div label="ROLE AT NWC">
@@ -514,7 +427,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="PARTICIPANT DEMOGRAPHICS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>{contentMap?.attributes?.AdvancedSearch_Participants}</p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Participants}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -743,7 +656,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="EDUCATION AND CAREER"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>{contentMap?.attributes?.AdvancedSearch_Education}</p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Education}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -826,7 +739,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="ELECTORAL POLITICS"> 
             <div style={{marginBottom: "80rem"}}>
-              <p>{contentMap?.attributes?.AdvancedSearch_Politics}</p>
+            <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Politics}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -937,7 +850,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="ORGANIZATIONS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>{contentMap?.attributes?.AdvancedSearch_Organizations} </p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Organizations}</ReactMarkdown>
             </div>
             <Tabs>
               {/* <div label="advocacy groups" >

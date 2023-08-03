@@ -13,6 +13,7 @@ import stateTerritories from '../../assets/stateTerritories.json';
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 
 import infoIcon from './res/Info Hover Icon.svg';
+import { processTableData } from './AdvancedSearch/TableHeaders'
 
 function ResearchingNWC() {
 
@@ -152,9 +153,31 @@ const politicalOfficeObj = {
         });
       } 
     }
+    const categories = query_array.map((item) => { //grabs categories with a proper name
+      const key = Object.keys(item)[0];
+      return key
+    })
+
+    const allCategories = [];
+    function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
+      const keys = Object.keys(obj);
+      allCategories.push(...keys);
+
+      for (const key of keys) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          // If the value is an object (nested attribute), recursively extract its attributes
+          extractAttributes(value);
+        }
+      }
+    }
+    query_array.forEach((item) => {
+      extractAttributes(item);
+    });
+
     
     let queryObj = {
-      populate: ['residence_in_1977','role', 'basic_races','educations'],
+      populate: categories,
       sort:[{'last_name':"asc"}],
     }
     data.switch ? queryObj.filters = { $and: query_array } : queryObj.filters = { $or: query_array };
@@ -162,6 +185,7 @@ const politicalOfficeObj = {
     let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
 
+    
     const mapData = response.data.map((person) => {
       return{
         lat:person.attributes.lat,
@@ -172,20 +196,8 @@ const politicalOfficeObj = {
     })
     setMap(mapData);
 
-    const NewTableData = response.data.map((person, index) => {
-      return{
-        '#': index+1,
-        'Last Name': person.attributes.last_name,
-        'First Name': person.attributes.first_name,
-        'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
-        // 'Education':person.attributes.educations.data.map((education) => 
-        //   `${education.attributes.degree}, ${education.attributes.institution} ${education.attributes.year}`
-        //   ),
-        'NWC Role':person.attributes.role.data.map((role) => role.attributes.role),
-        'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
-      }
-    })
-    setTableData(NewTableData);
+    const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
+    setTableData(tableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
