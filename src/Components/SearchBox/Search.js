@@ -1,6 +1,7 @@
+import React from 'react';
 import "./Search.css";
 
-const Search = (props) => {
+export const Search = (props) => {
 	const { handleSearch, handleSubmitSearch, errorsSearch, registerSearch } = props;
 	return (
 		<div className="nameSearch">
@@ -26,5 +27,3 @@ const Search = (props) => {
 		</div>
 	);
 };
-
-export default Search;

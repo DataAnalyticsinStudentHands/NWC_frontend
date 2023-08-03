@@ -295,21 +295,20 @@
 }
   
   .tab-list-item {
-    min-width: calc(241 * var(--xUnit));
-    list-style: none;
-    padding: 0.5rem 0.75rem;
-    background-color: var(--colorDarkBlue);
-    border-radius: 20px 20px 0 0;
-    text-align: center;
-    font-size: calc(30 * var(--xUnit));
-    font-family: var(--fontBabasNeue);
-    font-weight: bold;
-    padding-top: calc(20 * var(--xUnit));
-    padding-bottom: calc(15 * var(--xUnit));
-    padding-left: calc(20 * var(--xUnit));
-    padding-right: calc(20 * var(--xUnit));
-    color: white;
-    margin-right: 40rem;
+  list-style: none;
+  padding: 0.5rem 0.75rem;
+  /* width: calc(241 * var(--xUnit)); */
+  width: 10em;
+  background-color: var(--colorDarkBlue);
+  border-radius: 40px 40px 0 0;
+  text-align: center;
+  font-size: calc(30 * var(--xUnit));
+  font-family: var(--fontBabasNeue);
+  font-weight: bold;
+  padding-top: calc(20 * var(--xUnit));
+  padding-bottom: calc(15 * var(--xUnit));
+  color: white;
+  margin-right: 40rem;
   }
 
   .tab-list-item:hover {

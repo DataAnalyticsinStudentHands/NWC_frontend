@@ -4,7 +4,7 @@ import './Home.css';
 import Map from './Map';
 import './OverlayVid.css';
 
-import opening from './res/openingmap.png';
+import opening from './res/City of Houston Map.png';
 
 import dt from './res/dt.png';
 import tw from './res/tw.png';
@@ -337,7 +337,7 @@ function Home() {
                     className={openingMap ? 'homeMap_tab--active' : ''}
                     onClick={() => setOpeningMap(true)}
                   >
-                    <p>HOUSTON</p>
+                    <p>HOUSTON 1977</p>
                   </div>
                   {Object.keys(maps).map((m) => (
                     <div
