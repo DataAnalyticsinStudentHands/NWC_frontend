@@ -297,9 +297,10 @@
   .tab-list-item {
   list-style: none;
   padding: 0.5rem 0.75rem;
-  width: calc(241 * var(--xUnit));
+  /* width: calc(241 * var(--xUnit)); */
+  width: 10em;
   background-color: var(--colorDarkBlue);
-  border-radius: 20px 20px 0 0;
+  border-radius: 40px 40px 0 0;
   text-align: center;
   font-size: calc(30 * var(--xUnit));
   font-family: var(--fontBabasNeue);

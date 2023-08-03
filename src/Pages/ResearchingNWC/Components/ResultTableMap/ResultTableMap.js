@@ -5,7 +5,8 @@ import { ResearchMap } from '../../../../Components/ResearchMap/ResearchMap';
 import "./ResultTableMap.css";
 import ReactPaginate from "react-paginate";
 import { CSVLink } from "react-csv";
-
+import LeftButtonIcon from '../../res/Left Button.svg';
+import RightButtonIcon from '../../res/Right Button.svg';
 export const ResultTableMap = (props) => {
 	const { data, map_data } = props;
     const [downloadData, setDownloadData] = useState([]);
@@ -50,15 +51,15 @@ export const ResultTableMap = (props) => {
             </div>
         </div>
 		<Tabs>
-			<div label="Chart" className="TableContiner">
+			<div label="Chart View" className="TableContiner">
                 <ResearchTable data={currentData} />
                 {
                     data.length > 10 && (
                         <ReactPaginate
                             containerClassName="Research-Pagination"
-                            nextLabel=""
-                            previousLabel=""
-                            previousLinkClassName={""}
+                            nextLabel={<img src={RightButtonIcon} alt="RightButtonIcon" />}
+                            previousLabel={<img src={LeftButtonIcon} alt="LeftButtonIcon" />}
+                            previousLinkClassName=""
                             nextLinkClassName={""}
                             disabledClassName={"disabled"}
                             activeClassName={"active"}
@@ -71,7 +72,7 @@ export const ResultTableMap = (props) => {
                     )
                 }
 			</div>
-			<div label="Map">
+			<div label="Map View">
                 <ResearchMap map_data={map_data} />
             </div>
 		</Tabs>
