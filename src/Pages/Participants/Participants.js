@@ -9,7 +9,7 @@ function Participants() {
         <div className="participants">
             {/**BACK LINK */}
             <p className='backToDiscover'>
-                <BackToButton name='Discover' link='/discover'/>
+                <BackToButton name='Discover' link='/Discover'/>
             </p>
             
             <ListOf dataType='Participants' h1Title='Part'/>

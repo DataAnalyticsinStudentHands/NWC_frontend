@@ -53,7 +53,7 @@ function Footer() {
                     <Link to={'/'}>HOME</Link>
                 </div>
                 <div className="footer_top contact">
-                    <Link to='/forms/contactus'> CONTACT </Link>
+                    <Link to='/Forms/ContactUsForm'> CONTACT </Link>
                 </div>
                 <div className="footer_top donate">
                     <a href={state.donateLink} target="_blank" rel="noopener noreferrer">DONATE</a>
