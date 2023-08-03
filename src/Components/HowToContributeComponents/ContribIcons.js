@@ -54,13 +54,13 @@ function ContribIcons(props){
         <div>
         <div className="resourceResearchersIcons">
             {howToContribute?
-                <Link to={`PDFViewer/${howToContribute}`}>
+                <Link to={`/pdfviewer/${howToContribute}`}>
                 <div className="iconContainer">
                     <img src={oralIcon} alt="_"></img>
                     <p>How to Contribute Oral Histories</p>
                 </div>
             </Link>
-            :<Link to="/Forms/HowToDonatePapersForm">
+            :<Link to="/forms/donatepapers">
                     <div className="iconContainer">
                         <img src={archivalIcon} alt="_"></img>
                         <p>How to Contribute Archival Information</p>
@@ -70,7 +70,7 @@ function ContribIcons(props){
             }
             {
                 biographies?
-                    <Link to={`PDFViewer/${biographies}`}>
+                    <Link to={`/pdfviewer/${biographies}`}>
                         <div className="iconContainer">
                             <img src={contributeIcon} alt="_"></img>
                             <p>How to Contribute Biographies</p>
@@ -79,7 +79,7 @@ function ContribIcons(props){
                     :''
             }
             
-            <Link to={`PDFViewer/${technicalGuidelines}`}>
+            <Link to={`/pdfviewer/${technicalGuidelines}`}>
                 <div className="iconContainer">
                     <img src={techIcon} alt="_"></img>
                     <p>Technical Guidelines</p>
@@ -93,7 +93,7 @@ function ContribIcons(props){
             </a>
             {
                 type === 'participants'?
-                <Link to="/Forms/HowToDonatePapersForm">
+                <Link to="/forms/donatepapers">
                     <div className="iconContainer">
                         <img src={iconPapers} alt="_"></img>
                         <p>HOW TO DONATE YOUR PAPERS</p>  
@@ -103,7 +103,7 @@ function ContribIcons(props){
             }
             {
                 classIdeas?
-                <Link to={`PDFViewer/${classIdeas}`}>
+                <Link to={`/pdfviewer/${classIdeas}`}>
                     <div className="iconContainer">
                         <img src={iconClass} alt="_"></img>
                         <p>Classroom Ideas</p>
@@ -116,7 +116,7 @@ function ContribIcons(props){
             
         </div>
             {/* MORE IDEAS CONTAINER */}
-            <Link to="/Forms/MoreIdeasForm">
+            <Link to="/forms/moreideas">
                 <div className="ideaContainerArchivists">
                     <div className="ideaContainerIcon">
                         <img src={ideaIcon} alt="_"></img>

@@ -10,7 +10,7 @@ function ThankYou() {
           Your submission has been submitted for review
         </p>
       </header>
-      { <a href='./CorrectionsForm'> <input
+      { <a href='corrections'> <input
         type="button"
         className={styles.corrections_submit}
         value="Back to submission page"      
@@ -28,7 +28,7 @@ function ThankYouContact() {
           Your submission has been submitted for review
         </p>
       </header>
-      { <a href='./ContactUsForm'> <input
+      { <a href='contactus'> <input
         type="button"
         className={styles.corrections_submit}
         value="Back to submission page"      
@@ -46,7 +46,7 @@ function ThankYouMoreIdeas() {
           Your submission has been submitted for review
         </p>
       </header>
-      { <a href='./MoreIdeasForm'> <input
+      { <a href='moreideas'> <input
         type="button"
         className={styles.corrections_submit}
         value="Back to submission page"      

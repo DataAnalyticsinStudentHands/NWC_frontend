@@ -91,10 +91,6 @@ function DiscoverInfo() {
         <div className="discoverInfo">
             {/**BANNER */}
             <div className="discoverInfoBanner">
-                {/* <div className="discoverInfoBanner_left">
-                    <Link to="/discover">&larr; BACK TO DISCOVER PAGE</Link>
-                    <h1>{state.firstname} {state.lastname}</h1>
-                </div> */}
                 <div className='discoverInfoBanner_left'>
                     <BackToButton name='Discover' link='/discover'/>
                     <h1>{state.firstname} {state.lastname}</h1>
@@ -126,7 +122,7 @@ function DiscoverInfo() {
                         </p>)}
 
                     </div>
-                    <Link to='/Forms/CorrectionsForm' className="discoverInfoBody_submit">SUBMIT CORRECTIONS</Link>
+                    <Link to='/forms/corrections' className="discoverInfoBody_submit">SUBMIT CORRECTIONS</Link>
                 </div>
 
                 {/**BODY_RIGHT */}

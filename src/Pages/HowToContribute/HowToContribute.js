@@ -8,8 +8,8 @@ import researcher_button from "./res/researcher_button.png"
 import educators_button from "./res/educators_button.png"
 import students_button from "./res/students_button.png"
 import nwc_button from "./res/nwc_participants_button.png"
-import how_to_contribute_button from "../../res/button-how-to-contribute.png"
-import LCard from "../../Components/LCard/LCard";
+import how_to_contribute_button from "../../assets/res/button-how-to-contribute.png"
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 function HowToContribute() {
@@ -62,7 +62,7 @@ function HowToContribute() {
             {/* BANNER */}
             <div className="contributeBanner">
                 <img src={how_to_contribute_button} alt="How to Contribute" />
-                <LCard text={banner_card} />
+                <BannerCard text={banner_card} />
                 <CaptionedImg
                     src={htcBannerPic}
                     caption={"Photo by " + imgCredit}
@@ -85,7 +85,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <Link to="/ResourceResearchers">RESEARCHERS</Link>
+                        <Link to="researchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="/ResourceArchivists">ARCHIVISTS</Link>
+                    <Link to="archivists">ARCHIVISTS</Link>
                         <p>{archivistsText}</p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
+                    <Link to="nwc">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="/ResourceEducators">EDUCATORS</Link>
+                    <Link to="educators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="/ResourceStudents">STUDENTS</Link>
+                    <Link to="students">STUDENTS</Link>
                         <p>{studentsText}</p>
                     </div>
                 </div>
@@ -145,11 +145,11 @@ function HowToContribute() {
                         <p>{banner_card}</p>
                     </div>
                     <div className="howToContributeSubmission_body_links">
-                        <Link to="/Forms/CorrectionsForm" className="howToContributeSubmission_submit"
+                        <Link to="/forms/contactus" className="howToContributeSubmission_submit"
                             >
-                            CORRECTIONS
+                            Contact us
                         </Link>
-                        <Link to="/Forms/MoreIdeasForm" className="howToContributeSubmission_submit"
+                        <Link to="/forms/moreideas" className="howToContributeSubmission_submit"
                             >
                             Have more ideas? Tell us here
                         </Link>

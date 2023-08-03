@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ResourceArchivists.css';
 import colorCorner from "../res/colorCorner.png"
-import ContribIcons from '../../../Components/ContribIcons/ContribIcons';
+import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
 import ReactPlayer from 'react-player';
-import ResourcesFor from '../../../Components/ResourcesFor/ResourcesFor';
+import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
 
 function ResourceArchivists() {
 
@@ -57,19 +57,6 @@ function ResourceArchivists() {
             </div>
 
             <ContribIcons type="archivists" data={state}/>
-
-
-            {/* MORE IDEAS CONTAINER */}
-            {/* <Link to="/Forms/MoreIdeasForm">
-                <div className="ideaContainerArchivists">
-                    <div className="ideaContainerIcon">
-                        <img src={ideaIcon} alt="_"></img>
-                    </div>
-                    <div className="ideaContainerText">
-                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
-                    </div>
-                </div>
-            </Link> */}
 
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonArchContainer">

@@ -42,10 +42,7 @@ function ResourcesFor(props){
                 <div className="banner_border"></div>
                 <p>{resourceText}</p>
             </div>
-            {/* <LCard text={banner_card} /> */}
-
         </div>
-        
 )
 }
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react'
 import "./Discover.css";
-import discoverButton from "../../res/button-discover.png";
-import LCard from '../../Components/LCard/LCard';
+import discoverButton from "../../assets/res/button-discover.png";
+import BannerCard from '../../Components/BannerCard/BannerCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
 import { loadcards } from './cardloader';
@@ -208,7 +208,7 @@ function Discover() {
       {/**BANNER */}
       <div className="discoverBanner">
         <img src={discoverButton} alt="Discover NWC Stories" />
-        <LCard text={state.banner_text} />
+        <BannerCard text={state.banner_text} />
         <CaptionedImg
           src={discoverbannerperson}
           caption={state.bannerimage_credit}
@@ -224,8 +224,7 @@ function Discover() {
             .map((value, index) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
-              href={`/discover/${value.id}`}
-              // name={value.name}
+              href={`/Discover/${value.id}`}
               firstname={value.firstname}
               lastname={value.lastname}
               role={value.role}
@@ -280,7 +279,6 @@ function Discover() {
           key={Math.random()}
           color={["yellow", "blue", "red", "teal"][value.firstname.charCodeAt(0) % 4]}
           href={`/discover/${value.id}`}
-          // name={value.name}
           firstname={value.firstname}
           lastname={value.lastname}
           role={value.role}

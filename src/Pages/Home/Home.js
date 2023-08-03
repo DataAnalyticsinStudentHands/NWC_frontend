@@ -4,7 +4,7 @@ import './Home.css';
 import Map from './Map';
 import './OverlayVid.css';
 
-import opening from './res/openingmap.png';
+import opening from './res/City of Houston Map.png';
 
 import dt from './res/dt.png';
 import tw from './res/tw.png';
@@ -15,10 +15,10 @@ import astro from './res/astro.png';
 import toform from './res/toform.png';
 import aboutpeople from './res/aboutpeople.png';
 import minorityrightsplank from './res/minority_rights_plank.png';
-import button1 from '../../res/button-why-the-nwc-matters.png';
-import button2 from '../../res/button-discover.png';
-import button3 from '../../res/button-research-the-nwc.png';
-import button4 from '../../res/button-how-to-contribute.png';
+import button1 from '../../assets/res/button-why-the-nwc-matters.png';
+import button2 from '../../assets/res/button-discover.png';
+import button3 from '../../assets/res/button-research-the-nwc.png';
+import button4 from '../../assets/res/button-how-to-contribute.png';
 import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
@@ -337,7 +337,7 @@ function Home() {
                     className={openingMap ? 'homeMap_tab--active' : ''}
                     onClick={() => setOpeningMap(true)}
                   >
-                    <p>HOUSTON</p>
+                    <p>HOUSTON 1977</p>
                   </div>
                   {Object.keys(maps).map((m) => (
                     <div

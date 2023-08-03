@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "../../res/button-50th-anniversary.png";
+import button from "../../assets/res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
-import LCard from "../../Components/LCard/LCard";
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
@@ -76,7 +76,7 @@ function About() {
       {/**BANNER */}
       <div className="aboutBanner">
         <img src={button} alt="_" />
-        <LCard text={state.banner_text} />
+        <BannerCard text={state.banner_text} />
         <CaptionedImg
           src={barbarajordan} 
           caption={"Photo by " + state.bannerimage_credit}
@@ -113,21 +113,21 @@ function About() {
       <div className="aboutHead"><h1>PROJECT GUIDING PRINCIPLES</h1></div>
       <div className="aboutDocuments">
       {state.aboutDocuments_fmlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_fmlink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_fmlink.split('/')[4]}`}>
             <div>
             FEMINIST DH MANIFESTA
             </div>
           </Link>
         }
         {state.aboutDocuments_eclink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_eclink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_eclink.split('/')[4]}`}>
             <div>
               ETHICS OF CARE
             </div>
           </Link>
         }
          {state.aboutDocuments_cblink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_cblink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_cblink.split('/')[4]}`}>
 
             <div>
               CODEBOOK
@@ -135,42 +135,42 @@ function About() {
           </Link>
         }
         {state.aboutDocuments_tdlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_tdlink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_tdlink.split('/')[4]}`}>
             <div>
               TERMINOLOGY DOCUMENT
             </div>
           </Link>
         }
         {state.aboutDocuments_tblink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_tblink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_tblink.split('/')[4]}`}>
             <div>
               TECHNOLOGY BACKGROUND
             </div>
           </Link>
         }
         {state.aboutDocuments_ddlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
             <div>
               DESIGN DOCUMENT
             </div>
           </Link>
         }
         {state.aboutDocuments_edlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_edlink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_edlink.split('/')[4]}`}>
             <div>
               EDITING PROCEDURES
             </div>
           </Link>
         }
         {state.aboutDocuments_frlink &&
-          <Link to={`PDFViewer/${state.aboutDocuments_frlink.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_frlink.split('/')[4]}`}>
             <div>
               FURTHER READING
             </div>
           </Link>
         }
         {state.aboutDocuments_collectionsGuide  &&
-          <Link to={`PDFViewer/${state.aboutDocuments_collectionsGuide.split('/')[4]}`}>
+          <Link to={`/pdfviewer/${state.aboutDocuments_collectionsGuide.split('/')[4]}`}>
             <div>
               COLLECTIONS GUIDE
             </div>

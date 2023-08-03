@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import "./Why.css";
-import buttonwhy from "../../res/button-why-the-nwc-matters.png";
+import buttonwhy from "../../assets/res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
 
 import { Link } from 'react-router-dom';
@@ -71,20 +71,6 @@ function Why() {
         .catch(err => console.log(err));
     }, []); // eslint-disable-line
 
-    // function EssayList(props) {
-    //     const essays = props.essays;
-    //     const listItems = essays.filter(essay => essay[3] === true)
-    //         .map((essay) => 
-    //         <div key={essay[0]} className="thumb_with_title">
-    //             <Link to={`essay?id=${essay[0]}`}>
-    //                 <img src={essay[1]} alt="" key={essay[0]} />
-    //                 <h3 className="thumb_with_title_h3">{essay[2]}</h3>
-    //             </Link>
-    //         </div>
-    //     );
-    //     return (listItems);
-    // }
-
     return (
         <div className="why">
             {/**BANNER */}
@@ -93,7 +79,7 @@ function Why() {
                 <div className="whyBanner_card">
                     <h2>HISTORICAL OVERVIEW</h2>
                     <p>{pageState.historicalOverview}</p>
-                    <Link to="/Essay?id=1">
+                    <Link to="/essay/1">
                         <p className="why_readmore" >READ MORE</p>
                     </Link>
                 </div>
@@ -129,13 +115,7 @@ function Why() {
                     <h2>FEATURED ESSAYS</h2>
                     <div className='whyEssays_list'>
                         <Carousel3 images={essays}/>
-                        </div>
-                        {/* <EssayList essays={essays} />,
-                        <div className="thumb_with_title">
-                            <img src={comingsoon} alt="" />
-                            <h3 className="thumb_with_title_h3">Coming soon</h3>
-                        </div> */}
-                    
+                        </div>     
                 </div>
 
                 {/**PUBLICATIONS */}
@@ -147,8 +127,6 @@ function Why() {
                             <img key={d[0]} src={d[0]} alt="" />
                         </a>)}
                     </div>
-                
-                
                 </div>
             </div>
         </div>

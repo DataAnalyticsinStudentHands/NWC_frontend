@@ -3,9 +3,9 @@ import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
-import button from "../../res/button-research-the-nwc.png";
+import button from "../../assets/res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
-import LCard from "../../Components/LCard/LCard";
+import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import stateTerritories from '../../assets/stateTerritories.json';
@@ -236,7 +236,7 @@ const politicalOfficeObj = {
       {/* BANNER */}
       <div className="mappingNWCBanner">
         <img src={button} alt="_" />
-        <LCard text={contentMap?.attributes?.Banner_text} />
+        <BannerCard text={contentMap?.attributes?.Banner_text} />
         <CaptionedImg
                     src={component119}
                     caption={"Photo by " + contentMap?.attributes?.BannerImage_Credit}
