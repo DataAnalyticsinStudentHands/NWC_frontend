@@ -15,7 +15,7 @@ for(let x in item){
  item[x][0]==='essay' && item[x][4]===true?
   items.push(
   <div key={item[x][1]} className='thumb_with_title'>
-      <Link to={`essay?id=${item[x][1]}`}>
+      <Link to={`/essay/${item[x][1]}`}>
         <img src={item[x][2]} alt="" key={item[x][1]} />
         <h3 className="thumb_with_title_h3">{item[x][3]}</h3>
       </Link>
