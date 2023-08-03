@@ -58,6 +58,19 @@ function ResourceArchivists() {
 
             <ContribIcons type="archivists" data={state}/>
 
+
+            {/* MORE IDEAS CONTAINER */}
+            {/* <Link to="/Forms/MoreIdeasForm">
+                <div className="ideaContainerArchivists">
+                    <div className="ideaContainerIcon">
+                        <img src={ideaIcon} alt="_"></img>
+                    </div>
+                    <div className="ideaContainerText">
+                        <h1>HAVE MORE IDEAS? TELL US HERE</h1>
+                    </div>
+                </div>
+            </Link> */}
+
             {/* COLOR CORNER TOP RIGHT */}
             <div className="colorRibbonArchContainer">
                 <div className="colorRibbonArchRibbonBL">

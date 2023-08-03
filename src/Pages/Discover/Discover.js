@@ -278,7 +278,7 @@ function Discover() {
         {cards.map((value) => <DiscoverCard
           key={Math.random()}
           color={["yellow", "blue", "red", "teal"][value.firstname.charCodeAt(0) % 4]}
-          href={`/discover/${value.id}`}
+          href={`/Discover/${value.id}`}
           firstname={value.firstname}
           lastname={value.lastname}
           role={value.role}

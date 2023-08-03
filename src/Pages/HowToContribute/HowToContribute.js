@@ -85,7 +85,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                        <Link to="researchers">RESEARCHERS</Link>
+                        <Link to="/ResourceResearchers">RESEARCHERS</Link>
                         <p>{researchersText}</p>
                     </div>
                 </div>
@@ -96,7 +96,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="archivists">ARCHIVISTS</Link>
+                    <Link to="/ResourceArchivists">ARCHIVISTS</Link>
                         <p>{archivistsText}</p>
                     </div>
                 </div>
@@ -107,7 +107,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="nwc">NWC PARTICIPANTS</Link>
+                    <Link to="/ResourceNWC">NWC PARTICIPANTS</Link>
                         <p>{nwcParticipantsText}</p>
                     </div>
                 </div>
@@ -118,7 +118,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="educators">EDUCATORS</Link>
+                    <Link to="/ResourceEducators">EDUCATORS</Link>
                         <p>{educatorsText}</p>
                     </div>
                 </div>
@@ -129,7 +129,7 @@ function HowToContribute() {
                 </div>
                 <div className="howToContributeInvolved_content">
                     <div className="howToContributeInvolved_researcherText">
-                    <Link to="students">STUDENTS</Link>
+                    <Link to="/ResourceStudents">STUDENTS</Link>
                         <p>{studentsText}</p>
                     </div>
                 </div>
@@ -145,11 +145,11 @@ function HowToContribute() {
                         <p>{banner_card}</p>
                     </div>
                     <div className="howToContributeSubmission_body_links">
-                        <Link to="/forms/contactus" className="howToContributeSubmission_submit"
+                        <Link to="/Forms/CorrectionsForm" className="howToContributeSubmission_submit"
                             >
-                            Contact us
+                            CORRECTIONS
                         </Link>
-                        <Link to="/forms/moreideas" className="howToContributeSubmission_submit"
+                        <Link to="/Forms/MoreIdeasForm" className="howToContributeSubmission_submit"
                             >
                             Have more ideas? Tell us here
                         </Link>

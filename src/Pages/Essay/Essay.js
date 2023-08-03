@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router';
+import { useLocation } from 'react-router';
 
 import "./Essay.css";
 import Layout1 from './Layouts/Layout1';
@@ -9,7 +9,8 @@ import Torch from './Layouts/Torch';
 
 function Essay() {
 
-    const { essayId } = useParams();
+    const { search } = useLocation();
+    const id = search.split('=')[1];
 
     const [state, setState] = useState({
         layoutChoice: 'Layout3', // this is the default layout because it's simple
@@ -34,7 +35,7 @@ function Essay() {
     });
 
     useEffect(() => {
-        fetch([process.env.REACT_APP_API_URL, `api/content-essays/${essayId}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
+        fetch([process.env.REACT_APP_API_URL, `api/content-essays/${id}?populate[HeaderImage][populate]=*&populate[Section1][populate]=*&populate[Section2][populate]=*&populate[Section3][populate]=*&populate[Section4][populate]=*&populate[Sources][populate]=*&populate[BigImage1][populate]=*&populate[BigImage2][populate]=*&populate[CaptionedImage1][populate]=*&populate[CaptionedImage2][populate]=*&populate[CaptionedImage3][populate]=*&populate[CaptionedImage4][populate]=*`].join('/'))
         .then(res => res.json())
         .then(data => {
             const {data:
