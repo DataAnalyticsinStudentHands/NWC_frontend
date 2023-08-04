@@ -13,6 +13,7 @@ import stateTerritories from '../../assets/stateTerritories.json';
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 
 import infoIcon from './res/Info Hover Icon.svg';
+import { set } from 'lodash';
 
 function ResearchingNWC() {
 
@@ -38,6 +39,7 @@ function ResearchingNWC() {
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [userInput, setUserInput] = useState([]);
   // 3rd state for form search by name
   // const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
@@ -96,36 +98,54 @@ const politicalOfficeObj = {
 
   // submit basic search query
   async function onSubmit(data) {
+    let selectArr = [];
     let query_array = [];
-    Object.values(data).forEach((value, index) => {
+    Object.entries(data).forEach(([key,value], index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
           case "role":
-            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
+            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}});
+            selectArr.push(key.slice(5))
+            break;
           case 'race':
-            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}}); break;
+            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}});
+            selectArr.push(key.slice(5))
+            break;
           case 'religion':
-            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]}); break;
+            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]});
+            selectArr.push(key.slice(9))
+            break;
           case 'education':
-            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
+            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]});
+            selectArr.push(key.slice(10))
+            break;
           case 'level':
-            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); 
+            selectArr.push(key.slice(6))
+            break;
           case 'party':
-            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
+            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); 
+            selectArr.push(key.slice(6))
+            break;
           case 'era_for':
             query_array.push({ planks_fors: {
               plank: 'Equal Rights Amendment Plank'
-            }}); break;
+            }}); 
+            selectArr.push('For')
+            break;
           case 'era_against':
             query_array.push({ planks_againsts: {
               plank: 'Equal Rights Amendment Plank'
-            }}); break;
+            }}); 
+            selectArr.push('Against')
+            break;
           default:
             break;
         }
       }
     });
     if(data.participantsName){
+      selectArr.push(data.participantsName)
       let names = data.participantsName.split(' ');
       let first_name = names[0];
       let last_name = names[1];
@@ -152,7 +172,7 @@ const politicalOfficeObj = {
         });
       } 
     }
-    
+    setUserInput(selectArr);
     let queryObj = {
       populate: ['residence_in_1977','role', 'basic_races','educations'],
       sort:[{'last_name':"asc"}],
@@ -349,7 +369,7 @@ const politicalOfficeObj = {
 
       {tableData.length >0 ?
         <div className='Result-Continer'>
-          <ResultTableMap data={tableData} map_data={maps}/>
+          <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         : <div className='Result-Continer'>
           <p>
