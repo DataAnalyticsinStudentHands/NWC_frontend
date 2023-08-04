@@ -251,6 +251,7 @@ button:hover {
   border-radius: 0.5em;
   font-size: 1.5em;
   display: none;
+  border: 1px solid #000;
   z-index: 1;
 }
 .basicSearch_toggle-tooltip p{
@@ -307,11 +308,11 @@ button:hover {
 }
 
 input:checked + .slider {
-  background-color: var(--colorDarkBlue);
+  background-color: #60C1FF;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--colorDarkBlue);
+  box-shadow: 0 0 1px #60C1FF;
 }
 
 input:checked + .slider:before {
