@@ -1,5 +1,4 @@
 import React from "react";
-import { isArray, startsWith } from "lodash";
 import "./ResearchTable.css";
 
 export const ResearchTable = ({ data, sortKey, sortOrder, handleSort }) => {  
@@ -33,24 +32,10 @@ export const ResearchTable = ({ data, sortKey, sortOrder, handleSort }) => {
 					{sortedData.map((val, index) => {
 						return (
 							<tr key={index}>
-								{Object.values(val).map((e, index) => {
+								{Object.values(val).map((e, index) => {	
 									return (
 										<td key={index}>
-											{isArray(e)
-												? e
-														.filter(
-															(item) =>
-																!startsWith(
-																	item,
-																	"Nominated"
-																) &&
-																!startsWith(
-																	item,
-																	"Votes"
-																)
-														)
-														.join("; ")
-												: e}
+											{e}
 										</td>
 									);
 								})}

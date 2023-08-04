@@ -1,7 +1,7 @@
 import React, {useState , useEffect} from "react";
 import Tabs from "../Tabs";
-import { ResearchTable } from "../../../../Components/ResearchTable";
-import { ResearchMap } from "../../../../Components/ResearchMap/ResearchMap";
+import { ResearchTable } from "../ResearchTable";
+import { ResearchMap } from '../ResearchMap/ResearchMap';
 import "./ResultTableMap.css";
 import ReactPaginate from "react-paginate";
 import { CSVLink } from "react-csv";
