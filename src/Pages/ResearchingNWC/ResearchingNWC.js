@@ -10,9 +10,10 @@ import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import stateTerritories from '../../assets/stateTerritories.json';
 
-import Search from '../../Components/SearchBox/Search';
-
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
+
+import infoIcon from './res/Info Hover Icon.svg';
+
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
@@ -38,9 +39,9 @@ function ResearchingNWC() {
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
   // 3rd state for form search by name
-  const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
+  // const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
-  const { register, handleSubmit, formState: { errors }, reset } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -124,15 +125,41 @@ const politicalOfficeObj = {
         }
       }
     });
-    const query = qs.stringify({
-      filters: {
-        $or: query_array,
-      },
-      populate: ['residence_in_1977','role', 'basic_races'],
+    if(data.participantsName){
+      let names = data.participantsName.split(' ');
+      let first_name = names[0];
+      let last_name = names[1];
+      if(first_name && last_name){
+        query_array.push({
+          first_name: {
+            $startsWithi:first_name
+          },
+          last_name: {
+            $startsWithi:last_name
+          }
+        });
+      } else if(first_name && !last_name){
+        query_array.push({
+          first_name: {
+            $startsWithi:first_name
+          }
+        });
+      } else if(!first_name && last_name){
+        query_array.push({
+          last_name: {
+            $startsWithi:last_name
+          }
+        });
+      } 
+    }
+    
+    let queryObj = {
+      populate: ['residence_in_1977','role', 'basic_races','educations'],
       sort:[{'last_name':"asc"}],
-    }, {
-      encodeValuesOnly: true, // prettify URL
-    });
+    }
+    data.switch ? queryObj.filters = { $and: query_array } : queryObj.filters = { $or: query_array };
+
+    let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
 
     const mapData = response.data.map((person) => {
@@ -144,15 +171,24 @@ const politicalOfficeObj = {
       }
     })
     setMap(mapData);
-    const tableData = response.data.map((person) => {
+
+    const NewTableData = response.data.map((person, index) => {
       return{
-          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
-          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
-          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
-          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+        '#': index+1,
+        'Last Name': person.attributes.last_name,
+        'First Name': person.attributes.first_name,
+        'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+        'Education':person.attributes.educations.data.map((education) => {
+          const { degree, institution, year } = education.attributes;
+          return `${degree ?? ''} ${institution ?? ''} ${year ?? ''}`
+        }
+          
+          ),
+        'NWC Role':person.attributes.role.data.map((role) => role.attributes.role),
+        // 'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
       }
     })
-    setTableData(tableData);
+    setTableData(NewTableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
@@ -167,68 +203,6 @@ const politicalOfficeObj = {
   const onSelect = (options) => {
     setSelectedOptions(options);
   };
-
-  async function handleSearch({searchText}) {
-    let names = searchText.split(" ");
-    let query = {}
-    names[1] ? query = qs.stringify({
-      filters: {
-        $or:[
-          {$and: [
-            {first_name: {
-              $containsi:names[0]
-            }},
-            {last_name: {
-              $containsi:names[1]
-            }}
-          ]},
-          {residence_in_1977:{
-            residence_in_1977:{
-              $containsi:searchText
-            }
-          }}
-        ]
-      }, populate: ['residence_in_1977','role'],
-      sort:[{'last_name':"asc"}],
-    }, {encodeValuesOnly:true}) : query = qs.stringify({
-      filters: {
-        $or: [
-          {first_name: {
-            $containsi:names[0]
-          }},
-          {last_name: {
-            $containsi:names[0]
-          }},
-          {residence_in_1977:{
-            residence_in_1977:{
-              $containsi:searchText
-            }
-          }}
-        ]
-      }, populate: ['residence_in_1977','role', 'basic_races'],
-      sort:[{'last_name':"asc"}],
-    }, {encodeValuesOnly:true})
-
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    const mapData = response.data.map((person) => {
-      return{
-        lat:person.attributes.lat,
-        lon:person.attributes.lon,
-        first_name:person.attributes.first_name,
-        last_name:person.attributes.last_name,
-      }
-    })
-    setMap(mapData);
-    const tableData = response.data.map((person) => {
-      return{
-          'Name': `${person.attributes.last_name}, ${person.attributes.first_name} `,
-          'Race': person.attributes.basic_races.data.map((race)=> race.attributes.basic_race),
-          'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
-          'Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
-      }
-    })
-    setTableData(tableData);
-  }
 
   return (
     <div className="mappingNWC">
@@ -334,27 +308,51 @@ const politicalOfficeObj = {
                 <input type="checkbox" {...register("era_against")} />AGAINST</label>
             </div>
           </div>
-          <div className="row">
-            {/* errors will return when field validation fails  */}
+          {/* <div className="row">
             {errors.exampleRequired && <span>This field is required</span>}
+          </div> */}
+          <div className="basicSearch_toggle">
+              <span>
+                Narrow search results <img src={infoIcon} alt="_" />
+              </span>
+              <div className="basicSearch_toggle-tooltip">
+                <p>
+                <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                </p>
+                <p>
+                  Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                </p>
+                <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+              </div>            
+            <label className="basicSearchswitch">
+              <input type="checkbox" {...register("switch")}/>
+              <span className="slider round"></span>
+            </label>
           </div>
-          <div className="row">
-            <button type="button" className="resetButton" onClick={onClear}>RESET</button>
-            <button type="submit" className="searchButton">SEARCH</button>
+          <div className="basicSearch_footer">
+            <div className='basicSearch_footer-left'>
+              <p>You can also search participants by name:</p>
+              <input type="text" placeholder='FirstName LastName' {...register("participantsName")} />
+            </div>
+            <div className='basicSearch_footer-right'>
+              <button type="button" className="resetButton" onClick={onClear}>RESET</button>
+              <button type="submit" className="searchButton">SEARCH</button>
+            </div>
+
+
           </div>
         </form>
-
-        <Search 
-          handleSearch={handleSearch} 
-          handleSubmitSearch={handleSubmitSearch} 
-          errorsSearch={errorsSearch} 
-          registerSearch={registerSearch}
-        />
       </div>
 
-      {tableData.length >0 && 
+      {tableData.length >0 ?
         <div className='Result-Continer'>
           <ResultTableMap data={tableData} map_data={maps}/>
+        </div>
+        : <div className='Result-Continer'>
+          <p>
+            Results will appear here.
+          </p>
         </div>
       }
 
