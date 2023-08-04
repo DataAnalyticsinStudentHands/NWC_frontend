@@ -22,10 +22,10 @@ function Navigation() {
       <nav className="navigation">
         <div></div>
         <JuicyLink navname="Home" pathname="/" />
-        <JuicyLink navname="About Project" pathname="/About" />
-        <JuicyLink navname="Why The NWC Matters" pathname="/Why" />
-        <JuicyLink navname="Discover NWC Stories" pathname="/DiscoverNWCStories"/>
-        <JuicyLink navname="How to Contribute" pathname="/HowToContribute" />
+        <JuicyLink navname="About Project" pathname="/about" />
+        <JuicyLink navname="Why The NWC Matters" pathname="/why" />
+        <JuicyLink navname="Discover NWC Stories" pathname="/discover"/>
+        <JuicyLink navname="How to Contribute" pathname="/howtocontribute" />
         <div></div>
         {/*
         <img className="navigation_search" src={icon_search}/>*/}

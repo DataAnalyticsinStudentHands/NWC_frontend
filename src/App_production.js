@@ -1,7 +1,9 @@
 import React from "react";
+import { useEffect } from "react";
+import { useLocation } from "react-router";
 import {
-  BrowserRouter as Router,
-  Switch,
+  BrowserRouter,
+  Routes,
   Route
 } from "react-router-dom";
 
@@ -15,7 +17,6 @@ import Essay from "./Pages/Essay/Essay";
 import Participants from "./Pages/Participants/Participants";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
-import ResearchingNWC from "./Pages/ResearchingNWC/ResearchingNWC";
 import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
@@ -23,83 +24,50 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ScrollToTop from "./Components/util/ScrollToTop";
 import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
 import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
 
+const ScrollToTop = (props) => {
+  const location = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
+  return <>{props.children}</>
+};
+
 function App() {
   return (
-    <Router className="App">
+    <BrowserRouter className="App">
       <Navigation />
       <ScrollToTop>
-      <Switch>
-        <Route path="/MeetTheTeam">
-          <MeetTheTeam />
-        </Route>
-        <Route path="/DiscoverNWCStories">
-          <Discover />
-        </Route>
-        <Route path="/discover/:storyId">
-          <DiscoverInfo />
-        </Route>
-        <Route path="/Discover">
-          <Discover />
-        </Route>
-        <Route path="/Why">
-          <Why />
-        </Route>
-        <Route path="/Essay">
-          <Essay />
-        </Route>
-        <Route path="/HowToContribute">
-          <HowToContribute />
-        </Route>
-        <Route path="/About">
-          <About />
-        </Route>
-        <Route path="/Participants">
-          <Participants />
-        </Route>
-        <Route path="/PDFViewer/:pdffile">
-          <PDFViewer />
-        </Route>
-        <Route path="/Forms/CorrectionsForm">
-          <CorrectionsForm />
-        </Route>
-        <Route path="/Forms/ContactUsForm">
-          <ContactUsForm />
-        </Route>
-        <Route path="/Forms/HowToDonatePapersForm">
-          <HowToDonatePapersForm />
-        </Route>
-        <Route path="/Forms/MoreIdeasForm">
-          <MoreIdeasForm />
-        </Route>
-        <Route path="/ResourceResearchers">
-          <ResourceResearchers />
-        </Route>
-        <Route path="/ResourceArchivists">
-          <ResourceArchivists />
-        </Route>
-        <Route path="/ResourceStudents">
-          <ResourceStudents />
-        </Route>
-        <Route path="/ResourceNWC">
-          <ResourceNWC />
-        </Route>
-        <Route path="/ResourceEducators">
-          <ResourceEducators />
-        </Route>
-        <Route path="/">
-          <Home />
-        </Route>
-      </Switch>
+      <Routes>
+        <Route path="about" element={<About />} />
+        <Route path="meetTheTeam" element={<MeetTheTeam />} />
+        <Route path="why" element={<Why />} />
+        <Route path="essay/:essayId" element={<Essay />} />
+        <Route path="discover/:storyId" element={<DiscoverInfo />} />
+        <Route path="discover" element={ <Discover />} />
+        <Route path="participants" element={<Participants />} />
+        <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
+        <Route path="forms/corrections" element={<CorrectionsForm />} />
+        <Route path="forms/contactus" element={ <ContactUsForm />} />
+        <Route path="forms/donatepapers" element={ <HowToDonatePapersForm />} />
+        <Route path="forms/moreideas" element={<MoreIdeasForm />} />
+        <Route path="howtocontribute" element={<HowToContribute />} />
+        <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
+        <Route path="howtocontribute/archivists" element={<ResourceArchivists />} />
+        <Route path="howtocontribute/students" element={<ResourceStudents />} />
+        <Route path="howtocontribute/nwc" element={<ResourceNWC />} />
+        <Route path="howtocontribute/educators" element={<ResourceEducators />} />
+        <Route path="/" element={<Home />} />
+      </Routes>
       </ScrollToTop>
       <Footer />
-    </Router>
+    </BrowserRouter>
   );
 }
 
