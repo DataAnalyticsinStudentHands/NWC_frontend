@@ -178,11 +178,14 @@ const politicalOfficeObj = {
         'Last Name': person.attributes.last_name,
         'First Name': person.attributes.first_name,
         'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
-        // 'Education':person.attributes.educations.data.map((education) => 
-        //   `${education.attributes.degree}, ${education.attributes.institution} ${education.attributes.year}`
-        //   ),
+        'Education':person.attributes.educations.data.map((education) => {
+          const { degree, institution, year } = education.attributes;
+          return `${degree ?? ''} ${institution ?? ''} ${year ?? ''}`
+        }
+          
+          ),
         'NWC Role':person.attributes.role.data.map((role) => role.attributes.role),
-        'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
+        // 'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
       }
     })
     setTableData(NewTableData);

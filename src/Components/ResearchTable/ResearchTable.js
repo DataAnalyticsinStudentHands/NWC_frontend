@@ -1,9 +1,22 @@
 import React from "react";
-import { isArray, startsWith } from "lodash";
 import "./ResearchTable.css";
 export const ResearchTable = (props) => {
-	const { data } = props;
-
+	const data = props.data.map((val) => {
+		Object.entries(val).forEach(([key, value]) => {
+		  if (Array.isArray(value)) {
+			val[key] = value
+			  .filter(
+				(v) =>
+				  !v.toLowerCase().startsWith("nominated") &&
+				  !v.toLowerCase().startsWith("votes")
+			  )
+			  .join("; \n");
+		  } else {
+			val[key] = value;
+		  }
+		});
+		return val;
+	  });
 	return (
 		<div className="result-table">
 			<table>
@@ -18,24 +31,10 @@ export const ResearchTable = (props) => {
 					{data.map((val, index) => {
 						return (
 							<tr key={index}>
-								{Object.values(val).map((e, index) => {
+								{Object.values(val).map((e, index) => {	
 									return (
 										<td key={index}>
-											{isArray(e)
-												? e
-														.filter(
-															(item) =>
-																!startsWith(
-																	item,
-																	"Nominated"
-																) &&
-																!startsWith(
-																	item,
-																	"Votes"
-																)
-														)
-														.join("; ")
-												: e}
+											{e}
 										</td>
 									);
 								})}
