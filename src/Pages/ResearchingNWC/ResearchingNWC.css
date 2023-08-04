@@ -79,6 +79,15 @@ SEARCH
   margin-top: 20rem;
 }
 
+.mappingNWCSearchTemp{
+  color: #000;
+font-family: Montserrat;
+font-size: 24px;
+font-style: normal;
+font-weight: 700;
+line-height: 43px; /* 179.167% */
+} 
+
 
 
 .basicForm {
@@ -229,9 +238,18 @@ button:hover {
 .Result-Continer{
     margin: 50rem 80rem;
 }
+.Result-Continer p{
+  color: #000;
+font-family: Montserrat;
+font-size: 24px;
+font-style: normal;
+font-weight: 400;
+line-height: 43px; /* 179.167% */
+}
 
 .basicSearch_toggle{
   display: flex;
+  /* flex-direction: row; */
   justify-content: end;
   align-items: center;
   margin-top: 2em;
@@ -239,11 +257,20 @@ button:hover {
   gap: 1em;
   position: relative;
 }
-
+.basicSearch_toggle-left{
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+}
+.basicSearch_toggle-container{
+  position: relative;
+}
 .basicSearch_toggle-tooltip{
   position: absolute;
-  top: 100%;
-  right: 0;
+  top:0;
+  left: 0;
   width: 7em;
   background-color: #FFF4E8;
   color: black;
@@ -254,6 +281,9 @@ button:hover {
   border: 1px solid #000;
   z-index: 1;
 }
+.basicSearch_toggle-container:hover .basicSearch_toggle-tooltip{
+  display: block;
+}
 .basicSearch_toggle-tooltip p{
   color: #000;
   font-size: 12px;
@@ -261,9 +291,9 @@ button:hover {
   font-weight: 400;
   line-height: normal;
 }
-.basicSearch_toggle:hover .basicSearch_toggle-tooltip{
+/* .basicSearch_toggle:hover .basicSearch_toggle-tooltip{
   display: block;
-}
+} */
 
 .basicSearch_toggle img{
   position: relative;
@@ -358,6 +388,14 @@ input:checked + .slider:before {
   font-family: var(--fontBabasNeue);
   font-weight: 500;
   color: var(--colorDarkBlue);
+}
+.basicSearch_footer-left input::placeholder{
+  color: #939393;
+font-family: Montserrat;
+font-size: 24px;
+font-style: normal;
+font-weight: 500;
+line-height: 43px; /* 179.167% */
 }
 .basicSearch_footer-left input:focus{
   outline: none;

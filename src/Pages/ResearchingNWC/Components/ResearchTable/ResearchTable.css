@@ -3,58 +3,80 @@
 	margin-top: -5rem;
 	max-height: 600px;
 	overflow-y: auto;
-  }
-  
-  /* Custom scrollbar styles (WebKit-based browsers) */
-  .result-table::-webkit-scrollbar {
+	border: 1px solid #000;
+}
+
+/* Custom scrollbar styles (WebKit-based browsers) */
+.result-table::-webkit-scrollbar {
 	width: 20px;
-  }
-  
-  .result-table::-webkit-scrollbar-track {
+}
+
+.result-table::-webkit-scrollbar-track {
 	background: #d9d9d9;
-  }
-  
-  .result-table::-webkit-scrollbar-thumb {
+}
+
+.result-table::-webkit-scrollbar-thumb {
 	background: #b32525;
-  }
-  
-  .result-table::-webkit-scrollbar-thumb:hover {
+}
+
+.result-table::-webkit-scrollbar-thumb:hover {
 	background: #b32525;
-  }
-  
-  /* General table styles */
-  .result-table table {
+}
+
+/* General table styles */
+.result-table table {
 	width: 100%;
 	border-collapse: collapse;
 	border: 1px solid #000;
-  }
-  
-  /* Table header styles */
-  .result-table thead {
-	background-color: #fff;
+}
+
+/* Table header styles */
+.result-table thead {
 	border: 1px solid #000;
-	position: sticky;
 	top: 0;
-  }
-  
-  /* Table row styles */
-  .result-table tr {
+}
+
+/* Table row styles */
+.result-table tr {
 	border: 1px solid #000;
-  }
-  
-  /* Table header cell styles */
-  .result-table th {
+}
+
+/* Table header cell styles */
+.result-table th {
 	font-size: 24px;
 	padding: 0.5em 1em;
 	border-top: 1px solid #000; /* Add top border */
-	border-bottom: 1px solid #000;	width: auto;
+	border-bottom: 1px solid #000;
+	width: auto;
 	width: auto;
 	white-space: nowrap;
 	border: 1px solid #000;
-  }
-  
-  /* Table data cell styles */
-  .result-table td {
+
+	background-color: #fff;
+	position: sticky;
+	top: 0;
+	z-index: 2;
+}
+.result-table th:after,
+th:before {
+	content: "";
+	position: absolute;
+	left: 0;
+	width: 100%;
+}
+
+.result-table th:before {
+	top: -1px;
+	border-top: 1px solid #000;
+}
+
+.result-table th:after {
+	bottom: -1px;
+	border-bottom: 2px solid #000;
+}
+
+/* Table data cell styles */
+.result-table td {
 	font-family: Montserrat;
 	font-size: 20px;
 	font-style: normal;
@@ -64,19 +86,18 @@
 	border: 1px solid #000;
 	/* Spliter  */
 	white-space: pre-line;
-  }
-  
-  /* First data cell styles */
-  .result-table td:nth-child(1) {
+}
+
+/* First data cell styles */
+.result-table td:nth-child(1) {
 	font-weight: bold;
 	text-align: center;
-  }
-  
-  /* Odd rows background color */
-  .result-table tbody tr:nth-child(odd) {
+}
+
+/* Odd rows background color */
+.result-table tbody tr:nth-child(odd) {
 	background-color: #cadfee;
-  }
-  
+}
 
 /* .result-table {
 	margin-top: -5rem;

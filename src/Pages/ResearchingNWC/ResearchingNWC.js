@@ -59,10 +59,10 @@ function ResearchingNWC() {
   }
 
 const raceObj = {
-  "AAPI": "Asian American/Pacific Islander",
+  "Asian American/Pacific Islander": "Asian American/Pacific Islander",
   "Black": "Black",
-  "Native American/American Indian": "Native American/American Indian",
   "Hispanic": "Hispanic",
+  "Native American/American Indian": "Native American/American Indian",
   "white": "white"
 }
 const religionObj = {
@@ -89,7 +89,7 @@ const politicalOfficeObj = {
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
-    "Third Part": {
+    "Third Party": {
       $notIn:["Democratic Party", "Republican Party"]
     }
   }
@@ -224,6 +224,8 @@ const politicalOfficeObj = {
         <h2>BASIC SEARCH</h2>
         <p>{contentMap?.attributes?.BasicSearch_Text}</p>
 
+        <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
+
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
           <div className="row">
@@ -308,23 +310,23 @@ const politicalOfficeObj = {
                 <input type="checkbox" {...register("era_against")} />AGAINST</label>
             </div>
           </div>
-          {/* <div className="row">
-            {errors.exampleRequired && <span>This field is required</span>}
-          </div> */}
           <div className="basicSearch_toggle">
-              <span>
-                Narrow search results <img src={infoIcon} alt="_" />
-              </span>
-              <div className="basicSearch_toggle-tooltip">
-                <p>
-                <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
-                </p>
-                <p>
-                  Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
-                </p>
-                <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
-                <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
-              </div>            
+              <div className='basicSearch_toggle-left'>
+                Narrow search results 
+                  <div className='basicSearch_toggle-container'>
+                  <img className='infoIcon' src={infoIcon} alt="_" />
+                  <div className="basicSearch_toggle-tooltip">
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                  </div> 
+                  </div>
+              </div>           
             <label className="basicSearchswitch">
               <input type="checkbox" {...register("switch")}/>
               <span className="slider round"></span>
