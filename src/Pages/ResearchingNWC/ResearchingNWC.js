@@ -13,7 +13,6 @@ import stateTerritories from '../../assets/stateTerritories.json';
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 
 import infoIcon from './res/Info Hover Icon.svg';
-import { set } from 'lodash';
 
 function ResearchingNWC() {
 
