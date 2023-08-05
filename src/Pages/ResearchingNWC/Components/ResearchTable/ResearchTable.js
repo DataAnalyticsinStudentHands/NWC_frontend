@@ -5,6 +5,7 @@ export const ResearchTable = (props) => {
 		Object.entries(val).forEach(([key, value]) => {
 		  if (Array.isArray(value)) {
 			val[key] = value
+			  .map((v) => (v !== null && !Number.isInteger(v) ? v : "")) // If v is null, replace it with an empty string
 			  .filter(
 				(v) =>
 				  !v.toLowerCase().startsWith("nominated") &&
