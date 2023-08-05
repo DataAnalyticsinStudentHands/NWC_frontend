@@ -172,7 +172,6 @@ const politicalOfficeObj = {
       } 
     }
     setUserInput(selectArr);
-    console.log('user: ', userInput)
     let queryObj = {
       populate: ['residence_in_1977','role', 'basic_races','educations'],
       sort:[{'last_name':"asc"}],
