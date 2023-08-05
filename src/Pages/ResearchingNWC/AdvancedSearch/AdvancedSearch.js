@@ -181,6 +181,7 @@ function AdvancedSearch() {
     age40to64: false,
     age65plus: false,
   });
+  const [userInput, setUserInput] = useState([])
 
   const handleAgeCheckboxChange = (name, checked) => {
     setAgeCheckboxState({
@@ -264,11 +265,40 @@ function AdvancedSearch() {
     array_query.forEach((item) => {
       extractAttributes(item);
     });
+    console.log('array: ', array_query)
 
     const categories = array_query.map((item) => { //grabs categories with a proper name
       const key = Object.keys(item)[0];
       return key
     })
+    const allValues = [];
+    for (const item of array_query) {
+      const key = Object.keys(item)[0];
+      const value = item[key];
+    
+      if (typeof value === 'object') {
+        for (const nestedKey of Object.keys(value)) {
+          const nestedValue = value[nestedKey];
+          if (typeof nestedValue === 'object') {
+            for (const deeplyNestedValue of Object.values(nestedValue)) {
+              allValues.push(deeplyNestedValue);
+            }
+          } else {
+            allValues.push(nestedValue);
+          }
+        }
+      } else {
+        let transformedValue = value;
+        if (value === "true") {
+          transformedValue = "yes";
+        } else if (value === "false") {
+          transformedValue = "no";
+        }
+        const transformedKey = key.replace(/_/g, " ");
+        allValues.push(`${transformedKey}: ${transformedValue}`);
+      }
+    }
+    setUserInput(allValues);
 
     const query = qs.stringify({
       filters: {
@@ -969,7 +999,7 @@ function AdvancedSearch() {
         </div>
         {isButtonClicked && tableData.length > 0 && (
         <div className='Result-Continer'>
-          <ResultTableMap data={tableData} map_data={maps}/>
+          <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         )}
         {isButtonClicked && tableData.length === 0 && (

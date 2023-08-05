@@ -1,35 +1,35 @@
 import React from "react";
 import "./ResearchTable.css";
-
-export const ResearchTable = ({ data, sortKey, sortOrder, handleSort }) => {  
-	  const sortedData = [...data].sort((a, b) => {
-		if (sortOrder === "asc") {
-		  if (a[sortKey] === null) return 1;
-		  if (b[sortKey] === null) return -1;
-		  return a[sortKey] > b[sortKey] ? 1 : -1;
-		} else {
-		  if (a[sortKey] === null) return -1;
-		  if (b[sortKey] === null) return 1;
-		  return a[sortKey] < b[sortKey] ? 1 : -1;
-		}
+export const ResearchTable = (props) => {
+	const data = props.data.map((val) => {
+		Object.entries(val).forEach(([key, value]) => {
+		  if (Array.isArray(value)) {
+			val[key] = value
+			  .map((v) => (v !== null && !Number.isInteger(v) ? v : "")) // If v is null, replace it with an empty string
+			  .filter(
+				(v) =>
+				  !v.toLowerCase().startsWith("nominated") &&
+				  !v.toLowerCase().startsWith("votes")
+			  )
+			  .join("; \n");
+		  } else {
+			val[key] = value;
+		  }
+		});
+		return val;
 	  });
-
 	return (
 		<div className="result-table">
 			<table>
 				<thead>
 					<tr>
-						{Object.keys(sortedData[0]).map((val) => {
-											return (
-												<th key={val} onClick={() => handleSort(val)}>
-												{val}
-												</th>
-											);
+						{Object.keys(data[0]).map((val) => {
+							return <th key={val}>{val}</th>;
 						})}
 					</tr>
 				</thead>
 				<tbody>
-					{sortedData.map((val, index) => {
+					{data.map((val, index) => {
 						return (
 							<tr key={index}>
 								{Object.values(val).map((e, index) => {	
