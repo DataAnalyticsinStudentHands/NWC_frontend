@@ -5,7 +5,7 @@ import BannerCard from '../../Components/BannerCard/BannerCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
 import { loadcards } from './cardloader';
-import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
+import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 var currentData = 'default'
