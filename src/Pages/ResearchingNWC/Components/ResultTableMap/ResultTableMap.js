@@ -71,9 +71,10 @@ export const ResultTableMap = (props) => {
                             activeClassName={"active"}
                             pageCount={pageCount}
                             marginPagesDisplayed={2}
-                            pageRangeDisplayed={5}
+                            pageRangeDisplayed={2}
                             onPageChange={handlePageClick}
                             renderOnZeroPageCount={null}
+                            breakLabel="..."
                         />
                     )
                 }
