@@ -19,7 +19,7 @@ import Essay from "./Pages/Essay/Essay";
 import Participants from "./Pages/Participants/Participants";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
-import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
+import MeetTheTeam from "./Pages/AboutProject/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
 import CorrectionsForm from './Pages/Forms/CorrectionsForm';
