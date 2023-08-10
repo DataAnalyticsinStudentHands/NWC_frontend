@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './ResourceArchivists.css';
 import colorCorner from "../res/colorCorner.png"
-import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
+import ContribIcons from '../Components/ContribIcons';
 import ReactPlayer from 'react-player';
-import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
+import ResourcesFor from '../Components/ResourcesFor';
 
 function ResourceArchivists() {
 

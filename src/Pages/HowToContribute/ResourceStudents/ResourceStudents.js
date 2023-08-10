@@ -3,8 +3,8 @@ import './ResourceStudents.css';
 import colorCorner from "../res/colorCorner.png"
 import colorCornerStudent from "../res/colorCornerStudent.png"
 import ReactPlayer from 'react-player';
-import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
-import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
+import ContribIcons from '../Components/ContribIcons';
+import ResourcesFor from '../Components/ResourcesFor';
 
 function ResourceStudents() {
 

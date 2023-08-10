@@ -1,8 +1,8 @@
-import archivists_button from '../../Pages/HowToContribute/res/archivist_button.png'
-import educators_button from '../../Pages/HowToContribute/res/educators_button.png'
-import nwx_participants_button from '../../Pages/HowToContribute/res/nwc_participants_button.png'
-import researcher_button from '../../Pages/HowToContribute/res/researcher_button.png'
-import students_button from '../../Pages/HowToContribute/res/students_button.png'
+import archivists_button from '../res/archivists_button.png'
+import educators_button from '../res/educators_button.png'
+import nwx_participants_button from '../res/nwc_participants_button.png'
+import researcher_button from '../res/researcher_button.png'
+import students_button from '../res/students_button.png'
 
 import './ResourcesFor.css'
 

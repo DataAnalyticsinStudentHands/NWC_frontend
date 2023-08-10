@@ -3,8 +3,8 @@ import './ResourceNWC.css';
 import dotRed from "../res/dotRed.png"
 import dotBlue from "../res/dotBlue.png"
 import ReactPlayer from 'react-player';
-import ContribIcons from '../../../Components/HowToContributeComponents/ContribIcons';
-import ResourcesFor from '../../../Components/HowToContributeComponents/ResourcesFor';
+import ContribIcons from '../Components/ContribIcons';
+import ResourcesFor from '../Components/ResourcesFor';
 
 
 function ResourceNWC() {
