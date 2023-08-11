@@ -1,0 +1,39 @@
+// $app-background-color: og-color(background, canvas);
+// $og-base-text-color: og-color(text, primary);
+// $og-brand-text-color: og-color(text, link);
+// $og-secondary-text-color: og-color(text, secondary);
+// $og-base-link-text-color: $og-brand-text-color;
+// $left-nav-width: 280px;
+// $content-bg-color: og-color(background, app);
+
+:root {
+  --xUnit: calc(100vw/1920);
+  font-size: calc(100vw/1920);
+
+  --colorBackgroundLightGray: #E2E2E2; /*Like seen in the background for the pdf viewer*/
+  --colorLightGray: #CCC9C9; /*Like seen in the text of homeMap's popup*/
+  --colorLightGrayFont: #A5A5A5; /*Like seen in the text for essays*/
+  --colorDarkBlue: #142F45; /*Like seen in the background of the Navigation*/
+  --colorMediumBlue: #357A93; /*Like seen in the essay lists short titles in thumnails*/
+  --colorLightBlue: #9EC7E1; /*Like seen in the links of Navigation*/
+  --colorDeepRed: #B32525; /*Like seen on the border of Navigation*/
+  --colorDeepOrange: #CB4E28; /*Like seen on the border of Navigation*/
+  --colorDeepYellow: #FFD048; /*Like seen on the bottom border of the homeAbout Section*/
+  --colorBeige: #FFF4E8; /*Like seen the homeAbout section*/
+  --colorLighterBlue: #F1F8FD; /*Like seen as background color in Biographies */
+
+  --fontBabasNeue: 'babas_neue';
+  --fontGotham: 'gotham';
+  --fontNeoBulletin: 'neobulletin';
+  --fontSubwayDs: 'subway_ds', 'normal';
+  --fontMontserrat: 'Montserrat', sans-serif;
+
+  
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+
+

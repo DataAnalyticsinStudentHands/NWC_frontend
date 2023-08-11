@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 
-import './Custom.css';
+import './styles/_styles.scss';
 import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
@@ -30,6 +30,7 @@ import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/Res
 import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
 import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
 import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
+import {Resources} from "./Pages/HowToContribute/Components/Resources"
 import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
 import Organizations from "./Pages/ResearchingNWC/Organizations"
 
@@ -65,11 +66,12 @@ function App() {
         <Route path="forms/donatepapers" element={ <HowToDonatePapersForm />} />
         <Route path="forms/moreideas" element={<MoreIdeasForm />} />
         <Route path="howtocontribute" element={<HowToContribute />} />
-        <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
+        <Route path="howtocontribute/:resource" element={<Resources />} />
+        {/* <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
         <Route path="howtocontribute/archivists" element={<ResourceArchivists />} />
         <Route path="howtocontribute/students" element={<ResourceStudents />} />
         <Route path="howtocontribute/nwc" element={<ResourceNWC />} />
-        <Route path="howtocontribute/educators" element={<ResourceEducators />} />
+        <Route path="howtocontribute/educators" element={<ResourceEducators />} /> */}
         <Route path="/" element={<Home />} />
       </Routes>
       </ScrollToTop>

@@ -1,0 +1,73 @@
+
+.Banner {
+    background:(url("../../assets/res/mapbg.png"));
+    font-size: 16px;
+
+    display: flex;
+    align-items: center;
+
+    .Banner_left{
+        flex:25%
+    }
+    .Banner_center{
+        flex:50%;
+
+        font-family: $fontNeoBulletin;
+        font-size: 1.75em;
+        
+        font-weight: bold;
+        width: fit-content;
+        min-width: 10em;
+        min-height: 4em;
+        height: fit-content;
+        background-color: white;
+        padding: 1em;
+
+        // Need Fix
+        margin-right: 4em;
+
+        .topright{
+            border-top: .2em solid var(--colorDeepRed);
+            border-right: .2em solid var(--colorDeepRed);
+            position: relative;
+            float: right;
+            width: 4em;
+            height: 2em;
+            margin-right: -2em;
+            margin-top: -2em;
+        }
+        .bottomleft{
+            border-bottom: .2em solid var(--colorDeepRed);
+            border-left: .2em solid var(--colorDeepRed);
+            position: relative;
+            float: left;
+            width: 4em;
+            height: 2em;
+            margin-left: -2em;
+            margin-bottom: -2em;
+        }
+    }
+    .Banner_right{
+        flex:25%;
+        position: relative;
+
+        img{
+            width: 100%;
+
+            vertical-align: bottom;
+        }
+        
+        p {
+            font-size: 1.75em;
+            padding: 0.5em 1em;
+            font-family: $fontBabasNeue;
+
+            position: absolute;
+            bottom: 0;
+
+            background-color: $color-blue-deep;
+            color: $color-beige;
+        }
+    }
+
+}

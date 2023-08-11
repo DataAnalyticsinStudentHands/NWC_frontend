@@ -34,7 +34,6 @@ function ResourceResearchers() {
                                 Pdf_Permission_Documents
                             }}} = data
                 
-                            // console.log(data)
                 setState({
                     Resources_for_Researchers_Text: Resources_for_Researchers_Text,
                     Video_Url_Researchers: Video_Url_Researchers,
