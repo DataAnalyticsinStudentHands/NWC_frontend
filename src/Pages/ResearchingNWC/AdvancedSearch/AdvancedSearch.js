@@ -1,15 +1,38 @@
 import '../ResearchingNWC'
 import './AdvancedSearch.css'
+import '../ResearchingNWC.css'
 import Collapsible from './Collapsible'
 import Select from 'react-select';
 import { useState, useEffect, } from "react";
-import Tabs from "./Tabs";
+import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
-import Results from "./Results";
+import ReactMarkdown from 'react-markdown';
+import '../ResearchingNWC.css'
+import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
+import { processTableData } from './TableHeaders'
 
 function AdvancedSearch() {
+
+  const [contentMap, setContentMap] = useState([]);
+
+  useEffect(() => {
+    async function fetchContentMap() {
+      try {
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        let data = await response.json();
+        setContentMap(data.data);
+      } catch (error) {
+        console.error('Error fetching content map:', error);
+      }
+    }
+  
+    fetchContentMap();
+  },[]);
 
   // adding USA list of states for select input
   const stateOptions = []
@@ -40,7 +63,7 @@ function AdvancedSearch() {
   const politicalData = ["American Independent Party", "Black Panther Party", "Communist Party USA", "Conservative Party of New York", "DC Statehood Party",
                           "Democratic Party", "Liberal Party of New York", "Libertarian Party", "Minnesota Democratic-Farmer-Labor Party", "North Dakota Democratic-Nonpartisan-League Party",
                           "Peace and Freedom Party", "Raza Unida Party", "Republican Party", "Socialist Party USA", "Socialist Workers Party", "Other"];
-
+  
   const religionOptions = religionData.map((option) => {
     return {value: option, label: option}
   }
@@ -149,116 +172,196 @@ function AdvancedSearch() {
     control,
   } = useForm()
 
-  const [formData, setFormData] = useState([]) // state used for data input
+  const [maps, setMap] = useState([]);
+  const [tableData, setTableData] = useState([]);
+
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
+  const [ageCheckboxState, setAgeCheckboxState] = useState({
+    age1to39: false,
+    age40to64: false,
+    age65plus: false,
+  });
+  const [userInput, setUserInput] = useState([])
+
+  const handleAgeCheckboxChange = (name, checked) => {
+    setAgeCheckboxState({
+      ...ageCheckboxState,
+      [name]: checked,
+    });
+  };
 
   async function onSubmit(data) {
     let array_query = [];
 
-    Object.values(data).forEach((value, index) => {
-      if (value !== undefined && value !== false) { // loop checks if any search value is null
-        let hasNonEmptyProp = false;
-        for (const prop in value) {
-          if (
-            value[prop] !== undefined &&
-            value[prop] !== '' &&
-            value[prop] !== false
-          ) {
-            let hasNonEmptyNestedProp = false;
-        
-            // Iterate over nested properties dynamically
-            for (const nestedProp in value[prop]) {
-              if (
-                value[prop][nestedProp] !== undefined &&
-                value[prop][nestedProp] !== '' &&
-                value[prop][nestedProp] !== false
-              ) {
-                hasNonEmptyNestedProp = true;
-                break;
-              }
-            }
-            if (hasNonEmptyNestedProp) {
-              hasNonEmptyProp = true;
-              break;
-            }
-          }
-        }
-        if (hasNonEmptyProp) { // if result not empty, push
-          const newObj = {};
-          newObj[Object.keys(data)[index]] = value;
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== undefined && value !== false && typeof value === 'object') {
+        const filteredValue = filterEmptyStringsInNestedStructure(value);
+        if (Object.keys(filteredValue).length > 0) {
+          const newObj = { [key]: filteredValue };
           array_query.push(newObj);
         }
       }
+      else if (value !== undefined && value !== false){
+        const newObj = { [key]: value };
+        array_query.push(newObj)
+      }
     });
 
-    if (isAgeCheckboxChecked) {
-      // Handle the case when the age '40-64' checkbox is checked
+    function filterEmptyStringsInNestedStructure(obj) {
+      const filteredObj = {};
+    
+      for (const prop in obj) {
+        if (typeof obj[prop] === 'object') {
+          const filteredNested = filterEmptyStringsInNestedStructure(obj[prop]);
+    
+          if (Object.keys(filteredNested).length > 0) {
+            filteredObj[prop] = filteredNested;
+          }
+        } else if (obj[prop] !== '' && obj[prop] !== undefined && obj[prop] !== false) {
+          filteredObj[prop] = obj[prop];
+        }
+      }
+      return filteredObj;
+    }
+    //checks age ranges
+    if (ageCheckboxState.age40to64) {
       const ageRangeQuery = {
         $gte: 40,
         $lte: 64,
       };
-      array_query.push({
-        'age_in_1977': ageRangeQuery,
-      });
+      array_query.push({ 'age_in_1977': ageRangeQuery });
+    }
+
+    // Handle the '1-39' checkbox
+    if (ageCheckboxState.age1to39) {
+      const ageRangeQuery = {
+        $gte: 1,
+        $lte: 39,
+      };
+      array_query.push({ 'age_in_1977': ageRangeQuery });
+    }
+
+    // Handle the '65+' checkbox
+    if (ageCheckboxState.age65plus) {
+      const ageRangeQuery = {
+        $gte: 65,
+      };
+      array_query.push({ 'age_in_1977': ageRangeQuery });
     }
     
+    const allCategories = [];
+    function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
+      const keys = Object.keys(obj);
+      allCategories.push(...keys);
+
+      for (const key of keys) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          // If the value is an object (nested attribute), recursively extract its attributes
+          extractAttributes(value);
+        }
+      }
+    }
+    array_query.forEach((item) => {
+      extractAttributes(item);
+    });
+    console.log('array: ', array_query)
+
+    const categories = array_query.map((item) => { //grabs categories with a proper name
+      const key = Object.keys(item)[0];
+      return key
+    })
+    const allValues = [];
+    for (const item of array_query) {
+      const key = Object.keys(item)[0];
+      const value = item[key];
+    
+      if (typeof value === 'object') {
+        for (const nestedKey of Object.keys(value)) {
+          const nestedValue = value[nestedKey];
+          if (typeof nestedValue === 'object') {
+            for (const deeplyNestedValue of Object.values(nestedValue)) {
+              allValues.push(deeplyNestedValue);
+            }
+          } else {
+            allValues.push(nestedValue);
+          }
+        }
+      } else {
+        let transformedValue = value;
+        if (value === "true") {
+          transformedValue = "yes";
+        } else if (value === "false") {
+          transformedValue = "no";
+        }
+        const transformedKey = key.replace(/_/g, " ");
+        allValues.push(`${transformedKey}: ${transformedValue}`);
+      }
+    }
+    setUserInput(allValues);
+
     const query = qs.stringify({
       filters: {
         $or: array_query,
       },
-      populate: '*',
+      populate: categories,
+
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    console.log('query: ', query)
+
     if (array_query.length === 0) {
       alert('No search input')
     }
     else {
-    let response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?sort[0]=last_name&sort[1]=first_name&${query}`).then(res => res.json());
+    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+    
     if (response.data.length === 0) {
-      setNumResults(0)
       setIsButtonClicked(true);
 
     }
     else {
-      setFormData(response.data)
-      setNumResults(response.data.length)
-      setIsButtonClicked(true);
-    }
-  }
-  }
-  //state for number of results
-  const [numResults, setNumResults] = useState(0)
+      const mapData = response.data.map((person) => {
+        return{
+          lat:person.attributes.lat,
+          lon:person.attributes.lon,
+          first_name:person.attributes.first_name,
+          last_name:person.attributes.last_name,
+        }
+      })
+      setMap(mapData);
 
+      const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
+
+      setTableData(tableData);
+      setIsButtonClicked(true);
+      }
+    }
+ }
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
     reset();
     setSelectedOptions({});
-    setFormData([])
+    setTableData([])
+    setMap([])
     setIsButtonClicked(false);
+    setAgeCheckboxState({
+      age1to39: false,
+      age40to64: false,
+      age65plus: false,
+    });
     }, 50)
-    setNumResults(0)
   }
-
   const [selectedOptions, setSelectedOptions] = useState({});
 
-  const [isAgeCheckboxChecked, setIsAgeCheckboxChecked] = useState(false);
-
-  function handleAgeCheckboxChange(checked) {
-    setIsAgeCheckboxChecked(checked);
-  }
-  
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
     <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
           <h1> ADVANCED SEARCH PAGE</h1>
-          <p> We invite researchers to explore the richness of the NWC participant data in open searches or by cross-referencing data gathered within the six demographic categories below: Role at National Women's Conference, Participant Demographics, Education and Career, Electoral Politics, Organizational Memberships, and Leadership in Organizations </p>
-          <p> Users can use keywords and Boolean operators by putting exact search terms in quotation marks and dividing search terms with AND/OR.</p>
-          <p>Users can pull up all the demographic data located for one participant, if they know that participant's name, by doing a keyword search for that particpant's name.</p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Banner}</ReactMarkdown>
         </div>
       </div>
       <div className="advancedSearch"> 
@@ -269,11 +372,9 @@ function AdvancedSearch() {
         </div>   
         </div>
         <div> 
-          <Collapsible label="ROLE AT NATIONAL WOMEN'S CONFERENCE"> 
+          <Collapsible label="NATIONAL WOMEN'S CONFERENCE PARTICIPATION"> 
           <div style={{marginBottom: "80rem"}}>
-          <p>This search allows users to filter conference participants by category of participation. Additionally, users can keyword search the other, smaller roles at the NWC such as IWY
-            Coordinating Committee membership or leader of a particular caucus. Data in this category also captures participant views about each of the twenty-six planks deliberated
-            in Houston and submitted to President Jimmy Carter in 1978. Users can search NWC participant views about each of the planks: for, against, or spoke about with position unknown.</p> 
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_NWC}</ReactMarkdown>
           </div>
           <Tabs> 
             <div label="ROLE AT NWC">
@@ -354,25 +455,38 @@ function AdvancedSearch() {
             </div>   
           </Tabs>
           </Collapsible>
-          <Collapsible label="PARTICIPANTS DEMOGRAPHICS"> 
+          <Collapsible label="PARTICIPANT DEMOGRAPHICS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Participant Demographics captures the following: residence in 1977, gender, religion, marital status, number of children, sexual orientation, and racial and ethnic background.</p> 
-            <p> We made no assumptions about identity, but instead followed what participants said about themselves in NWC registration forms, in the media, and their own writings.</p>
-            <p> Participants with more than one racial or ethnic identity are noted according to all identities claimed.</p>
-            <p> Aspects of identity, especially regarding sexual orientation, that might have changed after 1977 are explained in the biographical essays. Partcipants who publicy identified as bisexual
-              or lesbian are reflected as such. Participants married to a person of the opposite gender are identified as heterosexual. Participants who identified their sexual orientation in different
-              ways at different points in their life are noted here according to all known orientations. </p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Participants}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
                 <h1> Age range</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value='39' {...register('age_in_1977.$lte')}/> 1-39 </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" {...register('[2].age_in_1977')} onChange={(e) => handleAgeCheckboxChange(e.target.checked)} /> 40-64 </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="65" {...register('[1].age_in_1977.$gte')}/>65+ </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age1to39}
+                      onChange={(e) => handleAgeCheckboxChange('age1to39', e.target.checked)}
+                    />
+                    1-39
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age40to64}
+                      onChange={(e) => handleAgeCheckboxChange('age40to64', e.target.checked)}
+                    />
+                    40-64
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input
+                      type="checkbox"
+                      checked={ageCheckboxState.age65plus}
+                      onChange={(e) => handleAgeCheckboxChange('age65plus', e.target.checked)}
+                    />
+                    65+
+                  </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -572,11 +686,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="EDUCATION AND CAREER"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Education and Career captures education level obtained, degree received, year of graduation, college attended, military service, occupation, and income level.</p> 
-            <p>Users can sort participants by level of education. Once an educational level is selected, users can keyword search for colleges and universities where participants studied. 
-              They can also keyword search degrees earned, and employment held. If users do not wish to undertake keyword searching, they can simply sort by level of education obtained.</p>
-            <p>Users can sort participants by category of employment broken down by economic sectors. Additionally, users can keyword search specific jobs and careers</p>
-            <p>Data about income level corresponds with categories used by the NWC to ensure balanced participation across social class.</p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Education}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -659,8 +769,7 @@ function AdvancedSearch() {
           </Collapsible>
           <Collapsible label="ELECTORAL POLITICS"> 
             <div style={{marginBottom: "80rem"}}>
-              <p>Electoral Politics captures elected, appointed, and senior staff political/policy positions. Users can search participants by the jurisdictional level of service-city, county, state, and federal-or they can keyword search by named offices.</p> 
-              <p>Other searches and sorting features include political party membership, spousal political office holding, participant self-identification as a feminist, and service on city, county, and state level Commissions on the Status of Women.</p>
+            <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Politics}</ReactMarkdown>
             </div>
             <div className="advancedSearch_form">
               <div className="advancedSearch_container">
@@ -769,21 +878,9 @@ function AdvancedSearch() {
               </div>
             </div>       
           </Collapsible>
-          <Collapsible label="ORGANIZATIONAL MEMBERSHIPS"> 
+          <Collapsible label="ORGANIZATIONS"> 
           <div style={{marginBottom: "80rem"}}>
-            <p>Organizational Memberships is the most comprehensive of the categories. 
-              In gathering this data, we were equally interested in capturing information
-              for nationally known organizations such as the National Organization for
-              Women (NOW) that claimed hundreds of NWC participants in its ranks and less well-known community 
-              specific organizations that perhaps claimed only one NWC participant as a member</p> 
-            <p> We grouped the organizations with which NWC participants were affiliated into twenty-seven
-              thematic categories. Users can select one or more categories and find all participants who held
-              memberships in those organizations. Click here to see the full list of organizations grouped by
-              thematic category.
-            </p>
-            <p>Users can also keyword search the hundreds of organizations in which participants held memberships
-              to find all participants in any one organization. To find a list of all organizations, click here.
-            </p>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Organizations}</ReactMarkdown>
             </div>
             <Tabs>
               {/* <div label="advocacy groups" >
@@ -847,7 +944,7 @@ function AdvancedSearch() {
                   </div>
                 </div>
               </div> */}
-              <div label="organization name">
+              <div label="organizational memberships by name">
               <div className="advancedSearch_form">
                 <div className="advancedSearch_container">
                   <h1> Organization Name </h1>
@@ -858,7 +955,7 @@ function AdvancedSearch() {
                 </div>
                 </div>
               </div>
-              <div label="leadership position">
+              <div label="organizational leadership positions">
                 <div className="advancedSearch_form">
                   <div className="advancedSearch_container">
                     <h1> Select Leadership Role</h1>
@@ -900,16 +997,16 @@ function AdvancedSearch() {
           <button type="reset" className="advancedSearch_button_reset" onClick={clearForm}> Reset </button>
         </div>
         </div>
-        {isButtonClicked && (
-        <div className="advancedSearch">
-          <p> Results found: {numResults} </p>
+        {isButtonClicked && tableData.length > 0 && (
+        <div className='Result-Continer'>
+          <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         )}
-        {isButtonClicked && numResults !== 0 && (
-        <div className="advancedSearch1">
-          <Results map_data={formData}/>
-        </div>
-        )}
+        {isButtonClicked && tableData.length === 0 && (
+          <div style={{textAlign: "center", marginBottom: "50rem"}}> 
+         <p> No results found </p>
+         </div>
+        )} 
       </div>
       </form>
   )
