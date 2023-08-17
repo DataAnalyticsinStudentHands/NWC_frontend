@@ -36,6 +36,10 @@
 	top: 0;
 }
 
+.result-table thead tr:hover {
+	cursor: pointer;
+}
+
 /* Table row styles */
 .result-table tr {
 	border: 1px solid #000;
