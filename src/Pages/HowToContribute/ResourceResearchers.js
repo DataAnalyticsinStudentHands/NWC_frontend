@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import './ResourceResearchers.css';
-import colorCorner from "../res/colorCorner.png"
-import colorCornerResearcher from "../res/colorCornerResearcher.png"
+import colorCorner from "./res/colorCorner.png"
+import colorCornerResearcher from "./res/colorCornerResearcher.png"
 import ReactPlayer from 'react-player';
-import ContribIcons from '../Components/ContribIcons';
-import ResourcesFor from '../Components/ResourcesFor';
+import ContribIcons from './Components/ContribIcons';
+import ResourcesFor from './Components/ResourcesFor';
 
 
 function ResourceResearchers() {

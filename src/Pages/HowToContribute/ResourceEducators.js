@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 
 import './ResourceEducators.css';
-import dotRed from "../res/dotRed.png"
-import dotBlue from "../res/dotBlue.png"
+import dotRed from "./res/dotRed.png"
+import dotBlue from "./res/dotBlue.png"
 import ReactPlayer from 'react-player';
-import ContribIcons from '../Components/ContribIcons';
-import ResourcesFor from '../Components/ResourcesFor';
+import ContribIcons from './Components/ContribIcons';
+import ResourcesFor from './Components/ResourcesFor';
 
 function ResourceEducators() {
 
