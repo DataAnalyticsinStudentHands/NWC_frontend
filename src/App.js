@@ -26,12 +26,12 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
-import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
-import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
-import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
+// import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
+// import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
+// import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
+// import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
 import {Resources} from "./Pages/HowToContribute/Components/Resources"
-import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
+// import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
 import Organizations from "./Pages/ResearchingNWC/Organizations"
 
 const ScrollToTop = (props) => {

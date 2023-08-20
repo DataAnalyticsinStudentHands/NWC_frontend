@@ -1,98 +1,106 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 
-import researcher_button from "../res/researcher_button.png";
-import colorCorner from "../res/colorCorner.png"
-import colorCornerResearcher from "../res/colorCornerResearcher.png"
+import oralIcon from "../res/oralIcon.png";
+import contributeIcon from "../res/contributeIcon.png";
+import techIcon from "../res/techIcon.png";
+import permissionIcon from "../res/permissionIcon.png";
+import ideaIcon from "../res/ideaIcon.png";
+import archivalIcon from "../res/archivalIcon.png";
+import iconPapers from "../res/iconPapers.png";
+import iconClass from "../res/iconClass.png";
+import qs from "qs";
 
-import oralIcon from '../res/oralIcon.png'
-import contributeIcon from '../res/contributeIcon.png'
-import techIcon from '../res/techIcon.png'
-import permissionIcon from '../res/permissionIcon.png'
-import ideaIcon from '../res/ideaIcon.png'
-import archivalIcon from '../res/archivalIcon.png'
-import iconPapers from '../res/iconPapers.png'
-import iconClass from '../res/iconClass.png'
+import { ResourcesBanner } from "./ResourcesBanner";
+import { Card } from "../../../Components/Card";
+import { Stack } from "../../../Components/Stack";
+const IconObj = {
+    "oral": oralIcon,
+    "biographies": contributeIcon,
+    "information": archivalIcon,
+    "papers": iconPapers,
+    "classroom": iconClass,
+    "guidelines": techIcon,
+    "permissions": permissionIcon,
+}
 
-export const Resources = ({ type, resourceText }) => {
+export const Resources = () => {
 	const { resource } = useParams();
+	// const [gap, setGap] = useState(3);
 	const [data, setData] = useState({});
 
-
 	useEffect(() => {
+		const query = qs.stringify(
+			{
+				filters: {
+					resource: {
+                        $eq: resource
+                    },
+				},
+				populate: ["files.file"],
+			},
+			{ encodeValuesOnly: true }
+		);
 		fetch(
-			`${process.env.REACT_APP_API_URL}/api/content-toolkit?populate=*"`
+			`${process.env.REACT_APP_API_URL}/api/content-resources?${query}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
-				let obj = {};
-				Object.entries(data.data.attributes).forEach(([key, value]) => {
-					key.split("_")[2]?.toLowerCase() === resource &&
-						(key.split("_")[3]
-							? (obj[key.split("_")[3].toLowerCase()] = value)
-							: (obj[key.split("_")[1].toLowerCase()] = value));
-				});
-
-				setData(obj);
-
-				// const {
-				//     data: {
-				//         attributes: {
-				//             ResearchersText,
-				//             NwcParticipantsText,
-				//             EducatorsText,
-				//             StudentsText,
-				//             ArchivistsText,
-				//         },
-				//     },
-				// } = data;
+				let dataObj = data.data[0].attributes;
+				dataObj.files.forEach((file, i) => {
+					file.title.toLowerCase().includes("oral") &&
+						(dataObj.files[i].icon = IconObj["oral"]);
+					file.title.toLowerCase().includes("biographies") &&
+						(dataObj.files[i].icon = IconObj["biographies"]);
+					file.title.toLowerCase().includes("information") &&
+                        (dataObj.files[i].icon = IconObj["information"]);
+                    file.title.toLowerCase().includes("papers") &&
+                        (dataObj.files[i].icon = IconObj["papers"]);
+                    file.title.toLowerCase().includes("classroom") &&
+                        (dataObj.files[i].icon = IconObj["classroom"]);
+                    file.title.toLowerCase().includes("guidelines") &&
+                        (dataObj.files[i].icon = IconObj["guidelines"]);
+                    file.title.toLowerCase().includes("permissions") &&
+                        (dataObj.files[i].icon = IconObj["permissions"]);
+                });
+				setData(dataObj);
+				// dataObj.files.length === 5 && setGap(5);
 			});
 	}, [resource]);
 
-    const num = 5;
 	return (
 		<div className="resources">
-			<div className="header-container">
-				<img src={researcher_button} alt="resource icon" />
-				<div>
-					<h1>RESOURCES FOR {resource}</h1>
-					<div>
-						<div />
-						<div />
-						<div />
-					</div>
-					<p>{data.text}</p>
-				</div>
+
+            <ResourcesBanner resource={resource} text={data.resource_summary} />
+
+			<div className="video-container">
+				<ReactPlayer
+					url={data.video_url}
+					controls={true}
+					width="100%"
+					height="100%"
+				/>
 			</div>
 
-			<div className='video-container'>
-                <ReactPlayer
-                    url={data.url}
-                    controls={true}
-                    width="100%"
-                    height="100%"
-                />
+            <Stack spacing={3} wrap={true}>
+                {data.files?.map((file, i) => (
+					<Card 
+						key={i}
+						link={`/pdfviewer/${file.file.data.attributes.hash}.pdf`}
+						img={file.icon} 
+						title={file.title}
+						spacing={4}
+						className="Resources-Card"
+					/>
+                ))}
+            </Stack>
+			<div className="idea-container">
+                <Link to="/forms/moreideas">
+				    <img src={ideaIcon} alt="resource icon" />
+                </Link>
+				<h1>Have More Ideas? Tell Us Here</h1>
 			</div>
-
-            <div className="icons-container" style={{
-                gap: num + 'em'
-            }}>
-            {
-                Array(num).fill().map((_, i) => (
-                    <div key={i} className="icon-container">
-                        <img src={oralIcon} alt="oral history icon" />
-                        <p>Oral History</p>
-                    </div>
-                ))
-            }
-            </div>
-
-            <div className="idea-container">
-                <img src={ideaIcon} alt="resource icon" />
-                <h1>Have More Ideas? Tell Us Here</h1>
-            </div>
-
 		</div>
 	);
 };

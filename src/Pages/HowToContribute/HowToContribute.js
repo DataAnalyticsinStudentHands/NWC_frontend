@@ -8,13 +8,15 @@ import educators_button from "./res/educators_button.png";
 import students_button from "./res/students_button.png";
 import nwc_button from "./res/nwc_participants_button.png";
 import how_to_contribute_button from "../../assets/res/button-how-to-contribute.png";
-// import BannerCard from "../../Components/BannerCard/BannerCard";
-// import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
+
 
 import { Banner } from "../../Components/Banner";
-
+import { Stack } from "../../Components/Stack";
+import { Button } from "../../Components/Button";
+import { Typography } from "../../Components/Typography";
 function HowToContribute() {
-	const [banner_card, setBannerText] = useState("");
+	const [bannerText, setBannerText] = useState("");
+    const [SubmissionsText, setSubmissionsText] = useState("");
 	const [imgCredit, setBannerImageCredit] = useState("");
 
 	const [involvedData, setInvolvedData] = useState({});
@@ -34,13 +36,13 @@ function HowToContribute() {
 							EducatorsText,
 							StudentsText,
 							ArchivistsText,
+                            SubmissionsText
 						},
 					},
 				} = data;
 				setBannerText(BannerText);
+                setSubmissionsText(SubmissionsText);
 				setBannerImageCredit(BannerImageCredit);
-
-
                 setInvolvedData({
                     researchers: {
                         title: "researchers",
@@ -73,21 +75,21 @@ function HowToContribute() {
 	}, []);
 
 	return (
-		<div className="howToContribute">
+        <Stack direction='column' spacing={10}>
 			<Banner
 				imgLeft={how_to_contribute_button}
-				text={banner_card}
+				text={bannerText}
 				imgRight={htcBannerPic}
 				imgCredit={imgCredit}
 			/>
-            <div className="howToContribute_Involved_container">
 
+            <Stack direction='column' gap={4} margin={'0 10%'} className="howToContribute_Involved_container">
                 <h1>HOW TO GET INVOLVED</h1>
 
-                {Object.keys(involvedData).map((key) => {
+                {Object.keys(involvedData).map((key, i) => {
                     const { title, text, img } = involvedData[key];
                     return (
-                        <div className="row">
+                        <Stack direction='row' className='item' key={i}>
                             <div className="item-left">
                                 <img src={img} alt="_"></img>
                             </div>
@@ -95,24 +97,31 @@ function HowToContribute() {
                                 <Link to={key}>{title}</Link>
                                 <p>{text}</p>
                             </div>
-                        </div>
+                        </Stack>
                     );
                 })}
-            </div>
+            </Stack>
 
             <div className="howToContribute_Submission_container">
                 <h1>SUBMISSIONS</h1>
-                <p>{banner_card}</p>
+                <p>{SubmissionsText}</p>
                 <div>
                     <Link to="/forms/contactus">
                         Contact us
                     </Link>
+                    <Button 
+                    primary 
+                    label='Parmary'
+                    size='lg'
+                    onClick={()=>{
+                        console.log('Clicked');
+                    }}/>
                     <Link to="/forms/moreideas">
                         Have more ideas? Tell us here
                     </Link>
                 </div>
             </div>
-		</div>
+        </Stack>
 	);
 }
 export default HowToContribute;
