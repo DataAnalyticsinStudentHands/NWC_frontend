@@ -13,7 +13,7 @@ import how_to_contribute_button from "../../assets/res/button-how-to-contribute.
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Button } from "../../Components/Button";
-import { Typography } from "../../Components/Typography";
+// import { Typography } from "../../Components/Typography";
 function HowToContribute() {
 	const [bannerText, setBannerText] = useState("");
     const [SubmissionsText, setSubmissionsText] = useState("");

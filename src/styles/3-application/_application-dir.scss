@@ -65,15 +65,40 @@ pre {
   margin: 2.5rem 0;
 }
 
-.title{
-  font-family: subway_ds;
-  font-size: 6em;
-  font-weight: 900;
-  word-wrap: break-word;
+@mixin font-style($family, $size, $weight, $style) {
+  font-family: $family;
+  font-size: $size;
+  font-weight: $weight;
+  font-style: $style;
 }
-.heading-1{
-  font-family: babas_neue;
-  font-size: 4em;
-  font-weight: 900;
-  word-wrap: break-word;
+
+$font-styles: (
+  subway_ds:(
+    title:(96px, 900, normal),
+  ),
+  babas_neue:(
+    heading-1:(80px, 700, normal),
+    heading-2:(60px, 700, normal),
+    heading-3:(40px, 700, normal),
+    heading-4:(30px, 700, normal),
+    heading-5:(24px, 700, normal),
+  ),
+  Montserrat:(
+    quote-1:(40px, 700, normal),
+    quote-2:(30px, 600, italic),
+    subtitle-2:(40px, 600, normal),
+    paragraph-1:(30px, 400, normal),
+    paragraph-2:(24px, 400, normal),
+    body-text:(20px, 400, normal),
+    caption:(24px, 600, normal),
+    overline:(16px, 400, normal),
+  ),
+);
+
+@each $family, $props in $font-styles {
+  @each $class, $props in $props {
+    .#{$class} {
+      @include font-style($family, nth($props, 1), nth($props, 2), nth($props, 3));
+    }
+  }
 }
