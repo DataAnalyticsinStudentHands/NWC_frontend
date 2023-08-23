@@ -1,10 +1,6 @@
 /*
 BANNER
 */
-a {
-    text-decoration: none; /* no underline */
-}
-
 
 .whyBanner {
     display: flex;

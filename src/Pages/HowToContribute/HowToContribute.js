@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import qs from "qs";
 
 import htcBannerPic from "./res/htcBannerPic.png";
 import archivists_button from "./res/archivists_button.png";
@@ -9,11 +10,16 @@ import students_button from "./res/students_button.png";
 import nwc_button from "./res/nwc_participants_button.png";
 import how_to_contribute_button from "../../assets/res/button-how-to-contribute.png";
 
-
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
-import { Button } from "../../Components/Button";
-// import { Typography } from "../../Components/Typography";
+
+const IconObj = {
+    'researchers': researcher_button,
+    'archivists': archivists_button,
+    'nwc participants': nwc_button,
+    'educators': educators_button,
+    'students': students_button,
+}
 function HowToContribute() {
 	const [bannerText, setBannerText] = useState("");
     const [SubmissionsText, setSubmissionsText] = useState("");
@@ -30,12 +36,6 @@ function HowToContribute() {
 						attributes: {
 							BannerText,
 							BannerImageCredit,
-							// BannerImageCredit_more,
-							ResearchersText,
-							NwcParticipantsText,
-							EducatorsText,
-							StudentsText,
-							ArchivistsText,
                             SubmissionsText
 						},
 					},
@@ -43,35 +43,23 @@ function HowToContribute() {
 				setBannerText(BannerText);
                 setSubmissionsText(SubmissionsText);
 				setBannerImageCredit(BannerImageCredit);
-                setInvolvedData({
-                    researchers: {
-                        title: "researchers",
-                        text: ResearchersText,
-                        img: researcher_button
-                    },
-                    archivists: {
-                        title: "archivists",
-                        text: ArchivistsText,
-                        img: archivists_button
-                    },
-                    nwc: {
-                        title: "nwc participants",
-                        text: NwcParticipantsText,
-                        img: nwc_button
-                    },
-                    educators: {
-                        title: "educators",
-                        text: EducatorsText,
-                        img: educators_button
-                    },
-                    students: {
-                        title: "students",
-                        text: StudentsText,
-                        img: students_button
-                    }
-
-                });
 			});
+        const resourceQuery = qs.stringify({
+            fields: ['resource', 'resource_text'],
+        }, { encodeValuesOnly: true })
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-resources?${resourceQuery}`)
+            .then((res) => res.json())
+            .then((data) => {
+                let dataObj = {};
+                data.data.forEach((item) => {
+                    dataObj[item.attributes.resource] = {
+                        title: item.attributes.resource,
+                        text: item.attributes.resource_text,
+                        img: IconObj[item.attributes.resource.toLowerCase()] || null
+                    }
+                })
+                setInvolvedData(dataObj);
+            })
 	}, []);
 
 	return (
@@ -104,18 +92,11 @@ function HowToContribute() {
 
             <div className="howToContribute_Submission_container">
                 <h1>SUBMISSIONS</h1>
-                <p>{SubmissionsText}</p>
+                <p>{SubmissionsText ? SubmissionsText : bannerText}</p>
                 <div>
                     <Link to="/forms/contactus">
                         Contact us
                     </Link>
-                    <Button 
-                    primary 
-                    label='Parmary'
-                    size='lg'
-                    onClick={()=>{
-                        console.log('Clicked');
-                    }}/>
                     <Link to="/forms/moreideas">
                         Have more ideas? Tell us here
                     </Link>

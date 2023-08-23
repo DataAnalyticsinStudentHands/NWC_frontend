@@ -3,7 +3,6 @@ import { Banner } from '../Components/Banner.js';
 export default {
     title: 'Components/Banner',
     component: Banner,
-
     tags: ['autodocs'],
     argTypes:{
         imgLeft: {control: "text", description: "Image URL"},
@@ -13,11 +12,8 @@ export default {
     }
 }
 
-const Template = ({imgLeft, text, imgRight,imgCredit, ...args}) => <Banner imgLeft={imgLeft} text={text} imgRight={imgRight} imgCredit={imgCredit} {...args} />;
+// const Template = ({imgLeft, text, imgRight,imgCredit, ...args}) => <Banner imgLeft={imgLeft} text={text} imgRight={imgRight} imgCredit={imgCredit} {...args} />;
 
-export const Default = Template.bind({});
-
-export const Test = Default.bind({});
-Test.args = {
-    imgCredit: "TTT",
+export const Base =  {
+    imgCredit: "STH",
 }

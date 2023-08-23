@@ -9,18 +9,19 @@ export const Banner = ({imgLeft, text, imgRight, imgCredit}) => {
         </div>
 
         <div className='Banner_center'>
-            <div className='topright' />
-            <div className='text'>
-                {text}
+            <div className='Card'>
+                <div className='topright' />
+                <div className='text'>
+                    {text}
+                </div>
+                <div className='bottomleft' />
             </div>
-            <div className='bottomleft' />
         </div>
 
         <div className='Banner_right'>
             <img src={imgRight} alt="How to Contribute" />
             <p>Photo by {imgCredit}</p>
         </div>
-
     </div>
     )
 }

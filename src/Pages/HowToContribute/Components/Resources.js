@@ -27,12 +27,15 @@ const IconObj = {
 
 export const Resources = () => {
 	const { resource } = useParams();
-	// const [gap, setGap] = useState(3);
 	const [data, setData] = useState({});
 
 	useEffect(() => {
 		const query = qs.stringify(
-			{
+			{	
+				fields:[
+					"resource_summary",
+					"video_url",
+				],
 				filters: {
 					resource: {
                         $eq: resource
@@ -47,25 +50,15 @@ export const Resources = () => {
 		)
 			.then((res) => res.json())
 			.then((data) => {
+				console.log(data);
 				let dataObj = data.data[0].attributes;
 				dataObj.files.forEach((file, i) => {
-					file.title.toLowerCase().includes("oral") &&
-						(dataObj.files[i].icon = IconObj["oral"]);
-					file.title.toLowerCase().includes("biographies") &&
-						(dataObj.files[i].icon = IconObj["biographies"]);
-					file.title.toLowerCase().includes("information") &&
-                        (dataObj.files[i].icon = IconObj["information"]);
-                    file.title.toLowerCase().includes("papers") &&
-                        (dataObj.files[i].icon = IconObj["papers"]);
-                    file.title.toLowerCase().includes("classroom") &&
-                        (dataObj.files[i].icon = IconObj["classroom"]);
-                    file.title.toLowerCase().includes("guidelines") &&
-                        (dataObj.files[i].icon = IconObj["guidelines"]);
-                    file.title.toLowerCase().includes("permissions") &&
-                        (dataObj.files[i].icon = IconObj["permissions"]);
+					Object.entries(IconObj).forEach(([key, value]) => {
+						file.title.toLowerCase().includes(key) &&
+							(dataObj.files[i].icon = value);
+					});
                 });
 				setData(dataObj);
-				// dataObj.files.length === 5 && setGap(5);
 			});
 	}, [resource]);
 
@@ -87,7 +80,7 @@ export const Resources = () => {
                 {data.files?.map((file, i) => (
 					<Card 
 						key={i}
-						link={`/pdfviewer/${file.file.data.attributes.hash}.pdf`}
+						link={file.file.data ? `/pdfviewer/${file.file.data.attributes.hash}.pdf` : ``}
 						img={file.icon} 
 						title={file.title}
 						spacing={4}

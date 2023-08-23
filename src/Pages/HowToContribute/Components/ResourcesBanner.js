@@ -10,7 +10,7 @@ const IconObj = {
 	archivists: archivists_button,
 	educators: educators_button,
 	students: students_button,
-	nwc: nwc_button,
+	'nwc participants': nwc_button,
 };
 export const ResourcesBanner = ({ resource, text }) => {
 	return (

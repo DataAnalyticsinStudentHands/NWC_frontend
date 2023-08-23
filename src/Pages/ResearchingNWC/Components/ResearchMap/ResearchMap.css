@@ -12,13 +12,13 @@
   It takes a little bit of work to achieve a “blank slate” look.
 */
 /* Cant have basic tage style in this level, Needs fix*/
-button {
+/* button {
   border: none;
   font: inherit;
   color: white;
   background-color: transparent;
   cursor: pointer;
-}
+} */
 
 .marker {
   background-image: url('./res/marker_map_icon.png');

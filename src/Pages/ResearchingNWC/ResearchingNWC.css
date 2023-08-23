@@ -198,7 +198,7 @@ input[type="checkbox"]:disabled {
 }
 
 /* Need Fix, can have basic tage in this level */
-button {
+/* button {
   font-size: 30rem;
   font-family: var(--fontBabasNeue);
   margin-top: 20rem;
@@ -213,7 +213,11 @@ button {
   padding-bottom: 10rem;
   border-radius: 30rem;
   transition: color .5s, background-color .5s;
-}
+} */
+
+/* button:hover {
+  text-decoration: underline;
+} */
 
 .searchButton {
   background-color: var(--colorDeepRed); 
@@ -231,9 +235,7 @@ button {
   font-size: 30rem;
 }
 
-button:hover {
-  text-decoration: underline;
-}
+
 
 .Result-Continer{
     margin: 50rem 80rem;
