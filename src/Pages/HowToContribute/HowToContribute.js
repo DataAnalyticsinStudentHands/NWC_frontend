@@ -45,17 +45,24 @@ function HowToContribute() {
 				setBannerImageCredit(BannerImageCredit);
 			});
         const resourceQuery = qs.stringify({
-            fields: ['resource', 'resource_text'],
+            fields: ['resource', 'summary_text','resource_icon'],
+            populate: ['resource_icon'],
+            sort: 'id'
         }, { encodeValuesOnly: true })
-        fetch(`${process.env.REACT_APP_API_URL}/api/content-resources?${resourceQuery}`)
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-how-to-contribute-resources?${resourceQuery}`)
             .then((res) => res.json())
             .then((data) => {
                 let dataObj = {};
                 data.data.forEach((item) => {
+                    let imgUrl = ''
+                    item.attributes.resource_icon.data 
+                    ? imgUrl = `${process.env.REACT_APP_API_URL}${item.attributes.resource_icon.data.attributes.url}`
+                    : imgUrl = IconObj[item.attributes.resource.toLowerCase()] || null
+                    
                     dataObj[item.attributes.resource] = {
                         title: item.attributes.resource,
-                        text: item.attributes.resource_text,
-                        img: IconObj[item.attributes.resource.toLowerCase()] || null
+                        text: item.attributes.summary_text,
+                        img: imgUrl
                     }
                 })
                 setInvolvedData(dataObj);
@@ -92,7 +99,7 @@ function HowToContribute() {
 
             <div className="howToContribute_Submission_container">
                 <h1>SUBMISSIONS</h1>
-                <p>{SubmissionsText ? SubmissionsText : bannerText}</p>
+                <p>{SubmissionsText}</p>
                 <div>
                     <Link to="/forms/contactus">
                         Contact us

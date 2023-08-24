@@ -16,14 +16,23 @@ import { ResourcesBanner } from "./ResourcesBanner";
 import { Card } from "../../../Components/Card";
 import { Stack } from "../../../Components/Stack";
 const IconObj = {
-    "oral": oralIcon,
-    "biographies": contributeIcon,
-    "information": archivalIcon,
-    "papers": iconPapers,
-    "classroom": iconClass,
-    "guidelines": techIcon,
-    "permissions": permissionIcon,
-}
+	oral: oralIcon,
+	biographies: contributeIcon,
+	information: archivalIcon,
+	papers: iconPapers,
+	classroom: iconClass,
+	guidelines: techIcon,
+	permissions: permissionIcon,
+};
+
+// Some of the forms are missing.
+const formObj = {
+	Corrections: "/forms/corrections",
+	"Biographies and Orale Histories": "/",
+	Archives: "/",
+	"More Ideas": "/forms/moreideas",
+	"Donate Papers": "/forms/donatepapers",
+};
 
 export const Resources = () => {
 	const { resource } = useParams();
@@ -31,41 +40,41 @@ export const Resources = () => {
 
 	useEffect(() => {
 		const query = qs.stringify(
-			{	
-				fields:[
-					"resource_summary",
-					"video_url",
-				],
+			{
+				fields: ["banner_text", "video_url"],
 				filters: {
 					resource: {
-                        $eq: resource
-                    },
+						$eq: resource,
+					},
 				},
 				populate: ["files.file"],
 			},
 			{ encodeValuesOnly: true }
 		);
 		fetch(
-			`${process.env.REACT_APP_API_URL}/api/content-resources?${query}`
+			`${process.env.REACT_APP_API_URL}/api/content-how-to-contribute-resources?${query}`
 		)
 			.then((res) => res.json())
 			.then((data) => {
-				console.log(data);
 				let dataObj = data.data[0].attributes;
 				dataObj.files.forEach((file, i) => {
+					file.link_to_form
+						? (dataObj.files[i].link = formObj[file.link_to_form])
+						: (dataObj.files[i].link = `/pdfviewer/${file.file.data.attributes.hash}.pdf`);
+
 					Object.entries(IconObj).forEach(([key, value]) => {
 						file.title.toLowerCase().includes(key) &&
 							(dataObj.files[i].icon = value);
 					});
-                });
+				});
+				console.log(dataObj);
 				setData(dataObj);
 			});
 	}, [resource]);
 
 	return (
 		<div className="resources">
-
-            <ResourcesBanner resource={resource} text={data.resource_summary} />
+			<ResourcesBanner resource={resource} text={data.banner_text} />
 
 			<div className="video-container">
 				<ReactPlayer
@@ -76,22 +85,22 @@ export const Resources = () => {
 				/>
 			</div>
 
-            <Stack spacing={3} wrap={true}>
-                {data.files?.map((file, i) => (
-					<Card 
+			<Stack spacing={3} wrap={true}>
+				{data.files?.map((file, i) => (
+					<Card
 						key={i}
-						link={file.file.data ? `/pdfviewer/${file.file.data.attributes.hash}.pdf` : ``}
-						img={file.icon} 
+						link={file.link}
+						img={file.icon}
 						title={file.title}
 						spacing={4}
 						className="Resources-Card"
 					/>
-                ))}
-            </Stack>
+				))}
+			</Stack>
 			<div className="idea-container">
-                <Link to="/forms/moreideas">
-				    <img src={ideaIcon} alt="resource icon" />
-                </Link>
+				<Link to="/forms/moreideas">
+					<img src={ideaIcon} alt="resource icon" />
+				</Link>
 				<h1>Have More Ideas? Tell Us Here</h1>
 			</div>
 		</div>
