@@ -233,10 +233,11 @@ svg:not(:root) {
  */
 
 button,
-input,
+// input,
 optgroup,
-select,
-textarea {
+select
+// textarea 
+{
   font-family: sans-serif; /* 1 */
   font-size: 100%; /* 1 */
   line-height: 1.15; /* 1 */
