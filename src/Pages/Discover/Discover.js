@@ -7,7 +7,8 @@ import discoverbannerperson from "./res/discoverbannerperson.png";
 import { loadcards } from './cardloader';
 import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
-import ReactPaginate from 'react-paginate';
+import { Pagination } from '../../Components/Pagination/Pagination'
+
 var currentData = 'default'
 
 function Discover() {
@@ -288,28 +289,12 @@ function Discover() {
         }
       </div>
 
-      <ReactPaginate
-        containerClassName={"pagination"}
-        nextLabel="next >"
-        previousLabel="< previous"
-        previousLinkClassName={"pagination__link"}
-        nextLinkClassName={"pagination__link"}
-        disabledClassName={"pagination__link--disabled"}
-        activeClassName={"pagination__link--active"}
-        pageCount={totalPages}
-        marginPagesDisplayed={2}
-        pageRangeDisplayed={2}
-        onPageChange={handlePageClick}
-        renderOnZeroPageCount={null}
-        // breakLabel="..."
-        // forcePage={resetPagination()}    
-        />
-
       <div className="discoverButtons">
         <Link to="/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
         </Link>
       </div>
+      <Pagination pageCount={totalPages} handlePageClick={handlePageClick} />
     </div>
   )
 }

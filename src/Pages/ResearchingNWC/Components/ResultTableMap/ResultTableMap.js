@@ -4,7 +4,7 @@ import { ResearchTable } from "../ResearchTable";
 import { ResearchMap } from '../ResearchMap/ResearchMap';
 import "./ResultTableMap.css";
 import { CSVLink } from "react-csv";
-import { Pagination } from '../Pagination'
+import { Pagination } from '../../../../Components/Pagination/Pagination'
 
 export const ResultTableMap = (props) => {
 	const { data, map_data, userInput } = props;
