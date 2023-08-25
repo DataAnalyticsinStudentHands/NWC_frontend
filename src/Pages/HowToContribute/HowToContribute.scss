@@ -1,93 +1,82 @@
+.howToContribute_Involved_container {
+	h1 {
+		font-size: 5em;
+		font-family: $fontBabasNeue;
+		text-align: left;
+		font-weight: 100;
+	}
 
-// .howToContribute{
-//     display: flex;
-//     flex-direction: column;
-//     gap: 5em;
+	.item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
 
-    .howToContribute_Involved_container{
+		.item-left {
+			flex: 25%;
+		}
+		.itemr-ight {
+			flex: 75%;
+			gap: 2em;
 
-        h1{
-            font-size: 5em;
-            font-family: $fontBabasNeue;
-            text-align: left;
-            font-weight: 100;        
-        }
-    
-        .item{
-            display: flex;
-            flex-direction: row;
-            align-items: center;
+			display: flex;
+			flex-direction: column;
+			a {
+				color: black;
+				font-size: 4em;
+				font-family: $fontBabasNeue;
+				text-align: left;
 
-            .item-left{
-                flex:25%
-            }
-            .itemr-ight{
-                flex:75%;
-                gap:2em;
+				&:hover {
+					color: #ffd048;
+				}
+			}
+			p {
+				font-size: 1.5em;
+				font-family: $fontNeoBulletin;
+				text-align: left;
+			}
+		}
+	}
+}
 
-                display: flex;
-                flex-direction: column;
-                a{
-                    color: black;
-                    font-size: 4em;
-                    font-family: $fontBabasNeue;
-                    text-align: left;
+.howToContribute_Submission_container {
+	margin: 0 10%;
+	margin-bottom: 5em; // to make space for footer
+	display: flex;
+	flex-direction: column;
+	gap: 5em;
 
-                    &:hover {
-                        color: #FFD048;
-                    }
-                }
-                p {
-                    font-size: 1.5em;
-                    font-family: $fontNeoBulletin;
-                    text-align: left;
-                }
-            }
-        }
-    }
+	background-color: $color-beige;
+	padding: 5em;
 
-    .howToContribute_Submission_container{
-        margin: 0 10%;
-        margin-bottom: 5em; // to make space for footer
-        display: flex;
-        flex-direction: column;
-        gap: 5em;
+	h1 {
+		font-size: 3.5em;
+		font-family: $fontBabasNeue;
+		color: #655948;
+		text-align: center;
+	}
+	p {
+		font-family: $fontNeoBulletin;
+		font-size: 1.5em;
+		text-align: center;
+		font-weight: 700;
+	}
+	div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		gap: 2em;
 
-        background-color: $color-beige;
-        padding: 5em;
+		a {
+			background-color: $color-red-deep;
+			color: white;
+			width: 15em;
+			border-radius: 3em;
 
-        h1{
-            font-size: 3.5em;
-            font-family: $fontBabasNeue;
-            color: #655948;
-            text-align: center;
-        }
-        p{
-            font-family: $fontNeoBulletin;
-            font-size: 1.5em;
-            text-align: center;
-            font-weight: 700;
-        }
-        div{
-
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            gap: 2em;
-
-            a {
-                background-color: $color-red-deep;
-                color: white;
-                width: 15em;
-                border-radius: 3em;
-
-                font-size: 2em;
-                font-family: $fontBabasNeue;
-                text-align: center;
-                // padding: 0.75em 1.5em;
-                padding: 0.75em 0;
-
-            }
-        }
-    }
-// }
+			font-size: 2em;
+			font-family: $fontBabasNeue;
+			text-align: center;
+			padding: 0.75em 0;
+		}
+	}
+}
