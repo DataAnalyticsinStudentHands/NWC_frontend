@@ -38,6 +38,7 @@ function ResearchingNWC() {
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [userInput, setUserInput] = useState([]);
   // 3rd state for form search by name
   // const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
@@ -59,10 +60,10 @@ function ResearchingNWC() {
   }
 
 const raceObj = {
-  "AAPI": "Asian American/Pacific Islander",
+  "Asian American/Pacific Islander": "Asian American/Pacific Islander",
   "Black": "Black",
-  "Native American/American Indian": "Native American/American Indian",
   "Hispanic": "Hispanic",
+  "Native American/American Indian": "Native American/American Indian",
   "white": "white"
 }
 const religionObj = {
@@ -89,43 +90,61 @@ const politicalOfficeObj = {
   const politicalPartyObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
-    "Third Part": {
+    "Third Party": {
       $notIn:["Democratic Party", "Republican Party"]
     }
   }
 
   // submit basic search query
   async function onSubmit(data) {
+    let selectArr = [];
     let query_array = [];
-    Object.values(data).forEach((value, index) => {
+    Object.entries(data).forEach(([key,value], index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
           case "role":
-            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}}); break;
+            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}});
+            selectArr.push(key.slice(5))
+            break;
           case 'race':
-            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}}); break;
+            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}});
+            selectArr.push(key.slice(5))
+            break;
           case 'religion':
-            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]}); break;
+            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]});
+            selectArr.push(key.slice(9))
+            break;
           case 'education':
-            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]}); break;
+            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]});
+            selectArr.push(key.slice(10))
+            break;
           case 'level':
-            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); break;
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); 
+            selectArr.push(key.slice(6))
+            break;
           case 'party':
-            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); break;
+            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); 
+            selectArr.push(key.slice(6))
+            break;
           case 'era_for':
             query_array.push({ planks_fors: {
               plank: 'Equal Rights Amendment Plank'
-            }}); break;
+            }}); 
+            selectArr.push('For')
+            break;
           case 'era_against':
             query_array.push({ planks_againsts: {
               plank: 'Equal Rights Amendment Plank'
-            }}); break;
+            }}); 
+            selectArr.push('Against')
+            break;
           default:
             break;
         }
       }
     });
     if(data.participantsName){
+      selectArr.push(data.participantsName)
       let names = data.participantsName.split(' ');
       let first_name = names[0];
       let last_name = names[1];
@@ -152,7 +171,7 @@ const politicalOfficeObj = {
         });
       } 
     }
-    
+    setUserInput(selectArr);
     let queryObj = {
       populate: ['residence_in_1977','role', 'basic_races','educations'],
       sort:[{'last_name':"asc"}],
@@ -223,6 +242,8 @@ const politicalOfficeObj = {
         <hr></hr>
         <h2>BASIC SEARCH</h2>
         <p>{contentMap?.attributes?.BasicSearch_Text}</p>
+
+        <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
@@ -308,23 +329,23 @@ const politicalOfficeObj = {
                 <input type="checkbox" {...register("era_against")} />AGAINST</label>
             </div>
           </div>
-          {/* <div className="row">
-            {errors.exampleRequired && <span>This field is required</span>}
-          </div> */}
           <div className="basicSearch_toggle">
-              <span>
-                Narrow search results <img src={infoIcon} alt="_" />
-              </span>
-              <div className="basicSearch_toggle-tooltip">
-                <p>
-                <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
-                </p>
-                <p>
-                  Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
-                </p>
-                <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
-                <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
-              </div>            
+              <div className='basicSearch_toggle-left'>
+                Narrow search results 
+                  <div className='basicSearch_toggle-container'>
+                  <img className='infoIcon' src={infoIcon} alt="_" />
+                  <div className="basicSearch_toggle-tooltip">
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                  </div> 
+                  </div>
+              </div>           
             <label className="basicSearchswitch">
               <input type="checkbox" {...register("switch")}/>
               <span className="slider round"></span>
@@ -347,7 +368,7 @@ const politicalOfficeObj = {
 
       {tableData.length >0 ?
         <div className='Result-Continer'>
-          <ResultTableMap data={tableData} map_data={maps}/>
+          <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         : <div className='Result-Continer'>
           <p>

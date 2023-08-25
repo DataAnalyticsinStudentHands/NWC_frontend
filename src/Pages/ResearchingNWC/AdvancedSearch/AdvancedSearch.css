@@ -91,21 +91,21 @@
 /* COLLAPSIBLE */
 
 .Collapsible {
-    margin-left: 95rem;
+    margin-left: 91rem;
     border-bottom: 2px solid var(--colorDarkBlue);
     border-radius: 0px;
     margin-bottom: 30rem;
-    margin-right: 95rem;
+    margin-right: 91rem;
 }
 
 .Collapsible .toggle {
     font-size:45rem;
     font-weight: normal;
     color: var(--colorDarkBlue);
-    width: 102%;
+    width: 100%;
     text-align: left;
-    margin-left: -50rem;
-    margin-bottom: 30rem; 
+    margin-bottom: 30rem;
+    padding-left: 0px; 
 }
 
 .Collapsible .content {
@@ -403,4 +403,3 @@
   height: 600px;
   width:100%
 }
-
