@@ -23,6 +23,7 @@
     "react-scripts": "4.0.3",
     "react-select": "^5.2.2",
     "react-slick": "^0.29.0",
+    "sass": "^1.64.2",
     "slick-carousel": "^1.8.1",
     "web-vitals": "^1.1.2"
   },
