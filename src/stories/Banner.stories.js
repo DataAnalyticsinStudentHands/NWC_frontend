@@ -9,6 +9,7 @@ export default {
         text: {control: "text", description: "Text in the middle"},
         imgRight: {control: "text", description: "Image URL"},
         imgCredit: {control: "text", description: "Image Credit"},
+        borderStyle: {control: "radio", description: "Border Style", options: ["Corner", "Left", "Right"]},
     }
 }
 

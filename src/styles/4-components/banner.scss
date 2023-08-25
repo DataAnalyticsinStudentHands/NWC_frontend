@@ -3,7 +3,7 @@
 	font-size: 16px;
 
 	display: flex;
-	height: fit-content;
+	object-fit: contain;
 	gap: 4em;
 
 	.Banner_left {
@@ -28,7 +28,6 @@
 
             width: 100%;
 
-
 			.text {
 				text-align: left;
 				font-size: 1.5em;
@@ -37,8 +36,8 @@
 				background-color: #fff;
 			}
 			.topright {
-				border-top: 0.2em solid var(--colorDeepRed);
-				border-right: 0.2em solid var(--colorDeepRed);
+				border-top: 0.35em solid var(--colorDeepRed);
+				border-right: 0.35em solid var(--colorDeepRed);
 				position: absolute;
 				width: 50%;
 				height: 40%;
@@ -46,8 +45,8 @@
 				right: -2em;
 			}
 			.bottomleft {
-				border-bottom: 0.2em solid var(--colorDeepRed);
-				border-left: 0.2em solid var(--colorDeepRed);
+				border-bottom: 0.35em solid var(--colorDeepRed);
+				border-left: 0.35em solid var(--colorDeepRed);
 				position: absolute;
 				width: 50%;
 				height: 40%;
@@ -57,7 +56,7 @@
 		}
 	}
 	.Banner_right {
-		flex: 25%;
+		flex: 30%;
 		position: relative;
 		align-self: flex-end;
 

@@ -12,10 +12,15 @@ const IconObj = {
 	students: students_button,
 	'nwc participants': nwc_button,
 };
-export const ResourcesBanner = ({ resource, text }) => {
+export const ResourcesBanner = ({ resource, text, icon }) => {
+	let iconUrl = ''
+	icon.data 
+		? (iconUrl = `${process.env.REACT_APP_API_URL}${icon.data.attributes.url}`) 
+		: (iconUrl = IconObj[resource]);
+
 	return (
 		<div className="resources-banner">
-			<img src={IconObj[resource]} alt={`${resource} Banner Icon`} />
+			<img src={iconUrl} alt={`${resource} Banner Icon`} />
 			<div>
 				<h1>RESOURCES FOR {resource}</h1>
 				<div>
@@ -30,6 +35,14 @@ export const ResourcesBanner = ({ resource, text }) => {
 };
 
 ResourcesBanner.propTypes = {
-    resource: PropTypes.oneOf(['researchers', 'archivists', 'educators','students','nwc']).isRequired,
-    text: PropTypes.string
+    resource: PropTypes.oneOf(['researchers', 'archivists', 'educators','students','nwc participants']),
+    text: PropTypes.string,
+	icon: PropTypes.object
 };
+ResourcesBanner.defaultProps = {
+	resource: 'researchers',
+	text: 'Summary Text',
+	icon:{
+		data:null
+	}
+}

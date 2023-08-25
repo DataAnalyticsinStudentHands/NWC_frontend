@@ -8,7 +8,7 @@ export default {
         layout: "centered",
     },
     argTypes: {
-        type: { control: "radio", options: [
+        type: { control: "inline-radio", options: [
             "title",
             "heading-1",
             "heading-2",
@@ -24,6 +24,15 @@ export default {
             "caption",
             "overline",
         ] },
+        bgColor: { control: "radio", options: [
+            "transparent",
+            "Beige",
+        ]},
+        borderPosition: { control: "radio", options: [
+            "None",
+            "Left",
+            "Right",
+        ]}
     },
 }
 
