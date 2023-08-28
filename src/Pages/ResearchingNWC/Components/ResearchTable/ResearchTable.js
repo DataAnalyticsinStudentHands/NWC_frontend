@@ -1,6 +1,18 @@
 import React from "react";
 import "./ResearchTable.css";
 export const ResearchTable = (props) => {
+	const sortedData = [...props.data].sort((a, b) => {
+		if (props.sortOrder === "asc") {
+		  if (a[props.sortKey] === null) return 1;
+		  if (b[props.sortKey] === null) return -1;
+		  return a[props.sortKey] > b[props.sortKey] ? 1 : -1;
+		} else {
+		  if (a[props.sortKey] === null) return -1;
+		  if (b[props.sortKey] === null) return 1;
+		  return a[props.sortKey] < b[props.sortKey] ? 1 : -1;
+		}
+	  });
+
 	const data = props.data.map((val) => {
 		Object.entries(val).forEach(([key, value]) => {
 		  if (Array.isArray(value)) {
@@ -23,8 +35,8 @@ export const ResearchTable = (props) => {
 			<table>
 				<thead>
 					<tr>
-						{Object.keys(data[0]).map((val) => {
-							return <th key={val}>{val}</th>;
+						{Object.keys(sortedData[0]).map((val) => {
+							return <th key={val} onClick={() => props.handleSort(val)}>{val}</th>;
 						})}
 					</tr>
 				</thead>
