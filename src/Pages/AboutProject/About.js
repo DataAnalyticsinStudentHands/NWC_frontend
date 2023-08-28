@@ -5,11 +5,10 @@ import "./About.css";
 import button from "../../assets/res/button-50th-anniversary.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
-// import BannerCard from "../../Components/BannerCard/BannerCard";
-// import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
+import BannerCard from "../../Components/BannerCard/BannerCard";
+import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
-import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
-import { Banner } from '../../Components/Banner';
+import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 
 function About() {
   // one state to hold the regular page content loaded from Strapi
@@ -75,22 +74,14 @@ function About() {
     <div className="about">
 
       {/**BANNER */}
-      {/* <div className="aboutBanner">
+      <div className="aboutBanner">
         <img src={button} alt="_" />
         <BannerCard text={state.banner_text} />
         <CaptionedImg
           src={barbarajordan} 
           caption={"Photo by " + state.bannerimage_credit}
           caption_more={state.bannerimagecredit_more} />
-      </div> */}
-      <Banner
-        imgLeft={button}
-        text={state.banner_text}
-        imgRight={barbarajordan}
-        imgCredit={state.bannerimage_credit}
-        imgCredit_more={state.bannerimagecredit_more}
-        borderStyle="Corner"
-      />
+      </div>
 
       {/**TIMELINE */}
       <div className="aboutTimeline">
