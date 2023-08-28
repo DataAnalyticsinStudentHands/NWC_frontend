@@ -1,4 +1,4 @@
-import { ResourcesBanner } from '../Pages/HowToContribute/Components/ResourcesBanner';
+import { ResourcesBanner } from '../Pages/HowToContribute/components/ResourcesBanner';
 
 export default {
     title: 'How To Controute/Resource Banner',
