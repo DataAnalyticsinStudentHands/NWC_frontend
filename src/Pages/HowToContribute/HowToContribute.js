@@ -20,7 +20,6 @@ const IconObj = {
     'educators': educators_button,
     'students': students_button,
 }
-
 function HowToContribute() {
 	const [bannerText, setBannerText] = useState("");
     const [SubmissionsText, setSubmissionsText] = useState("");
@@ -55,7 +54,7 @@ function HowToContribute() {
             .then((data) => {
                 let dataObj = {};
                 data.data.forEach((item) => {
-                    let imgUrl  = '';
+                    let imgUrl = ''
                     item.attributes.resource_icon.data 
                     ? imgUrl = `${process.env.REACT_APP_API_URL}${item.attributes.resource_icon.data.attributes.url}`
                     : imgUrl = IconObj[item.attributes.resource.toLowerCase()] || null
