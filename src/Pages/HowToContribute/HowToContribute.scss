@@ -1,0 +1,82 @@
+.howToContribute_Involved_container {
+	h1 {
+		font-size: 5em;
+		font-family: $fontBabasNeue;
+		text-align: left;
+		font-weight: 100;
+	}
+
+	.item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		.item-left {
+			flex: 25%;
+		}
+		.itemr-ight {
+			flex: 75%;
+			gap: 2em;
+
+			display: flex;
+			flex-direction: column;
+			a {
+				color: black;
+				font-size: 4em;
+				font-family: $fontBabasNeue;
+				text-align: left;
+
+				&:hover {
+					color: #ffd048;
+				}
+			}
+			p {
+				font-size: 1.5em;
+				font-family: $fontNeoBulletin;
+				text-align: left;
+			}
+		}
+	}
+}
+
+.howToContribute_Submission_container {
+	margin: 0 10%;
+	margin-bottom: 5em; // to make space for footer
+	display: flex;
+	flex-direction: column;
+	gap: 5em;
+
+	background-color: $color-beige;
+	padding: 5em;
+
+	h1 {
+		font-size: 3.5em;
+		font-family: $fontBabasNeue;
+		color: #655948;
+		text-align: center;
+	}
+	p {
+		font-family: $fontNeoBulletin;
+		font-size: 1.5em;
+		text-align: center;
+		font-weight: 700;
+	}
+	div {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-around;
+		gap: 2em;
+
+		a {
+			background-color: $color-red-deep;
+			color: white;
+			width: 15em;
+			border-radius: 3em;
+
+			font-size: 2em;
+			font-family: $fontBabasNeue;
+			text-align: center;
+			padding: 0.75em 0;
+		}
+	}
+}

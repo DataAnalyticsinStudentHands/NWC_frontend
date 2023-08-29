@@ -250,7 +250,7 @@ line-height: 43px; /* 179.167% */
 .basicSearch_toggle{
   display: flex;
   /* flex-direction: row; */
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   margin-top: 2em;
   margin-right: 2em;
@@ -260,7 +260,7 @@ line-height: 43px; /* 179.167% */
 .basicSearch_toggle-left{
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: flex-end;
   align-items: center;
   position: relative;
 }

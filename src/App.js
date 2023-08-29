@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 
-import './Custom.css';
+import './styles/_styles.scss';
 import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
@@ -19,19 +19,15 @@ import Essay from "./Pages/Essay/Essay";
 import Participants from "./Pages/Participants/Participants";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
-import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
 import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
-import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
-import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
-import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
-import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
-import Organizations from "./Pages/ResearchingNWC/Organizations"
+import {Resources} from "./Pages/HowToContribute/components/Resources";
+
+import Organizations from "./Pages/ResearchingNWC/Organizations";
 
 const ScrollToTop = (props) => {
   const location = useLocation();
@@ -50,7 +46,6 @@ function App() {
       <ScrollToTop>
       <Routes>
         <Route path="about" element={<About />} />
-        <Route path="meetTheTeam" element={<MeetTheTeam />} />
         <Route path="why" element={<Why />} />
         <Route path="essay/:essayId" element={<Essay />} />
         <Route path="discover/:storyId" element={<DiscoverInfo />} />
@@ -65,11 +60,7 @@ function App() {
         <Route path="forms/donatepapers" element={ <HowToDonatePapersForm />} />
         <Route path="forms/moreideas" element={<MoreIdeasForm />} />
         <Route path="howtocontribute" element={<HowToContribute />} />
-        <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
-        <Route path="howtocontribute/archivists" element={<ResourceArchivists />} />
-        <Route path="howtocontribute/students" element={<ResourceStudents />} />
-        <Route path="howtocontribute/nwc" element={<ResourceNWC />} />
-        <Route path="howtocontribute/educators" element={<ResourceEducators />} />
+        <Route path="howtocontribute/:resource" element={<Resources />} />
         <Route path="/" element={<Home />} />
       </Routes>
       </ScrollToTop>

@@ -17,18 +17,17 @@ import Essay from "./Pages/Essay/Essay";
 import Participants from "./Pages/Participants/Participants";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
-import MeetTheTeam from "./Pages/MeetTheTeam/MeetTheTeam";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
 import HowToDonatePapersForm from './Pages/Forms/HowToDonatePapers';
 import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers/ResourceResearchers"
-import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists/ResourceArchivists"
-import ResourceStudents from "./Pages/HowToContribute/ResourceStudents/ResourceStudents"
-import ResourceNWC from "./Pages/HowToContribute/ResourceNWC/ResourceNWC"
-import ResourceEducators from "./Pages/HowToContribute/ResourceEducators/ResourceEducators"
+import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers"
+import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists"
+import ResourceStudents from "./Pages/HowToContribute/ResourceStudents"
+import ResourceNWC from "./Pages/HowToContribute/ResourceNWC"
+import ResourceEducators from "./Pages/HowToContribute/ResourceEducators"
 
 const ScrollToTop = (props) => {
   const location = useLocation();
@@ -46,7 +45,6 @@ function App() {
       <ScrollToTop>
       <Routes>
         <Route path="about" element={<About />} />
-        <Route path="meetTheTeam" element={<MeetTheTeam />} />
         <Route path="why" element={<Why />} />
         <Route path="essay/:essayId" element={<Essay />} />
         <Route path="discover/:storyId" element={<DiscoverInfo />} />

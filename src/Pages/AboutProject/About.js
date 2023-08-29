@@ -8,7 +8,7 @@ import tl from './res/timeline.png';
 import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
-import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
+import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 
 function About() {
   // one state to hold the regular page content loaded from Strapi
