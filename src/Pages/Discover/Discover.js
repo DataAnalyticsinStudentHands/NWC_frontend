@@ -8,6 +8,8 @@ import { loadcards } from './cardloader';
 import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
 import { Pagination } from '../../Components/Pagination/Pagination'
+import ReactMarkdown from 'react-markdown'
+
 
 var currentData = 'default'
 
@@ -238,7 +240,7 @@ function Discover() {
 
       {/**INTRO */}
       <div className="discoverIntro">
-        <p>{state.intro_text}</p>
+        <ReactMarkdown>{state.intro_text}</ReactMarkdown>
       </div>
 
       {/**SEARCH */}
