@@ -5,6 +5,8 @@ import archivists_button from "../res/archivist_button.png";
 import educators_button from "../res/educators_button.png";
 import nwc_button from "../res/nwc_participants_button.png";
 import students_button from "../res/students_button.png";
+import ReactMarkdown from 'react-markdown';
+
 const IconObj = {
 	researchers: researcher_button,
 	archivists: archivists_button,
@@ -28,7 +30,7 @@ export const ResourcesBanner = ({ resource, text, icon }) => {
 					<div />
 					<div />
 				</div>
-				<p>{text}</p>
+				<ReactMarkdown>{text}</ReactMarkdown>
 			</div>
 		</div>
 	);
