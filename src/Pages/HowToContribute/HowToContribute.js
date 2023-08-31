@@ -69,7 +69,6 @@ function HowToContribute() {
                 setInvolvedData(dataObj);
             })
 	}, []);
-    console.log('data: ', involvedData)
 	return (
         <Stack direction='column' spacing={10}>
 			<Banner
