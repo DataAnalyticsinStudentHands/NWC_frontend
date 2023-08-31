@@ -7,7 +7,7 @@ import {
   Route
 } from "react-router-dom";
 
-import './Custom.css';
+import './styles/_styles.scss';
 import Footer from "./Components/Footer/Footer";
 import Navigation from './Components/Navigation/Navigation';
 import Home from './Pages/Home/Home';
@@ -25,12 +25,9 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import ResourceResearchers from "./Pages/HowToContribute/ResourceResearchers"
-import ResourceArchivists from "./Pages/HowToContribute/ResourceArchivists"
-import ResourceStudents from "./Pages/HowToContribute/ResourceStudents"
-import ResourceNWC from "./Pages/HowToContribute/ResourceNWC"
-import ResourceEducators from "./Pages/HowToContribute/ResourceEducators"
-import Organizations from "./Pages/ResearchingNWC/Organizations"
+import {Resources} from "./Pages/HowToContribute/components/Resources";
+
+import Organizations from "./Pages/ResearchingNWC/Organizations";
 
 const ScrollToTop = (props) => {
   const location = useLocation();
@@ -63,11 +60,7 @@ function App() {
         <Route path="forms/donatepapers" element={ <HowToDonatePapersForm />} />
         <Route path="forms/moreideas" element={<MoreIdeasForm />} />
         <Route path="howtocontribute" element={<HowToContribute />} />
-        <Route path="howtocontribute/researchers" element={<ResourceResearchers />} />
-        <Route path="howtocontribute/archivists" element={<ResourceArchivists />} />
-        <Route path="howtocontribute/students" element={<ResourceStudents />} />
-        <Route path="howtocontribute/nwc" element={<ResourceNWC />} />
-        <Route path="howtocontribute/educators" element={<ResourceEducators />} />
+        <Route path="howtocontribute/:resource" element={<Resources />} />
         <Route path="/" element={<Home />} />
       </Routes>
       </ScrollToTop>

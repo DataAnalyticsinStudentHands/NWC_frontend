@@ -1,0 +1,80 @@
+.Banner {
+	background: (url("../../assets/res/mapbg.png"));
+	font-size: 16px;
+
+	display: flex;
+	object-fit: contain;
+	gap: 4em;
+
+	.Banner_left {
+		flex: 25%;
+		display: flex;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			object-fit: contain;
+		}
+	}
+	.Banner_center {
+		flex: 50%;
+		display: flex;
+		align-items: center;
+
+		.Card {
+			background-color: #fff;
+			padding: 2em 1em;
+            position: relative;
+
+            width: 100%;
+
+			.text {
+				text-align: left;
+				font-size: 1.5em;
+				font-family: $fontNeoBulletin;
+				font-weight: bold;
+				background-color: #fff;
+			}
+			.topright {
+				border-top: 0.35em solid var(--colorDeepRed);
+				border-right: 0.35em solid var(--colorDeepRed);
+				position: absolute;
+				width: 50%;
+				height: 40%;
+				top: -2em;
+				right: -2em;
+			}
+			.bottomleft {
+				border-bottom: 0.35em solid var(--colorDeepRed);
+				border-left: 0.35em solid var(--colorDeepRed);
+				position: absolute;
+				width: 50%;
+				height: 40%;
+				bottom: -2em;
+				left: -2em;
+			}
+		}
+	}
+	.Banner_right {
+		flex: 30%;
+		position: relative;
+		align-self: flex-end;
+
+		img {
+			width: 100%;
+			object-fit: contain;
+		}
+
+		p {
+			font-size: 1.75em;
+			padding: 0.5em 1em;
+			font-family: $fontBabasNeue;
+
+			position: absolute;
+			bottom: 0;
+
+			background-color: $color-blue-deep;
+			color: $color-beige;
+		}
+	}
+}
