@@ -1,19 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
+import NWCColors from "../assets/colors.json"
 
-const ColorObj = {
-    transparent: "transparent",
-    Beige: "#FFF4E8",
-    White: "#FFFFFF",
-    Black: "#000000",
-}
+export const Typography = ({ 
+    type, children,
+    color, bgColor,
+    borderPosition, 
+    ...props }) => {
 
-export const Typography = ({ type, children, bgColor, borderPosition }) => {
     const styles = {
-        backgroundColor: ColorObj[bgColor],
+        color: NWCColors[color],
+        backgroundColor: NWCColors[bgColor] || bgColor || "transparent",
         padding: "0.2em 0.4em",
-        [`border${borderPosition}`]: "0.3em solid #b32525",
+        [`border${borderPosition}`]: `0.3em solid #b32525`,
+        
     }
+    props.style && Object.assign(styles, props.style);
+
 	return(
         <div className={type} style={styles}>
             {children}
@@ -22,27 +25,21 @@ export const Typography = ({ type, children, bgColor, borderPosition }) => {
 };
 Typography.propTypes = {
 	type: PropTypes.oneOf([
-		"title",
+        "title",
         "heading-1",
         "heading-2",
-        "heading-3",
-        "heading-4",        
-        "heading-5",
         "quote-1",
-        "quote-2",
-        "subtitle-2",
         "paragraph-1",
         "paragraph-2",
-		"body-text",
-		"caption",
-		"overline",
+        "body-text",
+        "caption",
 	]),
-    bgColor: PropTypes.oneOf([
-        "transparent",
-        "Beige",
-    ]),
+    color: PropTypes.oneOf(Object.keys(NWCColors)),
+    bgColor: PropTypes.oneOf(
+        ['transparent', ...Object.keys(NWCColors)]
+    ),
     borderPosition: PropTypes.oneOf([
-        // "None",
+        "None",
         "Left",
         "Right",
     ]),
@@ -50,6 +47,7 @@ Typography.propTypes = {
 Typography.defaultProps = {
     type: "body-text",
     children: "Typography",
+    color: "black",
     bgColor: "transparent",
     borderPosition: "None",
 };
