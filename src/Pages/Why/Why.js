@@ -6,6 +6,7 @@ import whybannerhuman from "./res/whybannerhuman.png";
 import { Link } from 'react-router-dom';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 import Carousel3 from '../../Components/Carousel/Carousel3';
+import ReactMarkdown from 'react-markdown';
 
 function Why() {
     const [pageState, setPageState] = useState({
@@ -78,7 +79,7 @@ function Why() {
                 <img className="whyBanner_button" src={buttonwhy} alt=""/>
                 <div className="whyBanner_card">
                     <h2>HISTORICAL OVERVIEW</h2>
-                    <p>{pageState.historicalOverview}</p>
+                    <ReactMarkdown>{pageState.historicalOverview}</ReactMarkdown>
                     <Link to="/essay/1">
                         <p className="why_readmore" >READ MORE</p>
                     </Link>
