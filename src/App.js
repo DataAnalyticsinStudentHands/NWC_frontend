@@ -25,7 +25,7 @@ import CorrectionsForm from './Pages/Forms/CorrectionsForm';
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
-import {Resources} from "./Pages/HowToContribute/components/Resources";
+import {Resources} from "./Pages/HowToContribute/Components/Resources";
 
 import Organizations from "./Pages/ResearchingNWC/Organizations";
 
