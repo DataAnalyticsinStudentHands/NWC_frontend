@@ -26,6 +26,7 @@ import dots4 from './res/dots4.png';
 import Carousel3 from '../../Components/Carousel/Carousel3';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
+import ReactMarkdown from 'react-markdown'
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -292,9 +293,9 @@ function Home() {
 
                 {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
                 <div className="homeAbout_peas">
-                  <p className="homeAbout_p1">{state.homeAbout_p1}</p>
+                  <p className="homeAbout_p1"><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></p>
                   {homeAboutReadmore ? (
-                    <p className="homeAbout_p2">{state.homeAbout_p2}</p>
+                    <p className="homeAbout_p2"><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></p>
                   ) : (
                     ''
                   )}
@@ -327,7 +328,7 @@ function Home() {
               <div className="homeMap_headerBackdrop"></div>
               <p className="homeMap_header">INTERACTIVE MAP</p>
               <div className="homeMap_cardHr"></div>
-              <p className="homeMap_text">{state.homeMap_text}</p>
+              <p className="homeMap_text"><ReactMarkdown>{state.homeMap_text}</ReactMarkdown></p>
             </div>
 
             {openingMap ? (
@@ -432,7 +433,7 @@ function Home() {
               <div className="homeExplore_headerBackdrop"></div>
               <p className="homeExplore_header">EXPLORE THE SITE</p>
               <div className="homeExplore_hr"></div>
-              <p className="homeExplore_text">{state.homeExplore_text}</p>
+              <p className="homeExplore_text"><ReactMarkdown>{state.homeExplore_text}</ReactMarkdown></p>
             </div>
 
             <div className="homeExplore_img">
