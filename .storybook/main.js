@@ -1,6 +1,6 @@
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 
-const base = process.env.REACT_APP_API_URL+ '/designsystem/';
+const base = '/designsystem/';
 const config = {
 	stories: [
     "../src/**/*.mdx", 
@@ -26,6 +26,12 @@ const config = {
 		}
 		return config;
 	  },
+	webpackFinal: async (config, { configType }) => {
+		if (configType === 'PRODUCTION') {
+		  config.output.publicPath = base;
+		}
+		return config;
+	},
 	managerHead: (head, { configType }) => {
 		const injections = [
 		  `<link rel="shortcut icon" type="image/x-icon" href="${base}favicon.ico">`, // This set icon for your site.
