@@ -132,3 +132,5 @@ package_dev.json
 .htaccess_dev
 App_dev.js
 Navigation_dev.js
+
+/storybook-static

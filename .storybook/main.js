@@ -1,4 +1,6 @@
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
+
+const base = process.env.REACT_APP_API_URL+ '/designsystem/';
 const config = {
 	stories: [
     "../src/**/*.mdx", 
@@ -8,7 +10,6 @@ const config = {
 		"@storybook/addon-links",
 		"@storybook/addon-essentials",
 		"@storybook/preset-create-react-app",
-		"@storybook/addon-onboarding",
 		"@storybook/addon-interactions",
 	],
 	framework: {
@@ -19,5 +20,20 @@ const config = {
     	autodocs:true,
 	},
 	staticDirs: ["../public"],
+	managerWebpack: (config, { configType }) => {
+		if (configType === 'PRODUCTION') {
+		  config.output.publicPath = base;
+		}
+		return config;
+	  },
+	managerHead: (head, { configType }) => {
+		const injections = [
+		  `<link rel="shortcut icon" type="image/x-icon" href="${base}favicon.ico">`, // This set icon for your site.
+		  `<script>window.PREVIEW_URL = '${base}iframe.html'</script>` , // This decide how storybook's main frame visit stories 
+		]
+		return configType === 'PRODUCTION'
+		  ? `${head}${injections.join('')}`
+		  : head
+	  },
 };
 export default config;
