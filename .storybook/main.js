@@ -1,6 +1,6 @@
 /** @type { import('@storybook/react-webpack5').StorybookConfig } */
 
-const base = '/designsystem/';
+const base = 'https://dash.cs.uh.edu/designsystem/';
 const config = {
 	stories: [
     "../src/**/*.mdx", 
