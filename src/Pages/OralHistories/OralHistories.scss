@@ -1,0 +1,87 @@
+.OralHistories_NWC_container {
+
+	.item {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+
+		.item-left {
+			flex: 50%;
+			text-align: center
+		}
+		.item-right {
+			flex: 50%;
+			display: flex;
+			flex-direction: column;
+
+			h1 {
+				font-size: 4em;
+				font-family: $fontBabasNeue;
+				text-align: center;
+				font-weight: 100;
+			}
+			p {
+				font-size: 1.3em;
+			}
+		}
+	}
+}
+
+.OralHistories_Featured_container {
+    display: flex;
+    flex-direction: column;
+    /* Set padding for all sides except top to 40em */
+    padding: 20em;
+    /* Add margin at the bottom to create white space */
+	margin-bottom: 20px; /* You can adjust the value as needed */
+    background-image: url("res/featuredbg.png");
+    background-size: 100% 100%;
+	
+}
+
+.OralHistories_Voice_container {
+    margin-bottom: 5em; /* to make space for footer */
+    display: flex;
+    flex-direction: column;
+    background-color: $color-beige;
+    position: relative; /* Make the container a positioning context */
+
+    /* Add a red bottom border */
+    border-bottom: 30rem solid #B22524;
+
+    .item {
+        display: flex;
+        position: relative; /* Make the item a positioning context */
+
+        .item-left,
+        .item-right {
+            flex: 1;
+            text-align: center;
+            position: relative; /* Make the item a positioning context */
+            width: 100%; /* Set width to 100% to take full width */
+            display: flex;
+            flex-direction: column;
+
+            /* Vertically align items at the bottom */
+            justify-content: flex-end;
+
+            /* Set background image and control size and position */
+            background-size: 40%; /* Adjust to your preference */
+            background-repeat: no-repeat; /* Prevent background images from repeating */
+			            /* Add left and right margins to the background images */
+						padding-right: 10px; /* Adjust as needed for the right margin */
+        }
+
+        .item-left {
+            background-image: url("res/red_dots_decor.png");
+        }
+
+        .item-right {
+            background-image: url("res/blue_dots_decor.png");
+			background-position: right top; /* Align at the bottom right */
+        }
+    }
+}
+
+
+
