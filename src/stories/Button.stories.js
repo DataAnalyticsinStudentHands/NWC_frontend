@@ -9,7 +9,7 @@ export default {
   tags: ['autodocs'],
   argTypes: {
     primary: { control: 'boolean' },
-    size: { control: 'radio', options: ['sm', 'md', 'lg'] },
+    size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
     label: { control: 'text' },
     onClick: { action: 'clicked' },
     

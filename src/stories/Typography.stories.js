@@ -8,7 +8,7 @@ export default {
         layout: "centered",
     },
     argTypes: {
-        type: { control: "inline-radio", options: [
+        type: { control: "select", options: [
             "title",
             "heading-1",
             "heading-2",
@@ -18,14 +18,14 @@ export default {
             "body-text",
             "caption",
         ]},
-        color: { control: "inline-radio", options: [
+        color: { control: "select", options: [
             ...Object.keys(NWCColors)
         ]},
-        bgColor: { control: "inline-radio", options: [
+        bgColor: { control: "select", options: [
             'transparent', ...Object.keys(NWCColors)
         ]},
 
-        borderPosition: { control: "radio", options: [
+        borderPosition: { control: "inline-radio", options: [
             "None",
             "Left",
             "Right",
@@ -33,44 +33,8 @@ export default {
     },
 }
 
-export const Title = {
+export const Base = {
     args: {
         type: "title",
-    }
-}
-export const Heading1 = {
-    args: {
-        type: "heading-1",
-    }
-}
-export const Heading2 = {
-    args: {
-        type: "heading-2",
-    }
-}
-export const Quote1 = {
-    args: {
-        type: "quote-1",
-    }
-}
-
-export const Paragraph1 = {
-    args: {
-        type: "paragraph-1",
-    }
-}
-export const Paragraph2 = {
-    args: {
-        type: "paragraph-2",
-    }
-}
-export const BodyText = {
-    args: {
-        type: "body-text",
-    }
-}
-export const Caption = {
-    args: {
-        type: "caption",
     }
 }
