@@ -12,6 +12,7 @@ import how_to_contribute_button from "../../assets/res/button-how-to-contribute.
 
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
+import ReactMarkdown from 'react-markdown';
 
 const IconObj = {
     'researchers': researcher_button,
@@ -68,7 +69,6 @@ function HowToContribute() {
                 setInvolvedData(dataObj);
             })
 	}, []);
-
 	return (
         <Stack direction='column' spacing={10}>
 			<Banner
@@ -90,7 +90,7 @@ function HowToContribute() {
                             </div>
                             <div className="itemr-ight">
                                 <Link to={key}>{title}</Link>
-                                <p>{text}</p>
+                                <ReactMarkdown>{text}</ReactMarkdown>
                             </div>
                         </Stack>
                     );
