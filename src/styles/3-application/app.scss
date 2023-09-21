@@ -8,7 +8,8 @@
 
 :root {
   --xUnit: calc(100vw/1920);
-  font-size: calc(100vw/1920);
+  // font-size: calc(100vw/120);
+  font-size: calc(16px + 0.390625vw);
 
   --colorBackgroundLightGray: #E2E2E2; /*Like seen in the background for the pdf viewer*/
   --colorLightGray: #CCC9C9; /*Like seen in the text of homeMap's popup*/
