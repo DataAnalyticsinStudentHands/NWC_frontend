@@ -1,0 +1,57 @@
+{
+    "title": {
+        "font-family": "subway_ds",
+        "font-size": "6 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "heading-1":{
+        "font-family": "babas_neue",
+        "font-size": "4.5 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "heading-2":{
+        "font-family": "babas_neue",
+        "font-size": "2 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "heading-3":{
+        "font-family": "babas_neue",
+        "font-size": "1.5 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "quote-1":{
+        "font-family": "Montserrat",
+        "font-size": "2.25 unit",
+        "font-weight": "bold",
+        "font-style": "normal"
+    },
+    "paragraph-1":{
+        "font-family": "neobulletin",
+        "font-size": "2 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "paragraph-2":{
+        "font-family": "Montserrat",
+        "font-size": "1.5 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "body-text":{
+        "font-family": "Montserrat",
+        "font-size": "1.25 unit",
+        "font-weight": "regular",
+        "font-style": "normal"
+    },
+    "caption":{
+        "font-family": "Montserrat",
+        "font-size": "1.5 unit",
+        "font-weight": "semi-bold",
+        "font-style": "normal"
+    }
+    
+}

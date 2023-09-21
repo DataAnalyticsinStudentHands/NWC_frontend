@@ -1,9 +1,10 @@
 {
     "primary": {
         "dark":{
+            "blue": "#142F45",
             "red": "#B22524",
             "orange": "#CB4E28",
-            "blue": "#142F45"
+            "turquoise":"#00779D"
         },
         "medium":{
             "blue":"#27557B"
@@ -13,7 +14,6 @@
         },
         "other":{
             "beige":"#FFF5EA",
-            "turquoise":"#00779D",
             "black":"#000000",
             "white":"#FFFFFF"
         }
@@ -22,6 +22,9 @@
         "dark":{
             "yellow": "#FFD046",
             "purple": "#615FBF"
+        },
+        "light":{
+            "blue":"#E8F5FC"
         }
     }
 }

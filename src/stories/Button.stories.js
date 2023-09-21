@@ -8,7 +8,7 @@ export default {
   },
   tags: ['autodocs'],
   argTypes: {
-    primary: { control: 'boolean' },
+    variant: { control: 'inline-radio', options: ['primary', 'secondary', 'tertiary'] },
     size: { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
     label: { control: 'text' },
     onClick: { action: 'clicked' },
@@ -18,7 +18,7 @@ export default {
 
 export const Base = {
   args: {
-    primary: true,
+    variant: 'primary',
     label: 'Button',
     size: 'md',
   },

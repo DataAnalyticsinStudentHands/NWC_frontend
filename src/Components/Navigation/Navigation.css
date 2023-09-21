@@ -16,36 +16,26 @@
 */
 
 .navigation {
+  font-size: calc(1vw);
   width: 100vw;
-  height: 80rem;
+  height: 5vw;
   display: flex;
+  justify-content: space-around;
   background-color: var(--colorDarkBlue);
   align-items: center;
   position: fixed;
   z-index: 999;
   top: 0;
   box-shadow: 0 3rem 6rem #00000029;
+  padding:0 2em;
 }
 
-.navigation_hamburger {
-  width: 31.6rem;
-  margin-left: 35rem;
-}
-
-.navigation_search {
-  width: 52rem;
-  margin-right: 44.29rem;
-}
-
-.navigation_hamburger, .navigation_search {
-  margin-bottom: 8rem;
-}
 
 .navigation_link {
   color: var(--colorLightBlue);
   font-family: 'babas_neue', normal;
-  font-size: 35rem;
-  margin-left: 110rem;
+  font-size: 2em;
+  /* margin-left: 110rem; */
   text-decoration: none;
   white-space: nowrap;
 }
@@ -61,9 +51,10 @@
 
 
 .navigation_border {
+  font-size: 1vw;
   width: 100%;
   background-color: var(--colorDeepRed);
-  border-top: 14rem solid var(--colorDeepRed);
-  border-bottom: 14rem solid var(--colorDeepOrange);
-  margin-top: 80rem;
+  border-top: 1em solid var(--colorDeepRed);
+  border-bottom: 1em solid var(--colorDeepOrange);
+  margin-top: 5em;
 }

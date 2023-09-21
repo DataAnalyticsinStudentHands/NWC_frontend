@@ -14,7 +14,7 @@ export const Color = ({ color, text }) => {
 					justifyContent: "center",
 					alignItems: "center",
 				}}></div>
-			<Typography style={{fontWeight:'700', textTransform:'capitalize'}}>{text}</Typography>
+			<Typography type="caption" style={{fontWeight:'700', textTransform:'capitalize'}}>{text}</Typography>
 			<Typography>{color}</Typography>
 		</Stack>
 	);

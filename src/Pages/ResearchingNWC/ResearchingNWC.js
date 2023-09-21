@@ -246,7 +246,7 @@ const politicalOfficeObj = {
         
       {/**SEARCH */}
       <div className="mappingNWCSearch">
-        <h1>HOW TO SEARCH this DATA</h1>
+        <h1>HOW TO SEARCH THIS DATA</h1>
         <hr></hr>
         <h2>BASIC SEARCH</h2>
         <p>{contentMap?.attributes?.BasicSearch_Text}</p>

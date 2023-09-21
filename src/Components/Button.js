@@ -1,22 +1,33 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export const Button = ({ primary, size, label, ...props }) => {
-    let scale = 1
-    size === 'sm' ? scale = 0.75 
-    : size === 'lg' ? scale = 1.5 
-    : size === 'md' ? scale = 1
-    : scale = 1;
+import colors from "../assets/color.config.json"
+
+const colorVariants = {
+    primary: colors.primary.dark.red,
+    secondary: colors.primary.light.blue,
+    tertiary: colors.primary.medium.blue,
+}
+const sizeScale = {
+    sm: '0.75',
+    md: '1',
+    lg: '1.25',
+}
+export const Button = ({ variant, size, label, ...props }) => {
 
     const styles = {
-        fontSize: `${scale * 1}em`,
-        padding: `${scale * 0.25}em ${scale * 1}em`,
-        backgroundColor: primary ? '#00597C' : '#B22524',
-        borderRadius: `${scale * 2}em`,
+        fontSize: `${sizeScale[size] * 1}em`,
+        padding: `${sizeScale[size] * 0.25}em ${sizeScale[size] * 1}em`,
+        border: `${colorVariants[variant]} solid ${sizeScale[size] * 0.1}em`,
+        backgroundColor: colorVariants[variant],
+        borderRadius: `${sizeScale[size] * 2}em`,
+        cursor: 'pointer',
     }
+    
     return (
       <button
         type="button"
+        className={`btn-${variant}`}
         style={styles}
         {...props}
       >
@@ -26,15 +37,15 @@ export const Button = ({ primary, size, label, ...props }) => {
   };
   
   Button.propTypes = {
-    primary: PropTypes.bool.isRequired,
+    variant: PropTypes.oneOf(['primary', 'secondary', 'tertiary']),
     size: PropTypes.oneOf(['sm', 'md', 'lg']).isRequired,
     label: PropTypes.string.isRequired,
     onClick: PropTypes.func,
   };
   
   Button.defaultProps = {
-    primary: false,
-    size: 'md',
+    variant: false,
+    size: 'lg',
     onClick: undefined,
   };
   

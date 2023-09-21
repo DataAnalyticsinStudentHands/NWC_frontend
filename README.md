@@ -4,7 +4,11 @@ This is the client-side interface for the 1977 NWC project. It is built with Cre
 
 ## Development
 
-Run: `npm run start` after configuring the environment variables.
+Run: 
+```bash
+npm run start
+```
+after configuring the environment variables.
 
 We are following standard procedures for a Create-React-App [deployment](https://create-react-app.dev/docs/deployment/) using a [build](https://create-react-app.dev/docs/production-build/). 
 
@@ -12,15 +16,20 @@ The development version will use a subfolder /dev and uses the *package.json* fi
 
 ## Staging/Deployment
 
-In a nutshell run: `npm run build`
+In a nutshell run: 
+```bash
+npm run build
+```
 
 For staging: use pm2 to serve the `build` directory
 
 ## Production
 
 For production, use the *package_production.json*, *App_production.js* and *Navigation_production.js* files.
-
-Run: `npm run build`
+Run:
+```bash
+npm run build
+```
 
 Move/copy the `\build` directory into web server document root directory.
 
@@ -35,4 +44,10 @@ REACT_APP_MAPBOX_ACCESS_TOKEN =
 REACT_APP_OVERLAYMP4 =
 ```
 
+## Style System
 
+We are adopting SASS to develop our styles.
+
+* All basic styles and component styles are stored under the styles folder.
+* All individual pages will have their own SCSS file if it's necessary. 
+  * For convenience, the page's SCSS file can be saved on the same path as their js file. But make sure to import the file into /styles/_styles.scss instead of the js file

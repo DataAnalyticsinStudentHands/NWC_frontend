@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import NWCColors from "../assets/colors.json"
+import Colors from "../assets/colors.json"
 
 export const Typography = ({ 
     type, children,
@@ -9,9 +9,9 @@ export const Typography = ({
     ...props }) => {
 
     const styles = {
-        color: NWCColors[color],
-        backgroundColor: NWCColors[bgColor] || bgColor || "transparent",
-        padding: "0.2em 0.4em",
+        color: Colors[color],
+        backgroundColor: Colors[bgColor] || "transparent",
+        // padding: "0.2em 0.4em",
         [`border${borderPosition}`]: `0.3em solid #b32525`,
         
     }
@@ -34,9 +34,9 @@ Typography.propTypes = {
         "body-text",
         "caption",
 	]),
-    color: PropTypes.oneOf(Object.keys(NWCColors)),
+    color: PropTypes.oneOf(Object.keys(Colors)),
     bgColor: PropTypes.oneOf(
-        ['transparent', ...Object.keys(NWCColors)]
+        ['transparent', ...Object.keys(Colors)]
     ),
     borderPosition: PropTypes.oneOf([
         "None",
@@ -47,7 +47,7 @@ Typography.propTypes = {
 Typography.defaultProps = {
     type: "body-text",
     children: "Typography",
-    color: "black",
+    color: "primary.other.black",
     bgColor: "transparent",
     borderPosition: "None",
 };
