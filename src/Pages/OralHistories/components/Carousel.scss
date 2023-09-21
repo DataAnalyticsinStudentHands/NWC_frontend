@@ -1,0 +1,35 @@
+.slick-prev{
+    left: -150px;
+  }
+  
+  .slick-next{
+    right: -20px;
+  }
+  .slick-next:before {
+    content: none; /* Hide the default arrow content */
+  }
+  
+   .slick-next:hover{
+    opacity: .75;
+   }
+  
+   .slick-prev:hover{
+    opacity: .75;
+   }
+
+
+   .slick-dots li.slick-active button:before{
+    color: #142F45;
+    font-size: 20px;
+   }
+   
+   .slick-dots {
+    bottom: -80px;
+    
+   }
+  
+  .defaultItems img{
+    max-width: 300px;
+    aspect-ratio: 4 / 5;
+  }
+  

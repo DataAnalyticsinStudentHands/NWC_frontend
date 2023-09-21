@@ -1,0 +1,63 @@
+/* ParticipantsTable.scss */
+
+.options-table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout: fixed; /* Use fixed table layout to ensure it fits the container */
+
+    td {
+        font-size: 2em;
+        text-align: center; // Center-align text within each table cell
+        font-weight: normal;
+
+    }
+
+    /* Button styles for .options-table */
+    button {
+        color: white;
+        border: none;
+        margin-right: 10px;
+    }
+
+    button:disabled {
+        color: white;
+    }
+    
+}
+
+.participants-table {
+    border: 3px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    height: 600px;
+
+    td {
+        border: none;
+        padding: 8px;
+        text-align: center;
+        font-family: $fontBabasNeue;
+        font-size: 1.5em;
+    }
+
+    th {
+        border: none;
+        /* Add any specific styles for table headers here */
+        padding: 8px;
+        text-align: center;
+        /* Add any other header styling (e.g., background color) */
+        background-color: #f2f2f2; /* Example background color */
+    }
+
+    img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%; /* Make the image circular */    }
+}
+
+.header-cell {
+    font-size: 2em; /* Adjust the font size as needed */
+    font-weight: normal;
+    text-align: left;
+    padding: 8px; /* Add padding to the header cell */
+}
+

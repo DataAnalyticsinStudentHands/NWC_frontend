@@ -32,26 +32,28 @@
     flex-direction: column;
     /* Set padding for all sides except top to 40em */
     padding: 20em;
+    padding-top: 15em;
     padding-bottom: 5em;
     /* Add margin at the bottom to create white space */
     background-image: url("res/featuredbg.png");
     background-size: 100% auto; /* Maintain the original aspect ratio and adjust width to 100% */
     background-repeat: no-repeat; /* Prevent background image from repeating */
     min-height: 100%; /* Set a minimum height to contain content */
-
-    .featured_video_container {
-        width: 85%; /* Set the width and height as needed */
-        background-color: transparent; /* Set the background color as needed */
+    
+    .video_border {
         /* First (innermost) border - Red */
         border: 10px solid #FFD046;
     
         /* Multiple box shadows */
         box-shadow: 
-            0 0 0 10px #CB4E28, /* Second border - Black */
-            0 0 0 20px #B22524; /* Third (outermost) border - Orange */
-        
+        0 0 0 10px #CB4E28, /* Second border - Black */
+        0 0 0 20px #B22524; /* Third (outermost) border - Orange */
     }
-	
+    
+    .featured_video_container {
+        width: 100%;
+        background-color: transparent; /* Set the background color as needed */
+    }	
 }
 
 .OralHistories_Voice_container {

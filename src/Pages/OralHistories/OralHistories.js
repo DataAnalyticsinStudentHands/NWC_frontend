@@ -4,9 +4,8 @@ import oral_histories_bannerpic from './res/oral_histories_bannerpic.png';
 import oral_histories_button from "../../assets/res/button-oral-histories.png";
 import bible_women from './res/bible_women.png'
 import pro_plan_progress from './res/pro_plan_progress.png'
-import InfoVideo from "../../Components/Avalon/InfoVideo";
-import Carousel3 from '../../Components/Carousel/Carousel3';
-
+import Carousel from './components/Carousel';
+import { ParticipantsTable }from './components/ParticipantsTable';
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import ReactMarkdown from 'react-markdown';
@@ -20,12 +19,8 @@ function OralHistories() {
         exploreText: ''
     });
 
-      const [featured, setFeatured] = useState({
-        featured_video1: '',
-        featured_video2: ''
-    });
-
-
+    const [featured, setFeatured] = useState([]);
+    const [participants, setParticipants] = useState([])
 
     useEffect(() => {
 		fetch(`${process.env.REACT_APP_API_URL_LOCAL}/api/content-oral-history`)
@@ -49,14 +44,31 @@ function OralHistories() {
                     meanText: What_NWC_Means,
                     exploreText: ExploreText
                   });
-                setFeatured({
-                    featured_video1: featured_video1,
-                    featured_video2: featured_video2
-                })
+
+                setFeatured([featured_video1, featured_video2]);
 			});
         }, [])
 
-        console.log(featured)
+        useEffect(() => {
+            fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?populate=*"].join('/'))
+              .then((res) => res.json())
+              .then((data) => {
+                setParticipants(
+                  data.data
+                    .filter((d) => d.attributes.AvalonUrl !== null) // Filter out items with null AvalonUrl
+                    .map((d) => {
+                      const name = d.attributes.name;
+                      const id = d.id;
+                      const avalonURL = d.attributes.AvalonUrl;
+                      let profilepic = [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join('')
+          
+                      return [id, name, avalonURL, profilepic];
+                    })
+                );
+              })
+              .catch((err) => console.log(err));
+          }, []); // eslint-disable-line
+          
     return (
         <Stack direction='column' spacing={10}>
             {/* BANNER */}
@@ -82,8 +94,11 @@ function OralHistories() {
 
             {/* FEATURED */}
             <Stack direction='column' className="OralHistories_Featured_container">
-                <Stack direction='row' margin={'0 0 0 20%'} className='featured_video_container'>
-                        <InfoVideo src={featured.featured_video1} />
+            <h1 style={{marginLeft: '500rem'}}> Featured Oral Histories</h1>
+                <Stack direction='row' margin={'0 0 0 20%'} className='video_border'>
+                    <div className="featured_video_container">
+                        <Carousel videos={featured}/>
+                    </div>
                 </Stack>
             </Stack>
             {/* BANNER 2 */}
@@ -103,18 +118,14 @@ function OralHistories() {
             <Stack direction='column' gap={4} margin={'0 5% 5% 5%'} className="OralHistories_NWC_container">
                 <Stack direction='row' className='item'>
                     <div className="item-right">
-                        <h1>Explore oral histories</h1>
+                        <h1>EXPLORE ORAL HISTORIES</h1>
                         <ReactMarkdown style={{ fontWeight: "normal" }}>{state.exploreText}</ReactMarkdown>
                     </div>
                 </Stack>
+                        <ParticipantsTable participants={participants}/>
             </Stack>
         </Stack>
-
-
     );
-
-
-
 }
 
 export default OralHistories;
