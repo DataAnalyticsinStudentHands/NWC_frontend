@@ -30,30 +30,39 @@
 .OralHistories_Featured_container {
     display: flex;
     flex-direction: column;
-    /* Set padding for all sides except top to 40em */
-    padding: 20em;
-    padding-top: 15em;
-    padding-bottom: 5em;
-    /* Add margin at the bottom to create white space */
+    padding: 4em; /* Adjust the em value as needed */
+    padding-top: 15%; 
+    padding-bottom: 5em; /* Adjust the em value as needed */
     background-image: url("res/featuredbg.png");
-    background-size: 100% auto; /* Maintain the original aspect ratio and adjust width to 100% */
-    background-repeat: no-repeat; /* Prevent background image from repeating */
-    min-height: 100%; /* Set a minimum height to contain content */
-    
-    .video_border {
-        /* First (innermost) border - Red */
-        border: 10px solid #FFD046;
-    
-        /* Multiple box shadows */
-        box-shadow: 
-        0 0 0 10px #CB4E28, /* Second border - Black */
-        0 0 0 20px #B22524; /* Third (outermost) border - Orange */
-    }
-    
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    min-height: 100%;
+
     .featured_video_container {
-        width: 100%;
-        background-color: transparent; /* Set the background color as needed */
-    }	
+        
+        display: block;
+        border: 10px solid #FFD046;
+        padding-right: -20rem;
+        box-sizing: border-box;
+        box-shadow:
+            0 0 0 10px #CB4E28,
+            0 0 0 20px #B22524;
+        position: relative;
+        background-color: transparent;
+        margin-left: 30%; /* Adjust the percentage as needed to shift the frame to the right */
+        max-width: 56.7vw; /* Limit the width to prevent bleeding off the page */
+    }
+    .header-container {
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        margin-right: -17em; /* Adjust this value to shift the text to the right */
+        margin-bottom: 3em;
+    }
+
+    h1 {
+        text-align: center; /* Center text within the header */
+    }
 }
 
 .OralHistories_Voice_container {

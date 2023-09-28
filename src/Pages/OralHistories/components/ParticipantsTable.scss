@@ -3,61 +3,73 @@
 .options-table {
     border-collapse: collapse;
     width: 100%;
-    table-layout: fixed; /* Use fixed table layout to ensure it fits the container */
-
-    td {
-        font-size: 2em;
-        text-align: center; // Center-align text within each table cell
-        font-weight: normal;
-
-    }
+    table-layout: fixed;
 
     /* Button styles for .options-table */
     button {
-        color: white;
+        background: none; /* Remove the background to make text visible */
         border: none;
-        margin-right: 10px;
+        color: black; /* Change text color to black */
+        cursor: pointer;
+        
     }
 
     button:disabled {
-        color: white;
+        color: gray; /* Adjust text color for disabled buttons */
     }
     
+
+    .header-cell {
+        font-size: 2em;
+        font-weight: normal;
+        text-align: center;
+        padding: 8px;
+    }
+    
+
+    /* Style for selected (bold) option */
+    .bold {
+        font-weight: bold;
+    }
 }
 
 .participants-table {
     border: 3px solid black;
     border-collapse: collapse;
-    width: 100%;
-    height: 600px;
-
+    width: 100%; /* Set the table width to 100% */
+    
     td {
         border: none;
-        padding: 8px;
+        padding: 2em 1em 2em 2em;
         text-align: center;
         font-family: $fontBabasNeue;
         font-size: 1.5em;
     }
 
-    th {
-        border: none;
-        /* Add any specific styles for table headers here */
-        padding: 8px;
-        text-align: center;
-        /* Add any other header styling (e.g., background color) */
-        background-color: #f2f2f2; /* Example background color */
-    }
-
     img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%; /* Make the image circular */    }
+        width: 100%; /* Set the image width to 100% */
+        max-width: 180px; /* Optionally, set a max width for the images */
+        height: auto; /* Automatically adjust the height to maintain aspect ratio */
+        max-height: 180px;
+        border-radius: 50%; /* Make the image circular */
+        object-fit: cover;
+    }
 }
 
-.header-cell {
-    font-size: 2em; /* Adjust the font size as needed */
-    font-weight: normal;
-    text-align: left;
-    padding: 8px; /* Add padding to the header cell */
+.select {
+    width: 12em;
+    opacity: 1; /* Set opacity to 100% (fully opaque) */
+    
+    .select__placeholder {
+        text-align: left;
+    
+        color: black; /* Set the color to black for the placeholder text */
+        opacity: 1; /* Set the opacity to 100% (fully opaque) */
+      }
+
+      .select__menu {
+        text-align: left;
+      }
 }
+
 

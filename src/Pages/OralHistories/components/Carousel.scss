@@ -1,35 +1,42 @@
-.slick-prev{
-    left: -150px;
+.carousel-wrapper {
+  .slick-prev {
+    left: -160px; /* Adjust this value for horizontal positioning */
+    top: 50%; /* Center vertically */
+    transform: translateY(-350%); /* Center vertically */
   }
-  
-  .slick-next{
-    right: -20px;
+
+  .slick-next {
+    right: -20px; /* Adjust this value for horizontal positioning */
+    top: 50%; /* Center vertically */
+    transform: translateY(-350%); /* Center vertically */
   }
+
   .slick-next:before {
-    content: none; /* Hide the default arrow content */
+    opacity: 0;
   }
-  
-   .slick-next:hover{
-    opacity: .75;
-   }
-  
-   .slick-prev:hover{
-    opacity: .75;
-   }
 
+  .slick-prev:before {
+    opacity: 0;
+  }
 
-   .slick-dots li.slick-active button:before{
+  .slick-next:hover {
+    opacity: .75;
+  }
+
+  .slick-prev:hover {
+    opacity: .75;
+  }
+
+  .slick-dots li.slick-active button:before {
     color: #142F45;
-    font-size: 20px;
-   }
-   
-   .slick-dots {
-    bottom: -80px;
-    
-   }
-  
-  .defaultItems img{
-    max-width: 300px;
-    aspect-ratio: 4 / 5;
+    font-size: 15px;
   }
+
+  .slick-dots {
+    bottom: -80px;
+    // Add other styles here
+  }
+}
+
+
   

@@ -60,9 +60,10 @@ function OralHistories() {
                       const name = d.attributes.name;
                       const id = d.id;
                       const avalonURL = d.attributes.AvalonUrl;
+                      const state = d.attributes.state;
                       let profilepic = [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join('')
           
-                      return [id, name, avalonURL, profilepic];
+                      return [id, name, avalonURL, profilepic, state];
                     })
                 );
               })
@@ -94,12 +95,12 @@ function OralHistories() {
 
             {/* FEATURED */}
             <Stack direction='column' className="OralHistories_Featured_container">
-            <h1 style={{marginLeft: '500rem'}}> Featured Oral Histories</h1>
-                <Stack direction='row' margin={'0 0 0 20%'} className='video_border'>
-                    <div className="featured_video_container">
+            <div className="header-container">
+                <h1>Featured Oral Histories</h1>
+             </div>               
+            <div className="featured_video_container" >
                         <Carousel videos={featured}/>
                     </div>
-                </Stack>
             </Stack>
             {/* BANNER 2 */}
             <Stack direction='column'  className="OralHistories_Voice_container">

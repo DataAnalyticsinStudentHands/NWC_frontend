@@ -46,12 +46,10 @@ const Carousel = (props) => {
   };
 
   return (
-    <div>
+    <div className="carousel-wrapper">
       <Slider {...settings}>
-        {props.videos.map((src, index) => (
-          <div key={index}>
-            <InfoVideo src={src} />
-          </div>
+        {props.videos.map((src) => (
+          <InfoVideo src={src} />
         ))}
       </Slider>
     </div>
