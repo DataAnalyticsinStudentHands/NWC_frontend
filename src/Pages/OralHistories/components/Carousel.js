@@ -5,6 +5,7 @@ import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
 import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
 
 const Carousel = (props) => {
+  console.log('props: ', props)
   const NextArrow = (props) => {
     return (
       <div
@@ -49,7 +50,7 @@ const Carousel = (props) => {
     <div className="carousel-wrapper">
       <Slider {...settings}>
         {props.videos.map((src) => (
-          <InfoVideo src={src} />
+          src !== null ? <InfoVideo src={src} /> : null
         ))}
       </Slider>
     </div>

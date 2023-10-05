@@ -5,7 +5,7 @@ import oral_histories_button from "../../assets/res/button-oral-histories.png";
 import bible_women from './res/bible_women.png'
 import pro_plan_progress from './res/pro_plan_progress.png'
 import Carousel from './components/Carousel';
-import { ParticipantsTable }from './components/ParticipantsTable';
+import { ParticipantsTable } from './components/ParticipantsTable';
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import ReactMarkdown from 'react-markdown';
@@ -16,14 +16,16 @@ function OralHistories() {
         bannerText: '',
         imgCredit: '',
         meanText: '',
-        exploreText: ''
+        exploreText: '',
+        featured_videos: [],
+        sortoptions: []
     });
 
-    const [featured, setFeatured] = useState([]);
     const [participants, setParticipants] = useState([])
-
+    const [featured, setFeatured] = useState([]);
+    
     useEffect(() => {
-		fetch(`${process.env.REACT_APP_API_URL_LOCAL}/api/content-oral-history`)
+		fetch([process.env.REACT_APP_API_URL_LOCAL, 'api/content-oral-history?populate=*'].join('/'))
 			.then((res) => res.json())
 			.then((data) => {
 				const {
@@ -33,8 +35,8 @@ function OralHistories() {
 							BannerImage_Credit,
                             What_NWC_Means,
                             ExploreText,
-                            featured_video1,
-                            featured_video2,
+                            featured_videos,
+                            sortoptions,
 						},
 					},
 				} = data;
@@ -42,13 +44,14 @@ function OralHistories() {
                     bannerText: BannerText,
                     imgCredit: BannerImage_Credit,
                     meanText: What_NWC_Means,
-                    exploreText: ExploreText
+                    exploreText: ExploreText,
+                    featured_videos: featured_videos.map(src => src.featured_video),
+                    sortoptions: sortoptions.map(src => src.text),
                   });
 
-                setFeatured([featured_video1, featured_video2]);
 			});
         }, [])
-
+        console.log('options: ', featured, state.featured_videos)
         useEffect(() => {
             fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?populate=*"].join('/'))
               .then((res) => res.json())
@@ -99,18 +102,19 @@ function OralHistories() {
                 <h1>Featured Oral Histories</h1>
              </div>               
             <div className="featured_video_container" >
-                        <Carousel videos={featured}/>
+                        <Carousel videos={state.featured_videos}/>
                     </div>
             </Stack>
             {/* BANNER 2 */}
             <Stack direction='column'  className="OralHistories_Voice_container">
+            <h2 className="centered-text">Listening to<br/>Every Voice</h2>
                 <Stack direction='row' className='item'>
                     <div className="item-left">
                         <img src={bible_women} alt="minority_rights_plank" />                     
                     </div>
                     <div className="item-right">
                         <img src={pro_plan_progress} alt="minority_rights_plank" />
-
+                        <p>Photo by {state.imgCredit}</p>
                     </div>
                 </Stack>
             </Stack>
@@ -123,7 +127,7 @@ function OralHistories() {
                         <ReactMarkdown style={{ fontWeight: "normal" }}>{state.exploreText}</ReactMarkdown>
                     </div>
                 </Stack>
-                        <ParticipantsTable participants={participants}/>
+                    <ParticipantsTable participants={participants} sortoptions={state.sortoptions}/>
             </Stack>
         </Stack>
     );

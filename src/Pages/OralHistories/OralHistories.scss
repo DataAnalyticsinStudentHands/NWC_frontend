@@ -75,6 +75,19 @@
     /* Add a red bottom border */
     border-bottom: 30rem solid #B22524;
 
+    .centered-text {
+        text-align: center;
+        font-size: 80rem;
+        font-family: $fontBabasNeue;
+        padding: 1em;
+        color: #00779D;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1; /* Place the text on top of the images */
+    }
+
     .item {
         display: flex;
         position: relative; /* Make the item a positioning context */
@@ -108,6 +121,19 @@
         .item-right {
             background-image: url("res/blue_dots_decor.png");
 			background-position: right top; /* Align at the bottom right */
+
+            p {
+                font-size: 1.75em;
+                padding: 0.5em 1em;
+                font-family: $fontBabasNeue;
+    
+                position: absolute;
+                right: 0;
+    
+                background-color: $color-blue-deep;
+                color: $color-beige;
+                margin-bottom: -0.01em
+            }
         }
     }
 }
