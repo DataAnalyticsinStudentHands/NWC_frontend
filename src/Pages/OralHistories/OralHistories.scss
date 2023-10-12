@@ -15,13 +15,13 @@
 			flex-direction: column;
 
 			h1 {
-				font-size: 4.5em;
+				font-size: 50rem;
 				font-family: $fontBabasNeue;
 				text-align: left;
 				font-weight: 100;
 			}
 			p {
-				font-size: 1.3em;
+				font-size: 25rem;
 			}
 		}
 	}
@@ -56,12 +56,13 @@
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
-        margin-right: -17em; /* Adjust this value to shift the text to the right */
-        margin-bottom: 3em;
+        margin-right: -360rem; /* Adjust this value to shift the text to the right */
+        margin-bottom: 30rem;
     }
 
     h1 {
         text-align: center; /* Center text within the header */
+        font-size: 60rem;
     }
 }
 
@@ -123,7 +124,7 @@
 			background-position: right top; /* Align at the bottom right */
 
             p {
-                font-size: 1.75em;
+                font-size: 40rem;
                 padding: 0.5em 1em;
                 font-family: $fontBabasNeue;
     

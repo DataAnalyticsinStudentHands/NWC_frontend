@@ -3,12 +3,15 @@
     left: -160px; /* Adjust this value for horizontal positioning */
     top: 50%; /* Center vertically */
     transform: translateY(-350%); /* Center vertically */
+    position: absolute;
+
   }
 
   .slick-next {
-    right: -20px; /* Adjust this value for horizontal positioning */
+    right: -30px; /* Adjust this value for horizontal positioning */
     top: 50%; /* Center vertically */
     transform: translateY(-350%); /* Center vertically */
+    position: absolute;
   }
 
   .slick-next:before {

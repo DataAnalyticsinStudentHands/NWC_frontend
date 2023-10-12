@@ -5,7 +5,6 @@ import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
 import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
 
 const Carousel = (props) => {
-  console.log('props: ', props)
   const NextArrow = (props) => {
     return (
       <div
@@ -49,9 +48,11 @@ const Carousel = (props) => {
   return (
     <div className="carousel-wrapper">
       <Slider {...settings}>
-        {props.videos.map((src) => (
-          src !== null ? <InfoVideo src={src} /> : null
-        ))}
+        {props.videos
+          .filter((video) => video[5] === 'true') // Filter videos with featured === true
+          .map((video) => (
+            <InfoVideo src={video[2]} key={video}/>
+          ))}
       </Slider>
     </div>
   );

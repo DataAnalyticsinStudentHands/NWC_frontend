@@ -8,14 +8,6 @@ import { Stack } from "../../../Components/Stack";
 import StateSelect from '../../../Components/StateSelect/StateSelect'
 
 export const ParticipantsTable = (props) => {
-// Duplicate the existing entries to fill the table
-const numberOfEntriesToDuplicate = 5; // Change this to the number of duplicates you want
-
-const duplicatedParticipants = [];
-
-for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
-  duplicatedParticipants.push(...props.participants);
-}
   //States for pagination settings
   const [currentPage, setCurrentPage] = useState(0);
   const [optionsCurrentPage, setOptionsCurrentPage] = useState(0);
@@ -30,7 +22,7 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const handleOptionsNext = () => {
-    if (endIndex < props.sortoptions.length) {
+    if (endIndex < props.roles.length) {
       setOptionsCurrentPage(optionsCurrentPage + 1);
     }
   };
@@ -50,12 +42,13 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
   const [selectedStates, setSelectedStates] = useState([]); // State to store selected states
 
   // Filter participants based on the search term and selected states
-  const filteredParticipants = duplicatedParticipants.filter(item => {
+  const filteredParticipants = props.participants.filter(item => {
     const nameMatches = item[1] && item[1].toLowerCase().includes(searchTerm.toLowerCase());
     // Filter if no states selected or at least one selected state matches
     const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
-
-    return nameMatches && stateMatches;
+    const roleMatches = selectedOption ? selectedOption.includes(item[6]): true;
+    
+    return nameMatches && stateMatches && roleMatches;
   });
   //For Table 1: Headers
   const startIndex = optionsCurrentPage * optionsPerPage;
@@ -68,17 +61,24 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
     startParticipantIndex,
     endParticipantIndex
   );
-
+    //handler for states
   const handleStateChange = (selectedOptions) => {
     setSelectedStates(selectedOptions);
   };
-
+  //handler for the role options
   const handleOptionClick = (option) => {
-    setSelectedOption(option);
+    // If the selected option is the same as the current selectedOption, clear the sort and remove the "bold" class
+    if (selectedOption === option) {
+      setSelectedOption(null); // Clear the selected option
+      // Optionally, you can reset the sort order here if needed
+    } else {
+      setSelectedOption(option); // Set the selected option
+      // Optionally, you can set the sort order here if needed
+    }
   };
 
   return (
-      <div>
+      <>
         <Stack spacing={6}>  {/* Options */}
           <button
             className="previous-button"
@@ -87,7 +87,7 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
           >
             <img src={leftIcon} alt="Previous" />
           </button>
-          {props.sortoptions
+          {props.roles
             .slice(
               optionsCurrentPage * optionsPerPage,
               (optionsCurrentPage + 1) * optionsPerPage
@@ -104,7 +104,7 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
           <button
             className="next-button"
             onClick={handleOptionsNext}
-            disabled={endIndex >= props.sortoptions.length}
+            disabled={endIndex >= props.roles.length}
           >
             <img src={rightIcon} alt="Next" />
           </button>
@@ -150,6 +150,6 @@ for (let i = 0; i < numberOfEntriesToDuplicate; i++) {
         </Stack>
       </div>
         <Pagination pageCount={Math.ceil(filteredParticipants.length / participantsPerPage)} handlePageClick={handlePageChange}/>
-    </div>
+    </>
   );
 };
