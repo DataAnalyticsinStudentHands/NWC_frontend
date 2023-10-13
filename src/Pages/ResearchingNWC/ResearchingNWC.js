@@ -5,14 +5,17 @@ import qs from 'qs';
 import './ResearchingNWC.css'
 import button from "../../assets/res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
-import BannerCard from "../../Components/BannerCard/BannerCard";
-import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
+// import BannerCard from "../../Components/BannerCard/BannerCard";
+// import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
 import stateTerritories from '../../assets/stateTerritories.json';
 
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 
 import infoIcon from './res/Info Hover Icon.svg';
+
+import { Banner } from '../../Components/Banner';
+import { Typography } from '../../Components/Typography';
 
 function ResearchingNWC() {
 
@@ -227,14 +230,12 @@ const politicalOfficeObj = {
     <div className="mappingNWC">
 
       {/* BANNER */}
-      <div className="mappingNWCBanner">
-        <img src={button} alt="_" />
-        <BannerCard text={contentMap?.attributes?.Banner_text} />
-        <CaptionedImg
-                    src={component119}
-                    caption={"Photo by " + contentMap?.attributes?.BannerImage_Credit}
-                    caption_more={contentMap?.attributes?.BannerImageCredit_more} />
-      </div>
+      <Banner
+        imgLeft={button}
+        text={contentMap?.attributes?.Banner_text}
+        imgRight={component119}
+        imgCredit={contentMap?.attributes?.BannerImage_Credit}
+      />
         
       {/**SEARCH */}
       <div className="mappingNWCSearch">

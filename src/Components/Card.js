@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { Typography } from "./Typography";
 
 export const Card = ({ img, title, spacing, link, ...props }) => {
 	const style = {
@@ -16,12 +17,12 @@ export const Card = ({ img, title, spacing, link, ...props }) => {
 					<Link to={link} {...props} style={style}>
 						<img src={img} alt={`${title} icon`} />
 					</Link>
-					<p>{title}</p>
+					<Typography type="heading-3">{title}</Typography>
 				</div>
 			) : (
 				<div {...props} style={style} className="Card">
 					<img src={img} alt={`${title} icon`} />
-					<p>{title}</p>
+					<Typography type="heading-3">{title}</Typography>
 				</div>
 			)}
 		</>
@@ -35,5 +36,5 @@ Card.propTypes = {
 Card.defaultProps = {
 	img: "https://via.placeholder.com/150",
 	title: "Card",
-	spacing: 2,
+	spacing: 0,
 };
