@@ -1,6 +1,6 @@
 import React from "react";
-import { Typography } from "./Typography";
-import { Stack } from "./Stack";
+import { Typography } from "../Components/Typography";
+import { Stack } from "../Components/Stack";
 export const Color = ({ color, text }) => {
 	return (
 		<Stack direction="column" style={{width: "200px"}} spacing={0}>

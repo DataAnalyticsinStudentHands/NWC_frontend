@@ -1,4 +1,4 @@
-import { Color } from "../Components/Color.js";
+import { Color } from "./Color.js";
 import { Stack } from "../Components/Stack.js";
 import ColorObj from "../assets/color.config.json";
 import { Typography } from "../Components/Typography.js";
