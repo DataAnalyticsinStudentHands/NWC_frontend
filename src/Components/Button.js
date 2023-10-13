@@ -9,9 +9,9 @@ const colorVariants = {
     tertiary: colors.primary.medium.blue,
 }
 const sizeScale = {
-    sm: '0.75',
-    md: '1',
-    lg: '1.25',
+    sm: '1',
+    md: '1.25',
+    lg: '1.5',
 }
 export const Button = ({ variant, size, label, ...props }) => {
 
@@ -25,14 +25,16 @@ export const Button = ({ variant, size, label, ...props }) => {
     }
     
     return (
-      <button
-        type="button"
-        className={`btn-${variant}`}
-        style={styles}
-        {...props}
-      >
-        {label}
+      <div style={{fontSize:"1vw"}}>
+        <button
+          type="button"
+          className={`btn-${variant}`}
+          style={styles}
+          {...props}
+        >
+          {label}
       </button>
+      </div>
     );
   };
   

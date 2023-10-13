@@ -18,7 +18,9 @@ const Template = () => {
 							{Object.entries(value).map(([key, value]) => {
 								return (
                                     <Stack direction='column' spacing={3} margin='0 0 0 3em'>
-                                        <Typography type="heading-2" style={{textTransform: 'capitalize',}}>{key}</Typography>
+                                        <Typography type="heading-2" style={{textTransform: 'capitalize',}}>
+											{key}
+										</Typography>
                                         <Stack justifyContent='flex-start' margin='0 0 0 3em' wrap>
                                             {Object.entries(value).map(([key, value]) => {
                                                 return (

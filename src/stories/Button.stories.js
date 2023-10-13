@@ -15,11 +15,22 @@ export default {
     
   },
 };
-
-export const Base = {
-  args: {
-    variant: 'primary',
-    label: 'Button',
-    size: 'md',
-  },
+const Template = (args) => {
+  return(
+      <Button {...args} />
+  )
 };
+export const Primary = Template.bind({});
+Primary.args = {
+  variant: 'primary',
+  label: 'Button',
+  size: 'md',
+};
+
+// export const Base = {
+//   args: {
+//     variant: 'primary',
+//     label: 'Button',
+//     size: 'md',
+//   },
+// };
