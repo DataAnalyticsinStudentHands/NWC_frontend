@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styles from './Forms.module.css';
 import { useForm } from 'react-hook-form';
 
-import ThankYou from './ThankYou';
+import {ThankYouContact} from './ThankYou';
 
 function HowToDonatePapersForm() {
 
@@ -17,25 +17,24 @@ function HowToDonatePapersForm() {
   } = useForm();
   
   const onSubmit = (data) => {
-
-    let submission = data;
-    submission.form = "DONATE PAPERS"
-
-
-  fetch([process.env.REACT_APP_API_URL, `api/forms/email`].join('/'),{
-    method:'POST',
-    headers:{
-      'Content-type': 'application/json'
-    },
-    body:JSON.stringify(submission)
-    })
-    .then(response => setState({formSent:true}))
+    const submission = {data, template:'donatepapers'};
+    fetch([process.env.REACT_APP_API_URL, `api/forms-donatepaper`].join('/'),{
+      method:'POST',
+      headers:{
+        'Content-type': 'application/json'
+      },
+      body:JSON.stringify(submission)
+      })
+      .then(setState({formSent:true}))
+      .catch(error => {
+        console.log(error)
+      })  
   }
 
   return (
     <main className={styles.forms}>
     {!state.formSent ? 
-    <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)}>
+      <form className={styles.corrections} onSubmit={handleSubmit(onSubmit)} noValidate>
       <header>
         <h1 className={styles.corrections_heading}>How to Donate Your Papers</h1>
         <p className={styles.corrections_p}>
@@ -43,28 +42,41 @@ function HowToDonatePapersForm() {
         </p>
       </header>
 
-      <input placeholder="Name" {...register('name', { required: true })} />
-      {errors.name?.type === 'required' && "Name is required"}
+      <p className={styles.forms_p}> Name*</p>
+        <input  placeholder="Name" {...register('name', { required: true, pattern:/^[A-Za-z' -]+$/ })} />
+        {errors?.name?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+        {errors?.name?.type === 'pattern' && <p className={styles.corrections_validate}> Name is invalid </p>}
+      
+      <p className={styles.forms_p}> Role at NWC</p>
       <input
         placeholder="Role at NWC"
-        {...register('role')}
+        {...register('role_at_nwc')}
       />
+
+      <p className={styles.forms_p}> Address</p>
       <input
         placeholder="Address"
         {...register('address')}
       />
-      <input
-        placeholder="Telephone"
-        {...register('telephone')}
-      />
-      <input placeholder="Email" {...register('email')} type="email" />
+
+      <p className={styles.forms_p}> Phone</p>
+        <input placeholder="Phone" {...register('phone', {pattern:/^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/ })} type='phone' />
+        {errors?.phone?.type === 'pattern' && <p className={styles.corrections_validate}> Phone number is invalid </p>}
+
+        <p className={styles.forms_p}> Email*</p> 
+        <input placeholder="Email" {...register('email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} type="email" />
+        {errors?.email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
+        {errors?.email?.type === 'pattern' && <p className={styles.corrections_validate}> Email is invalid </p>}
+      
+      <p className={styles.forms_p}> Comments*</p>
       <textarea
         placeholder="Comments"
-        {...register('Comment')}
+        {...register('comments')}
       ></textarea>
-      <input type="submit" className={styles.corrections_submit} />
-    </form> : null}
-    {state.formSent ? <ThankYou /> : null}
+      {errors?.comments?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
+
+      <input type="submit" value="Submit" className={styles.corrections_submit} />
+    </form> : <ThankYouContact />}
     </main>
   );
 }
