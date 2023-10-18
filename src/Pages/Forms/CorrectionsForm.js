@@ -24,10 +24,10 @@ function CorrectionsForm() {
 			},
 			body: JSON.stringify(submission),
 		})
-    .then(setState({ formSent: true }))
-    .catch(error => {
-      console.log(error)
-    });
+			.then(setState({ formSent: true }))
+			.catch((error) => {
+				console.log(error);
+			});
 	};
 
 	return (
@@ -53,22 +53,69 @@ function CorrectionsForm() {
 							All fields are required
 						</p>
 					</header>
-        <p className={styles.forms_p}> Name*</p>
-        <input  placeholder="Name" {...register('Name', { required: true, pattern:/^[A-Za-z' -]+$/ })} />
-        {errors?.Name?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
-        {errors?.Name?.type === 'pattern' && <p className={styles.corrections_validate}> Name is invalid </p>}
+					<p className={styles.forms_p}> Name*</p>
+					<input
+						placeholder="Name"
+						{...register("Name", {
+							required: true,
+							pattern: /^[A-Za-z' -]+$/,
+						})}
+					/>
+					{errors?.Name?.type === "required" && (
+						<p className={styles.corrections_validate}>
+							
+							This field is required
+						</p>
+					)}
+					{errors?.Name?.type === "pattern" && (
+						<p className={styles.corrections_validate}>
+							Name is invalid
+						</p>
+					)}
 
-          <p className={styles.forms_p}> Affiliation/Occupation*</p>
-        <input  placeholder="Affiliation/Occupation" {...register('Affiliation', { required: true, pattern:/^[A-Za-z' -]+$/ })} />
-        {errors?.Affiliation?.type === 'required' && <p className={styles.corrections_validate}> This field is required </p>}
-        {errors?.Affiliation?.type === 'pattern' && <p className={styles.corrections_validate}> Affiliation/Occupation is invalid </p>}
+					<p className={styles.forms_p}> Affiliation/Occupation*</p>
+					<input
+						placeholder="Affiliation/Occupation"
+						{...register("Affiliation", {
+							required: true,
+							pattern: /^[A-Za-z' -]+$/,
+						})}
+					/>
+					{errors?.Affiliation?.type === "required" && (
+						<p className={styles.corrections_validate}>
+							This field is required
+						</p>
+					)}
+					{errors?.Affiliation?.type === "pattern" && (
+						<p className={styles.corrections_validate}>
+							Affiliation/Occupation is invalid
+						</p>
+					)}
 
-          <p className={styles.forms_p}> Email*</p> 
-        <input placeholder="Email" {...register('Email', { required: true, pattern: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i })} type="email" />
-        {errors?.Email?.type === 'required' && <p className={styles.corrections_validate}> This field is required</p>}
-        {errors?.Email?.type === 'pattern' && <p className={styles.corrections_validate}> Email is invalid </p>}
+					<p className={styles.forms_p}> Email*</p>
+					<input
+						placeholder="Email"
+						{...register("Email", {
+							required: true,
+							pattern:
+								/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i,
+						})}
+						type="email"
+					/>
+					{errors?.Email?.type === "required" && (
+						<p className={styles.corrections_validate}>
+							This field is required
+						</p>
+					)}
+					{errors?.Email?.type === "pattern" && (
+						<p className={styles.corrections_validate}>
+							Email is invalid
+						</p>
+					)}
 
-          <p className={styles.forms_p}> Name of Page Needing Correction</p>
+					<p className={styles.forms_p}>
+						Name of Page Needing Correction
+					</p>
 					<input
 						placeholder="Name of Page Needing Correction (please also include corresponding URL)"
 						{...register("Page", { required: true })}
@@ -78,7 +125,9 @@ function CorrectionsForm() {
 							This field is required
 						</p>
 					)}
-          <p className={styles.forms_p}> Name of specific feature to be corrected</p>
+					<p className={styles.forms_p}>
+						Name of specific feature to be corrected
+					</p>
 					<input
 						placeholder="Name of specific feature to be corrected (i.e. biography, demographic fact, interpretive essay)"
 						{...register("Feature", { required: true })}
@@ -88,7 +137,7 @@ function CorrectionsForm() {
 							This field is required
 						</p>
 					)}
-          <p className={styles.forms_p}> Corrections</p>
+					<p className={styles.forms_p}> Corrections</p>
 					<textarea
 						placeholder="Corrections"
 						{...register("Corrections", {
@@ -99,15 +148,14 @@ function CorrectionsForm() {
 							This field is required
 						</p>
 					)}
-          <p className={styles.forms_p}> Source for Correction</p>
+					<p className={styles.forms_p}> Source for Correction</p>
 					<input
 						placeholder="Source for Correction"
 						{...register("Source", { required: true })}
 					/>
 					{errors?.Source?.type === "required" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							This field is required{" "}
+							This field is required
 						</p>
 					)}
 					<input
@@ -116,7 +164,9 @@ function CorrectionsForm() {
 						className={styles.corrections_submit}
 					/>
 				</form>
-			) : <ThankYou/>}
+			) : (
+				<ThankYou />
+			)}
 		</main>
 	);
 }
