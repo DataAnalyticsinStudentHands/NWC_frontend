@@ -47,8 +47,7 @@ function ContactUsForm() {
 							Please send us a message below!
 						</p>
 						<p className={styles.corrections_preq}>
-							{" "}
-							* Required fields{" "}
+							* Required fields
 						</p>
 					</header>
 					<p className={styles.forms_p}> Name*</p>
@@ -61,14 +60,12 @@ function ContactUsForm() {
 					/>
 					{errors?.Name?.type === "required" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							This field is required{" "}
+							This field is required
 						</p>
 					)}
 					{errors?.Name?.type === "pattern" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							Name is invalid{" "}
+							Name is invalid
 						</p>
 					)}
 					<p className={styles.forms_p}> Email*</p>
@@ -83,14 +80,12 @@ function ContactUsForm() {
 					/>
 					{errors?.Email?.type === "required" && (
 						<p className={styles.corrections_validate}>
-							{" "}
 							This field is required
 						</p>
 					)}
 					{errors?.Email?.type === "pattern" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							Email is invalid{" "}
+							Email is invalid
 						</p>
 					)}
 					<p className={styles.forms_p}> Phone</p>
@@ -103,8 +98,7 @@ function ContactUsForm() {
 					/>
 					{errors?.Phone?.type === "pattern" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							Phone number is invalid{" "}
+							Phone number is invalid
 						</p>
 					)}
 					<p className={styles.forms_p}> Message*</p>
@@ -113,8 +107,7 @@ function ContactUsForm() {
 						{...register("Message", { required: true })}></textarea>
 					{errors?.Message?.type === "required" && (
 						<p className={styles.corrections_validate}>
-							{" "}
-							This field is required{" "}
+							This field is required
 						</p>
 					)}
 					<input
