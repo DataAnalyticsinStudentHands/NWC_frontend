@@ -1,5 +1,5 @@
 import Slider from 'react-slick';
-import InfoVideo from '../../../Components/Avalon/InfoVideo';
+import ReactPlayer from 'react-player'
 import './Carousel.scss';
 import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
 import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
@@ -51,7 +51,7 @@ const Carousel = (props) => {
         {props.videos
           .filter((video) => video[5] === 'true') // Filter videos with featured === true
           .map((video) => (
-            <InfoVideo src={video[2]} key={video}/>
+            <ReactPlayer url={video[7]} controls='true' width='100%' height='600rem' key={video} />
           ))}
       </Slider>
     </div>

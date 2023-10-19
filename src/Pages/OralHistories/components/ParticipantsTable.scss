@@ -27,6 +27,7 @@
     border: 1px solid #ccc;
     padding: 16px;
     width: 100%;
+
   
     .search-row {
         display: flex;
@@ -39,6 +40,26 @@
             display: flex;
             justify-content: center;
           }
+        }
+
+        .button_search {
+          font-family: var(--fontBabasNeue);
+          background-color: var(--colorDeepRed); 
+          padding: 10rem 50rem;
+          color: white;
+          border-radius: 30rem;
+          font-size: 30rem;
+          margin-left: -20rem;
+        }
+    
+        .button_reset {
+          font-family: var(--fontBabasNeue);
+          background-color: var(--colorDarkBlue);
+          padding: 10rem 50rem;
+          color: white;
+          border-radius: 30rem;
+          font-size: 30rem;
+          margin-left: 50rem;
         }
       }
   

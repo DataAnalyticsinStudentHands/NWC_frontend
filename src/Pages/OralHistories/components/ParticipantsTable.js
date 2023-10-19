@@ -5,6 +5,7 @@ import '../../Discover/Discover.css'
 import stateTerritories from '../../../assets/stateTerritories.json';
 import { Pagination } from '../../ResearchingNWC/Components/Pagination'
 import { Stack } from "../../../Components/Stack";
+
 import StateSelect from '../../../Components/StateSelect/StateSelect'
 
 export const ParticipantsTable = (props) => {
@@ -41,16 +42,43 @@ export const ParticipantsTable = (props) => {
   const [searchTerm, setSearchTerm] = useState(''); //State to store user input
   const [selectedStates, setSelectedStates] = useState([]); // State to store selected states
 
-  // Filter participants based on the search term and selected states
-  const filteredParticipants = props.participants.filter(item => {
-    const nameMatches = item[1] && item[1].toLowerCase().includes(searchTerm.toLowerCase());
-    // Filter if no states selected or at least one selected state matches
-    const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
-    const roleMatches = selectedOption ? selectedOption.includes(item[6]): true;
+  const [searchButtonClicked, setSearchButtonClicked] = useState(false); //state for search button
+
+  const handleSearch = () => {
+    setSearchButtonClicked(true);
+    setFilterValue(searchTerm); // Update the filter value when the button is clicked
+  };
+  
+  const handleReset = () => { //handler for reset button
+    setSearchTerm(''); // Clear the search input
+    setSelectedStates([]); // Clear selected states
+    setSelectedOption(null); // Clear selected option
+    setSearchButtonClicked(false);
+    };
+
+    const [filterValue, setFilterValue] = useState(''); // Store the filter value separately
+
+    function removePunctuation(text) { //Removes punctuation and splits the string into separate words
+      if (!text) return [];
+      const newText = text.replace(/[.,#!$%&;:{}=\-_`~()]/g, '');
+      return newText.split(/\s+/);
+    }
+  
+    //filters participants based on criteria
+    const filteredParticipants = props.participants.filter((item) => {
+      const nameMatches = (!searchButtonClicked || filterValue === '' || (filterValue && item[1]?.toLowerCase().includes(filterValue.toLowerCase())));
+      const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
     
-    return nameMatches && stateMatches && roleMatches;
-  });
-  //For Table 1: Headers
+      const splitSelectedOption = removePunctuation(selectedOption);
+      const splitRole = removePunctuation(item[6]);
+    
+      const roleMatches = !selectedOption || splitSelectedOption.filter(word => splitRole.includes(word)).length >= 2;
+    
+      return nameMatches && stateMatches && roleMatches;
+    });
+
+
+  //For Role Selection
   const startIndex = optionsCurrentPage * optionsPerPage;
   const endIndex = startIndex + optionsPerPage;
 
@@ -65,6 +93,7 @@ export const ParticipantsTable = (props) => {
   const handleStateChange = (selectedOptions) => {
     setSelectedStates(selectedOptions);
   };
+
   //handler for the role options
   const handleOptionClick = (option) => {
     // If the selected option is the same as the current selectedOption, clear the sort and remove the "bold" class
@@ -76,7 +105,7 @@ export const ParticipantsTable = (props) => {
       // Optionally, you can set the sort order here if needed
     }
   };
-
+  
   return (
       <>
         <Stack spacing={6}>  {/* Options */}
@@ -113,6 +142,9 @@ export const ParticipantsTable = (props) => {
         {/* Participants */}
         <div className="participants-table">
           <div className="search-row">
+          <div className="search-cell align-center"> {/* State select */}
+              <StateSelect onSelect={handleStateChange} selectedOptions={selectedStates}/>
+            </div>
             <div className="search-cell align-center">
               <div className="discoverSearch_bar">
                 <input
@@ -120,10 +152,9 @@ export const ParticipantsTable = (props) => {
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
+              <button type="button" className="button_reset" onClick={handleReset}>Reset</button>
+              <button type="button" className="button_search" onClick={handleSearch}>SEARCH</button>
               </div>
-            </div>
-            <div className="search-cell align-center"> {/* State select */}
-              <StateSelect onSelect={handleStateChange} selectedOptions={selectedStates}/>
             </div>
           </div>
           <Stack justifyContent="center" spacing={2} wrap> {/* Displays list of participants */}

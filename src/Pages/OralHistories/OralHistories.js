@@ -18,8 +18,6 @@ function OralHistories() {
         imgCredit: '',
         meanText: '',
         exploreText: '',
-        featured_videos: [],
-        sortoptions: []
     });
 
     const [participants, setParticipants] = useState([])
@@ -54,16 +52,17 @@ function OralHistories() {
               .then((data) => {
                 setParticipants(
                   data.data
-                    .filter((d) => d.attributes.VideoUrl !== null) // Filter out items with null VideoURL
+                    .filter((d) => d.attributes.AvalonUrl !== null) // Filter out items with null VideoURL
                     .map((d) => {
                       const name = d.attributes.name;
                       const id = d.id;
-                      const videoURL = d.attributes.VideoUrl;
+                      const avalonURL = d.attributes.AvalonUrl;
                       const state = d.attributes.state;
                       const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
                       const featured = d.attributes.featured
-                      const role = d.attributes.role  
-                      return [id, name, videoURL, profilepic, state, featured, role];
+                      const role = d.attributes.role
+                      const videoURL =  d.attributes.VideoUrl
+                      return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
                     })
                 );
               })
