@@ -5,7 +5,7 @@ import '../../Discover/Discover.css'
 import stateTerritories from '../../../assets/stateTerritories.json';
 import { Pagination } from '../../ResearchingNWC/Components/Pagination'
 import { Stack } from "../../../Components/Stack";
-
+import { Search } from "./Search"
 import StateSelect from '../../../Components/StateSelect/StateSelect'
 
 export const ParticipantsTable = (props) => {
@@ -43,39 +43,38 @@ export const ParticipantsTable = (props) => {
   const [selectedStates, setSelectedStates] = useState([]); // State to store selected states
 
   const [searchButtonClicked, setSearchButtonClicked] = useState(false); //state for search button
-
+  const [filterValue, setFilterValue] = useState(''); // Store the filter value separately
   const handleSearch = () => {
     setSearchButtonClicked(true);
     setFilterValue(searchTerm); // Update the filter value when the button is clicked
   };
   
   const handleReset = () => { //handler for reset button
+    setFilterValue('');
     setSearchTerm(''); // Clear the search input
     setSelectedStates([]); // Clear selected states
     setSelectedOption(null); // Clear selected option
     setSearchButtonClicked(false);
     };
 
-    const [filterValue, setFilterValue] = useState(''); // Store the filter value separately
+  function removePunctuation(text) { //Removes punctuation and splits the string into separate words
+    if (!text) return [];
+    const newText = text.replace(/[.,#!$%&;:{}=\-_`~()]/g, '');
+    return newText.split(/\s+/);
+  }
 
-    function removePunctuation(text) { //Removes punctuation and splits the string into separate words
-      if (!text) return [];
-      const newText = text.replace(/[.,#!$%&;:{}=\-_`~()]/g, '');
-      return newText.split(/\s+/);
-    }
+  //filters participants based on criteria
+  const filteredParticipants = props.participants.filter((item) => {
+    const nameMatches = (!searchButtonClicked || filterValue === '' || (filterValue && item[1]?.toLowerCase().includes(filterValue.toLowerCase())));
+    const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
   
-    //filters participants based on criteria
-    const filteredParticipants = props.participants.filter((item) => {
-      const nameMatches = (!searchButtonClicked || filterValue === '' || (filterValue && item[1]?.toLowerCase().includes(filterValue.toLowerCase())));
-      const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
-    
-      const splitSelectedOption = removePunctuation(selectedOption);
-      const splitRole = removePunctuation(item[6]);
-    
-      const roleMatches = !selectedOption || splitSelectedOption.filter(word => splitRole.includes(word)).length >= 2;
-    
-      return nameMatches && stateMatches && roleMatches;
-    });
+    const splitSelectedOption = removePunctuation(selectedOption);
+    const splitRole = removePunctuation(item[6]);
+  
+    const roleMatches = !selectedOption || splitSelectedOption.filter(word => splitRole.includes(word)).length >= 2;
+  
+    return nameMatches && stateMatches && roleMatches;
+  });
 
 
   //For Role Selection
@@ -147,11 +146,7 @@ export const ParticipantsTable = (props) => {
             </div>
             <div className="search-cell align-center">
               <div className="discoverSearch_bar">
-                <input
-                  placeholder="Search Participants by Name"
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                />
+                <Search placeholder="Search Participants by Name" onSearch={setSearchTerm}/>
               <button type="button" className="button_reset" onClick={handleReset}>Reset</button>
               <button type="button" className="button_search" onClick={handleSearch}>SEARCH</button>
               </div>
