@@ -1,6 +1,7 @@
 import React from 'react'
 import stateTerritories from '../../assets/stateTerritories.json';
 import Select from 'react-select';
+import './StateSelect.scss'
 
 function StateSelect({onSelect, selectedOptions}) {
 

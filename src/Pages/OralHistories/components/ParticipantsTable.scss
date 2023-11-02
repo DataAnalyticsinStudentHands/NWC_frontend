@@ -1,17 +1,17 @@
 /* ParticipantsTable.scss */
 
 .header-cell {
+  font-size: 24px;
   display: flex;
   align-items: center;
   justify-content: center; /* Center-align both horizontally and vertically */
-
+  padding: 20px;
   &.bold .hoverable-text {
     font-weight: bold; /* Make the text bold when the option is selected */
   }
 
   .hoverable-text {
     color: black; /* Change text color */
-    font-size: 33rem; /* Set the initial font size for the text (adjust as needed) */
     display: flex; /* Enable flexbox */
   }
 
@@ -21,13 +21,17 @@
   }
 }
 
+.participants-pagination {
+  font-size: calc(1vw + 16px);
+  font-family: var(--fontBabasNeue);
+}
 .participants-table {
     display: flex;
     flex-direction: column;
     border: 1px solid #ccc;
     padding: 16px;
     width: 100%;
-
+    font-size: 24px;
   
     .search-row {
         display: flex;

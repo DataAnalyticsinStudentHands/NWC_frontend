@@ -6,6 +6,7 @@ import stateTerritories from '../../../assets/stateTerritories.json';
 import { Pagination } from '../../ResearchingNWC/Components/Pagination'
 import { Stack } from "../../../Components/Stack";
 import { Search } from "./Search"
+import { Typography } from "../../../Components/Typography"
 import StateSelect from '../../../Components/StateSelect/StateSelect'
 
 export const ParticipantsTable = (props) => {
@@ -126,7 +127,7 @@ export const ParticipantsTable = (props) => {
                 className={`header-cell ${selectedOption === option ? 'bold' : ''}`}
                 onClick={() => handleOptionClick(option)}
               >
-                <span className="hoverable-text">{option}</span>
+                <Typography type="paragraph-2" paddingLR="0" paddingTB="0"><span className="hoverable-text">{option}</span> </Typography>
               </span>
             ))}
           <button
@@ -168,14 +169,14 @@ export const ParticipantsTable = (props) => {
                         />
                       </div>
                     </a>
-                    {item[1] && <div>{item[1]}</div>}
+                    {item[1] && <Typography type="body-text"> {item[1]} </Typography>}
                   </div>
                 ) : null
               ))
             )}
         </Stack>
       </div>
-        <Pagination pageCount={Math.ceil(filteredParticipants.length / participantsPerPage)} handlePageClick={handlePageChange}/>
+        <div className="participants-pagination"> <Pagination pageCount={Math.ceil(filteredParticipants.length / participantsPerPage)} handlePageClick={handlePageChange}/> </div>
     </>
   );
 };

@@ -1,10 +1,29 @@
 import Slider from 'react-slick';
-import ReactPlayer from 'react-player'
+import InfoVideo from '../../../Components/Avalon/InfoVideo'
 import './Carousel.scss';
 import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
 import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
 
 const Carousel = (props) => {
+  const updatedVideos = props.videos.map((item) => {
+    const videoUrl = item[7];
+  
+    // Check if videoUrl is null or undefined, and handle it appropriately
+    if (videoUrl != null) {
+      // Check if videoUrl contains 'youtube', and if so, replace 'watch?v=' with 'embed/'
+      if (videoUrl.includes('youtube')) {
+        item[7] = videoUrl.replace('watch?v=', 'embed/');
+      }
+  
+      // Check if the modified videoUrl contains an '&' and remove all characters after it
+      if (item[7].includes('&')) {
+        item[7] = item[7].split('&')[0];
+      }
+    }
+    
+    return item;
+  });
+
   const NextArrow = (props) => {
     return (
       <div
@@ -48,10 +67,10 @@ const Carousel = (props) => {
   return (
     <div className="carousel-wrapper">
       <Slider {...settings}>
-        {props.videos
+        {updatedVideos
           .filter((video) => video[5] === 'true') // Filter videos with featured === true
           .map((video) => (
-            <ReactPlayer url={video[7]} controls='true' width='100%' height='600rem' key={video} />
+            <InfoVideo src={video[7]} key={video}/>
           ))}
       </Slider>
     </div>

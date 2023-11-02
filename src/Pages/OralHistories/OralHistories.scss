@@ -1,10 +1,8 @@
 .OralHistories_NWC_container {
-
+    margin-top: 5%;
 	.item {
-		display: flex;
-		flex-direction: row;
+        font-size: 36px;
 		align-items: center;
-
 		.item-left {
 			flex: 50%;
 			text-align: center
@@ -14,17 +12,11 @@
 			display: flex;
 			flex-direction: column;
 
-			h1 {
-				font-size: 50rem;
-				font-family: $fontBabasNeue;
-				text-align: left;
-				font-weight: 100;
-			}
-			p {
-				font-size: 25rem;
-			}
-		}
+            .paragraph-2 {
+                font-size: 16px; /* Adjust the font size to your preference */
+              }
 	}
+}
 }
 
 .OralHistories_Featured_container {
@@ -37,7 +29,6 @@
     background-size: 100% auto;
     background-repeat: no-repeat;
     min-height: 100%;
-
     .featured_video_container {
         
         display: block;
@@ -53,17 +44,14 @@
         max-width: 56.7vw; /* Limit the width to prevent bleeding off the page */
     }
     .header-container {
+        font-size: 48px;
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
         margin-right: -360rem; /* Adjust this value to shift the text to the right */
-        margin-bottom: 30rem;
+        margin-bottom: 40rem;
     }
 
-    h1 {
-        text-align: center; /* Center text within the header */
-        font-size: 60rem;
-    }
 }
 
 .OralHistories_Voice_container {

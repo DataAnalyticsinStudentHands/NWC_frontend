@@ -9,15 +9,18 @@ import Carousel from './components/Carousel';
 import { ParticipantsTable } from './components/ParticipantsTable';
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
-import ReactMarkdown from 'react-markdown';
+import { Typography } from "../../Components/Typography"
+import InfoVideo from "../../Components/Avalon/InfoVideo"
 
 function OralHistories() {
 
     const [state, setState] = useState({
         bannerText: '',
         imgCredit: '',
+        NWC_Means_VideoURL: '',
         meanText: '',
         exploreText: '',
+
     });
 
     const [participants, setParticipants] = useState([])
@@ -32,6 +35,7 @@ function OralHistories() {
 						attributes: {
 							BannerText,
 							BannerImage_Credit,
+                            NWC_Means_VideoURL,
                             What_NWC_Means,
                             ExploreText,
 						},
@@ -40,6 +44,7 @@ function OralHistories() {
                 setState({
                     bannerText: BannerText,
                     imgCredit: BannerImage_Credit,
+                    NWC_Means_VideoURL: NWC_Means_VideoURL,
                     meanText: What_NWC_Means,
                     exploreText: ExploreText,
                   });
@@ -97,15 +102,14 @@ function OralHistories() {
                 imgCredit={state.imgCredit}
             />
             {/* WHAT THE NWC MEANS */}
-            <Stack direction='column' gap={4} margin={'0 5% 5% 5%'} className="OralHistories_NWC_container">
+            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <Stack direction='row' className='item'>
                     <div className="item-left">
-                        <h1>VIDEO HERE</h1>
-                        
+                        <InfoVideo src={state.NWC_Means_VideoURL}/>
                     </div>
                     <div className="item-right">
-                        <h1>WHAT THE NWC MEANS TO ME</h1>
-                        <ReactMarkdown style={{ fontWeight: "normal" }}>{state.meanText}</ReactMarkdown>
+                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> WHAT THE NWC MEANS TO ME </Typography>
+                        <Typography type="paragraph-2" paddingLR="0"> {state.meanText} </Typography>
                     </div>
                 </Stack>
             </Stack>
@@ -113,14 +117,14 @@ function OralHistories() {
             {/* FEATURED */}
             <Stack direction='column' className="OralHistories_Featured_container">
                 <div className="header-container">
-                    <h1>Featured Oral Histories</h1>
+                    <Typography type="heading-1" paddingLR="0" paddingTB="0"> Featured Oral Histories </Typography>
                 </div>               
                 <div className="featured_video_container" >
                     <Carousel videos={participants}/>
                 </div>
             </Stack>
             {/* BANNER 2 */}
-            <Stack direction='column'  className="OralHistories_Voice_container">
+            <Stack direction='column' margin={'5% 0 0 0'} className="OralHistories_Voice_container">
                 <h2 className="centered-text">Listening to<br/>Every Voice</h2>
                     <Stack direction='row' className='item'>
                         <div className="item-left">
@@ -134,11 +138,11 @@ function OralHistories() {
             </Stack>
 
             {/* EXPLORE ORAL HISTORIES */}
-            <Stack direction='column' gap={4} margin={'0 5% 5% 5%'} className="OralHistories_NWC_container">
+            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <Stack direction='row' className='item'>
                     <div className="item-right">
-                        <h1>EXPLORE ORAL HISTORIES</h1>
-                        <ReactMarkdown style={{ fontWeight: "normal" }}>{state.exploreText}</ReactMarkdown>
+                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> Explore Oral Histories </Typography>
+                        <Typography type="paragraph-2" paddingLR="0"> {state.exploreText} </Typography>
                     </div>
                 </Stack>
                     <ParticipantsTable participants={participants} roles={roles} />
