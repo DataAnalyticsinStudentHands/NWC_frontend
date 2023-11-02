@@ -11,7 +11,7 @@ export const ResultTableMap = (props) => {
     const [downloadData, setDownloadData] = useState([]);
     const [itemOffset, setItemOffset] = useState(0);
     const coinsPerPage = 10;
-    const [sortKey, setSortKey] = useState(null);
+    const [sortKey, setSortKey] = useState('#');
     const [sortOrder, setSortOrder] = useState("asc");
   
     const handlePageClick = (event) => {

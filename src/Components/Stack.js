@@ -10,6 +10,7 @@ export const Stack = ({ children, spacing, direction, wrap, justifyContent, marg
     justifyContent: justifyContent,
     margin: margin,
   }
+  props.style && Object.assign(style, props.style)
   return <div {...props} style={style}>{children}</div>
 
 };

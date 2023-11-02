@@ -70,32 +70,29 @@ pre {
 
 @mixin font-style($family, $size, $weight, $style) {
   font-family: $family;
-  font-size: $size;
+  font-size: calc($size * 1vw);
   font-weight: $weight;
   font-style: $style;
 }
 
 $font-styles: (
   subway_ds:(
-    title:(96px, 900, normal),
+    title:(6, 400, normal),
   ),
   babas_neue:(
-    heading-1:(80px, 700, normal),
-    heading-2:(60px, 700, normal),
-    heading-3:(40px, 700, normal),
-    heading-4:(30px, 700, normal),
-    heading-5:(24px, 700, normal),
+    heading-1:(4.5, 400, normal),
+    heading-2:(2, 400, normal),
+    heading-3:(1.5, 400, normal),
   ),
   Montserrat:(
-    quote-1:(40px, 700, normal),
-    quote-2:(30px, 600, italic),
-    subtitle-2:(40px, 600, normal),
-    paragraph-1:(30px, 400, normal),
-    paragraph-2:(24px, 400, normal),
-    body-text:(20px, 400, normal),
-    caption:(24px, 600, normal),
-    overline:(16px, 400, normal),
+    quote-1:(2.25, 700, normal),
+    paragraph-2:(1.5, 400, normal),
+    body-text:(1.25, 400, normal),
+    caption:(1.5, 600, normal),
   ),
+  neobulletin:(
+    paragraph-1:(2, 400, normal),
+  )
 );
 
 @each $family, $props in $font-styles {
@@ -105,3 +102,4 @@ $font-styles: (
     }
   }
 }
+
