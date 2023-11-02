@@ -3,7 +3,7 @@ import stateTerritories from '../../assets/stateTerritories.json';
 import Select from 'react-select';
 import './StateSelect.scss'
 
-function StateSelect({onSelect, selectedOptions}) {
+const StateSelect = (props) => {
 
     const stateOptions = [] // Store states
     Object.values(stateTerritories).forEach((state) => {
@@ -14,8 +14,8 @@ function StateSelect({onSelect, selectedOptions}) {
         <Select
         isMulti
         options={stateOptions}
-        onChange={onSelect}
-        value={selectedOptions}
+        onChange={props.onSelect}
+        value={props.selectedOptions}
         placeholder="State/Territory"
         className="basic-multi-select"
         classNamePrefix="select"

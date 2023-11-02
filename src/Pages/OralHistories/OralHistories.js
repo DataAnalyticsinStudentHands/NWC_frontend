@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-
+import video_placeholder from "./res/video_placeholder.png"
 import oral_histories_bannerpic from './res/oral_histories_bannerpic.png';
 import oral_histories_button from "../../assets/res/button-oral-histories.png";
 import bible_women from './res/bible_women.png'
@@ -22,12 +22,12 @@ function OralHistories() {
         exploreText: '',
 
     });
-
+    
     const [participants, setParticipants] = useState([])
     const [roles, setRoles] = useState([]);
     
     useEffect(() => {
-		fetch([process.env.REACT_APP_API_URL_LOCAL, 'api/content-oral-history?populate=*'].join('/'))
+		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
 			.then((res) => res.json())
 			.then((data) => {
 				const {
@@ -44,53 +44,53 @@ function OralHistories() {
                 setState({
                     bannerText: BannerText,
                     imgCredit: BannerImage_Credit,
-                    NWC_Means_VideoURL: NWC_Means_VideoURL,
+                    NWC_Means_VideoURL: NWC_Means_VideoURL || video_placeholder,
                     meanText: What_NWC_Means,
                     exploreText: ExploreText,
                   });
 
 			});
         }, [])
-        useEffect(() => {
-            fetch([process.env.REACT_APP_API_URL_LOCAL, "api/content-discover-stories?populate=*"].join('/'))
-              .then((res) => res.json())
-              .then((data) => {
-                setParticipants(
-                  data.data
-                    .filter((d) => d.attributes.AvalonUrl !== null) // Filter out items with null VideoURL
-                    .map((d) => {
-                      const name = d.attributes.name;
-                      const id = d.id;
-                      const avalonURL = d.attributes.AvalonUrl;
-                      const state = d.attributes.state;
-                      const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
-                      const featured = d.attributes.featured
-                      const role = d.attributes.role
-                      const videoURL =  d.attributes.VideoUrl
-                      return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
-                    })
-                );
-              })
-              .catch((err) => console.log(err));
-          }, []); // eslint-disable-line
+    useEffect(() => {
+        fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?sort=lastname&populate=*"].join('/'))
+            .then((res) => res.json())
+            .then((data) => {
+            setParticipants(
+                data.data
+                .filter((d) => d.attributes.AvalonUrl !== null || d.attributes.VideoUrl !== null) // Filter out items with null AvalonURL
+                .map((d) => {
+                    const name = d.attributes.name;
+                    const id = d.id;
+                    const avalonURL = d.attributes.AvalonUrl || video_placeholder
+                    const state = d.attributes.state;
+                    const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
+                    const featured = d.attributes.featured
+                    const role = d.attributes.role
+                    const videoURL =  d.attributes.VideoUrl || video_placeholder
+                    return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
+                })
+            );
+            })
+            .catch((err) => console.log(err));
+        }, []); // eslint-disable-line
 
-          useEffect(() => {
-            fetch([process.env.REACT_APP_API_URL_LOCAL, "api/nwc-roles?sort=role&populate=*"].join('/'))
-              .then((res) => res.json())
-              .then((data) => {
-                const filteredRoles = data.data
-                .filter((d) => d.attributes.OralHistory_Role_Toggle === true && !d.attributes.role.includes('Other Role')) //filter for toggle and 'Other Role'
-                .map((d) => d.attributes.role);
-        
-                // Check if "Other Role" is not already in the array and add it
-                    if (!filteredRoles.includes("Other Role")) {
-                        filteredRoles.push("Other Role");
-                    }
-                
-                    setRoles(filteredRoles);
-                    })
-              .catch((err) => console.log(err));
-          }, []); // eslint-disable-line
+        useEffect(() => {
+        fetch([process.env.REACT_APP_API_URL, "api/nwc-roles?sort=role&populate=*"].join('/'))
+            .then((res) => res.json())
+            .then((data) => {
+            const filteredRoles = data.data
+            .filter((d) => d.attributes.OralHistory_Role_Toggle === true && !d.attributes.role.includes('Other Role')) //filter for toggle and 'Other Role'
+            .map((d) => d.attributes.role);
+    
+            // Check if "Other Role" is not already in the array and add it
+                if (!filteredRoles.includes("Other Role")) {
+                    filteredRoles.push("Other Role");
+                }
+            
+                setRoles(filteredRoles);
+                })
+            .catch((err) => console.log(err));
+        }, []); // eslint-disable-line
 
     return (
         <Stack direction='column' spacing={10}>
@@ -125,14 +125,16 @@ function OralHistories() {
             </Stack>
             {/* BANNER 2 */}
             <Stack direction='column' margin={'5% 0 0 0'} className="OralHistories_Voice_container">
-                <h2 className="centered-text">Listening to<br/>Every Voice</h2>
+                <div className="centered-text">
+                    <Typography color="primary.dark.turquoise" type="heading-1">Listening to <br></br> every voice</Typography>
+                </div>
                     <Stack direction='row' className='item'>
                         <div className="item-left">
                             <img src={bible_women} alt="minority_rights_plank" />                     
                         </div>
                         <div className="item-right">
                             <img src={pro_plan_progress} alt="minority_rights_plank" />
-                            <p>Photo by {state.imgCredit}</p>
+                            <p>Photos by {state.imgCredit}</p>
                         </div>
                     </Stack>
             </Stack>

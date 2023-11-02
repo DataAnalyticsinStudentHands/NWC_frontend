@@ -3,6 +3,7 @@ import InfoVideo from '../../../Components/Avalon/InfoVideo'
 import './Carousel.scss';
 import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
 import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
+import video_placeholder from "../res/video_placeholder.png"
 
 const Carousel = (props) => {
   const updatedVideos = props.videos.map((item) => {
@@ -23,7 +24,7 @@ const Carousel = (props) => {
     
     return item;
   });
-
+  
   const NextArrow = (props) => {
     return (
       <div
@@ -67,11 +68,15 @@ const Carousel = (props) => {
   return (
     <div className="carousel-wrapper">
       <Slider {...settings}>
-        {updatedVideos
-          .filter((video) => video[5] === 'true') // Filter videos with featured === true
-          .map((video) => (
-            <InfoVideo src={video[7]} key={video}/>
-          ))}
+      {updatedVideos.filter((video) => video[5] === 'true').length === 0 ? (
+      <InfoVideo src={video_placeholder} />
+      ) : (
+        updatedVideos
+        .filter((video) => video[5] === 'true') // Filter videos with featured === true
+        .map((video) => (
+          <InfoVideo src={video[2].includes("data:image") ? video[7] : video[2] || video_placeholder} key={video} />
+    ))
+)}
       </Slider>
     </div>
   );

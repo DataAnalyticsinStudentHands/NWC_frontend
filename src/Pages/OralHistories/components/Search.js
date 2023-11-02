@@ -1,20 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export const Search = (props) => {
-  const [searchTerm, setSearchTerm] = useState('');
-
-  const handleSearchChange = (e) => {
-    setSearchTerm(e.target.value);
-    props.onSearch(e.target.value);
-  };
-
   return (
     <input
       placeholder={props.placeholder}
-      value={searchTerm}
-      onChange={handleSearchChange}
+      value={props.value} // Pass the value from the parent component
+      onChange={(e) => props.onSearch(e.target.value)}
     />
   );
-}
-
-export default Search;
+};

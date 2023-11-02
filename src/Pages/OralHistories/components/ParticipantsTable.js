@@ -15,6 +15,9 @@ export const ParticipantsTable = (props) => {
   const [optionsCurrentPage, setOptionsCurrentPage] = useState(0);
   const participantsPerPage = 8;
   const optionsPerPage = 5;
+  const resetPagination = () => {
+    setCurrentPage(0)
+  }
 
   const handlePageChange = (selectedPage) => {
     setCurrentPage(selectedPage.selected);
@@ -48,6 +51,7 @@ export const ParticipantsTable = (props) => {
   const handleSearch = () => {
     setSearchButtonClicked(true);
     setFilterValue(searchTerm); // Update the filter value when the button is clicked
+    resetPagination();
   };
   
   const handleReset = () => { //handler for reset button
@@ -92,6 +96,7 @@ export const ParticipantsTable = (props) => {
     //handler for states
   const handleStateChange = (selectedOptions) => {
     setSelectedStates(selectedOptions);
+    resetPagination();
   };
 
   //handler for the role options
@@ -102,6 +107,7 @@ export const ParticipantsTable = (props) => {
       // Optionally, you can reset the sort order here if needed
     } else {
       setSelectedOption(option); // Set the selected option
+      resetPagination();
       // Optionally, you can set the sort order here if needed
     }
   };
@@ -147,20 +153,20 @@ export const ParticipantsTable = (props) => {
             </div>
             <div className="search-cell align-center">
               <div className="discoverSearch_bar">
-                <Search placeholder="Search Participants by Name" onSearch={setSearchTerm}/>
+              <Search placeholder="Search Participants by Name" value={searchTerm} onSearch={setSearchTerm}/>
               <button type="button" className="button_reset" onClick={handleReset}>Reset</button>
               <button type="button" className="button_search" onClick={handleSearch}>SEARCH</button>
               </div>
             </div>
           </div>
-          <Stack justifyContent="center" spacing={2} wrap> {/* Displays list of participants */}
+          <Stack justifyContent="center" spacing={1} wrap> {/* Displays list of participants */}
             {filteredParticipants.length === 0 ? (
-              <div className="no-results">No results found</div>
+              <div className="no-results"><Typography type="paragraph-2"> No results found </Typography></div>
             ) : (
               displayedParticipants.map((item, index) => (
                 item[3] ? (
                   <div key={index} className="participant-cell">
-                    <a href={item[2]} target="_blank" rel="noopener noreferrer">
+                    <a href={item[2].includes("data:image") ? item[7] : item[2]} target="_blank" rel="noopener noreferrer">
                       <div className="image-container">
                         <img
                           src={item[3]}
