@@ -1,0 +1,97 @@
+/* ParticipantsTable.scss */
+
+.header-cell {
+  font-size: 26rem;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center-align both horizontally and vertically */
+  padding: 10rem;
+  &.bold .hoverable-text {
+    font-weight: bold; /* Make the text bold when the option is selected */
+  }
+
+  .hoverable-text {
+    color: black; /* Change text color */
+    display: flex; /* Enable flexbox */
+  }
+
+  .hoverable-text:hover {
+    cursor: pointer; /* Change cursor to pointer on hover */
+    font-weight: bold; /* Make the text bold when the option is selected */
+  }
+}
+
+.participants-pagination {
+  font-size: calc(1vw + 16px);
+  font-family: var(--fontBabasNeue);
+}
+.participants-table {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    padding: 16px;
+    width: 100%;
+    font-size: 24px;
+  
+    .search-row {
+        display: flex;
+        margin-bottom: 2em; /* Add margin below the search-row */
+        .search-cell {
+          flex: 1;
+          padding: 8px;
+    
+          &.align-center {
+            display: flex;
+            justify-content: center;
+          }
+        }
+
+        .button_search {
+          font-family: var(--fontBabasNeue);
+          background-color: var(--colorDeepRed); 
+          padding: 10rem 50rem;
+          color: white;
+          border-radius: 30rem;
+          font-size: 30rem;
+          margin-left: -20rem;
+        }
+    
+        .button_reset {
+          font-family: var(--fontBabasNeue);
+          background-color: var(--colorDarkBlue);
+          padding: 10rem 50rem;
+          color: white;
+          border-radius: 30rem;
+          font-size: 30rem;
+          margin-left: 50rem;
+        }
+      }
+  
+    .no-results {
+        text-align: center;
+        font-size: 25rem;
+        padding: 8px;
+    }
+    
+    .participant-cell {
+        width: calc(25% - 16px); /* 25% of the container width, minus padding */
+        font-size: 25rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px;
+        margin-bottom: 16px; /* Add margin between participants */
+        white-space: nowrap;
+    }
+    
+    .participant_pic {
+        width: 220rem; /* Set a fixed width for the images */
+        height: 220rem; /* Set a fixed height for the images */
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1em;
+    }
+
+}
+
+

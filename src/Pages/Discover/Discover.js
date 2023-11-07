@@ -8,6 +8,7 @@ import { loadcards } from './cardloader';
 import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { Search } from '../OralHistories/components/Search'
 var currentData = 'default'
 
 function Discover() {
@@ -243,7 +244,7 @@ function Discover() {
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
-          <input placeholder="Search Participants by Name" value={input} onChange={e => setInput(e.target.value)} />
+          <Search placeholder="Search Participants by Name" onSearch={setInput}/>
           <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">

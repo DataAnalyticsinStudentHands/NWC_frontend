@@ -256,6 +256,7 @@ const politicalOfficeObj = {
                 options={stateOptions}
                 onChange={onSelect}
                 value={selectedOptions}
+                placeholder="State/Territory"
                 className="basic-multi-select"
                 classNamePrefix="select"
               />

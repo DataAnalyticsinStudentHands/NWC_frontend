@@ -26,6 +26,7 @@ import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from './Pages/Forms/MoreIdeasForm';
 import PDFViewer from './Pages/PDFViewer/PDFViewer';
 import {Resources} from "./Pages/HowToContribute/components/Resources";
+import OralHistories from './Pages/OralHistories/OralHistories';
 
 import Organizations from "./Pages/ResearchingNWC/Organizations";
 
@@ -61,6 +62,7 @@ function App() {
         <Route path="forms/moreideas" element={<MoreIdeasForm />} />
         <Route path="howtocontribute" element={<HowToContribute />} />
         <Route path="howtocontribute/:resource" element={<Resources />} />
+        <Route path="oralhistories" element={<OralHistories />}/>
         <Route path="/" element={<Home />} />
       </Routes>
       </ScrollToTop>

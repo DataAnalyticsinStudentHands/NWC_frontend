@@ -1,0 +1,45 @@
+.carousel-wrapper {
+  .slick-prev {
+    left: -160px; /* Adjust this value for horizontal positioning */
+    top: 50%; /* Center vertically */
+    transform: translateY(-350%); /* Center vertically */
+    position: absolute;
+
+  }
+
+  .slick-next {
+    right: -30px; /* Adjust this value for horizontal positioning */
+    top: 50%; /* Center vertically */
+    transform: translateY(-350%); /* Center vertically */
+    position: absolute;
+  }
+
+  .slick-next:before {
+    opacity: 0;
+  }
+
+  .slick-prev:before {
+    opacity: 0;
+  }
+
+  .slick-next:hover {
+    opacity: .75;
+  }
+
+  .slick-prev:hover {
+    opacity: .75;
+  }
+
+  .slick-dots li.slick-active button:before {
+    color: #142F45;
+    font-size: 15px;
+  }
+
+  .slick-dots {
+    bottom: -80px;
+    // Add other styles here
+  }
+}
+
+
+  
