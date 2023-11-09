@@ -8,7 +8,7 @@ import { loadcards } from './cardloader';
 import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
-import { Search } from '../OralHistories/components/Search'
+import { Search } from '../../Components/SearchBox/Search'
 var currentData = 'default'
 
 function Discover() {

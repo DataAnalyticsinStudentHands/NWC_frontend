@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 import { processTableData } from './TableHeaders'
+import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 
 function AdvancedSearch() {
 
@@ -265,7 +266,6 @@ function AdvancedSearch() {
     array_query.forEach((item) => {
       extractAttributes(item);
     });
-    console.log('array: ', array_query)
 
     const categories = array_query.map((item) => { //grabs categories with a proper name
       const key = Object.keys(item)[0];
@@ -342,7 +342,7 @@ function AdvancedSearch() {
   const clearForm = () => {
     setTimeout(() => {
     reset();
-    setSelectedOptions({});
+    setSelectedOptions({ represented_state: null }); // Reset the StateSelect component
     setTableData([])
     setMap([])
     setIsButtonClicked(false);
@@ -493,28 +493,28 @@ function AdvancedSearch() {
                 <h1> State/territory</h1>
                 <div className="item_DEMO" >
                   <div className="advancedSearch_form-control" >
-                  <Controller 
+                  {/* <StateSelect onSelect={handleStateChange} selectedOptions={selectedStates}/> */}
+                  <Controller
                     control={control}
                     name="represented_state"
                     render={({ field }) => (
-                      <Select
-                      styles={{container: base => ({...base, width: "max-content", minWidth: "11%"})}}
-                        options={stateOptions} 
-                        onChange={(selectedOption) => {
-                          setSelectedOptions(prevOptions => ({
+                      <StateSelect
+                        css={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" })}}
+                        onSelect={(selectedOption) => {
+                          setSelectedOptions((prevOptions) => ({
                             ...prevOptions,
-                            represented_state: selectedOption.value
+                            represented_state: selectedOption ? selectedOption.value : null,
                           }));
-                          field.onChange(selectedOption.value);
+
+                          if (selectedOption && selectedOption[0]) {
+                            field.onChange(selectedOption[0].value);
+                          } 
                         }}
-                        onBlur={field.onBlur}
-                        value={selectedOptions.represented_state ? stateOptions.find(option => option.value === selectedOptions.represented_state) : null}
-                        placeholder="Select..."
-                        name={field.name}
-                        ref={field.ref}
+                        selectedOptions={selectedOptions.represented_state}
                       />
                     )}
-                  /></div>
+                  />
+                  </div>
                 </div>
               </div>
               <div className="advancedSearch_container">
