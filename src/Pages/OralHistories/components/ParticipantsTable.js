@@ -5,9 +5,9 @@ import '../../Discover/Discover.css'
 import stateTerritories from '../../../assets/stateTerritories.json';
 import { Pagination } from '../../ResearchingNWC/Components/Pagination'
 import { Stack } from "../../../Components/Stack";
-import { Search } from "./Search"
+import { Search } from "../../../Components/SearchBox/Search"
 import { Typography } from "../../../Components/Typography"
-import StateSelect from '../../../Components/StateSelect/StateSelect'
+import { StateSelect } from '../../../Components/StateSelect/StateSelect'
 
 export const ParticipantsTable = (props) => {
   //States for pagination settings
@@ -149,7 +149,7 @@ export const ParticipantsTable = (props) => {
         <div className="participants-table">
           <div className="search-row">
           <div className="search-cell align-center"> {/* State select */}
-              <StateSelect onSelect={handleStateChange} selectedOptions={selectedStates}/>
+              <StateSelect css={'basic-multi-select'} onSelect={handleStateChange} selectedOptions={selectedStates}/>
             </div>
             <div className="search-cell align-center">
               <div className="discoverSearch_bar">

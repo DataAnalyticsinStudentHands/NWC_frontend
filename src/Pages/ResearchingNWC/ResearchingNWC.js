@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import Select from 'react-select';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
@@ -8,14 +7,13 @@ import component119 from './res/component119.png';
 // import BannerCard from "../../Components/BannerCard/BannerCard";
 // import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
-import stateTerritories from '../../assets/stateTerritories.json';
-
 import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 
 import infoIcon from './res/Info Hover Icon.svg';
 
 import { Banner } from '../../Components/Banner';
 import { Typography } from '../../Components/Typography';
+import { StateSelect } from '../../Components/StateSelect/StateSelect';
 
 function ResearchingNWC() {
 
@@ -48,13 +46,6 @@ function ResearchingNWC() {
   const { register, handleSubmit, reset } = useForm();
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
-
-  const stateOptions = []
-  Object.values(stateTerritories).forEach((state) => {
-    if (state.isActive) {
-      stateOptions.push({value: state.stateCode, label: state.state}) 
-    }
-  })
 
   const roleObj = {
     "DELEGATES/ALTERNATES": ["Delegate at the NWC", "Alternate at the NWC"],
@@ -251,15 +242,7 @@ const politicalOfficeObj = {
           <div className="row">
             <div className='panel'>
               <p>STATE/TERRITORY</p>
-              <Select
-                isMulti
-                options={stateOptions}
-                onChange={onSelect}
-                value={selectedOptions}
-                placeholder="State/Territory"
-                className="basic-multi-select"
-                classNamePrefix="select"
-              />
+              <StateSelect css={'basic-multi-select'} onSelect={onSelect} selectedOptions={selectedOptions}/>
               <p>NWC ROLES</p>
               {Object.keys(roleObj).map((role) => {
                 return(

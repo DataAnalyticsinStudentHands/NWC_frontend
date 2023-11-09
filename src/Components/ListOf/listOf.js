@@ -1,8 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import "./listOf.css";
 import { CSVLink } from "react-csv";
-import Select from "react-select";
-import stateTerritories from "../../assets/stateTerritories.json";
+import { StateSelect } from '../../Components/StateSelect/StateSelect'
 
 var currentData = "default";
 
@@ -101,11 +100,6 @@ function ListOf(props) {
 			: setListData(list);
 	};
 
-	const stateOptions = [];
-	Object.values(stateTerritories).forEach((state) => {
-		stateOptions.push({ value: state.stateCode, label: state.state });
-	});
-
 	function handleLetterChange(letter) {
 		setActiveLetter(letter);
 		if (letter === "reset") {
@@ -164,18 +158,9 @@ function ListOf(props) {
 				{filter ? (
 					<div className="listOfFilter">
 						<p>Filter by State: </p>
-						<Select
-							id="select"
-							isMulti
-							options={stateOptions}
-							onChange={handleChange}
-							// onChange={onSelect}
-							// value={selectedOptions}
-							value={stateOptions.find(
-								(obj) => obj.value === selectedValue
-							)}
-							className="basic-multi-select"
-							classNamePrefix="select"></Select>
+						<StateSelect  css={'participants-select'} onSelect={handleChange} selectedOptions={selectedValue ? selectedValue.find(
+							(obj) => obj.value === selectedValue
+						) : null}/>
 					</div>
 				) : (
 					""
