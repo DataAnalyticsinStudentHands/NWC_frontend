@@ -27,7 +27,7 @@ function OralHistories() {
     const [roles, setRoles] = useState([]);
     
     useEffect(() => {
-		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
+		fetch([process.env.REACT_APP_API_URL_LOCAL, 'api/content-oral-history?populate=*'].join('/'))
 			.then((res) => res.json())
 			.then((data) => {
 				const {
