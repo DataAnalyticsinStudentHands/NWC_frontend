@@ -24,6 +24,7 @@ import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
 import Carousel3 from '../../Components/Carousel/Carousel3';
+import { Typography } from '../../Components/Typography'
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 import ReactMarkdown from 'react-markdown'
@@ -274,11 +275,12 @@ function Home() {
             <div className="homeSplash_toForm">
               <img src={toform} alt="conference_logo" />
             </div>
-
             <div className="homeSplash_card">
-              <h3>Sharing Stories from 1977</h3>
+              <Typography color="primary.other.white" type="title" fontSize='96'>Sharing Stories from 1977</Typography>
+              {/* <h3>Sharing Stories from 1977</h3> */}
               <div className="homeSplash_cardHr"></div>
-              <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p>
+              <Typography color="primary.other.white" type="heading-1" fontSize='64'>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</Typography>
+              {/* <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p> */}
             </div>
           </div>
 
@@ -288,14 +290,24 @@ function Home() {
             <div className="homeAbout_content">
               <div className="homeAbout_card">
                 <div className="homeAbout_headerBackdrop"></div>
-                <p className="homeAbout_header">ABOUT THE PROJECT</p>
+                <div className="homeAbout_header">
+                  <Typography color="primary.other.black" type="heading-1" fontSize='96'>ABOUT THE PROJECT</Typography>
+                </div>
+                {/* <p className="homeAbout_header">ABOUT THE PROJECT</p> */}
                 <div className="homeAbout_cardHr"></div>
 
                 {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
                 <div className="homeAbout_peas">
-                  <p className="homeAbout_p1"><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></p>
+                  <div className="homeAbout_p1">
+                  <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></Typography>
+                  </div>
+                  {/* <p className="homeAbout_p1"><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></p> */}
                   {homeAboutReadmore ? (
-                    <p className="homeAbout_p2"><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></p>
+                    <div className="homeAbout_p2">
+                    <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></Typography>
+
+                    </div>
+                    // <p className="homeAbout_p2"><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></p>
                   ) : (
                     ''
                   )}
@@ -326,9 +338,15 @@ function Home() {
           <div className="homeMap">
             <div className="homeMap_card">
               <div className="homeMap_headerBackdrop"></div>
-              <p className="homeMap_header">INTERACTIVE MAP</p>
+              <div className="homeMap_header">
+              <Typography color="primary.other.black" type="heading-1" fontSize='96'>INTERACTIVE MAP</Typography>
+              </div>
+              {/* <p className="homeMap_header">INTERACTIVE MAP</p> */}
               <div className="homeMap_cardHr"></div>
-              <p className="homeMap_text"><ReactMarkdown>{state.homeMap_text}</ReactMarkdown></p>
+              <div className="homeMap_text">
+              <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeMap_text}</ReactMarkdown></Typography>
+              </div>
+              {/* <p className="homeMap_text"><ReactMarkdown>{state.homeMap_text}</ReactMarkdown></p> */}
             </div>
 
             {openingMap ? (
@@ -431,9 +449,15 @@ function Home() {
           <div className="homeExplore">
             <div className="homeExplore_card">
               <div className="homeExplore_headerBackdrop"></div>
-              <p className="homeExplore_header">EXPLORE THE SITE</p>
+              <div className="homeExplore_header">
+                <Typography color="primary.other.black" type="heading-1" fontSize='96'>EXPLORE THE SITE</Typography>
+              </div>
+              {/* <p className="homeExplore_header">EXPLORE THE SITE</p> */}
               <div className="homeExplore_hr"></div>
-              <p className="homeExplore_text"><ReactMarkdown>{state.homeExplore_text}</ReactMarkdown></p>
+              <div className="homeExplore_text">
+                <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeExplore_text}</ReactMarkdown></Typography>
+              </div>
+              {/* <p className="homeExplore_text"><ReactMarkdown>{state.homeExplore_text}</ReactMarkdown></p> */}
             </div>
 
             <div className="homeExplore_img">
@@ -497,7 +521,8 @@ function Home() {
 
           {/**HIGHLIGHTS */}
       <div className="homeLaunch">
-        <h1>SITE HIGHLIGHTS</h1>
+        <Typography color="primary.dark.red" type="heading-1" fontSize='80'>SITE HIGHLIGHTS</Typography>
+        {/* <h1>SITE HIGHLIGHTS</h1> */}
       <div className='homeLaunchPanel'>
         <Carousel3 images={images}/>
       </div>
