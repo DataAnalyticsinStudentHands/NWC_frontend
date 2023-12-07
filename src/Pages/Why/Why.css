@@ -27,11 +27,11 @@ a {
     
 }
 
-.whyBanner_card h2 {
-    font-family: var(--fontBabasNeue);
+.whyBanner_card_header {
+    /* font-family: var(--fontBabasNeue);
     font-size: 50rem;
     font-weight: normal;
-    color: var(--colorDarkBlue);
+    color: var(--colorDarkBlue); */
     text-align: center;
 }
 
@@ -108,12 +108,12 @@ ESSAYS
     margin: 60rem auto;
 }
 
-.whyEssays h2 {
-    font-family: var(--fontBabasNeue);
-    font-size: 80rem;
-    margin-bottom: 40rem;
-    color: var(--colorDeepRed);
-    font-weight: normal;
+.whyEssays_header {
+    /* font-family: var(--fontBabasNeue);
+    font-size: 80rem; */
+    margin-bottom: 30rem;
+    /* color: var(--colorDeepRed);
+    font-weight: normal; */
 }
 
 .whyEssays_list {
@@ -172,12 +172,12 @@ PUBLICATIONS
     margin: auto;
 }
 
-.whyPublications h2 {
-    font-family: var(--fontBabasNeue);
-    font-size: 80rem;
-    margin-bottom: 40rem;
-    color: var(--colorDarkBlue);
-    font-weight: normal;
+.whyPublications_header {
+    /* font-family: var(--fontBabasNeue);
+    font-size: 80rem; */
+    margin-bottom: 30rem;
+    /* color: var(--colorDarkBlue);
+    font-weight: normal; */
 }
 
 .whyPublications_list {

@@ -4,6 +4,7 @@ import buttonwhy from "../../assets/res/button-why-the-nwc-matters.png";
 import whybannerhuman from "./res/whybannerhuman.png";
 
 import { Link } from 'react-router-dom';
+import { Typography } from '../../Components/Typography';
 import InfoVideo from "../../Components/Avalon/InfoVideo";
 import Carousel3 from '../../Components/Carousel/Carousel3';
 import ReactMarkdown from 'react-markdown';
@@ -78,7 +79,10 @@ function Why() {
             <div className="whyBanner">
                 <img className="whyBanner_button" src={buttonwhy} alt=""/>
                 <div className="whyBanner_card">
-                    <h2>HISTORICAL OVERVIEW</h2>
+                    <div className="whyBanner_card_header">
+                    <Typography type='heading-2' fontSize='50' color="primary.dark.blue"> HISTORICAL OVERVIEW </Typography>
+                    </div>
+                    {/* <h2>HISTORICAL OVERVIEW</h2> */}
                     <ReactMarkdown>{pageState.historicalOverview}</ReactMarkdown>
                     <Link to="/essay/1">
                         <p className="why_readmore" >READ MORE</p>
@@ -113,7 +117,10 @@ function Why() {
             <div className="whylowerSection">
                 {/**ESSAYS */}
                 <div className="whyEssays">
-                    <h2>FEATURED ESSAYS</h2>
+                    <div className="whyEssays_header">
+                        <Typography type='heading-2' fontSize='80' color="primary.dark.red" paddingLR="0">FEATURED ESSAYS</Typography>
+                    </div>
+                    {/* <h2>FEATURED ESSAYS</h2> */}
                     <div className='whyEssays_list'>
                         <Carousel3 images={essays}/>
                         </div>     
@@ -121,8 +128,10 @@ function Why() {
 
                 {/**PUBLICATIONS */}
                 <div className="whyPublications">
-                    <h2>CONFERENCE PUBLICATIONS</h2>
-                    
+                    <div className="whyPublications_header">
+                    <Typography type='heading-2' fontSize='80' color="primary.dark.blue" paddingLR="0"> CONFERENCE PUBLICATIONS </Typography>
+                    </div>
+                    {/* <h2>CONFERENCE PUBLICATIONS</h2> */}
                     <div className="whyPublications_list">
                         {pageState.documents.map(d => <a  key={d[1]} href={d[1]}>
                             <img key={d[0]} src={d[0]} alt="" />
