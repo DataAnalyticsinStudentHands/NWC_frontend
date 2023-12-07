@@ -375,13 +375,13 @@ BUTTONS
 
 .homeButtons {
   z-index: -1;
-  height: calc(1312.72 * var(--xUnit));
+  height: 100%
 }
 
 .homeButtons_button {
   display: flex;
-  align-items: center;
-  position: absolute;
+  /* align-items: center;
+  position: absolute; */
   z-index: 1;
   background-color: white;
 }
@@ -411,7 +411,7 @@ BUTTONS
 
 .homeButtons_button2 {
   margin-top: calc(157 * var(--xUnit));
-  margin-left: calc(996.33 * var(--xUnit));
+  margin-left: calc(1800 * var(--xUnit));
 }
 
 .homeButtons_button3 {
@@ -421,7 +421,7 @@ BUTTONS
 
 .homeButtons_button4 {
   margin-top: calc(720 * var(--xUnit));
-  margin-left: calc(996.33 * var(--xUnit));
+  margin-left: calc(1800 * var(--xUnit));
 }
 
 .homeButtons_dots {
@@ -431,23 +431,23 @@ BUTTONS
 }
 
 .homeButtons_dots1 {
-  margin-top: calc(10 * var(--xUnit));
+  margin-top: calc(-1000 * var(--xUnit));
   margin-left: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots2 {
   right: 0;
-  margin-top: calc(10 * var(--xUnit));
+  margin-top: calc(-1300 * var(--xUnit));
   margin-right: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots3 {
-  margin-top: calc(880 * var(--xUnit));
+  margin-top: calc(-430 * var(--xUnit));
   margin-left: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots4 {
-  margin-top: calc(880 * var(--xUnit));
+  margin-top: calc(-430 * var(--xUnit));
   margin-right: calc(10 * var(--xUnit));
   right: 0;
 }

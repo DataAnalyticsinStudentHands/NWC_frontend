@@ -28,6 +28,7 @@ import { Typography } from '../../Components/Typography'
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 import ReactMarkdown from 'react-markdown'
+import { PinButtons } from '../../Components/PinButtons/PinButtons'
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -60,7 +61,7 @@ function Home() {
   const [homeMagnolia_park, setHomeMagnolia_park] = useState([]);
   const [homeAstrodome, setHomeAtrodome] = useState([]);
   const [openingMap, setOpeningMap] = useState(true);
-  
+  const buttons = [button1, button2, button3, button4];
   const [state, setState] = useState({
 
     photoByExplore: "",
@@ -472,7 +473,8 @@ function Home() {
 
           {/**BUTTONS */}
           <div className="homeButtons">
-            <Link to={state.homeButton1_link}>
+            <PinButtons data={state} buttons={buttons}/>
+            {/* <Link to={state.homeButton1_link}>
               <div className="homeButtons_button homeButtons_button1">
                 <img src={button1} alt="button_2" />
                 <p>{state.homeButton1_text}</p>
@@ -495,7 +497,7 @@ function Home() {
                 <img src={button4} alt="button_4" />
                 <p>{state.homeButton4_text}</p>
               </div>
-            </Link>
+            </Link> */}
 
             <img
               className="homeButtons_dots homeButtons_dots1"
