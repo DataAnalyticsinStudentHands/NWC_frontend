@@ -1,8 +1,8 @@
-import React from 'react'
-import ReactMarkdown from 'react-markdown'
+import React from "react";
+import ReactMarkdown from "react-markdown";
 import "./BannerCard.css";
 
-function BannerCard({text}) {
+function BannerCard({ text }) {
     return (
         <div className="bannercard">
             <div className="bannercard_topright"></div>
@@ -11,7 +11,7 @@ function BannerCard({text}) {
             </div>
             <div className="bannercard_bottomleft"></div>
         </div>
-    )
+    );
 }
 
-export default BannerCard
+export default BannerCard;
