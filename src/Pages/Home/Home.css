@@ -375,7 +375,8 @@ BUTTONS
 
 .homeButtons {
   z-index: -1;
-  height: 100%
+  height: 100%;
+
 }
 
 .homeButtons_button {
@@ -425,28 +426,34 @@ BUTTONS
 }
 
 .homeButtons_dots {
+  z-index: -1;
   position: absolute;
   width: calc(420 * var(--xUnit));
   height: calc(420 * var(--xUnit));
 }
 
 .homeButtons_dots1 {
-  margin-top: calc(-1000 * var(--xUnit));
+  z-index: -1;
+  margin-top: calc(-1900 * var(--xUnit));
   margin-left: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots2 {
+  z-index: -1;
   right: 0;
-  margin-top: calc(-1300 * var(--xUnit));
+  margin-top: calc(-1900 * var(--xUnit));
   margin-right: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots3 {
+  z-index: -1;
   margin-top: calc(-430 * var(--xUnit));
   margin-left: calc(10 * var(--xUnit));
 }
 
 .homeButtons_dots4 {
+  z-index: -1;
+
   margin-top: calc(-430 * var(--xUnit));
   margin-right: calc(10 * var(--xUnit));
   right: 0;

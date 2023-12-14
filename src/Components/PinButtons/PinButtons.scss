@@ -1,3 +1,33 @@
 .pinButtons {
-    
+    height: 100%;
+    background-color: white;
+	.item {
+		align-items: center;
+
+        &:hover {
+            transform: scale(1.01);
+        }
+
+		.item-left {
+			flex: 40%;
+            img {
+                width: calc(var(--xUnit)*400);
+                height: calc(var(--xUnit)*400);
+            }
+		}
+		.item-right {
+			flex: 100%;
+			gap: 2em;
+
+			display: flex;
+			flex-direction: column;
+			p {
+                font-family: 'neobulletin', 'normal';
+                color: var(--colorDarkBlue);
+                font-size: calc(var(--xUnit)*24);
+                font-weight: bold;
+                text-align: center;
+			}
+		}
+	}
 }
