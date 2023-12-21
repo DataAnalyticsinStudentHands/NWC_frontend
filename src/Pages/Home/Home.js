@@ -498,7 +498,6 @@ function Home() {
                 <p>{state.homeButton4_text}</p>
               </div>
             </Link> */}
-
             <img
               className="homeButtons_dots homeButtons_dots1"
               src={dots1}
@@ -518,7 +517,7 @@ function Home() {
               className="homeButtons_dots homeButtons_dots4"
               src={dots4}
               alt=""
-            />
+            /> 
           </div>
 
           {/**HIGHLIGHTS */}

@@ -1,33 +1,39 @@
-.pinButtons {
-    height: 100%;
+.item_pin {
+    align-items: center;
+    text-align: center;
+    height: 100%; /* Set a fixed height for each item */
     background-color: white;
-	.item {
-		align-items: center;
-
-        &:hover {
-            transform: scale(1.01);
-        }
-
-		.item-left {
-			flex: 40%;
-            img {
-                width: calc(var(--xUnit)*400);
-                height: calc(var(--xUnit)*400);
-            }
-		}
-		.item-right {
-			flex: 100%;
-			gap: 2em;
-
-			display: flex;
-			flex-direction: column;
-			p {
-                font-family: 'neobulletin', 'normal';
-                color: var(--colorDarkBlue);
-                font-size: calc(var(--xUnit)*24);
-                font-weight: bold;
-                text-align: center;
-			}
-		}
-	}
-}
+    &:hover {
+      transform: scale(1.01);
+    }
+  
+    .item-left_pin {
+      flex: 1;
+      img {
+        width: 400rem;
+        height: 100%; /* Ensure the image fills the entire height */
+        object-fit: cover; /* Maintain aspect ratio and cover the container */
+      }
+    }
+  
+    .item-right_pin {
+      flex: 1;
+      gap: 1em; 
+      width: 400px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+  
+      p {
+        font-family: 'neobulletin', 'normal';
+        color: var(--colorDarkBlue);
+        font-size: calc(var(--xUnit) * 24);
+        font-weight: bold;
+        text-align: center;
+        margin: 0; /* Remove default margin */
+        text-align: left; /* Align text to the left */
+      }
+    }
+  }
+  
