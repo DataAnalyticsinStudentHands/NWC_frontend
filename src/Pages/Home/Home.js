@@ -25,6 +25,7 @@ import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
 import Carousel3 from '../../Components/Carousel/Carousel3';
 import { Typography } from '../../Components/Typography'
+import { Stack } from '../../Components/Stack';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
 import ReactMarkdown from 'react-markdown'
@@ -63,7 +64,6 @@ function Home() {
   const [openingMap, setOpeningMap] = useState(true);
   const buttons = [button1, button2, button3, button4];
   const [state, setState] = useState({
-
     photoByExplore: "",
     photoByExplore_more:  "",
     aboutImgCredit: "",
@@ -72,17 +72,15 @@ function Home() {
     homeAbout_p: "",
     homeAbout_p1: "",
     homeAbout_p2: "",
-    homeButton1_link: "",
-    homeButton1_text: "",
-    homeButton2_link: "",
-    homeButton2_text: "",
-    homeButton3_link: "",
-    homeButton3_text: "",
-    homeButton4_link: "",
+    homeButtons: [
+      { link: "", text: "" },  // homeButton1
+      { link: "", text: "" },  // homeButton2
+      { link: "", text: "" },  // homeButton3
+      { link: "", text: "" },  // homeButton4
+    ],
     homeExplore_text: "",
     homeHighlights_content2: "",
     homeMap_text: ""
-  
   });
 
   const scroll = () => {
@@ -94,15 +92,17 @@ function Home() {
     fetch([process.env.REACT_APP_API_URL, 'api/content-home'].join('/'))
       .then((res) => res.json())
       .then((data) => {
-
-        const {data:
-                {attributes:
-                  {PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2, homeButton1_link, homeButton1_text,
-                    homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text, homeExplore_text, homeHighlights_content2, homeMap_text
-                  }
-                }
-              } = data;
-
+  
+        const {
+          data: {
+            attributes: {
+              PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2,
+              homeButton1_link, homeButton1_text, homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text,
+              homeExplore_text, homeHighlights_content2, homeMap_text
+            }
+          }
+        } = data;
+  
         setState({
           photoByExplore: PhotoByExplore,
           photoByExplore_more: PhotoByExplore_more,
@@ -112,19 +112,17 @@ function Home() {
           homeAbout_p: homeAbout_p,
           homeAbout_p1: homeAbout_p1,
           homeAbout_p2: homeAbout_p2,
-          homeButton1_link: homeButton1_link,
-          homeButton1_text: homeButton1_text,
-          homeButton2_link: homeButton2_link,
-          homeButton2_text: homeButton2_text,
-          homeButton3_link: homeButton3_link,
-          homeButton3_text: homeButton3_text,
-          homeButton4_link: homeButton4_link,
-          homeButton4_text: homeButton4_text,
+          homeButtons: [
+            { link: homeButton1_link, text: homeButton1_text },
+            { link: homeButton2_link, text: homeButton2_text },
+            { link: homeButton3_link, text: homeButton3_text },
+            { link: homeButton4_link, text: homeButton4_text },
+          ],
           homeExplore_text: homeExplore_text,
           homeHighlights_content2: homeHighlights_content2,
           homeMap_text: homeMap_text
-        })
-        
+        });
+  
       })
       .catch((err) => console.log(err));
   }, []);
@@ -470,10 +468,19 @@ function Home() {
 
             <div className="homeExplore_borderBot"></div>
           </div>
-
+                      
           {/**BUTTONS */}
           <div className="homeButtons">
-            <PinButtons data={state} buttons={buttons}/>
+            <Stack wrap margin="8% 0%">
+              {state.homeButtons.map((button, index) => (
+                <PinButtons
+                  key={index}
+                  button={buttons[index]} 
+                  link={button.link}
+                  text={button.text}
+                />
+              ))}
+            </Stack>
             {/* <Link to={state.homeButton1_link}>
               <div className="homeButtons_button homeButtons_button1">
                 <img src={button1} alt="button_2" />
