@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import './Home.css';
 import Map from './Map';
 import './OverlayVid.css';
@@ -12,8 +11,6 @@ import museo from './res/museo.png';
 import mag from './res/mag.png';
 import astro from './res/astro.png';
 
-import toform from './res/toform.png';
-import aboutpeople from './res/aboutpeople.png';
 import minorityrightsplank from './res/minority_rights_plank.png';
 import button1 from '../../assets/res/button-why-the-nwc-matters.png';
 import button2 from '../../assets/res/button-discover.png';
@@ -30,6 +27,8 @@ import { Stack } from '../../Components/Stack';
 import { useGlobalContext } from '../../context/GlobalProvider';
 import ReactMarkdown from 'react-markdown'
 import { PinButtons } from '../../Components/PinButtons/PinButtons'
+import { HomeBanner } from './components/HomeBanner'
+import { HomeAbout } from './components/HomeAbout'
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -55,7 +54,6 @@ function Home() {
 
   const overlaymp4 = process.env.REACT_APP_OVERLAYMP4; 
 
-  const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
   const [homeDowntown, setHomeDowntown] = useState([]);
   const [homeThirdward_uh, setHomeThirdward_uh] = useState([]);
   const [homeMuseum_district, setHomeMuseum_district] = useState([]);
@@ -269,68 +267,11 @@ function Home() {
 
       {!globalState.video ? (
         <div className="home">
-          {/**SPLASH */}
-          <div className="homeSplash">
-            <div className="homeSplash_toForm">
-              <img src={toform} alt="conference_logo" />
-            </div>
-            <div className="homeSplash_card">
-              <Typography color="primary.other.white" type="title" fontSize='96'>Sharing Stories from 1977</Typography>
-              {/* <h3>Sharing Stories from 1977</h3> */}
-              <div className="homeSplash_cardHr"></div>
-              <Typography color="primary.other.white" type="heading-1" fontSize='64'>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</Typography>
-              {/* <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p> */}
-            </div>
-          </div>
+          {/**Home Banner */}
+          <HomeBanner />
 
           {/**ABOUT */}
-          <div className="homeAbout">
-            <div className="homeAbout_beigeBackdrop"></div>
-            <div className="homeAbout_content">
-              <div className="homeAbout_card">
-                <div className="homeAbout_headerBackdrop"></div>
-                <div className="homeAbout_header">
-                  <Typography color="primary.other.black" type="heading-1" fontSize='96'>ABOUT THE PROJECT</Typography>
-                </div>
-                {/* <p className="homeAbout_header">ABOUT THE PROJECT</p> */}
-                <div className="homeAbout_cardHr"></div>
-
-                {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
-                <div className="homeAbout_peas">
-                  <div className="homeAbout_p1">
-                  <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></Typography>
-                  </div>
-                  {/* <p className="homeAbout_p1"><ReactMarkdown>{state.homeAbout_p1}</ReactMarkdown></p> */}
-                  {homeAboutReadmore ? (
-                    <div className="homeAbout_p2">
-                    <Typography color="primary.other.black" type="paragraph-1" fontSize='24'><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></Typography>
-
-                    </div>
-                    // <p className="homeAbout_p2"><ReactMarkdown>{state.homeAbout_p2}</ReactMarkdown></p>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                <p
-                  className="homeAbout_readmore"
-                  onClick={(e) => setHomeAboutReadmore(!homeAboutReadmore)}
-                >
-                  READ {homeAboutReadmore ? 'LESS' : 'MORE'}
-                </p>
-              </div>
-
-              <div className="homeAbout_chicks">
-                <img src={aboutpeople} alt="female_athletes" />
-                <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
-                  <p title={state.aboutImgCredit_more}>
-                    {/* PHOTO BY {state.homeAboutImgCredit} */}
-                    PHOTO BY {state.aboutImgCredit}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="homeAbout_border"></div>
+          <HomeAbout p1={state.homeAbout_p1} p2={state.homeAbout_p2} ImgCredit_more={state.aboutImgCredit_more} ImgCredit={state.aboutImgCredit}/>
 
           {/**MAP */}
 
