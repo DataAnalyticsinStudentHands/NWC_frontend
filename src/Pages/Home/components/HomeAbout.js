@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown'; 
 import aboutpeople from '../res/aboutpeople.png';
+import PropTypes from 'prop-types';
+
 import './HomeAbout.css'
 
 export const HomeAbout = ( { p1, p2, ImgCredit_more, ImgCredit }) => {
@@ -51,4 +53,11 @@ export const HomeAbout = ( { p1, p2, ImgCredit_more, ImgCredit }) => {
     </div>
     
   );
+};
+
+HomeAbout.propTypes = {
+    p1: PropTypes.string,
+    p2: PropTypes.string,
+	ImgCredit: PropTypes.string,
+    ImgCredit_more: PropTypes.string
 };
