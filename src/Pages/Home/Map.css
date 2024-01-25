@@ -302,6 +302,12 @@ POPUP
   margin-top: 20rem;
 }
 
+.Map-Source-contents ul {
+  padding-left: 40rem;
+  font-size: calc(16*var(--xUnit));
+
+}
+
 .Map-Source .toggle::after {
   margin-left: 40rem;
   content: "\2303";
