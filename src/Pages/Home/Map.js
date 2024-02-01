@@ -149,21 +149,21 @@ function Map({mapImg, points}) {
             <div className="homeMap_popupDescription">
               <ReactMarkdown>{state.description}</ReactMarkdown>
               <Collapsible label="SOURCES" className="Map-Source" contentClassName="Map-Source-contents">
-  <ul>
-    {state.sources.map((source, index) => (
-      <li key={index}>
-        <p>
-          <strong>{source.SourceName && `${source.SourceName}: `}</strong>
-          {source.LastName && `${source.LastName}, `}
-          {source.FirstName && `${source.FirstName}, `}
-          {source.Title && `${source.Title}, `}
-          {source.Date && `${source.Date}, `}
-          {source.Description && `${source.Description}`}
-        </p>
-      </li>
-    ))}
-  </ul>
-</Collapsible>
+                <ul>
+                  {state.sources.map((source, index) => (
+                    <li key={index}>
+                      <p>
+                        <strong>{source.SourceName && `${source.SourceName}: `}</strong>
+                        {source.LastName && `${source.LastName}, `}
+                        {source.FirstName && `${source.FirstName}, `}
+                        {source.Title && `${source.Title}, `}
+                        {source.Date && `${source.Date}, `}
+                        {source.Description && `${source.Description}`}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </Collapsible>
             </div>
           </div>
         :""}

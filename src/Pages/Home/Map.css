@@ -272,7 +272,7 @@ POPUP
   font-size: calc(20*var(--xUnit));
 }
 
-/* COLLAPSIBLE */
+/* MAP SOURCES */
 
 .Map-Source {
   border-radius: 0px;
