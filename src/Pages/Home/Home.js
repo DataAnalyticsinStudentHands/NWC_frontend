@@ -223,6 +223,7 @@ function Home() {
     .catch(err => console.log(err));
 }, []); 
 
+
   return (
     <>
       <div
@@ -262,7 +263,11 @@ function Home() {
       </div>
 
       {!globalState.video ? (
+        
         <div className="home">
+          <button className="scroll-to-top" onClick={scroll}>
+            <div className="arrow-up"></div>
+          </button>
           {/**Home Banner */}
           <HomeBanner />
 

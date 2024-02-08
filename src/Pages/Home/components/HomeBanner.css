@@ -1,43 +1,58 @@
 .homeBanner {
-    display: flex;
-    background: url('../../../assets/res/mapbg.png');
-    padding-left: 160rem;
-    padding-top: 156.33rem;
-    padding-bottom: 106.17rem;
+  display: flex;
+  background: url('../../../assets/res/mapbg.png');
+  padding-left: 160rem;
+  padding-top: 156.33rem;
+  padding-bottom: 106.17rem;
+}
+
+.homeBanner_toForm img {
+  width: 799.77rem;
+}
+
+.homeBanner_card {
+  width: 696.16rem;
+  height: 640.29rem;
+  margin-left: 114rem;
+  background-color: var(--colorLightBlue);
+  color: white;
+  text-align: center;
+  padding-top: 19.45rem;
+}
+
+.homeBanner_card h3 {
+  font-family: 'subway_ds';
+  font-size: 96rem;
+  width: 552rem;
+  margin-left: 72rem;
+}
+
+.homeBanner_cardHr {
+  width: 582.95rem;
+  height: 6rem;
+  background-color: #da4c4c;
+  margin-left: 56.82rem;
+  margin-bottom: 22rem;
+}
+
+.homeBanner_card p {
+  font-family: 'babas_neue';
+  font-size: 65rem;
+  margin-top: 41.47rem;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .homeBanner {
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Align items to center horizontally */
+    padding-left: 0;
   }
-  
-  .homeBanner_toForm img {
-    width: 799.77rem;
-  }
-  
+
   .homeBanner_card {
-    width: 696.16rem;
-    height: 640.29rem;
-    margin-left: 114rem;
-    background-color: var(--colorLightBlue);
-    color: white;
-    text-align: center;
-    padding-top: 19.45rem;
+    margin-left: 0; /* Remove left margin */
+    margin-top: 20px; /* Add top margin to separate from toForm */
   }
-  
-  .homeBanner_card h3 {
-    font-family: 'subway_ds';
-    font-size: 96rem;
-    width: 552rem;
-    margin-left: 72rem;
-  }
-  
-  .homeBanner_cardHr {
-    width: 582.95rem;
-    height: 6rem;
-    background-color: #da4c4c;
-    margin-left: 56.82rem;
-    margin-bottom: 22rem;
-    /* margin-top: 22rem; */
-  }
-  
-  .homeBanner_card p {
-    font-family: 'babas_neue';
-    font-size: 65rem;
-    margin-top: 41.47rem;
-  }
+
+
+}

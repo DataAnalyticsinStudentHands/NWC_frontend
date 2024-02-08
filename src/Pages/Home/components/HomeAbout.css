@@ -127,3 +127,124 @@
     background-color: var(--colorDeepOrange);
     border-bottom: 25rem solid var(--colorDeepYellow); /*low*/
   }
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .homeAbout {
+    flex-direction: column; /* Change to column layout */
+
+  }
+
+  .homeAbout_beigeBackdrop {
+    height: 2900rem;
+    width: 88%;
+    background-color: var(--colorBeige);
+  }
+
+  
+  .homeAbout_card {
+    width: 235rem;
+    min-height: 730rem;
+    height: fit-content;
+    border: 30rem solid var(--colorDeepRed);
+    margin-left: 46.78rem;
+    margin-top: 230rem;
+    padding-bottom: 56rem;
+    margin-bottom: 20rem;
+  }
+
+  .homeAbout_content {
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Align items horizontally */
+  }
+  
+  .homeAbout_card {
+    width: 80%; /* Occupy full width of the parent container */
+    margin-top: -1700rem;
+  }
+  
+  .homeAbout_chicks {
+    margin-top: 100rem; /* Adjust as needed */
+  }
+
+  .homeAbout_header {
+    font-family: 'babas_neue', 'normal';
+    font-size: 8vw;
+    margin-left: 150rem;
+    margin-top: -136rem;
+  }
+  
+  .homeAbout_p1,
+  .homeAbout_p2 {
+    
+    font-family: 'neobulletin', 'normal';
+    font-weight: bold;
+    font-size: 2.5vw;
+    width: 100%;
+    padding-left: 143rem;
+    
+  }
+
+  .homeAbout_headerBackdrop {
+    background-color: var(--colorBeige);
+    height: 96rem;
+    width: 1054rem;
+    margin-left: 260rem;
+    margin-top: -62rem;
+    overflow-y: hidden;
+  }
+
+  .homeAbout_peas {
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 1100rem;
+  }
+
+  .homeAbout_readmore {
+    font-size: 6vw;
+    font-family: var(--fontBabasNeue);
+    margin-left: 1000rem;
+    margin-top: 50rem;
+  }
+  
+  .homeAbout_readmore:hover {
+    color: var(--colorDeepRed);
+    cursor: pointer;
+  }
+
+  .homeAbout_cardHr {
+    width: 900rem;
+    background-color: var(--colorDeepRed);
+    border-top: 15rem solid var(--colorDeepRed);
+    border-bottom: 10rem solid var(--colorDeepOrange);
+    margin-left: 350rem;
+    margin-top: -4rem;
+  }
+
+  .homeAbout_imgCred {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'babas_neue', 'normal';
+    font-size: 2vw;
+    width: fit-content;
+    min-width: 323rem;
+    height: 84rem;
+    background-color: var(--colorDarkBlue);
+    margin-left: 900rem;
+    color: var(--colorBeige);
+    margin-top: -99rem;
+    position: relative;
+    text-align: right;
+    padding: 12rem;
+    margin-bottom: 15rem;
+  }
+  
+  .homeAbout_border {
+    width: 100vw;
+    border-top: 65rem solid var(--colorDeepRed); /*high*/
+    height: 200rem; /*mid*/
+    background-color: var(--colorDeepOrange);
+    border-bottom: 65rem solid var(--colorDeepYellow); /*low*/
+  }
+}
