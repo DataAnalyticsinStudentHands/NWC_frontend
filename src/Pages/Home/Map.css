@@ -271,3 +271,56 @@ POPUP
   color: var(--colorLightBlue);
   font-size: calc(20*var(--xUnit));
 }
+
+/* MAP SOURCES */
+
+.Map-Source {
+  border-radius: 0px;
+}
+
+.Map-Source .toggle {
+  font-size: calc(16*var(--xUnit));
+  font-weight: bold;
+  color: var(--colorWhite);
+  text-align: left;
+  padding-left: 0px; 
+  position: relative; /* Added relative positioning */
+}
+
+.Map-Source .Map-Source-contents {
+  font-size: 45rem;
+  font-weight: normal;
+  color: var(--colorWhite);
+  margin-top: -40rem;
+}
+
+.Map-Source .Map-Source-contents p {
+  font-family: var(--fontMontserrat);
+  font-size: calc(16*var(--xUnit));
+  color: var(--colorWhite);
+  margin-bottom: 20rem;
+  margin-top: 20rem;
+}
+
+.Map-Source-contents ul {
+  padding-left: 40rem;
+  font-size: calc(16*var(--xUnit));
+
+}
+
+.Map-Source .toggle::after {
+  margin-left: 40rem;
+  content: "\2303";
+  font-size: calc(24*var(--xUnit));
+  display: inline-block;
+  transition: transform 0.3s;
+  transform-origin: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-40%, -68%) rotate(180deg);
+}
+
+.Map-Source.active .toggle::after {
+  transform: translate(-48%, -40%) rotate(0deg);
+}

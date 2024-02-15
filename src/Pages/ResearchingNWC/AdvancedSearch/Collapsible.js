@@ -3,8 +3,12 @@ import React, { useState } from "react";
 function Collapsible(props) {
   const [isOpen, setIsOpen] = useState(false);
 
+  // Use the provided className prop if available, otherwise use the default value
+  const containerClassName = props.className ? props.className : "Collapsible";
+  const contentClassName = props.contentClassName ? props.contentClassName : "content";
+
   return (
-    <div className={`Collapsible ${isOpen ? "active" : ""}`}>
+    <div className={`${containerClassName} ${isOpen ? "active" : ""}`}>
       <button
         type="button"
         className="toggle"
@@ -12,7 +16,7 @@ function Collapsible(props) {
       >
         {props.label}
       </button>
-      {isOpen && <div className="content">{props.children}</div>}
+      {isOpen && <div className={contentClassName}>{props.children}</div>}
     </div>
   );
 }
