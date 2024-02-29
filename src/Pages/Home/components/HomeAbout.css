@@ -164,7 +164,7 @@
   }
   
   .homeAbout_chicks {
-    margin-top: 100rem; /* Adjust as needed */
+    margin-top: -20rem; /* Adjust as needed */
   }
 
   .homeAbout_header {
@@ -233,11 +233,10 @@
     background-color: var(--colorDarkBlue);
     margin-left: 900rem;
     color: var(--colorBeige);
-    margin-top: -99rem;
+    margin-top: -89rem;
     position: relative;
     text-align: right;
     padding: 12rem;
-    margin-bottom: 15rem;
   }
   
   .homeAbout_border {

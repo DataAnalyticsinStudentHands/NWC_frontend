@@ -89,3 +89,49 @@
     background-color: #142f45;
     margin-left: calc(135.5 * var(--xUnit));
   }
+
+  @media screen and (max-width: 768px) {
+
+    .homeMap_card {
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(1750 * var(--xUnit));
+      min-height: calc(329 * var(--xUnit));
+      height: fit-content;
+      border: calc(50 * var(--xUnit)) solid var(--colorDeepRed);
+      padding-bottom: calc(34 * var(--xUnit));
+    }
+
+    .homeMap_headerBackdrop {
+      width: 860rem;
+      height: 96rem;
+      background-color: white;
+      margin-left: 58.92rem;
+      margin-top: -80rem;
+    }
+    
+    .homeMap_header {
+      font-family: 'babas_neue', 'normal';
+      font-size: 7vw;
+      margin-top: -86rem;
+      margin-left: 100rem;
+    }
+    
+    .homeMap_cardHr {
+      background-color: var(--colorDeepRed);
+      border-top: 15rem solid var(--colorDeepRed);
+      border-bottom: calc(10 * var(--xUnit)) solid var(--colorDeepOrange);
+      width: calc(700 * var(--xUnit));
+      margin-left: calc(100 * var(--xUnit));
+    }
+    
+    .homeMap_text {
+      font-size: 2.9vw;
+      font-family: 'neobulletin', 'normal';
+      font-weight: bold;
+      width: calc(1400 * var(--xUnit));
+      margin-left: calc(80 * var(--xUnit));
+      margin-top: calc(54.67 * var(--xUnit));
+      text-align: left;
+    }
+  }

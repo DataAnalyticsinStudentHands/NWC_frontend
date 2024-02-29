@@ -81,3 +81,79 @@
     width: 100vw;
     background-color: var(--colorDeepRed);
   }
+
+  @media screen and (max-width: 768px) {
+    .homeExplore_card {
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(1700 * var(--xUnit));
+      min-height: calc(329 * var(--xUnit));
+      height: fit-content;
+      border: calc(40 * var(--xUnit)) solid var(--colorDeepRed);
+      padding-bottom: calc(34 * var(--xUnit));
+    }
+
+    .homeExplore_header {
+      font-size: 9vw;
+      margin-top: calc(-1 * 96 * var(--xUnit));
+      font-family: 'babas_neue', 'normal';
+      margin-left: calc(330 * var(--xUnit));
+    }
+
+    .homeExplore_headerBackdrop {
+      width: calc(1100 * var(--xUnit));
+      height: calc(96 * var(--xUnit));
+      background-color: var(--colorBeige);
+      margin-top: calc(-1 * 70 * var(--xUnit));
+      margin-left: calc(260 * var(--xUnit));
+    }
+
+    .homeExplore_hr {
+      width: calc(910 * var(--xUnit));
+      background-color: var(--colorDeepRed);
+      margin-left: calc(340 * var(--xUnit));
+      margin-top: calc(15.94 * var(--xUnit));
+      border-top: calc(15 * var(--xUnit)) solid var(--colorDeepRed);
+      border-bottom: calc(10 * var(--xUnit)) solid var(--colorDeepOrange);
+    }
+
+    .homeExplore_text {
+      font-size: 2.9vw;
+      margin-top: calc(29.67 * var(--xUnit));
+      font-family: 'neobulletin', 'normal';
+      font-weight: bold;
+      width: calc(1400 * var(--xUnit));
+      text-align: left;
+    }
+
+    .homeExplore_img {
+      margin-top: calc(44.74 * var(--xUnit));
+      margin-left: calc(60 * var(--xUnit));
+      height: calc(820 * var(--xUnit));
+      overflow-y: hidden;
+      overflow-x: hidden;
+    }
+    
+    .homeExplore_img img {
+      position: relative;
+      left: 0;
+      top: 0;
+      width: calc(1800 * var(--xUnit));
+    }
+    
+    .homeExplore_imgSrc {
+      position: relative;
+      width: calc(532 * var(--xUnit));
+      height: calc(84 * var(--xUnit));
+      background-color: var(--colorDarkBlue);
+      color: var(--colorBeige);
+      font-size: 2.8vw;
+      font-family: 'babas_neue', 'normal';
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: calc(-1 * 84 * var(--xUnit));
+    }
+
+  }
+

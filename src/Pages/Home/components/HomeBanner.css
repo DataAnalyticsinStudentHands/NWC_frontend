@@ -52,7 +52,42 @@
   .homeBanner_card {
     margin-left: 0; /* Remove left margin */
     margin-top: 20px; /* Add top margin to separate from toForm */
+    margin-bottom: 100rem;
+    width: 70%;
+    order: -1; 
+    height: 1200rem;
+
+
   }
+
+  .homeBanner_toForm img {
+    width: 799.77rem;
+  }
+
+  .homeBanner_card h3 {
+    font-family: 'subway_ds';
+    font-size: 160rem;
+    width: 1000rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50rem;
+  }
+  
+  .homeBanner_cardHr {
+    width: 1000rem;
+    height: 15rem;
+    background-color: #da4c4c;
+    margin-left: 240rem;
+    margin-bottom: 22rem;
+    margin-top: 60rem;
+  }
+  
+  .homeBanner_card p {
+    font-family: 'babas_neue';
+    font-size: 120rem;
+    margin-top: 60rem;
+  }
+
 
 
 }
