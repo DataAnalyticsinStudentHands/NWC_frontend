@@ -136,7 +136,7 @@ function Home() {
               const 
                   {attributes:
                     {x, y, Name, Description, citation1, citation2, citation3, 
-                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3, sources}} = p;
               const p2 = [];
               
               p2[0] = Name;
@@ -161,6 +161,7 @@ function Home() {
               //console.log(p);
               p2[14] = citation2 !== undefined ? citation2 : '';
               p2[15] = citation3 !== undefined ? citation3 : '';
+              p2[16] = sources
               //p2[16] = p.citation4 !== undefined ? p.citation4 : "";
               return p2;
             })

@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import ReactMarkdown from 'react-markdown';
+import Collapsible from '../ResearchingNWC/AdvancedSearch/Collapsible';
 
 import './Map.css';
 import maptick from './res/maptick.png';
@@ -19,13 +20,14 @@ function Map({mapImg, points}) {
     img3: '',
     caption1: '',
     caption2: '',
-    caption3: ''
+    caption3: '',
+    sources: ''
   });
   // 2nd state to hold hover status
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
-
+  console.log(state.sources)
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}
@@ -54,7 +56,8 @@ function Map({mapImg, points}) {
               img3: p[11],
               caption1: p[12],
               caption2: p[14],
-              caption3: p[15]
+              caption3: p[15],
+              sources: p[16]
             });
           }}
         >
@@ -91,7 +94,9 @@ function Map({mapImg, points}) {
               img3: p[11],
               caption1: p[12],
               caption2: p[14],
-              caption3: p[15]
+              caption3: p[15],
+              sources: p[16]
+
             });
         }} src={maptick} alt="_" />
           <div className="homeMap_dotLabel">{p[0]}</div>
@@ -143,6 +148,22 @@ function Map({mapImg, points}) {
             <div className="homeMap_popupLocation">{popup}</div>
             <div className="homeMap_popupDescription">
               <ReactMarkdown>{state.description}</ReactMarkdown>
+              <Collapsible label="SOURCES" className="Map-Source" contentClassName="Map-Source-contents">
+                <ul>
+                  {state.sources.map((source, index) => (
+                    <li key={index}>
+                      <p>
+                        <strong>{source.SourceName && `${source.SourceName}: `}</strong>
+                        {source.LastName && `${source.LastName}, `}
+                        {source.FirstName && `${source.FirstName}, `}
+                        {source.Title && `${source.Title}, `}
+                        {source.Date && `${source.Date}, `}
+                        {source.Description && `${source.Description}`}
+                      </p>
+                    </li>
+                  ))}
+                </ul>
+              </Collapsible>
             </div>
           </div>
         :""}
