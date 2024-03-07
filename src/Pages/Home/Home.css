@@ -331,13 +331,13 @@ BUTTONS
 HIGHLIGHTS
 */
 
-.homeLaunch {
+/* .homeLaunch {
   background: url("../../assets/res/mapbg.png");
   height: calc(1000*var(--xUnit));
   padding-top: calc(212*var(--xUnit));
   text-align: center;
 
-}
+} */
 
 /* .homeLaunch h1{
   font-family: 'babas_neue', 'normal';
@@ -346,23 +346,23 @@ HIGHLIGHTS
   text-align: center;
 } */
 
-.homeLaunch p{
+/* .homeLaunch p{
   font-family: 'neobulletin';
   font-size: calc(30*var(--xUnit));
   text-align: center;
-}
+} */
 
-.homeLaunchPanel{
+/* .homeLaunchPanel{ */
   /* display: flex; */
-  justify-content: center;
+  /* justify-content: center;
   padding-top: calc(100*var(--xUnit));
   padding: 40rem 120rem;
   width: 80%;
   margin: 60rem auto;
-}
+} */
 
 
-.homeLaunchPanel img{
+/* .homeLaunchPanel img{
     display: block;
     width: 350rem;
     margin-right: auto;
@@ -374,7 +374,7 @@ HIGHLIGHTS
 
 .homeLaunchPanel::-webkit-scrollbar {
   width: 10px;
-}
+} */
 
 
 /* Default settings for the scroll-to-top button */
@@ -388,20 +388,31 @@ HIGHLIGHTS
     display: block; /* Show the button for smaller screens */
     z-index: 1;
     position: fixed;
-    right: 60px; /* Adjust the distance from the right */
+    right: 10vw; /* Adjust the distance from the right as a percentage */
+    bottom: 10vh; /* Adjust the distance from the bottom as a percentage */
     background-color: #B22524;
-    width: 30px;
-    height: 30px;
+    min-width: 40px; /* Set a minimum width for the button */
+    min-height: 40px; /* Set a minimum height for the button */
     border: none;
     border-radius: 50%;
     cursor: pointer;
   }
   
   .arrow-up {
-    border-left: 5px solid transparent; /* Adjust size to form triangle */
-    border-right: 5px solid transparent; /* Adjust size to form triangle */
-    border-top: 8px solid white; /* Adjust size to form triangle */
-    transform: rotate(180deg);
+    position: relative; /* Required for ::before pseudo-element */
+    transform: rotate(270deg);
+  }
+
+  .arrow-up::before {
+    content: ''; /* Required for pseudo-element */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
   }
   
   .homeButtons_dots1 {

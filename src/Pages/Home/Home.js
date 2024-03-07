@@ -18,8 +18,6 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
-import Carousel3 from '../../Components/Carousel/Carousel3';
-import { Typography } from '../../Components/Typography'
 import { Stack } from '../../Components/Stack';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
@@ -28,6 +26,7 @@ import { HomeBanner } from './components/HomeBanner'
 import { HomeAbout } from './components/HomeAbout'
 import { HomeMap } from './components/HomeMap'
 import { HomeExplore } from './components/HomeExplore'
+import { HomeHighlights } from './components/HomeHighlights'
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -340,13 +339,7 @@ function Home() {
           </div>
 
           {/**HIGHLIGHTS */}
-      <div className="homeLaunch">
-        <Typography color="primary.dark.red" type="heading-1" fontSize='80'>SITE HIGHLIGHTS</Typography>
-        {/* <h1>SITE HIGHLIGHTS</h1> */}
-      <div className='homeLaunchPanel'>
-        <Carousel3 images={images}/>
-      </div>
-    </div>
+          <HomeHighlights images={images}/>
   </div>
       ) : (
         ''
