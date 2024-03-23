@@ -26,7 +26,7 @@ function d2card(datum) {
         featured: datum.attributes.featured,
         profilepic,
     };
-};
+}
 
 export function loadcards(data, setState) {
     

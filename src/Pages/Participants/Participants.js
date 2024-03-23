@@ -1,4 +1,3 @@
-import React from 'react'
 import './Participants.css';
 import BackToButton from '../../Components/Buttons/backTo';
 import ListOf from '../../Components/ListOf/listOf';

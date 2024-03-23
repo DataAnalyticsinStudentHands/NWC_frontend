@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import video_placeholder from "./res/video_placeholder.png"
 import oral_histories_bannerpic from './res/oral_histories_bannerpic.png';
 import oral_histories_button from "../../assets/res/button-oral-histories.png";

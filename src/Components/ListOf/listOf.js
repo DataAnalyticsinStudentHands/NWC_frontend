@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
 import "./listOf.css";
 import { CSVLink } from "react-csv";
 import { StateSelect } from '../../Components/StateSelect/StateSelect'
@@ -113,12 +113,12 @@ function ListOf(props) {
 							letter.includes(
 								stateList.attributes.LastName[0].toLowerCase()
 							)
-					  )
+					)
 					: stateChoices.filter((stateList) =>
 							letter.includes(
 								stateList.attributes.LastName[0].toLowerCase()
 							)
-					  );
+					);
 			setListData(letterList);
 		}
 		if (dataType === "Organizations") {
@@ -129,7 +129,7 @@ function ListOf(props) {
 							letter.includes(
 								orgList.attributes.organizational_and_political[0].toLowerCase()
 							)
-					  );
+					);
 			setListData(letterList);
 		}
 	}
@@ -175,14 +175,14 @@ function ListOf(props) {
 										p.attributes.FirstName,
 										p.attributes.States,
 									]),
-							  ]
+							]
 							: [
 									["Organization"],
 									...listData.map((p) => [
 										p.attributes
 											.organizational_and_political,
 									]),
-							  ]
+							]
 					}
 					filename={
 						dataType === "Participants"
@@ -226,7 +226,7 @@ function ListOf(props) {
 									{participant.attributes.FirstName},{" "}
 									{participant.attributes.States}
 								</ul>
-						  ))
+						))
 						: listData.map((organization) => (
 								<ul key={Math.random()}>
 									{
@@ -234,7 +234,7 @@ function ListOf(props) {
 											.organizational_and_political
 									}
 								</ul>
-						  ))}
+						))}
 				</ul>
 			</div>
 		</div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import './Home.css';
 import Map from './Map';
@@ -50,7 +50,7 @@ const superSorter = (list) => {
 function Home() {
   const [globalState, globalDispatch] = useGlobalContext();
 
-  const overlaymp4 = process.env.REACT_APP_OVERLAYMP4; 
+  const overlaymp4 = process.env.REACT_APP_API_URL + "/uploads/overlayvid_compressed_381cfa05b6.mp4";
 
   const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
   const [homeDowntown, setHomeDowntown] = useState([]);
@@ -239,7 +239,7 @@ function Home() {
       >
         <p
           className="overlay_vid_skip"
-          onClick={(e) => {
+          onClick={() => {
             globalDispatch('VIDEO_OFF');
             scroll();
           }}
@@ -279,7 +279,7 @@ function Home() {
             <div className="homeSplash_card">
               <h3>Sharing Stories from 1977</h3>
               <div className="homeSplash_cardHr"></div>
-              <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p>
+              <p>PUTTING THE NATIONAL WOMEN&apos;S CONFERENCE ON THE MAP</p>
             </div>
           </div>
 
@@ -303,7 +303,7 @@ function Home() {
                 </div>
                 <p
                   className="homeAbout_readmore"
-                  onClick={(e) => setHomeAboutReadmore(!homeAboutReadmore)}
+                  onClick={() => setHomeAboutReadmore(!homeAboutReadmore)}
                 >
                   READ {homeAboutReadmore ? 'LESS' : 'MORE'}
                 </p>

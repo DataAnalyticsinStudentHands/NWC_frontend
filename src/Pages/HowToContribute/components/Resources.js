@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import ReactPlayer from "react-player";
 
@@ -64,14 +64,13 @@ export const Resources = () => {
 						? (dataObj.files[i].link = formObj[file.link_to_form])
 						: (dataObj.files[
 								i
-						  ].link = `/pdfviewer/${file.file.data.attributes.hash}.pdf`);
+						].link = `/pdfviewer/${file.file.data.attributes.hash}.pdf`);
 
 					Object.entries(IconObj).forEach(([key, value]) => {
 						file.title.toLowerCase().includes(key) &&
 							(dataObj.files[i].icon = value);
 					});
 				});
-				console.log(dataObj);
 				setData(dataObj);
 			});
 	}, [resource]);

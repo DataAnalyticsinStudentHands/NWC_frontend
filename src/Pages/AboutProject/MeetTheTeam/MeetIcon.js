@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import "./MeetIcon.css";
 
 function MeetIcon({img, imghover, name, role, pfp, popupText}) {
@@ -18,14 +18,14 @@ function MeetIcon({img, imghover, name, role, pfp, popupText}) {
     {
       popup
       ? <div className="meetIcon_popup">
-        <img class="popup_Img" src={pfp} alt={name}/>
+        <img className="popup_Img" src={pfp} alt={name}/>
         <div className="meetIcon_popupText">
         
           <div className="meetIcon_popupHeader">
             <div className='topLine'>
               <h3>{name}</h3>
               <div className='closeBorderIcon'>
-                <span id='close' onclick='this.parentNode.parentNode.remove(); return false;'>&#x2573;</span>
+                <span id='close' onClick='this.parentNode.parentNode.remove(); return false;'>&#x2573;</span>
               </div>
             </div>
             <p>{role}</p>

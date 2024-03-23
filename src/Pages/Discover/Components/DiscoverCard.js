@@ -1,4 +1,3 @@
-import React from 'react'
 import { Link } from 'react-router-dom';
 import "./DiscoverCard.css";
 import yellowlogo from "./yellowlogo.png";
@@ -75,7 +74,7 @@ function DiscoverCard({
                         <p className="discoverCard_state" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{state}</p>
                     </div>
                 </div>
-                <p className="discoverCard_bottom">National Women's Conference 1977</p>
+                <p className="discoverCard_bottom">National Women&apos;s Conference 1977</p>
             </div>
         </Link>
     )

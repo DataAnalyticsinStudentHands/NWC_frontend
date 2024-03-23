@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Layout1.css";
 
 function getSafe(arr, i) {
@@ -75,9 +74,11 @@ function layout1({props}) {
             <div className="layout1Sources">
                 <p className="layout1Sources_author">{props.author}</p>
                 <h2>Sources:</h2>
-                {props.sources.map(src => <p className="layout1Sources_src">
-                    {src}
-                </p>)}
+                {props.sources.map((src, index) => (
+                    <div key={index}>
+                        <p className="layout1Sources_src">{src}</p>
+                    </div>
+                    ))}
             </div>
         </div>
     )

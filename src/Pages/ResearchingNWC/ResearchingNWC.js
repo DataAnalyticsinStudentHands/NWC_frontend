@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
@@ -12,7 +12,6 @@ import {ResultTableMap} from './Components/ResultTableMap/ResultTableMap';
 import infoIcon from './res/Info Hover Icon.svg';
 
 import { Banner } from '../../Components/Banner';
-import { Typography } from '../../Components/Typography';
 import { StateSelect } from '../../Components/StateSelect/StateSelect';
 
 function ResearchingNWC() {
