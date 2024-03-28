@@ -46,11 +46,6 @@ SPLASH
   margin-top: 41.47rem;
 }
 
-/*
-ABOUT
-*/
-
-
 
 /*
 MAP
@@ -74,8 +69,6 @@ MAP
 }
 
 .homeMap_header {
-  /* font-family: 'babas_neue', 'normal';
-  font-size: 96rem; */
   margin-top: -116rem;
   margin-left: 42rem;
 }
@@ -89,13 +82,9 @@ MAP
 }
 
 .homeMap_text {
-  /* font-size: calc(24 * var(--xUnit));
-  font-family: 'neobulletin', 'normal';
-  font-weight: bold; */
   width: calc(1171.8 * var(--xUnit));
   margin-left: calc(32.01 * var(--xUnit));
   margin-top: calc(54.67 * var(--xUnit));
-  /* text-align: left; */
   margin-bottom: calc(25 * var(--xUnit));
 }
 
@@ -182,9 +171,7 @@ EXPLORE
 }
 
 .homeExplore_header {
-  /* font-size: calc(96 * var(--xUnit)); */
   margin-top: calc(-1 * 116 * var(--xUnit));
-  /* font-family: 'babas_neue', 'normal'; */
   margin-left: calc(110 * var(--xUnit));
 }
 
@@ -198,12 +185,8 @@ EXPLORE
 }
 
 .homeExplore_text {
-  /* font-size: calc(24 * var(--xUnit)); */
   margin-top: calc(29.67 * var(--xUnit));
-  /* font-family: 'neobulletin', 'normal'; */
-  /* font-weight: bold; */
   width: calc(559 * var(--xUnit));
-  /* text-align: left; */
   margin-left: calc(142.01 * var(--xUnit));
 }
 
@@ -254,8 +237,6 @@ BUTTONS
 
 .homeButtons_button {
   display: flex;
-  /* align-items: center;
-  position: absolute; */
   z-index: 1;
   background-color: white;
 }
@@ -327,55 +308,6 @@ BUTTONS
   right: 0;
 }
 
-/*
-HIGHLIGHTS
-*/
-
-/* .homeLaunch {
-  background: url("../../assets/res/mapbg.png");
-  height: calc(1000*var(--xUnit));
-  padding-top: calc(212*var(--xUnit));
-  text-align: center;
-
-} */
-
-/* .homeLaunch h1{
-  font-family: 'babas_neue', 'normal';
-  font-size: calc(80*var(--xUnit));
-  color: var(--colorDeepRed);
-  text-align: center;
-} */
-
-/* .homeLaunch p{
-  font-family: 'neobulletin';
-  font-size: calc(30*var(--xUnit));
-  text-align: center;
-} */
-
-/* .homeLaunchPanel{ */
-  /* display: flex; */
-  /* justify-content: center;
-  padding-top: calc(100*var(--xUnit));
-  padding: 40rem 120rem;
-  width: 80%;
-  margin: 60rem auto;
-} */
-
-
-/* .homeLaunchPanel img{
-    display: block;
-    width: 350rem;
-    margin-right: auto;
-    margin-left: auto;
-}
-.homeLaunchPanel a:hover {
-  opacity: .6;
-}
-
-.homeLaunchPanel::-webkit-scrollbar {
-  width: 10px;
-} */
-
 
 /* Default settings for the scroll-to-top button */
 .scroll-to-top {
@@ -388,8 +320,8 @@ HIGHLIGHTS
     display: block; /* Show the button for smaller screens */
     z-index: 1;
     position: fixed;
-    right: 10vw; /* Adjust the distance from the right as a percentage */
-    bottom: 10vh; /* Adjust the distance from the bottom as a percentage */
+    right: 10%;
+    bottom: 5%; /* Adjust the distance from the bottom as a percentage */
     background-color: #B22524;
     min-width: 40px; /* Set a minimum width for the button */
     min-height: 40px; /* Set a minimum height for the button */
@@ -427,10 +359,6 @@ HIGHLIGHTS
   }
   
 }
-
-
-
-
 
 /*
 THE CSS FOR HANDLING THE ACTUAL INTERACTIVE MAP CAN BE FOUND IN

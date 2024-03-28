@@ -56,16 +56,9 @@
     width: 70%;
     order: -1; 
     height: 1200rem;
-
-
-  }
-
-  .homeBanner_toForm img {
-    width: 799.77rem;
   }
 
   .homeBanner_card h3 {
-    font-family: 'subway_ds';
     font-size: 160rem;
     width: 1000rem;
     margin-left: auto;
@@ -76,18 +69,13 @@
   .homeBanner_cardHr {
     width: 1000rem;
     height: 15rem;
-    background-color: #da4c4c;
     margin-left: 240rem;
     margin-bottom: 22rem;
     margin-top: 60rem;
   }
   
   .homeBanner_card p {
-    font-family: 'babas_neue';
     font-size: 120rem;
     margin-top: 60rem;
   }
-
-
-
 }
