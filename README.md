@@ -18,7 +18,7 @@ For staging: use pm2 to serve the `build` directory
 
 ## Production
 
-For production, use the *package_production.json*, *App_production.js* and *Navigation_production.js* files.
+For production, use the *package_production.json* file.
 
 Run: `npm run build`
 
@@ -32,7 +32,7 @@ We are using [environment variables](https://create-react-app.dev/docs/adding-cu
 ```
 REACT_APP_API_URL = 
 REACT_APP_MAPBOX_ACCESS_TOKEN = 
-REACT_APP_OVERLAYMP4 =
+REACT_APP_PRODUCTION = false
 ```
 
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Layout3.css";
 import ReactMarkdown from 'react-markdown';
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import leftIcon from '../../ResearchingNWC/res/Left Button.svg'
 import rightIcon from '../../ResearchingNWC/res/Right Button.svg'
 import '../../Discover/Discover.css'

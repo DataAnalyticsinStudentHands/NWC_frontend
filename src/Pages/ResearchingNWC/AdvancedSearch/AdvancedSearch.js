@@ -674,7 +674,7 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1>race and ethnicity</h1>
                 <div className="item_EDU">
-                  {raceData.map((race, i) => {
+                  {raceData.map((race) => {
                     return (
                       <label className="advancedSearch_form-control" key={race}>
                       <input type="checkbox" value={race} {...register(`races.race`)} /> {race} </label>
@@ -759,7 +759,7 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
-                <h1> spouse's job/profession</h1>
+                <h1> spouse&apos;s job/profession</h1>
                 <div className="item">
                 <label className="advancedSearch_form-control">
                 <input type="text" {...register('spouse_careers.spouse_profession.$containsi')}/> </label>
@@ -873,7 +873,7 @@ function AdvancedSearch() {
                   <label className="advancedSearch_form-control">
                   <input type="checkbox" value="true" {...register('state_level_commission')}/>State </label>
                   <label className="advancedSearch_form-control">
-                  <input type="checkbox" value="true" {...register('federal_level_commission')}/>President's Commission on the Status of Women </label>
+                  <input type="checkbox" value="true" {...register('federal_level_commission')}/>President&apos;s Commission on the Status of Women </label>
                   </div>
               </div>
             </div>       

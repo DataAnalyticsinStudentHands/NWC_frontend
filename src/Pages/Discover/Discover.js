@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import "./Discover.css";
 import discoverButton from "../../assets/res/button-discover.png";
 import BannerCard from '../../Components/BannerCard/BannerCard';
@@ -222,7 +222,7 @@ function Discover() {
         <div className="discoverFeatured_cards">
           {featuredCards
             .filter(value => value.featured === 'true')
-            .map((value, index) => <DiscoverCard
+            .map((value) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
               href={`/Discover/${value.id}`}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import './Home.css';
 import './OverlayVid.css';
 
@@ -50,7 +50,7 @@ const superSorter = (list) => {
 function Home() {
   const [globalState, globalDispatch] = useGlobalContext();
 
-  const overlaymp4 = process.env.REACT_APP_OVERLAYMP4; 
+  const overlaymp4 = process.env.REACT_APP_API_URL + "/uploads/overlayvid_compressed_381cfa05b6.mp4";
 
   const [homeDowntown, setHomeDowntown] = useState([]);
   const [homeThirdward_uh, setHomeThirdward_uh] = useState([]);
@@ -233,7 +233,7 @@ function Home() {
       >
         <p
           className="overlay_vid_skip"
-          onClick={(e) => {
+          onClick={() => {
             globalDispatch('VIDEO_OFF');
             scroll();
           }}

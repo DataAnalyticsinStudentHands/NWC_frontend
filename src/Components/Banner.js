@@ -1,4 +1,3 @@
-import React from 'react';
 import PropTypes from 'prop-types';
 import imageLeftDemo from '../assets/res/button-research-the-nwc.png'
 import imageRightDemo from '../Pages/ResearchingNWC/res/component119.png'
