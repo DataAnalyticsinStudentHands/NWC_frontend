@@ -1,4 +1,3 @@
-import React from 'react';
 import toform from '../res/toform.png';
 import '../components/HomeBanner.css'
 
@@ -11,7 +10,7 @@ export const HomeBanner = () => {
         <div className="homeBanner_card">
           <h3>Sharing Stories from 1977</h3>
           <div className="homeBanner_cardHr"></div>
-          <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p>
+          <p>PUTTING THE NATIONAL WOMEN&apos;S CONFERENCE ON THE MAP</p>
         </div>
       </div>
     );

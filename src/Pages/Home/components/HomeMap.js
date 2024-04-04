@@ -1,5 +1,5 @@
 import ReactMarkdown from 'react-markdown'; 
-import React, { useState } from 'react';
+import { useState } from 'react';
 import Map from '../Map'
 import PropTypes from "prop-types";
 import './HomeMap.css'

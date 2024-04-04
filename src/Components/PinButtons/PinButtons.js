@@ -1,6 +1,5 @@
 import './PinButtons.css';
 import { Link } from 'react-router-dom';
-import { Stack } from '../../Components/Stack';
 
 export const PinButtons = ( { button, link, text}) => {
   return (

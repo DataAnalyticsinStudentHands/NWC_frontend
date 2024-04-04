@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ReactMarkdown from 'react-markdown'; 
 import aboutpeople from '../res/aboutpeople.png';
 import PropTypes from 'prop-types';
@@ -34,7 +34,7 @@ export const HomeAbout = ( { p1, p2, ImgCredit_more, ImgCredit }) => {
             </div>
             <p
             className="homeAbout_readmore"
-            onClick={(e) => setHomeAboutReadmore(!homeAboutReadmore)}
+            onClick={() => setHomeAboutReadmore(!homeAboutReadmore)}
             >
             READ {homeAboutReadmore ? 'LESS' : 'MORE'}
             </p>
