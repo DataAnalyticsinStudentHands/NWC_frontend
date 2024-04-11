@@ -1,4 +1,3 @@
-import React from "react";
 import PropTypes from 'prop-types';
 import researcher_button from "../res/researcher_button.png";
 import archivists_button from "../res/archivist_button.png";

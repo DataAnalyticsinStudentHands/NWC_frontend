@@ -1,4 +1,3 @@
-import React from 'react'
 import "./Layout2.css";
 
 function tryWrap(f) {
@@ -76,9 +75,11 @@ function Layout2({props}) {
             <div className="layout2Sources">
                 <p className="layout2Sources_author">{props.author}</p>
                 <h2>Sources:</h2>
-                {props.sources.map(src => <p className="layout2Sources_src">
-                    {src}
-                </p>)}
+                {props.sources.map((src, index) => (
+                    <div key={index}>
+                        <p className="layout2Sources_src">{src}</p>
+                    </div>
+                    ))}
             </div>
         </div>
     )

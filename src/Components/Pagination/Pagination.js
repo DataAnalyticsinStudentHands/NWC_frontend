@@ -1,4 +1,3 @@
-import React from 'react';
 import ReactPaginate from 'react-paginate';
 import LeftButtonIcon from './res/leftbutton.svg';
 import RightButtonIcon from './res/rightbutton.svg';

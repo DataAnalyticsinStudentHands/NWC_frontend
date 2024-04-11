@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import MeetIcon from './MeetIcon';
 import "./MeetTheTeam.css";
@@ -88,7 +88,7 @@ function MeetTheTeam() {
         <div
           key={k}
           className={`aboutTable_tab ${currentTab === lookup[k] ? 'aboutTable_tab--active' : ''}`}
-          onClick={e => setCurrentTab(lookup[k])}
+          onClick={() => setCurrentTab(lookup[k])}
         >
           <p>{lookup[k]}</p>
         </div>

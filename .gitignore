@@ -1,7 +1,3 @@
-# CUSTOM
-.env.js
-*.mp4
-
 # Logs
 logs
 *.log
@@ -127,8 +123,7 @@ package-lock.json
 
 yarn-debug.log*
 yarn-error.log*
-.vscode
-package_dev.json
+
+# custom
 .htaccess_dev
-App_dev.js
-Navigation_dev.js
+package_dev.json

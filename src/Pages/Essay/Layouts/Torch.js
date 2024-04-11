@@ -1,5 +1,3 @@
-import React from 'react';
-
 import "./Torch.css";
 import ReactMarkdown from 'react-markdown';
 

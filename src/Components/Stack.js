@@ -1,4 +1,3 @@
-import React from "react"
 import PropTypes from "prop-types"
 
 export const Stack = ({ children, spacing, direction, wrap, justifyContent, margin, ...props }) => {

@@ -1,4 +1,3 @@
-import React from 'react'
 import "./InfoVideo.css";
 
 function InfoVideo({src,title}) {
