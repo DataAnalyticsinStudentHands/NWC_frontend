@@ -320,7 +320,7 @@ BUTTONS
     display: block; /* Show the button for smaller screens */
     z-index: 1;
     position: fixed;
-    right: 10%;
+    right: 0%;
     bottom: 5%; /* Adjust the distance from the bottom as a percentage */
     background-color: #B22524;
     min-width: 40px; /* Set a minimum width for the button */
@@ -348,13 +348,13 @@ BUTTONS
   }
   
   .homeButtons_dots1 {
-    margin-top: calc(-7000 * var(--xUnit));
+    margin-top: calc(-6950 * var(--xUnit));
     margin-left: calc(15 * var(--xUnit));
   }
   
   .homeButtons_dots2 {
     right: 0;
-    margin-top: calc(-7000 * var(--xUnit));
+    margin-top: calc(-6950 * var(--xUnit));
     margin-right: calc(15 * var(--xUnit));
   }
   
