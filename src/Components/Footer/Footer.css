@@ -110,3 +110,99 @@
     width: 400rem;
     margin-bottom: 10rem;
   }
+
+  @media (max-width: 768px) {
+    .footer {
+        grid-template-columns: auto;
+        grid-template-rows: repeat(6, auto);
+        padding-left: 20rem;
+        padding-right: 20rem;
+    }
+
+    .footer_top {
+      margin-top: 50rem;
+      font-size: 200rem;
+      text-align: center
+    }
+
+    .home {
+      grid-column: 1 ;
+      grid-row: 1;
+      border-right: none;
+    }
+
+    .contact {
+      grid-column: 1;
+      grid-row: 2;
+      margin-left: 0;
+      border-right: none;
+    }
+
+    .donate {
+      grid-column: 1;
+      grid-row: 3;
+      margin-left: 0;
+      border-right: none;
+    }
+    
+    .social {
+      margin-top: 200rem;
+      grid-column: 1;
+      grid-row: 4;
+      display: grid;
+      grid-column-gap: 0; /* Adjust the value as needed */
+      margin-left: 0;
+    }
+    
+    .instagram {
+      grid-column: 1;
+      grid-row: 2;
+    }
+    
+    .twitter{
+      grid-column: 2;
+      grid-row: 2;
+    }
+    
+    .facebook{
+      grid-column: 3;
+      grid-row: 2;
+    }
+
+    .icon {
+      grid-column: 1 ;
+      grid-row: 5;
+      color: white;
+      font-size: 40rem;
+      margin-bottom: 50rem;
+    }
+
+    .icon img {
+      width: 600rem;
+    }
+    
+    .footer_bot {
+      grid-column: auto;
+      grid-row: auto;
+      font-size: 90rem;
+      color: white;
+      margin-bottom: 100rem;
+      padding-left: 50rem;
+      padding-right: 50rem
+    }
+
+    .footer_seal img {
+      width: 1200rem;
+      margin-bottom: 40rem;
+    }
+
+    .footer_support {
+      font-size: 90rem; 
+      color: white;
+      margin-bottom: 50rem;
+      padding-left: 300rem;
+      padding-right: 300rem;
+      font-weight: normal;
+    }
+  
+}

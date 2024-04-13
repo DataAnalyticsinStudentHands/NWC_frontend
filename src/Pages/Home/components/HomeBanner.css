@@ -1,0 +1,81 @@
+.homeBanner {
+  display: flex;
+  background: url('../../../assets/res/mapbg.png');
+  padding-left: 160rem;
+  padding-top: 156.33rem;
+  padding-bottom: 106.17rem;
+}
+
+.homeBanner_toForm img {
+  width: 799.77rem;
+}
+
+.homeBanner_card {
+  width: 696.16rem;
+  height: 640.29rem;
+  margin-left: 114rem;
+  background-color: var(--colorLightBlue);
+  color: white;
+  text-align: center;
+  padding-top: 19.45rem;
+}
+
+.homeBanner_card h3 {
+  font-family: 'subway_ds';
+  font-size: 96rem;
+  width: 552rem;
+  margin-left: 72rem;
+}
+
+.homeBanner_cardHr {
+  width: 582.95rem;
+  height: 6rem;
+  background-color: #da4c4c;
+  margin-left: 56.82rem;
+  margin-bottom: 22rem;
+}
+
+.homeBanner_card p {
+  font-family: 'babas_neue';
+  font-size: 65rem;
+  margin-top: 41.47rem;
+}
+
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .homeBanner {
+    flex-direction: column; /* Change to column layout */
+    align-items: center; /* Align items to center horizontally */
+    padding-left: 0;
+  }
+
+  .homeBanner_card {
+    margin-left: 0; /* Remove left margin */
+    margin-top: 20px; /* Add top margin to separate from toForm */
+    margin-bottom: 100rem;
+    width: 70%;
+    order: -1; 
+    height: 1200rem;
+  }
+
+  .homeBanner_card h3 {
+    font-size: 160rem;
+    width: 1000rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50rem;
+  }
+  
+  .homeBanner_cardHr {
+    width: 1000rem;
+    height: 15rem;
+    margin-left: 240rem;
+    margin-bottom: 22rem;
+    margin-top: 60rem;
+  }
+  
+  .homeBanner_card p {
+    font-size: 120rem;
+    margin-top: 60rem;
+  }
+}
