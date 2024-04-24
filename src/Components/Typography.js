@@ -6,7 +6,7 @@ export const Typography = ({
     color, bgColor,
     borderPosition,
     paddingTB, paddingLR,
-    textTransform,
+    textTransform, fontSize,
     ...props }) => {
 
     const styles = {
@@ -15,6 +15,7 @@ export const Typography = ({
         padding: `${paddingTB}em ${paddingLR}em`,
         [`border${borderPosition}`]: `0.3em solid #b32525`,
         textTransform: textTransform.toLowerCase(),
+        fontSize: `${fontSize}rem`,
     }
     props.style && Object.assign(styles, props.style);
 

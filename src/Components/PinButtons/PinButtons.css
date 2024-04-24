@@ -1,0 +1,43 @@
+.item_pin {
+  display: flex; /* Use flexbox to align items */
+  align-items: center;
+  background-color: white;
+  width: 45vw;
+}
+
+.item_pin:hover {
+  transform: scale(1.01);
+}
+
+.item_pin img {
+  width: 20vw;
+}
+
+.item_pin p {
+  font-family: 'neobulletin', 'normal';
+  color: var(--colorDarkBlue);
+  font-size: 24rem;
+  font-weight: bold;
+  margin-left: 10px; /* Add margin to separate button and text */
+}
+
+@media screen and (max-width: 768px) {
+  .item_pin {
+    flex-direction: column; /* Change flex direction to column */
+    align-items: center;
+    width: 100%; /* Adjust width to fit smaller screens */
+  }
+
+  .item_pin img {
+    width: 50vw; /* Adjust button width for smaller screens */
+    margin-bottom: 3vw; /* Add some space between button and text */
+  }
+
+  .item_pin p {
+    font-size: 3.5vw; /* Adjust font size for smaller screens */
+    margin-bottom: 8vw; /* Add some space between text and other elements */
+    margin-left: 10vw; /* Add left margin to the text */
+    margin-right: 10vw; /* Add right margin to the text */
+    text-align: center; /* Center align the text */
+  }
+}

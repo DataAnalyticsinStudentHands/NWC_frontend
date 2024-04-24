@@ -60,9 +60,6 @@ function Footer() {
                     
                 </div>
                 <div className="footer_top social">
-                    <div className="socialMedia">
-                        <p>SOCIAL MEDIA</p>
-                    </div>
                     <div className="instagram">
                         <a href={state.instagramLink}><img src={instagram} alt="instagram_logo"/></a>
                     </div>
