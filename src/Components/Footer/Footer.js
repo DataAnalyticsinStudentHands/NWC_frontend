@@ -79,7 +79,7 @@ function Footer() {
                 </div>
                 {state.paragraph}
             </div>
-        </div>
+    </div>  
     )
 }
 
