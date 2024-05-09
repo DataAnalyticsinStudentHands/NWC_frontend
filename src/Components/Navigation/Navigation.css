@@ -30,12 +30,20 @@
 .hamburger_icon {
   display: none;
   font-size: 35rem; /* Adjust as needed */
-  color: var(--colorLightBlue);
   cursor: pointer;
   position: absolute;
   right: 0; /* Adjust as needed */
-  top: 50rem; /* Adjust as needed */
-  margin-bottom: 20rem;
+  top: 0; /* Adjust as needed */
+  transition: none;
+  margin-right: 0;
+}
+
+.hamburger_icon_bg {
+  background-color: var(--colorLightBlue);
+  border-radius: 0;
+  height: 318rem;
+  margin-top: 0;
+  
 }
 
 .navigation_search {
@@ -130,21 +138,20 @@
     margin: 0;
   }
 
-  .hamburger_icon img {
-    width: 150rem; 
-    height: 150rem; 
-    object-fit: contain; 
-}
-
   .navigation_total {
     background-color: var(--colorDarkBlue); 
   }
 
-  /* Display the dove icon */
   .navigation_total .dove_icon {
     display: block;
     width: 330rem; 
     height: 300rem; 
     margin-left: 50rem;
 }
+
+  .dove_icon_container {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
 }

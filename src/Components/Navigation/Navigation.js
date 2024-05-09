@@ -2,7 +2,9 @@ import "./Navigation.css";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
-import hamburger from './res/hamburger.png'
+import hamburger_closed from './res/hamburger_closed.svg'
+import hamburger_opened from './res/hamburger_opened.svg'
+
 import dove from '../Footer/res/icon.png'
 
 function Navigation() {
@@ -43,18 +45,23 @@ function Navigation() {
 
   return (
     <div className="navigation_total">
-      <img src={dove} alt="Dove" className="dove_icon" />
-      {/* Hamburger button, visible only on smaller screens */}
+      <div className="dove_icon_container">
+      <Link to="/">
+        <img src={dove} alt="Dove" className="dove_icon" />
+      </Link> </div>
       <button
-        className="hamburger_icon"
-        onClick={toggleMenu}
+          className={`hamburger_icon ${isMenuOpen ? 'hamburger_icon_bg' : ''}`}
+          onClick={toggleMenu}
       >
-        <img src={hamburger} alt="Menu" />
+          <img
+              src={isMenuOpen ? hamburger_opened : hamburger_closed}
+              alt="Menu"
+          />
       </button>
       {/* Conditionally render navigation items */}
       {(isMenuOpen || window.innerWidth > 768) && <NavItems />}
-      <div className="navigation_border"></div>
-    </div>
+    <div className="navigation_border"></div>
+  </div>
   );
 }
 
