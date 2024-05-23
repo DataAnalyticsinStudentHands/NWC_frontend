@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import video_placeholder from "./res/video_placeholder.png"
 import oral_histories_bannerpic from './res/oral_histories_bannerpic.png';
 import oral_histories_button from "../../assets/res/button-oral-histories.png";
 import bible_women from './res/bible_women.png'
 import pro_plan_progress from './res/pro_plan_progress.png'
-import placeholder from './res/placeholder.png'
-import Carousel from './components/Carousel';
+// import placeholder from './res/placeholder.png'
+// import Carousel from './components/Carousel';
 import { ParticipantsTable } from './components/ParticipantsTable';
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Typography } from "../../Components/Typography"
 import InfoVideo from "../../Components/Avalon/InfoVideo"
+import { loadcards } from '../Discover/cardloader';
+import DiscoverCard from '../Discover/Components/DiscoverCard';
+
+
 
 function OralHistories() {
 
@@ -23,8 +27,15 @@ function OralHistories() {
 
     });
     
-    const [participants, setParticipants] = useState([])
+    // const [participants, setParticipants] = useState([])
     const [roles, setRoles] = useState([]);
+    // states from Discover component
+    const [cards, setCards] = useState([])
+    // const [dataLength, setDataLength] = useState()
+    const listOfCards = useRef([]);
+
+
+
     
     useEffect(() => {
 		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
@@ -51,28 +62,28 @@ function OralHistories() {
 
 			});
         }, [])
-    useEffect(() => {
-        fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?sort=lastname&populate=*"].join('/'))
-            .then((res) => res.json())
-            .then((data) => {
-            setParticipants(
-                data.data
-                .filter((d) => d.attributes.AvalonUrl !== null || d.attributes.VideoUrl !== null) // Filter out items with null AvalonURL
-                .map((d) => {
-                    const name = d.attributes.name;
-                    const id = d.id;
-                    const avalonURL = d.attributes.AvalonUrl || video_placeholder
-                    const state = d.attributes.state;
-                    const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
-                    const featured = d.attributes.featured
-                    const role = d.attributes.role
-                    const videoURL =  d.attributes.VideoUrl || video_placeholder
-                    return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
-                })
-            );
-            })
-            .catch((err) => console.log(err));
-        }, []); // eslint-disable-line
+    // useEffect(() => {
+    //     fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?sort=lastname&populate=*"].join('/'))
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //         setParticipants(
+    //             data.data
+    //             .filter((d) => d.attributes.AvalonUrl !== null || d.attributes.VideoUrl !== null) // Filter out items with null AvalonURL
+    //             .map((d) => {
+    //                 const name = d.attributes.name;
+    //                 const id = d.id;
+    //                 const avalonURL = d.attributes.AvalonUrl || video_placeholder
+    //                 const state = d.attributes.state;
+    //                 const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
+    //                 const featured = d.attributes.featured
+    //                 const role = d.attributes.role
+    //                 const videoURL =  d.attributes.VideoUrl || video_placeholder
+    //                 return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
+    //             })
+    //         );
+    //         })
+    //         .catch((err) => console.log(err));
+    //     }, []); // eslint-disable-line
 
         useEffect(() => {
         fetch([process.env.REACT_APP_API_URL, "api/nwc-roles?sort=role&populate=*"].join('/'))
@@ -92,6 +103,16 @@ function OralHistories() {
             .catch((err) => console.log(err));
         }, []); // eslint-disable-line
 
+        useEffect(() => {
+            fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?_limit=-1&populate=*`)
+              .then(response => response.json())
+              .then(data => {
+                loadcards(data.data, setCards);
+                // setDataLength(data.data.length)
+                listOfCards.current = data.data
+              }).catch(err => console.log(err));
+          }, []); // eslint-disable-line
+
     return (
         <Stack direction='column' spacing={10}>
             {/* BANNER */}
@@ -101,27 +122,28 @@ function OralHistories() {
                 imgRight={oral_histories_bannerpic}
                 imgCredit={state.imgCredit}
             />
-            {/* WHAT THE NWC MEANS */}
-            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
-                <Stack direction='row' className='item'>
-                    <div className="item-left">
-                        <InfoVideo src={state.NWC_Means_VideoURL}/>
-                    </div>
-                    <div className="item-right">
-                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> WHAT THE NWC MEANS TO ME </Typography>
-                        <Typography type="paragraph-2" paddingLR="0"> {state.meanText} </Typography>
-                    </div>
-                </Stack>
-            </Stack>
 
             {/* FEATURED */}
             <Stack direction='column' className="OralHistories_Featured_container">
                 <div className="header-container">
                     <Typography type="heading-1" paddingLR="0" paddingTB="0"> Featured Oral Histories </Typography>
-                </div>               
-                <div className="featured_video_container" >
-                    <Carousel videos={participants}/>
+                    
                 </div>
+                <div className="discoverFeatured_cards">
+                    {cards
+                        .filter(value => value.featured === 'true')
+                        .map((value) => <DiscoverCard
+                        key={Math.random()}
+                        color={"teal"}
+                        href={`/Discover/${value.id}`}
+                        firstname={value.firstname}
+                        lastname={value.lastname}
+                        role={value.role}
+                        state={value.state}
+                        profilepic={value.profilepic}
+                        />)
+                }
+             </div>               
             </Stack>
             {/* BANNER 2 */}
             <Stack direction='column' margin={'5% 0 0 0'} className="OralHistories_Voice_container">
@@ -143,11 +165,24 @@ function OralHistories() {
             <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <Stack direction='row' className='item'>
                     <div className="item-right">
-                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> Explore Oral Histories </Typography>
-                        <Typography type="paragraph-2" paddingLR="0"> {state.exploreText} </Typography>
+                        <Typography type="heading-2" paddingLR="0" paddingTB="0" fontSize="64"> Explore Oral Histories </Typography>
+                        <Typography type="paragraph-2" paddingLR="0" fontSize="18"> {state.exploreText} </Typography>
                     </div>
                 </Stack>
-                    <ParticipantsTable participants={participants} roles={roles} />
+                    <ParticipantsTable cards={cards} roles={roles} />
+            </Stack>
+
+                        {/* WHAT THE NWC MEANS */}
+            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
+                <Stack direction='row' className='item'>
+                    <div className="item-left">
+                        <InfoVideo src={state.NWC_Means_VideoURL}/>
+                    </div>
+                    <div className="item-right">
+                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> WHAT THE NWC MEANS TO ME </Typography>
+                        <Typography type="paragraph-2" paddingLR="0"> {state.meanText} </Typography>
+                    </div>
+                </Stack>
             </Stack>
         </Stack>
     );

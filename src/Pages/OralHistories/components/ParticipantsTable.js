@@ -8,12 +8,14 @@ import { Stack } from "../../../Components/Stack";
 import { Search } from "../../../Components/SearchBox/Search"
 import { Typography } from "../../../Components/Typography"
 import { StateSelect } from '../../../Components/StateSelect/StateSelect'
+import DiscoverCard from '../../Discover/Components/DiscoverCard';
+
 
 export const ParticipantsTable = (props) => {
   //States for pagination settings
   const [currentPage, setCurrentPage] = useState(0);
   const [optionsCurrentPage, setOptionsCurrentPage] = useState(0);
-  const participantsPerPage = 8;
+  const participantsPerPage = 6;
   const optionsPerPage = 5;
   const resetPagination = () => {
     setCurrentPage(0)
@@ -67,11 +69,10 @@ export const ParticipantsTable = (props) => {
     const newText = text.replace(/[.,#!$%&;:{}=\-_`~()]/g, '');
     return newText.split(/\s+/);
   }
-
   //filters participants based on criteria
-  const filteredParticipants = props.participants.filter((item) => {
-    const nameMatches = (!searchButtonClicked || filterValue === '' || (filterValue && item[1]?.toLowerCase().includes(filterValue.toLowerCase())));
-    const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item[4]);
+  const filteredParticipants = props.cards.filter((item) => {
+    const nameMatches = (!searchButtonClicked || filterValue === '' || (filterValue && (item.firstname?.toLowerCase().includes(filterValue.toLowerCase()) || item.lastname?.toLowerCase().includes(filterValue.toLowerCase()))));
+    const stateMatches = selectedStates.length === 0 || selectedStates.some(selectedState => selectedState.label === item.state);
   
     const splitSelectedOption = removePunctuation(selectedOption);
     const splitRole = removePunctuation(item[6]);
@@ -80,8 +81,6 @@ export const ParticipantsTable = (props) => {
   
     return nameMatches && stateMatches && roleMatches;
   });
-
-
   //For Role Selection
   const startIndex = optionsCurrentPage * optionsPerPage;
   const endIndex = startIndex + optionsPerPage;
@@ -149,40 +148,37 @@ export const ParticipantsTable = (props) => {
         <div className="participants-table">
           <div className="search-row">
           <div className="search-cell align-center"> {/* State select */}
-              <StateSelect css={'basic-multi-select'} onSelect={handleStateChange} selectedOptions={selectedStates}/>
-            </div>
-            <div className="search-cell align-center">
-              <div className="discoverSearch_bar">
-              <Search placeholder="Search Participants by Name" value={searchTerm} onSearch={setSearchTerm}/>
-              <button type="button" className="button_reset" onClick={handleReset}>Reset</button>
-              <button type="button" className="button_search" onClick={handleSearch}>SEARCH</button>
-              </div>
+            <p className="filter-text">Filter by: </p>
+            <StateSelect css={' oral_history_select'} onSelect={handleStateChange} selectedOptions={selectedStates}/>
+          </div>
+          <div className="search-cell align-center">
+            <div className="discoverSearch_bar">
+            <Search placeholder="Search Participants by Name" value={searchTerm} onSearch={setSearchTerm}/>
+            <button type="button" className="button_reset" onClick={handleReset}>Reset</button>
+            <button type="button" className="button_search" onClick={handleSearch}>SEARCH</button>
             </div>
           </div>
-          <Stack justifyContent="center" spacing={1} wrap> {/* Displays list of participants */}
+          </div>
+          <div className="discoverCards">
             {filteredParticipants.length === 0 ? (
-              <div className="no-results"><Typography type="paragraph-2"> No results found </Typography></div>
+              <p className="no-results">No results found</p>
             ) : (
-              displayedParticipants.map((item, index) => (
-                item[3] ? (
-                  <div key={index} className="participant-cell">
-                    <a href={item[2].includes("data:image") ? item[7] : item[2]} target="_blank" rel="noopener noreferrer">
-                      <div className="image-container">
-                        <img
-                          src={item[3]}
-                          alt="Participant"
-                          className="participant_pic"
-                        />
-                      </div>
-                    </a>
-                    {item[1] && <Typography type="body-text"> {item[1]} </Typography>}
-                  </div>
-                ) : null
+              displayedParticipants.map((value) => (
+                <DiscoverCard
+                  key={Math.random()}
+                  color={["yellow", "blue", "red", "teal"][value.firstname.charCodeAt(0) % 4]}
+                  href={`/discover/${value.id}`}
+                  firstname={value.firstname}
+                  lastname={value.lastname}
+                  role={value.role}
+                  state={value.state}
+                  profilepic={value.profilepic}
+                />
               ))
             )}
-        </Stack>
+          </div>
       </div>
-        <div className="participants-pagination"> <Pagination pageCount={Math.ceil(filteredParticipants.length / participantsPerPage)} handlePageClick={handlePageChange}/> </div>
+      <div className="participants-pagination"> <Pagination pageCount={Math.ceil(filteredParticipants.length / participantsPerPage)} handlePageClick={handlePageChange}/> </div>
     </>
   );
 };
