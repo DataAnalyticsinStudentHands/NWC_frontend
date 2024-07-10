@@ -107,11 +107,10 @@
 /* COLLAPSIBLE */
 
 .Collapsible {
-    margin-left: 21rem;
-    border-bottom: 2px solid var(--colorDarkBlue);
-    border-radius: 0px;
-    margin-right: 21rem;
-    width: 300rem;
+  margin-left: 20rem;
+  border-radius: 0px;
+  margin-right: 21rem;
+  width: 300rem;
 }
 
 .Collapsible .toggle {
@@ -120,15 +119,19 @@
     color: var(--colorDarkBlue);
     width: 100%;
     text-align: left;
-    margin-bottom: 30rem;
+    margin-bottom: 0rem;
     padding-left: 0px; 
+    border-bottom: 2px solid var(--colorDarkBlue);
+    border-radius: 0px;
+    padding-right: 0px;
+
 }
 
 .Collapsible .content {
     font-size:45rem;
     font-weight: normal;
     color: var(--colorDarkBlue);
-    margin-top: -40rem
+    margin-top: 10rem
 }
 
 .Collapsible .content p {
@@ -144,12 +147,11 @@
   float: right;
   transition: transform 0.3s;
   transform: rotate(180deg);
-  
 }
 
 .Collapsible.active .toggle::after {
   transform: rotate(0deg);
-  
+
 }
 
 /* FORM */
@@ -270,12 +272,8 @@
     display: flex;
     gap: 0.5em;
     text-align: left;
-    margin-right:20rem;
     margin-bottom: 10rem;
-  }
-
-  .advancedSearch_form-control input {
-    width:500rem;
+    margin-right: 10rem;
   }
 
 .item {
@@ -293,7 +291,7 @@
 .item_NWC {
     display: grid;
     grid-template-columns: 30% 30%;
-    margin-left: -150rem;
+    margin-left: -160rem;
     margin-bottom: 50rem;
     margin-top: 40rem;
 }
