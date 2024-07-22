@@ -14,6 +14,7 @@ import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 import { processTableData } from './TableHeaders'
 import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 import { Banner } from '../../../Components/Banner';
+import { InfoBox } from '../Components/InfoBox';
 import JaniceRubin from '../res/JaniceRubin.png'
 import button from '../../../assets/res/button-research-the-nwc.png'
 
@@ -150,6 +151,15 @@ function AdvancedSearch() {
         .catch(err => console.log(err));
     }, []); 
 
+    const [clickedPlanks, setclickedPlanks] = useState({});
+
+    const handleCheckboxClick = (plank) => {
+      setclickedPlanks((prev) => ({
+        ...prev,
+        [plank]: !prev[plank],
+      }));
+    };
+
     // const [role, setRoles] = useState([])
     const roleCategories = [
       {
@@ -178,10 +188,10 @@ function AdvancedSearch() {
       },
       {
         category: "NWC Caucuses",
-        roles: ["American Indian and Alaskan Native Women's Caucus", "Arts Caucus", "Asian and Pacific Women's Caucus", 
-                "Chicana Caucus", "Disabled Women's Caucus", "Farm Women Caucus", "Hispanic Caucus", "Jewish Women's Caucus",
-                "Lesbian Caucus", "Minority Women's Caucus", "National Congress of Neighborhood Women Caucus", "Peace Caucus",
-                "Pro-Plan Caucus", "Puerto Rican Caucus", "Sex and Poverty IWY Poor and Low-Income Women's Caucus", "Wellfare Caucus",
+        roles: ["American Indian and Alaskan Native Women’s Caucus", "Arts Caucus", "Asian and Pacific Women’s Caucus", 
+                "Chicana Caucus", "Disabled Women’s Caucus", "Farm Women Caucus", "Hispanic Caucus", "Jewish Women’s Caucus",
+                "Lesbian Caucus", "Minority Women’s Caucus", "National Congress of Neighborhood Women Caucus", "Peace Caucus",
+                "Pro-Plan Caucus", "Puerto Rican Caucus", "Sex and Poverty IWY Poor and Low-Income Women’s Caucus", "Wellfare Caucus",
                 "Women in Sports Caucus", "Youth Caucus"
                 ]
       },
@@ -230,6 +240,7 @@ function AdvancedSearch() {
   };
 
   async function onSubmit(data) {
+    console.log(data)
     let array_query = [];
 
     Object.entries(data).forEach(([key, value]) => {
@@ -346,8 +357,7 @@ function AdvancedSearch() {
 
     }, {
       encodeValuesOnly: true, // prettify URL
-    });
-
+    }); console.log('query: ', query)
     if (array_query.length === 0) {
       alert('No search input')
     }
@@ -370,7 +380,7 @@ function AdvancedSearch() {
       setMap(mapData);
 
       const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
-
+      console.log(tableData)
       setTableData(tableData);
       setIsButtonClicked(true);
       }
@@ -390,6 +400,7 @@ function AdvancedSearch() {
       age65plus: false,
     });
     }, 50)
+    setclickedPlanks({})
   }
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -414,6 +425,7 @@ function AdvancedSearch() {
         <Tabs> 
             <div label="NWC Participation">
             <div className="advancedSearch_form">
+            <InfoBox category="National Women's Conference Participation" text={contentMap?.attributes?.AdvancedSearch_NWC || ''} />
                 <h1> Role AT NWC <br></br> Select One or More Roles: </h1>
                 <div className="item_Collapsible">
 
@@ -439,24 +451,45 @@ function AdvancedSearch() {
                 <h1> Position Planks <br></br> Select One or More Planks: </h1>
                 
                 <div className="item_NWC">
-                {plank.map((role, index) => {
+                {plank.map((plank, index) => {
+                  const isChecked = !!clickedPlanks[plank.value];
                   return (
-                    <label className="advancedSearch_form-control" key={index}>
-                      <input type="checkbox" value={role.value} {...register("role.role")} />
-                      {role.label}
-                    </label>
+                    <div key={index}>
+                      <label className="advancedSearch_form-control">
+                        <input
+                          type="checkbox"
+                          value={plank.value}
+                          // {...register(plank.value)}
+                          onChange={() => handleCheckboxClick(plank.value)}
+                        />
+                        {plank.label}
+                      </label>
+                      {isChecked && (
+                        <div className="item_planks">
+                          <label className="advancedSearch_form-control">
+                            <input type="checkbox" value={plank.value} {...register("planks_fors.plank")} />
+                            For
+                          </label>
+                          <label className="advancedSearch_form-control">
+                            <input type="checkbox" value={plank.value} {...register("planks_againsts.plank")} />
+                            Against
+                          </label>
+                          <label className="advancedSearch_form-control">
+                            <input type="checkbox" value={plank.value} {...register("planks_spoke_fors.plank")} />
+                            Spoke about with position unknown
+                          </label>
+                            </div>
+                          )}
+                    </div>
                   );
-                  })}
-                      {/* <label className="advancedSearch_form-control">
-                      <input type="checkbox" value="Other Role" {...register("role.role[$containsi]")} />
-                      Other
-                    </label> */}
-                    </div> 
+                })}
+                  </div> 
                 </div>
               </div>
             </div>    
             <div label="Participant Demographics">
             <div className="advancedSearch_form">
+            <InfoBox category="Participant Demographics" text={contentMap?.attributes?.AdvancedSearch_Participants}/>
               <div className="advancedSearch_container">
                 <h1> Age range</h1>
                 <div className="item">
@@ -670,6 +703,7 @@ function AdvancedSearch() {
             </div>
             <div label="Education & Career">
             <div className="advancedSearch_form">
+            <InfoBox category="Education & Career" text={contentMap?.attributes?.AdvancedSearch_Education}/>
               <div className="advancedSearch_container">
                 <h1> Education completed</h1>
                 <div className="item_EDU">
@@ -757,6 +791,7 @@ function AdvancedSearch() {
             </div> 
             <div label="Electoral Politics">
             <div className="advancedSearch_form">
+            <InfoBox category="Electoral Politics" text={contentMap?.attributes?.AdvancedSearch_Politics}/>
             <div className="advancedSearch_container">
                 <h1> political party membership</h1>
                 <div className="item_DEMO">
@@ -868,6 +903,7 @@ function AdvancedSearch() {
             </div> 
             <div label="Organizations">
             <div className="advancedSearch_form">
+            <InfoBox category="Organizations" text={contentMap?.attributes?.AdvancedSearch_Organizations}/>
             <div className="advancedSearch_container">
                 <h1> organization name</h1>
                 <div className="item_ELEC">
