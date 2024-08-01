@@ -63,7 +63,6 @@ function AdvancedSearch() {
     { value: "$12000", label: "over $12,000" },
   ]
 
-  // const raceData = ["Black", "Chicana/Chicano", "Latina/Latino","Mexican American", "Native American/American Indian", "Spanish/Hispanic", "white"]
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
   const politicalData = ["American Independent Party", "Black Panther Party", "Communist Party USA", "Conservative Party of New York", "DC Statehood Party",
                           "Democratic Party", "Liberal Party of New York", "Libertarian Party", "Minnesota Democratic-Farmer-Labor Party", "North Dakota Democratic-Nonpartisan-League Party",
@@ -107,27 +106,27 @@ function AdvancedSearch() {
       .catch(err => console.log(err));
   }, []);
     
-    // const [leaderships, setLeaderships] = useState([]);
+    const [leaderships, setLeaderships] = useState([]);
   
-    // useEffect(() => {
-    //   fetch(`${process.env.REACT_APP_API_URL}/api/data-leadership-in-organizations?sort=role`)
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       const uniqueLeadership = new Set();
-    //       data.data.forEach(item => {
-    //         uniqueLeadership.add(item.attributes.role);
-    //       });
-    //       setLeaderships(
-    //         Array.from(uniqueLeadership).map(label => {
-    //           return {
-    //             value: label,
-    //             label: label
-    //           };
-    //         })
-    //       );
-    //     })
-    //     .catch(err => console.log(err));
-    // }, []);
+    useEffect(() => {
+      fetch(`${process.env.REACT_APP_API_URL}/api/data-leadership-in-organizations?sort=role`)
+        .then(res => res.json())
+        .then(data => {
+          const uniqueLeadership = new Set();
+          data.data.forEach(item => {
+            uniqueLeadership.add(item.attributes.role);
+          });
+          setLeaderships(
+            Array.from(uniqueLeadership).map(label => {
+              return {
+                value: label,
+                label: label
+              };
+            })
+          );
+        })
+        .catch(err => console.log(err));
+    }, []);
 
     const [plank, setPlanks] = useState([]);
 
@@ -160,7 +159,6 @@ function AdvancedSearch() {
       }));
     };
 
-    // const [role, setRoles] = useState([])
     const roleCategories = [
       {
         category: "Appointed Positions",
@@ -197,6 +195,34 @@ function AdvancedSearch() {
       },
     ];
 
+    const race_ethnicity = [
+      {
+        race: "Asian American/Pacific Islander",
+        identities: "example"
+      },
+      {
+        race: "Black",
+        identities: "example"
+      },
+      {
+        race: "Hispanic",
+        identities: "example"
+      },
+      {
+        race: "Middle Eastern",
+        identities: "example"
+      },
+      {
+        race: "Native American/American Indian",
+        identities: "example"
+      },
+      {
+        race: "White",
+        identities: "example"
+      },
+
+    ]
+
     // useEffect(() => {
     //   fetch(`${process.env.REACT_APP_API_URL}/api/nwc-roles?sort=role&filters[role][$notContainsi]=Other Role`)
     //     .then(res => res.json())
@@ -223,12 +249,18 @@ function AdvancedSearch() {
 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [hasChildren, setHasChildren] = useState(null)
 
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
   const [ageCheckboxState, setAgeCheckboxState] = useState({
-    age1to39: false,
-    age40to64: false,
-    age65plus: false,
+    age16to25: false,
+    age26to55: false,
+    age56plus: false,
+  });
+  const [childrenCheckboxState, setchildrenCheckboxState] = useState({
+    children_12: false,
+    children_34: false,
+    children5: false,
   });
   const [userInput, setUserInput] = useState([])
 
@@ -239,10 +271,16 @@ function AdvancedSearch() {
     });
   };
 
-  async function onSubmit(data) {
-    console.log(data)
-    let array_query = [];
+  const handleChildrenCheckbox = (name, checked) => {
+    setchildrenCheckboxState({
+      ...childrenCheckboxState,
+      [name]: checked,
+    });
+  }
 
+  async function onSubmit(data) {
+    data.total_number_of_children = undefined;
+    let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
         const filteredValue = filterEmptyStringsInNestedStructure(value);
@@ -273,30 +311,32 @@ function AdvancedSearch() {
       }
       return filteredObj;
     }
+
     //checks age ranges
-    if (ageCheckboxState.age40to64) {
-      const ageRangeQuery = {
-        $gte: 40,
-        $lte: 64,
-      };
-      array_query.push({ 'age_in_1977': ageRangeQuery });
+    if (ageCheckboxState.age16to25) {
+      array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
     }
 
     // Handle the '1-39' checkbox
-    if (ageCheckboxState.age1to39) {
-      const ageRangeQuery = {
-        $gte: 1,
-        $lte: 39,
-      };
-      array_query.push({ 'age_in_1977': ageRangeQuery });
+    if (ageCheckboxState.age26to55) {
+      array_query.push({ 'age_in_1977': { $gte: 26, $lte: 55 } });
     }
 
     // Handle the '65+' checkbox
-    if (ageCheckboxState.age65plus) {
-      const ageRangeQuery = {
-        $gte: 65,
-      };
-      array_query.push({ 'age_in_1977': ageRangeQuery });
+    if (ageCheckboxState.age56plus) {
+      array_query.push({ 'age_in_1977': { $gte: 56 } });
+    }
+
+    if (childrenCheckboxState.children_12) {
+      array_query.push({ 'total_number_of_children': { $gte: 1, $lte: 2 } });
+    }
+
+    if (childrenCheckboxState.children_34) {
+      array_query.push({ 'total_number_of_children': { $gte: 3, $lte: 4 } });
+    }
+
+    if (childrenCheckboxState.children5) {
+      array_query.push({ 'total_number_of_children': { $gte: 5 } });
     }
     
     const allCategories = [];
@@ -357,7 +397,7 @@ function AdvancedSearch() {
 
     }, {
       encodeValuesOnly: true, // prettify URL
-    }); console.log('query: ', query)
+    });
     if (array_query.length === 0) {
       alert('No search input')
     }
@@ -395,12 +435,18 @@ function AdvancedSearch() {
     setMap([])
     setIsButtonClicked(false);
     setAgeCheckboxState({
-      age1to39: false,
-      age40to64: false,
-      age65plus: false,
+      age16to25: false,
+      age26to55: false,
+      age56plus: false,
     });
+    setchildrenCheckboxState({
+      children_12: false,
+      children_34: false,
+      children5: false,
+    })
     }, 50)
     setclickedPlanks({})
+    setHasChildren(null)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
 
@@ -496,26 +542,27 @@ function AdvancedSearch() {
                   <label className="advancedSearch_form-control">
                     <input
                       type="checkbox"
-                      checked={ageCheckboxState.age1to39}
-                      onChange={(e) => handleAgeCheckboxChange('age1to39', e.target.checked)}
+                      checked={ageCheckboxState.age16to25}
+                      onChange={(e) => handleAgeCheckboxChange('age16to25', e.target.checked)}
+        
                     />
-                    1-39
+                    16-25
                   </label>
                   <label className="advancedSearch_form-control">
                     <input
                       type="checkbox"
-                      checked={ageCheckboxState.age40to64}
-                      onChange={(e) => handleAgeCheckboxChange('age40to64', e.target.checked)}
+                      checked={ageCheckboxState.age26to55}
+                      onChange={(e) => handleAgeCheckboxChange('age26to55', e.target.checked)}
                     />
-                    40-64
+                    26-55
                   </label>
                   <label className="advancedSearch_form-control">
                     <input
                       type="checkbox"
-                      checked={ageCheckboxState.age65plus}
-                      onChange={(e) => handleAgeCheckboxChange('age65plus', e.target.checked)}
+                      checked={ageCheckboxState.age56plus}
+                      onChange={(e) => handleAgeCheckboxChange('age56plus', e.target.checked)}
                     />
-                    65+
+                    56 and over
                   </label>
                 </div>
               </div>
@@ -597,38 +644,55 @@ function AdvancedSearch() {
                 <h1>Has children</h1>
                 <div className="item">
                   <label className="advancedSearch_form-control">
-                    <input type="radio" value="true" {...register("has_children")}/>
+                    <input
+                      type="radio"
+                      value="true"
+                      checked={hasChildren === true}
+                      onChange={() => setHasChildren(true)}
+                    />
                     Yes
                   </label>
                   <label className="advancedSearch_form-control">
-                    <input type="radio" value="false" {...register("has_children")}/>
+                    <input
+                    {...register('has_children')}
+                      type="radio"
+                      value="false"
+                      checked={hasChildren === false}
+                      onChange={() => setHasChildren(false)}
+                    />
                     No
                   </label>
                 </div>
-                </div>
-                  {/* <div className="advancedSearch_container">
-                    <h1>Number of children</h1>
-                    <div className="item">
-                      <label className="advancedSearch_form-control">
-                        <input
-                          type="checkbox"
-                          value="3"
-                          {...register("total_number_of_children.$lte", {max: 3, min: 1})}
-                        />
-                        1-3
-                      </label>
-                      <label className="advancedSearch_form-control">
-                        <input
-                          type="checkbox"
-                          value={4}
-                          {...register("[1].total_number_of_children.$gte", {
-                            valueAsNumber: true,
-                          })}
-                        />
-                        4 or more
-                      </label>
-                    </div>
-                    </div> */}
+
+                {hasChildren && (
+                <div className="advanced_children">
+                <label className="advancedSearch_form-control">
+                  <input
+                    type="checkbox"
+                    checked={childrenCheckboxState.children_12}
+                    onChange={(e) => handleChildrenCheckbox('children_12', e.target.checked)}
+                  />
+                  1-2
+                </label>
+                <label className="advancedSearch_form-control">
+                  <input
+                    type="checkbox"
+                    checked={childrenCheckboxState.children_34}
+                    onChange={(e) => handleChildrenCheckbox('children_34', e.target.checked)}
+                  />
+                  3-4
+                </label>
+                <label className="advancedSearch_form-control">
+                  <input
+                    type="checkbox"
+                    checked={childrenCheckboxState.children5}
+                    onChange={(e) => handleChildrenCheckbox('children5', e.target.checked)}
+                  />
+                  5+
+                </label>
+              </div>
+                )}
+              </div>
               <div className="advancedSearch_container">
                 <h1> religion</h1>
                 <div className="item_DEMO">
@@ -699,6 +763,38 @@ function AdvancedSearch() {
                   /> </div>
                 </div>
               </div>
+              <div className="advancedSearch_container">
+                <h1>Race and Ethnicity</h1>
+                <div className="item_race">
+                  {race_ethnicity.map((item) => (
+                    <div className="advancedSearch_form-control item_race_layout" key={item.race}>
+                      <label>{item.race}</label>
+                      <Controller
+                        control={control}
+                        name={`races.${item.race}`}
+                        render={({ field }) => (
+                          <Select
+                            styles={{ container: base => ({ ...base, width: "max-content", minWidth: "70%" }) }}
+                            options={[{ value: item.identities, label: item.identities }]} // Assuming identities are the options
+                            onChange={(selectedOption) => {
+                              setSelectedOptions(prevOptions => ({
+                                ...prevOptions,
+                                [item.race]: selectedOption ? selectedOption.value : null
+                              }));
+                              field.onChange(selectedOption ? selectedOption.value : null);
+                            }}
+                            onBlur={field.onBlur}
+                            value={selectedOptions[item.race] ? { value: selectedOptions[item.race], label: selectedOptions[item.race] } : null}
+                            placeholder="Select..."
+                            name={field.name}
+                            ref={field.ref}
+                          />
+                        )}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>  
             </div>
             <div label="Education & Career">
@@ -734,34 +830,35 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
-                <h1> job/profession</h1>
-                <div className="item_DEMO">
-                  <div className="advancedSearch_form-control">
+                  <h1>job/profession</h1>
+                  <div className="item_DEMO">
+                    <div className="advancedSearch_form-control">
                       <Controller 
                         control={control}
                         name="careers.category_of_employment"
                         render={({ field }) => (
                           <Select
-                          styles={{container: base => ({...base, width: "max-content", minWidth: "14%"})}}
-                            options={professions} 
-                            onChange={(selectedOption) => {
+                            isMulti
+                            styles={{ container: base => ({ ...base, width: "max-content", minWidth: "14%" }) }}
+                            options={professions}
+                            onChange={(selectedOptions) => {
                               setSelectedOptions(prevOptions => ({
                                 ...prevOptions,
-                                "careers.category_of_employment": selectedOption.value
+                                "careers.category_of_employment": selectedOptions
                               }));
-                              field.onChange(selectedOption.value);
+                              field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
                             }}
                             onBlur={field.onBlur}
-                            value={selectedOptions["careers.category_of_employment"] ? professions.find(option => option.value === selectedOptions["careers.category_of_employment"]) : null}
+                            value={selectedOptions["careers.category_of_employment"] || []}
                             placeholder="Select..."
                             name={field.name}
                             ref={field.ref}
                           />
                         )}
                       />
+                    </div>
                   </div>
                 </div>
-              </div>
               <div className="advancedSearch_container">
                 <h1> job/profession keyword search</h1>
                 <div className="item">
@@ -793,33 +890,34 @@ function AdvancedSearch() {
             <div className="advancedSearch_form">
             <InfoBox category="Electoral Politics" text={contentMap?.attributes?.AdvancedSearch_Politics}/>
             <div className="advancedSearch_container">
-                <h1> political party membership</h1>
-                <div className="item_DEMO">
-                  <div className="advancedSearch_form-control">
+              <h1>political party membership</h1>
+              <div className="item_DEMO">
+                <div className="advancedSearch_form-control">
                   <Controller 
                     control={control}
                     name="political_party_membership"
                     render={({ field }) => (
                       <Select
-                      styles={{container: base => ({...base, width: "max-content", minWidth: "11%"})}}
-                        options={politicalOptions} 
-                        onChange={(selectedOption) => {
+                        isMulti
+                        styles={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" }) }}
+                        options={politicalOptions}
+                        onChange={(selectedOptions) => {
                           setSelectedOptions(prevOptions => ({
                             ...prevOptions,
-                            political_party_membership: selectedOption.value
+                            political_party_membership: selectedOptions
                           }));
-                          field.onChange(selectedOption.value);
+                          field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.political_party_membership ? politicalOptions.find(option => option.value === selectedOptions.political_party_membership) : null}
+                        value={selectedOptions.political_party_membership || []} // Ensure value is an array
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
                       />
                     )}
                   />
-                  </div>
                 </div>
+              </div>
               </div>
               <div className="advancedSearch_container">
                   <h1> jurisdiction of political offices held </h1>
@@ -906,20 +1004,92 @@ function AdvancedSearch() {
             <InfoBox category="Organizations" text={contentMap?.attributes?.AdvancedSearch_Organizations}/>
             <div className="advancedSearch_container">
                 <h1> organization name</h1>
-                <div className="item_ELEC">
-                <h1> search by organization name</h1>
-                <label className="advancedSearch_form-control">
-                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
-                </div>      
+                <div className="item_ORG">
+                  <div className="item_ORG_row">
+                    <h1>Search by Organization Name</h1>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      {...register('organizational_politicals.organizational_and_political.$containsi')}
+                    />
+                  </div>
+                  <div className="item_ORG_row">
+                    <h1>Search by participant name</h1>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                    />
+                  </div>
+                </div>  
               </div>
               <div className="advancedSearch_container">
                 <h1> leadership positions</h1>
-                <div className="item_ELEC">
-                <h1> search by organization name</h1>
-                <label className="advancedSearch_form-control">
-                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
-                </div>      
+                <div className="advancedSearch_form-control">
+                <div className="item_ORG">
+                  <div className="item_ORG_row">
+                  <h1>category of leadership position</h1>
+                  <Controller
+                      control={control}
+                      name="leadership_in_organizations.role"
+                      render={({ field }) => (
+                        <Select
+                          isMulti
+                          styles={{
+                            container: (base) => ({
+                              ...base,
+                              minWidth: '54%',
+                              maxWidth: '54%', // Ensure it doesn’t exceed the container width
+                            }),
+                            control: (base) => ({
+                              ...base,
+                              minWidth: '65%', // Set a reasonable minimum width
+                              maxWidth: '65%', // Prevent it from expanding beyond the container
+                            }),
+                          }}
+                          options={leaderships}
+                          onChange={(selectedOptions) => {
+                            setSelectedOptions(prevOptions => ({
+                              ...prevOptions,
+                              "leadership_in_organizations.role": selectedOptions
+                            }));
+                            field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
+                          }}
+                          onBlur={field.onBlur}
+                          value={selectedOptions["leadership_in_organizations.role"] || []}
+                          placeholder="Select..."
+                          name={field.name}
+                          ref={field.ref}
+                        />
+                      )}
+                    />
+                    </div>
+                  <div className="item_ORG_row">
+                    <h1>specific leadership role</h1>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      {...register('leadership_in_organizations.specific_role.$containsi')}
+                    />
+                  </div>
+                  <div className="item_ORG_row">
+                    <h1>Search by Organization Name</h1>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      {...register('organizational_politicals.organizational_and_political.$containsi')}
+                    />
+                  </div>
+                  <div className="item_ORG_row">
+                    <h1>Search by participant name</h1>
+                    <input
+                      type="text"
+                      placeholder="Search"
+                    />
+                  </div>
+                </div>    
               </div>
+              </div>
+
             </div> 
             </div>
           </Tabs>

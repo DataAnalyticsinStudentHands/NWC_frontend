@@ -4,7 +4,6 @@ import ReactMarkdown from 'react-markdown';
 
 
 export const InfoBox = (props) => {
-    console.log(typeof props.text)
     const [showInfo, setShowInfo] = useState(false);
 
     const handleInfoClick = () => {

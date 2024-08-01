@@ -283,9 +283,32 @@
 }
 
 .item_ELEC {
-    display:flex;
-    margin-bottom: 40rem;
-    margin-left: -150rem;
+  display:flex;
+  margin-bottom: 40rem;
+  margin-left: -150rem;
+}
+
+.item_ORG {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rem;
+}
+
+.item_ORG_row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rem; /* Space between rows, adjust as needed */
+  margin-left: -200rem;
+}
+
+.item_ORG_row h1 {
+  /* Adjusts styling for the <h1> element */
+  margin-right: 10px; /* Space between the <h1> and the input box */
+  width: 300rem; /* Fixed width to align with other rows */
+}
+
+.item_ORG_row input {
+  width: 400rem; /* Fixed width for all input boxes */
 }
 
 .item_NWC {
@@ -324,6 +347,18 @@
   gap: 10px; /* Adjust the gap as needed */
   align-items: center;
   margin-bottom: 30rem;
+}
+.item_race {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+  gap: 1em; /* 
+  Space between items */
+}
+
+.item_race_layout {
+  display: flex;
+  flex-direction: column;
+  margin-left: -150rem;
 }
 
 .role-container {
@@ -498,4 +533,11 @@
   position: absolute;
   right: 10rem; /* Adjust as needed */
   top: 0rem;
+}
+
+.advanced_children {
+  display:flex;
+  margin-top: -10rem;
+  margin-left:400rem;
+  margin-bottom: 10rem;
 }
