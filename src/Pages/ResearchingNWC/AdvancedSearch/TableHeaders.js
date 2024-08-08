@@ -49,8 +49,19 @@ function processTableData(response, newArray, categories) {
         }
       }
 
-      tableItem[formattedKey] = String(nestedValuesArray);
+      // Remove duplicate items
+      const uniqueValuesArray = [...new Set(nestedValuesArray)];
+
+      // Add bullet points to all items
+      if (uniqueValuesArray.length > 0) {
+        tableItem[formattedKey] = uniqueValuesArray
+          .map(value => `• ${value}`)
+          .join('\n'); // Line breaks between items
+      } else {
+        tableItem[formattedKey] = '';
+      }
     });
+
     return tableItem;
   });
 

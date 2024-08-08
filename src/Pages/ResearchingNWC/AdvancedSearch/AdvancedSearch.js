@@ -15,6 +15,7 @@ import { processTableData } from './TableHeaders'
 import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
+import { Search } from '../../../Components/SearchBox/Search'
 import JaniceRubin from '../res/JaniceRubin.png'
 import button from '../../../assets/res/button-research-the-nwc.png'
 
@@ -131,7 +132,7 @@ function AdvancedSearch() {
     const [plank, setPlanks] = useState([]);
 
     useEffect(() => {
-      fetch(`${process.env.REACT_APP_API_URL}/api/nwc-planks?sort=plank`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/data-planks?sort=plank`)
         .then(res => res.json())
         .then(data => {
           const uniquePlanks = new Set();
@@ -249,9 +250,11 @@ function AdvancedSearch() {
 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
+  const [searchTableData, setSearchTableData] = useState([])
   const [hasChildren, setHasChildren] = useState(null)
 
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
+  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false)
   const [ageCheckboxState, setAgeCheckboxState] = useState({
     age16to25: false,
     age26to55: false,
@@ -279,7 +282,6 @@ function AdvancedSearch() {
   }
 
   async function onSubmit(data) {
-    data.total_number_of_children = undefined;
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
@@ -317,12 +319,12 @@ function AdvancedSearch() {
       array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
     }
 
-    // Handle the '1-39' checkbox
+    // Handle the '26-55' checkbox
     if (ageCheckboxState.age26to55) {
       array_query.push({ 'age_in_1977': { $gte: 26, $lte: 55 } });
     }
 
-    // Handle the '65+' checkbox
+    // Handle the '56+' checkbox
     if (ageCheckboxState.age56plus) {
       array_query.push({ 'age_in_1977': { $gte: 56 } });
     }
@@ -420,12 +422,43 @@ function AdvancedSearch() {
       setMap(mapData);
 
       const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
-      console.log(tableData)
       setTableData(tableData);
       setIsButtonClicked(true);
       }
     }
  }
+
+ async function searchSubmit() {
+  let fullName = input.split(' ')
+  let firstname = fullName[0]
+  let category = ["highest_level_of_education_attained"]
+  let allCategories = [ "highest_level_of_education_attained"]
+
+  if (input.length === 0) {
+    alert('No search input')
+  }
+  else {
+  const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?filters[$or][0][first_name][$containsi]=${firstname}&filters[$or][1][last_name][$containsi]=${firstname}`).then(res => res.json());
+  if (response.data.length === 0) {
+    setIsButtonClicked(true);
+
+  }
+  else {
+    const mapData = response.data.map((person) => {
+      return{
+        lat:person.attributes.lat,
+        lon:person.attributes.lon,
+        first_name:person.attributes.first_name,
+        last_name:person.attributes.last_name,
+      }
+    })
+    setMap(mapData);
+    const tableData = processTableData(response, category, allCategories); //response is API response, newArray
+    setSearchTableData(tableData);
+    setIsSearchButtonClicked(true);
+    }
+  }
+}
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
@@ -444,13 +477,14 @@ function AdvancedSearch() {
       children_34: false,
       children5: false,
     })
-    }, 50)
     setclickedPlanks({})
     setHasChildren(null)
+    }, 50)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
-
+  const [input, setInput] = useState("")
   return (
+    <>
     <form onSubmit={handleSubmit(onSubmit)}>
         <Banner
         imgLeft={button}
@@ -480,7 +514,7 @@ function AdvancedSearch() {
                         {category.roles.map((role, index) => {
                           return (
                             <label className="advancedSearch_form-control" key={index}>
-                              <input type="checkbox" value={role} {...register("role.role")} />
+                              <input type="checkbox" value={role} {...register("roles.role")} />
                               {role}
                             </label>
                           );
@@ -570,7 +604,6 @@ function AdvancedSearch() {
                 <h1> State/territory</h1>
                 <div className="item_DEMO" >
                   <div className="advancedSearch_form-control" >
-                  {/* <StateSelect onSelect={handleStateChange} selectedOptions={selectedStates}/> */}
                   <Controller
                     control={control}
                     name="represented_state"
@@ -597,14 +630,14 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> place of birth</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('place_of_birth.$containsi')} /> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
                 <h1> city of residence in 1977</h1>
                 <div className="item_EDU">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('residence_in_1977.residence_in_1977.$containsi')}/> </label> 
                 <div className="advancedSearch_form-control">
                   <Select
@@ -636,7 +669,7 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1>name of spouse</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('name_of_spouse.$containsi')}/> </label>                
                 </div>
               </div>
@@ -818,7 +851,7 @@ function AdvancedSearch() {
                <div className="advancedSearch_container">
                 <h1> Degree</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('careers.job_profession.$containsi')}/> </label>
                 </div>
               </div>
@@ -862,7 +895,7 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> job/profession keyword search</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('careers.job_profession.$containsi')}/> </label>
                 </div>
               </div>
@@ -880,7 +913,7 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> spouse&apos;s job/profession</h1>
                 <div className="item">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('spouse_careers.spouse_profession.$containsi')}/> </label>
                 </div>
               </div>
@@ -895,21 +928,21 @@ function AdvancedSearch() {
                 <div className="advancedSearch_form-control">
                   <Controller 
                     control={control}
-                    name="political_party_membership"
+                    name="political_parties.party"
                     render={({ field }) => (
                       <Select
                         isMulti
-                        styles={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" }) }}
+                        styles={{ container: base => ({ ...base, width: "max-content", minWidth: "15%" }) }}
                         options={politicalOptions}
                         onChange={(selectedOptions) => {
                           setSelectedOptions(prevOptions => ({
                             ...prevOptions,
-                            political_party_membership: selectedOptions
+                            political_parties: selectedOptions
                           }));
                           field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.political_party_membership || []} // Ensure value is an array
+                        value={selectedOptions.political_parties || []} // Ensure value is an array
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
@@ -937,7 +970,7 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> name of political offices held</h1>
                 <div className="item_ELEC">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('political_office_helds.political_office.$containsi')}/> </label>
                 </div>
               </div>
@@ -959,14 +992,14 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> name of political offices sought but lost</h1>
                 <div className="item_ELEC">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('political_office_losts.political_office.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
                 <h1> name of political offices spouse held</h1>
                 <div className="item_ELEC">
-                <label className="advancedSearch_form-control">
+                <label className="advancedSearch_input">
                 <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
                 </div>
               </div>
@@ -1044,6 +1077,7 @@ function AdvancedSearch() {
                               ...base,
                               minWidth: '65%', // Set a reasonable minimum width
                               maxWidth: '65%', // Prevent it from expanding beyond the container
+                              
                             }),
                           }}
                           options={leaderships}
@@ -1089,7 +1123,6 @@ function AdvancedSearch() {
                 </div>    
               </div>
               </div>
-
             </div> 
             </div>
           </Tabs>
@@ -1111,6 +1144,10 @@ function AdvancedSearch() {
          </div>
         )} 
       <div className="AdvancedSearch_border">  </div>
+      </div>
+      </form>
+      <form onSubmit={handleSubmit(searchSubmit)} >
+      <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
           <h1> Open Text search </h1>
@@ -1120,13 +1157,24 @@ function AdvancedSearch() {
         
       </div>
       <div className="advancedSearch_bar_container">
-        <div className="advancedSearch_bar">
-            <input type="text" placeholder="SEARCH"/>
+      <div className="advancedSearch_bar">
+          <Search placeholder="Search" onSearch={setInput}/>
+          <button type="submit" className="discoverSearch_icon"></button>
         </div>
       </div> 
+      {isSearchButtonClicked && searchTableData.length > 0 && (
+        <div className='Result-Continer'>
+          <ResultTableMap data={searchTableData} map_data={maps} userInput={[input]}/>
+        </div>
+        )}
+        {isSearchButtonClicked && searchTableData.length === 0 && (
+          <div style={{textAlign: "center", marginBottom: "50rem"}}> 
+         <p> No results found </p>
+         </div>
+        )} 
       </div>
       </form>
-      
+      </>
   )
 }
 
