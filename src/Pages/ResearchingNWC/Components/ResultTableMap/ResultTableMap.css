@@ -45,6 +45,10 @@
 	margin: 1em 0;
 }
 
+.TableInfor-Left {
+	width:80%;
+}
+
 .TableInfor-Right-Button {
 	font-size: 30rem;
 	padding: 10rem 50rem;

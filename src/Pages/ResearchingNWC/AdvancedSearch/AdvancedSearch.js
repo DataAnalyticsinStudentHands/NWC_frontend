@@ -49,19 +49,16 @@ function AdvancedSearch() {
   })
 
   const populationOptions = [
-    { value: "under5000", label: "under 5000" },
-    { value: "5-20", label: "5,000-20,000" },
-    { value: "20-50", label: "20,000-50,000" },
-    { value: "50-100", label: "50,000-100,000" },
-    { value: "100-500", label: "100,000-500,000" },
-    { value: "500-1m", label: "500,000-1 million" },
-    { value: "1million", label: "1 million and over" },
+    { value: "1 - 2,500", label: "1 - 2,500" },
+    { value: "2,501 - 49,999", label: "2,501 - 49,999" },
+    { value: "50,000+", label: "50,000+" },
+
   ]
 
   const incomeOptions = [
-    { value: "under6000", label: "under $6,000" },
-    { value: "6000-12000", label: "$6,000-$12,000" },
-    { value: "$12000", label: "over $12,000" },
+    { value: "$0 - $10,000", label: "$0 - $10,000" },
+    { value: "$10,001 - $15,000", label: "$10,001 - $15,000" },
+    { value: "$15,001+", label: "$15,001+" },
   ]
 
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
@@ -199,27 +196,29 @@ function AdvancedSearch() {
     const race_ethnicity = [
       {
         race: "Asian American/Pacific Islander",
-        identities: "example"
+        identities: ["American Samoan", "Asian American", "Cambodian", "Chamorro", "Chinese", "Filipino", "Guamanian", "Indian", "Japanese", 
+                    "Korean"," Malaysian", "Marshallese", "Micronesian", "Native Hawaiian", "Pacific Islander", "Pakistani", "Polynesian", "South Asian", "Thai", "Vietnamese"]
       },
       {
         race: "Black",
-        identities: "example"
+        identities: ["African", "African American", "Afro-Caribbean", "Afro-Latina/Latino", "Black"]
       },
       {
         race: "Hispanic",
-        identities: "example"
+        identities: ["Chicana/Chicano", "Cuban", "Latina/Latin", "Latinx","Mexican", "Mexican American", "Other Hispanic", "Puerto Rican", "Spanish/Hispanic"]
       },
       {
         race: "Middle Eastern",
-        identities: "example"
+        identities: ["Arab", "Israeli", "Persian"]
       },
       {
         race: "Native American/American Indian",
-        identities: "example"
+        identities: ["Alaska Native", "Choctaw", "First Nations", "Huichol", "Indigenous", "Native American/American Indian"]
       },
       {
         race: "White",
-        identities: "example"
+        identities: ["Albanian", "Czech", "Dutch", "English", "French", "German", "Greek", "Hungarian", "Irish", "Italian", "Jewish", "Polish", "Portuguese", "Russian",
+                      "Ruthenian", "Scotch", "Slavic", "Spanish", "Ukrainian", "Welch", "white"]  
       },
 
     ]
@@ -280,8 +279,15 @@ function AdvancedSearch() {
       [name]: checked,
     });
   }
-
+  
   async function onSubmit(data) {
+    for (const [category, values] of Object.entries(selectedOptions.race)) {
+      console.log(`Category: ${category}`);
+      // Print each value inside the array
+      values.forEach(value => {
+        console.log(` - ${value}`);
+      });
+    }
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
@@ -313,7 +319,6 @@ function AdvancedSearch() {
       }
       return filteredObj;
     }
-
     //checks age ranges
     if (ageCheckboxState.age16to25) {
       array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
@@ -340,7 +345,27 @@ function AdvancedSearch() {
     if (childrenCheckboxState.children5) {
       array_query.push({ 'total_number_of_children': { $gte: 5 } });
     }
-    
+
+    if (selectedOptions.population === '1 - 2,500') {
+      array_query.push({ 'residence_in_1977s][total_population': { $gte: 1, $lte: 2500 } });
+    }
+    if (selectedOptions.population === '2,501 - 49,999') {
+      array_query.push({ 'residence_in_1977s][total_population': { $gte: 2501, $lte: 49999 } });
+    }
+    if (selectedOptions.population === '50,000+') {
+      array_query.push({ 'residence_in_1977s][total_population': { $gte: 50000 } });
+    }
+
+    if (selectedOptions.income === '$0 - $10,000') {
+      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 0, $lte: 10000 } });
+    }
+    if (selectedOptions.income === '$10,001 - $15,000') {
+      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 10001, $lte: 15000 } });
+    }
+    if (selectedOptions.income === '$15,001+') {
+      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 15001 } });
+    }
+
     const allCategories = [];
     function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
       const keys = Object.keys(obj);
@@ -358,39 +383,59 @@ function AdvancedSearch() {
       extractAttributes(item);
     });
 
-    const categories = array_query.map((item) => { //grabs categories with a proper name
+    const categories = array_query.map((item) => {
       const key = Object.keys(item)[0];
-      return key
-    })
+      if (key === 'residence_in_1977s][total_population') {
+        return 'total_population';
+      }
+      if (key === 'residence_in_1977s][median_household_income') {
+        return 'median_household_income';
+      }
+      return key;
+    });
+
     const allValues = [];
+
+    // Define a mapping for keys to selected options
+    const optionMapping = {
+      'residence_in_1977s][total_population': selectedOptions.population,
+      'residence_in_1977s][median_household_income': selectedOptions.income,
+    };
+    
     for (const item of array_query) {
       const key = Object.keys(item)[0];
       const value = item[key];
-    
-      if (typeof value === 'object') {
-        for (const nestedKey of Object.keys(value)) {
-          const nestedValue = value[nestedKey];
-          if (typeof nestedValue === 'object') {
-            for (const deeplyNestedValue of Object.values(nestedValue)) {
-              allValues.push(deeplyNestedValue);
-            }
-          } else {
-            allValues.push(nestedValue);
-          }
-        }
+      
+      // Safely check if the key exists in the optionMapping using Object.prototype.hasOwnProperty
+      if (Object.prototype.hasOwnProperty.call(optionMapping, key)) {
+        // If the key matches, push the corresponding selected option value
+        allValues.push(optionMapping[key]);
       } else {
-        let transformedValue = value;
-        if (value === "true") {
-          transformedValue = "yes";
-        } else if (value === "false") {
-          transformedValue = "no";
+        // Otherwise, continue with the existing logic
+        if (typeof value === 'object') {
+          for (const nestedKey of Object.keys(value)) {
+            const nestedValue = value[nestedKey];
+            if (typeof nestedValue === 'object') {
+              for (const deeplyNestedValue of Object.values(nestedValue)) {
+                allValues.push(deeplyNestedValue);
+              }
+            } else {
+              allValues.push(nestedValue);
+            }
+          }
+        } else {
+          let transformedValue = value;
+          if (value === "true") {
+            transformedValue = "yes";
+          } else if (value === "false") {
+            transformedValue = "no";
+          }
+          const transformedKey = key.replace(/_/g, " ");
+          allValues.push(`${transformedKey}: ${transformedValue}`);
         }
-        const transformedKey = key.replace(/_/g, " ");
-        allValues.push(`${transformedKey}: ${transformedValue}`);
       }
     }
     setUserInput(allValues);
-
     const query = qs.stringify({
       filters: {
         $or: array_query,
@@ -400,6 +445,7 @@ function AdvancedSearch() {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
+    console.log(query)
     if (array_query.length === 0) {
       alert('No search input')
     }
@@ -408,7 +454,6 @@ function AdvancedSearch() {
     
     if (response.data.length === 0) {
       setIsButtonClicked(true);
-
     }
     else {
       const mapData = response.data.map((person) => {
@@ -420,7 +465,6 @@ function AdvancedSearch() {
         }
       })
       setMap(mapData);
-
       const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
       setTableData(tableData);
       setIsButtonClicked(true);
@@ -638,15 +682,51 @@ function AdvancedSearch() {
                 <h1> city of residence in 1977</h1>
                 <div className="item_EDU">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('residence_in_1977.residence_in_1977.$containsi')}/> </label> 
+                <input type="text" {...register('residence_in_1977s.city_state.$containsi')}/> </label> 
                 <div className="advancedSearch_form-control">
-                  <Select
-                  options={populationOptions} 
-                  placeholder={'Population'}
-                  /> 
-                  <Select
-                  options={incomeOptions} 
-                  placeholder={'Median Household Income'}
+                <Controller 
+                    control={control}
+                    name="residence_in_1977s"
+                    render={({ field }) => (
+                      <Select
+                      styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
+                        options={populationOptions} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            population: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.population ? populationOptions.find(option => option.value === selectedOptions.population) : null}
+                        placeholder="Population"
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
+                  />
+                <Controller 
+                    control={control}
+                    name="residence_in_1977s"
+                    render={({ field }) => (
+                      <Select
+                      styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
+                        options={incomeOptions} 
+                        onChange={(selectedOption) => {
+                          setSelectedOptions(prevOptions => ({
+                            ...prevOptions,
+                            income: selectedOption.value
+                          }));
+                          field.onChange(selectedOption.value);
+                        }}
+                        onBlur={field.onBlur}
+                        value={selectedOptions.income ? populationOptions.find(option => option.value === selectedOptions.income) : null}
+                        placeholder="Median Household Income"
+                        name={field.name}
+                        ref={field.ref}
+                      />
+                    )}
                   />
                   </div>                
                 </div>
@@ -804,20 +884,51 @@ function AdvancedSearch() {
                       <label>{item.race}</label>
                       <Controller
                         control={control}
-                        name={`races.${item.race}`}
+                        name={`races.race`}
                         render={({ field }) => (
                           <Select
-                            styles={{ container: base => ({ ...base, width: "max-content", minWidth: "70%" }) }}
-                            options={[{ value: item.identities, label: item.identities }]} // Assuming identities are the options
-                            onChange={(selectedOption) => {
+                            isMulti
+                            styles={{
+                              container: (base) => ({
+                                ...base,
+                                minWidth: '70%',
+                                maxWidth: '70%', // Ensure it doesn’t exceed the container width
+                              }),
+                              control: (base) => ({
+                                ...base,
+                                minWidth: '65%', // Set a reasonable minimum width
+                                maxWidth: '65%', // Prevent it from expanding beyond the container
+                              }),
+                            }}
+                            options={[
+                              { value: "All Identities", label: "All Identities" },
+                              ...item.identities.map(identity => ({ value: identity, label: identity }))
+                            ]}
+                            onChange={(selectedOptions) => {
+                              let selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
+                              
+                              if (selectedValues.includes("All Identities")) {
+                                selectedValues = item.identities; // Set all identities as selected values
+                              }
+
+                              // Update the state for the specific race category
                               setSelectedOptions(prevOptions => ({
                                 ...prevOptions,
-                                [item.race]: selectedOption ? selectedOption.value : null
+                                "race": {
+                                  ...prevOptions["race"],
+                                  [item.race]: selectedValues
+                                }
                               }));
-                              field.onChange(selectedOption ? selectedOption.value : null);
+
+                              // Update the field value
+                              field.onChange(selectedValues);
                             }}
                             onBlur={field.onBlur}
-                            value={selectedOptions[item.race] ? { value: selectedOptions[item.race], label: selectedOptions[item.race] } : null}
+                            value={
+                              (selectedOptions["race"] && selectedOptions["race"][item.race] && selectedOptions["race"][item.race].length === item.identities.length) 
+                              ? [{ value: "All Identities", label: "All Identities" }] 
+                              : selectedOptions["race"] && selectedOptions["race"][item.race] ? selectedOptions["race"][item.race].map(value => ({ value, label: value })) : []
+                            }
                             placeholder="Select..."
                             name={field.name}
                             ref={field.ref}
