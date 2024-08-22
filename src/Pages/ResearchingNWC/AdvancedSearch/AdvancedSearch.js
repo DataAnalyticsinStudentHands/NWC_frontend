@@ -281,13 +281,6 @@ function AdvancedSearch() {
   }
   
   async function onSubmit(data) {
-    for (const [category, values] of Object.entries(selectedOptions.race)) {
-      console.log(`Category: ${category}`);
-      // Print each value inside the array
-      values.forEach(value => {
-        console.log(` - ${value}`);
-      });
-    }
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
@@ -445,7 +438,6 @@ function AdvancedSearch() {
     }, {
       encodeValuesOnly: true, // prettify URL
     });
-    console.log(query)
     if (array_query.length === 0) {
       alert('No search input')
     }
