@@ -46,7 +46,7 @@ function HowToContribute() {
 				setBannerImageCredit(BannerImageCredit);
 			});
         const resourceQuery = qs.stringify({
-            fields: ['resource', 'summary_text','resource_icon'],
+            fields: ['resource', 'summary_text'],
             populate: ['resource_icon'],
             sort: 'id'
         }, { encodeValuesOnly: true })
