@@ -524,17 +524,17 @@ function AdvancedSearch() {
     <form onSubmit={handleSubmit(onSubmit)}>
         <Banner
         imgLeft={button}
-        text={contentMap?.attributes?.Banner_text}
+        text={contentMap?.attributes?.AdvancedSearch_Banner}
         imgRight={JaniceRubin}
         imgCredit={contentMap?.attributes?.BannerImage_Credit}
       />
     <div className="advancedSearch_font">
       <div className="advancedSearch">
         <div className="advancedSearch_text">
-          <h1> Cross-referenced search </h1>
+          <h1>ADVANCED SEARCH</h1>
           <hr></hr>
-          <h2> Advanced Search </h2>
-          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Banner}</ReactMarkdown>
+          <h2>HOW TO SEARCH THIS DATA</h2>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_HowTo}</ReactMarkdown>
         </div>
       </div>
         <div  className="advancedSearch"> 
@@ -1255,7 +1255,7 @@ function AdvancedSearch() {
         <div className="advancedSearch_text">
           <h1> Open Text search </h1>
           <hr></hr>
-          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_Banner}</ReactMarkdown>
+          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_OpenSearch}</ReactMarkdown>
         </div>
         
       </div>
