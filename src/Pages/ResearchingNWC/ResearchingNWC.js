@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
 import button from "../../assets/res/button-research-the-nwc.png";
@@ -42,7 +42,7 @@ function ResearchingNWC() {
   // 3rd state for form search by name
   // const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
-  const { register, handleSubmit, reset } = useForm();
+  const { register, handleSubmit, reset, control} = useForm();
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
 
@@ -96,11 +96,11 @@ const politicalOfficeObj = {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
           case "role":
-            query_array.push({ role:{role: roleObj[Object.keys(data)[index].slice(5)]}});
+            query_array.push({ roles:{role: roleObj[Object.keys(data)[index].slice(5)]}});
             selectArr.push(key.slice(5))
             break;
           case 'race':
-            query_array.push({basic_races:{basic_race:raceObj[Object.keys(data)[index].slice(5)]}});
+            query_array.push({basic_races:{race:raceObj[Object.keys(data)[index].slice(5)]}});
             selectArr.push(key.slice(5))
             break;
           case 'religion':
@@ -116,7 +116,7 @@ const politicalOfficeObj = {
             selectArr.push(key.slice(6))
             break;
           case 'party':
-            query_array.push({ political_party_membership:politicalPartyObj[Object.keys(data)[index].slice(6)]}); 
+            query_array.push({ political_parties:{party: politicalPartyObj[Object.keys(data)[index].slice(6)]}}); 
             selectArr.push(key.slice(6))
             break;
           case 'era_for':
@@ -126,7 +126,7 @@ const politicalOfficeObj = {
             selectArr.push('For')
             break;
           case 'era_against':
-            query_array.push({ planks_againsts: {
+            query_array.push({ planks_against: {
               plank: 'Equal Rights Amendment Plank'
             }}); 
             selectArr.push('Against')
@@ -135,6 +135,13 @@ const politicalOfficeObj = {
             break;
         }
       }
+    if (typeof value === 'object') {
+      value.forEach(item => {
+        query_array.push({represented_state: item.value})
+        selectArr.push(item.label)
+      })
+      
+    }
     });
     if(data.participantsName){
       selectArr.push(data.participantsName)
@@ -166,7 +173,7 @@ const politicalOfficeObj = {
     }
     setUserInput(selectArr);
     let queryObj = {
-      populate: ['residence_in_1977','role', 'basic_races','educations'],
+      populate: ['residence_in_1977s','roles', 'basic_races','educations'],
       sort:[{'last_name':"asc"}],
     }
     data.switch ? queryObj.filters = { $and: query_array } : queryObj.filters = { $or: query_array };
@@ -189,32 +196,28 @@ const politicalOfficeObj = {
         '#': index+1,
         'Last Name': person.attributes.last_name,
         'First Name': person.attributes.first_name,
-        'Residence in 1977':person.attributes.residence_in_1977.data.attributes.residence_in_1977,
+        'Residence in 1977':person.attributes.residence_in_1977s.data.map((residence) => residence.attributes.city_state),
         'Education':person.attributes.educations.data.map((education) => {
           const { degree, institution, year } = education.attributes;
           return `${degree ?? ''} ${institution ?? ''} ${year ?? ''}`
         }
           
           ),
-        'NWC Role':person.attributes.role.data.map((role) => role.attributes.role),
+        'NWC Role':person.attributes.roles.data.map((role) => role.attributes.role),
         // 'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
       }
     })
+    
     setTableData(NewTableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
   const onClear = () => {
     reset();
-    setSelectedOptions(null);
+    setSelectedOptions([]);
     setMap([])
     setTableData([])
   }
-
-  // // updates from multi-select
-  const onSelect = (options) => {
-    setSelectedOptions(options);
-  };
 
   return (
     <div className="mappingNWC">
@@ -241,7 +244,27 @@ const politicalOfficeObj = {
           <div className="row">
             <div className='panel'>
               <p>STATE/TERRITORY</p>
-              <StateSelect css={'basic-multi-select'} onSelect={onSelect} selectedOptions={selectedOptions}/>
+              <Controller
+                    control={control}
+                    name="represented_state"
+                    render={({ field }) => (
+                      <StateSelect
+                        css={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" })}}
+                        onSelect={(selectedOption) => {
+                          setSelectedOptions((prevOptions) => ({
+                            ...prevOptions,
+                            "represented_state": selectedOption,
+                          }));
+
+                          field.onChange(selectedOption.map(option => ({
+                            label: option.label,
+                            value: option.value
+                          })));
+                        }}
+                        selectedOptions={selectedOptions["represented_state"] || []}
+                      />
+                    )}
+                  />
               <p>NWC ROLES</p>
               {Object.keys(roleObj).map((role) => {
                 return(

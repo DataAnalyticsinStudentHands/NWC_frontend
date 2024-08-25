@@ -340,26 +340,27 @@ function AdvancedSearch() {
     }
 
     if (selectedOptions.population === '1 - 2,500') {
-      array_query.push({ 'residence_in_1977s][total_population': { $gte: 1, $lte: 2500 } });
+      array_query.push({ residence_in_1977s: {total_population: { $gte: 1, $lte: 2500 } }});
     }
     if (selectedOptions.population === '2,501 - 49,999') {
-      array_query.push({ 'residence_in_1977s][total_population': { $gte: 2501, $lte: 49999 } });
+      array_query.push({ residence_in_1977s: {total_population: { $gte: 2501, $lte: 49999 } }});
     }
     if (selectedOptions.population === '50,000+') {
-      array_query.push({ 'residence_in_1977s][total_population': { $gte: 50000 } });
+      array_query.push({ residence_in_1977s: {total_population: { $gte: 50000 } }});
     }
 
     if (selectedOptions.income === '$0 - $10,000') {
-      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 0, $lte: 10000 } });
+      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 0, $lte: 10000 } }});
     }
     if (selectedOptions.income === '$10,001 - $15,000') {
-      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 10001, $lte: 15000 } });
+      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 10001, $lte: 15000 } }});
     }
     if (selectedOptions.income === '$15,001+') {
-      array_query.push({ 'residence_in_1977s][median_household_income': { $gte: 15001 } });
+      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 15001 } }});
     }
 
     const allCategories = [];
+
     function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
       const keys = Object.keys(obj);
       allCategories.push(...keys);
@@ -372,60 +373,41 @@ function AdvancedSearch() {
         }
       }
     }
+
     array_query.forEach((item) => {
       extractAttributes(item);
     });
 
     const categories = array_query.map((item) => {
       const key = Object.keys(item)[0];
-      if (key === 'residence_in_1977s][total_population') {
-        return 'total_population';
-      }
-      if (key === 'residence_in_1977s][median_household_income') {
-        return 'median_household_income';
-      }
       return key;
     });
-
     const allValues = [];
 
-    // Define a mapping for keys to selected options
-    const optionMapping = {
-      'residence_in_1977s][total_population': selectedOptions.population,
-      'residence_in_1977s][median_household_income': selectedOptions.income,
-    };
-    
     for (const item of array_query) {
       const key = Object.keys(item)[0];
       const value = item[key];
-      
-      // Safely check if the key exists in the optionMapping using Object.prototype.hasOwnProperty
-      if (Object.prototype.hasOwnProperty.call(optionMapping, key)) {
-        // If the key matches, push the corresponding selected option value
-        allValues.push(optionMapping[key]);
-      } else {
-        // Otherwise, continue with the existing logic
-        if (typeof value === 'object') {
-          for (const nestedKey of Object.keys(value)) {
-            const nestedValue = value[nestedKey];
-            if (typeof nestedValue === 'object') {
-              for (const deeplyNestedValue of Object.values(nestedValue)) {
-                allValues.push(deeplyNestedValue);
-              }
-            } else {
-              allValues.push(nestedValue);
+    
+      if (typeof value === 'object') {
+        for (const nestedKey of Object.keys(value)) {
+          const nestedValue = value[nestedKey];
+          if (typeof nestedValue === 'object') {
+            for (const deeplyNestedValue of Object.values(nestedValue)) {
+              allValues.push(deeplyNestedValue);
             }
+          } else {
+            allValues.push(nestedValue);
           }
-        } else {
-          let transformedValue = value;
-          if (value === "true") {
-            transformedValue = "yes";
-          } else if (value === "false") {
-            transformedValue = "no";
-          }
-          const transformedKey = key.replace(/_/g, " ");
-          allValues.push(`${transformedKey}: ${transformedValue}`);
         }
+      } else {
+        let transformedValue = value;
+        if (value === "true") {
+          transformedValue = "yes";
+        } else if (value === "false") {
+          transformedValue = "no";
+        }
+        const transformedKey = key.replace(/_/g, " ");
+        allValues.push(`${transformedKey}: ${transformedValue}`);
       }
     }
     setUserInput(allValues);
@@ -649,14 +631,13 @@ function AdvancedSearch() {
                         onSelect={(selectedOption) => {
                           setSelectedOptions((prevOptions) => ({
                             ...prevOptions,
-                            represented_state: selectedOption ? selectedOption.value : null,
+                            "represented_state": selectedOption,
                           }));
 
-                          if (selectedOption && selectedOption[0]) {
-                            field.onChange(selectedOption[0].value);
-                          } 
+                            field.onChange(selectedOption.map(option => option.value));
+
                         }}
-                        selectedOptions={selectedOptions.represented_state}
+                        selectedOptions={selectedOptions["represented_state"] || []}
                       />
                     )}
                   />
@@ -876,7 +857,7 @@ function AdvancedSearch() {
                       <label>{item.race}</label>
                       <Controller
                         control={control}
-                        name={`races.race`}
+                        name='races.race'
                         render={({ field }) => (
                           <Select
                             isMulti
@@ -893,33 +874,22 @@ function AdvancedSearch() {
                               }),
                             }}
                             options={[
-                              { value: "All Identities", label: "All Identities" },
+                              { value: item.identities, label: "All Identities" },
                               ...item.identities.map(identity => ({ value: identity, label: identity }))
                             ]}
                             onChange={(selectedOptions) => {
-                              let selectedValues = selectedOptions ? selectedOptions.map(option => option.value) : [];
-                              
-                              if (selectedValues.includes("All Identities")) {
-                                selectedValues = item.identities; // Set all identities as selected values
-                              }
-
                               // Update the state for the specific race category
                               setSelectedOptions(prevOptions => ({
                                 ...prevOptions,
-                                "race": {
-                                  ...prevOptions["race"],
-                                  [item.race]: selectedValues
-                                }
+                                "races.race": selectedOptions
                               }));
 
                               // Update the field value
-                              field.onChange(selectedValues);
+                              field.onChange(selectedOptions.map(option => option.value));
                             }}
                             onBlur={field.onBlur}
                             value={
-                              (selectedOptions["race"] && selectedOptions["race"][item.race] && selectedOptions["race"][item.race].length === item.identities.length) 
-                              ? [{ value: "All Identities", label: "All Identities" }] 
-                              : selectedOptions["race"] && selectedOptions["race"][item.race] ? selectedOptions["race"][item.race].map(value => ({ value, label: value })) : []
+                             selectedOptions["races.race"] || []
                             }
                             placeholder="Select..."
                             name={field.name}
