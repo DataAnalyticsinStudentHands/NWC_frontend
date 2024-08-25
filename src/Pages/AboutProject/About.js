@@ -151,7 +151,7 @@ function About() {
         {state.aboutDocuments_ddlink &&
           <Link to={`/pdfviewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
             <div>
-              DESIGN DOCUMENT
+              STYLE DOCUMENT
             </div>
           </Link>
         }

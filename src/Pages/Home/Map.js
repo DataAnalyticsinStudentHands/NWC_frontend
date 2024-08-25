@@ -27,7 +27,6 @@ function Map({mapImg, points}) {
   const [hovering, setHovering] = useState(false);
   // 3rd state to hold popup status
   const [popup, setPopup] = useState(false);
-  console.log(state.sources)
   return (
     <>
     {popup !== false ? <div className="homeMap_grayer" onClick={()=>setPopup(false)}></div> : ""}

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import icon from "./res/icon.png";
 import instagram from "./res/instagram.png";
-import twitter from "./res/twitter.png";
+import bluesky from "./res/bluesky.png";
 import facebook from "./res/facebook.png";
 import natendow from "./res/natendow.png";
 
@@ -64,7 +64,7 @@ function Footer() {
                         <a href={state.instagramLink}><img src={instagram} alt="instagram_logo"/></a>
                     </div>
                     <div className="twitter">
-                        <a href={state.twitterLink}><img src={twitter} alt="twitter_logo"/></a>
+                        <a href={state.twitterLink}><img src={bluesky} alt="bluesky_logo"/></a>
                     </div>
                     <div className="facebook">
                         <a href={state.facebookLink}><img src={facebook} alt="facebook_logo"/></a>
@@ -79,7 +79,7 @@ function Footer() {
                 </div>
                 {state.paragraph}
             </div>
-        </div>
+    </div>  
     )
 }
 

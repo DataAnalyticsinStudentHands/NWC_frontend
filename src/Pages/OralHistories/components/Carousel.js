@@ -1,8 +1,8 @@
 import Slider from 'react-slick';
 import InfoVideo from '../../../Components/Avalon/InfoVideo'
 import './Carousel.scss';
-import LeftButtonIcon from '../../ResearchingNWC/res/Left Button.svg';
-import RightButtonIcon from '../../ResearchingNWC/res/Right Button.svg';
+import LeftButtonIcon from '../../../Components/Pagination/res/leftbutton.svg';
+import RightButtonIcon from '../../../Components/Pagination/res/rightbutton.svg';
 import video_placeholder from "../res/video_placeholder.png"
 
 const Carousel = (props) => {
