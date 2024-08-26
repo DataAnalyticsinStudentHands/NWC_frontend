@@ -36,16 +36,12 @@ BANNER
     margin-top: -250rem;
     position: relative;
     margin-bottom: 250rem;
+    text-align: center;
 }
 
-.layout1Banner_hr + figure {
-    width: 75%;
-}
-
-.layout1Banner_hr + figure img {
-    width: 100%;
-    position: relative;
-    margin-top: -620rem;
+.layout1Banner_hr_figure {
+    width: 20%;
+    margin-top: -200rem;
 }
 
 .layout1Banner_hr + figure figcaption {
@@ -65,32 +61,28 @@ P1
 */
 
 .layout1P1 {
-    padding: 60rem 40rem 60rem 0;
+    padding: 60rem 40rem 60rem 50rem;
     display: flex;
-    font-size: 80rem;
 }
 
 .layout1P1_left {
-    width: 35%;
-    margin-right: 400rem;
-    position: relative;
+    margin-left: 100rem;
+    margin-right: 200rem;
 }
 
 .layout1P1_left figure {
-    height: fit-content;
+    width: 300rem;
     box-shadow: 60px -48px var(--colorDeepYellow);
 }
 
 .layout1P1_left img{
     width: 100%;
-    position: relative;
     display: block;
-    margin-top: -620rem;
 }
 
 .layout1P1_left figcaption {
     background-color: var(--colorDarkBlue);
-    font-size: 48rem;
+    font-size: 26rem;
     font-family: var(--fontBabasNeue);
     color: var(--colorBeige);
     width: 100%;
@@ -126,17 +118,9 @@ P1
     margin-top: -30rem;
 }
 
-/*
-P2
-*/
-
 .layout1P2 {
     padding: 40rem 240rem;
 }
-
-/*
-P3
-*/
 
 .layout1P3 {
     display: flex;
@@ -149,15 +133,17 @@ P3
 }
 
 .layout1P3 figure {
-    width: 50%;
+    margin: 0;
+    width: 700rem;
 }
 .layout1P3 img {
+    display: block;
     width: 100%;
 }
 
 .layout1P3 figcaption {
     background-color: var(--colorDarkBlue);
-    font-size: 48rem;
+    font-size: 26rem;
     font-family: var(--fontBabasNeue);
     color: var(--colorBeige);
     width: 100%;
@@ -165,60 +151,8 @@ P3
     padding: 20rem;
 }
 
-/*
-P4
-*/
-
-.layout1P4 {
-    display: flex;
-    justify-content: space-between;
+.layout1_author p {
     padding: 60rem 120rem;
-}
-
-.layout1P4 p {
-    width: 45%;
-}
-
-.layout1P4 figure {
-    width: 45%;
-}
-.layout1P4 img {
-    width: 100%;
-}
-
-.layout1P4 figcaption {
-    background-color: var(--colorDarkBlue);
-    font-size: 48rem;
-    font-family: var(--fontBabasNeue);
-    color: var(--colorBeige);
-    width: 100%;
-    text-align: center;
-    padding: 20rem;
-}
-
-/*
-SOURCES
-*/
-
-.layout1Sources {
-    padding: 120rem;
-}
-
-.layout1Sources_author {
-    font-weight: bold;
-    margin-bottom: 40rem;
-    max-width: 70ch;
-}
-
-.layout1Sources h2 {
-    font-size: 48rem;
-    font-family: var(--fontBabasNeue);
-    color: var(--colorDarkBlue);
-    margin-bottom: 30rem;
-}
-
-.layout1Sources_src {
-    font-size: 20rem !important;
-    margin-bottom: 15rem;
-    max-width: 70ch;
+    margin-block-start: 1rem;
+    margin-block-end: 1rem;
 }
