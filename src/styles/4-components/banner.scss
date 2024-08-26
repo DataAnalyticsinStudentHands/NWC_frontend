@@ -1,0 +1,83 @@
+.Banner {
+	font-size: 1vw;
+	background: (url("../../assets/res/mapbg.png"));
+	width: 100%;
+	display: flex;
+	object-fit: contain;
+	gap: 4em;
+
+	.Banner_left {
+		display: flex;
+		justify-content: center;
+
+		img {
+			width: 100%;
+			object-fit: contain;
+		}
+	}
+	.Banner_center {
+		display: flex;
+		align-items: center;
+
+		.Card {
+			background-color: #fff;
+			padding: 2em 1em;
+            position: relative;
+
+            width: 100%;
+
+			.text {
+				text-align: left;
+				font-size: 1.5em;
+				font-family: $fontNeoBulletin;
+				font-weight: bold;
+				background-color: #fff;
+			}
+			.topright {
+				border-top: 0.35em solid var(--colorDeepRed);
+				border-right: 0.35em solid var(--colorDeepRed);
+				position: absolute;
+				width: 50%;
+				height: 40%;
+				top: -2em;
+				right: -2em;
+			}
+			.bottomleft {
+				border-bottom: 0.35em solid var(--colorDeepRed);
+				border-left: 0.35em solid var(--colorDeepRed);
+				position: absolute;
+				width: 50%;
+				height: 40%;
+				bottom: -2em;
+				left: -2em;
+			}
+		}
+	}
+	.Banner_right {
+		position: relative;
+		display: flex;
+		align-items: flex-end;
+
+		img {			
+			width: 100%;
+			height: fit-content;
+		}
+		div{
+			position: absolute;
+			bottom: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			div {
+				height: fit-content;
+				width: fit-content;
+				font-size: 1.75em;
+				padding: 0.5em 1em;
+				font-family: $fontBabasNeue;
+
+				background-color: $color-blue-deep;
+				color: $color-beige;
+			}
+		}
+	}
+}

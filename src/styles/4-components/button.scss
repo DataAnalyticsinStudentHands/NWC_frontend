@@ -1,0 +1,33 @@
+
+button {
+    cursor: pointer;
+    color: #fff;
+    border: none;
+    font-family: babas_neue;
+  
+    &:focus {
+      outline: 0;
+    }
+  }
+  
+  .btn-primary{
+    &:active{
+      color: #B22524;
+      background-color: #ffffff !important;
+      border-color: #B22524;
+    }
+  }
+  .btn-secondary{
+    &:active{
+      color: #9FC6DF;
+      background-color: #ffffff !important;
+      border-color: #9FC6DF;
+    }
+  }
+  .btn-tertiary{
+    &:active{
+      color: #27557B;
+      background-color: #ffffff !important;
+      border-color: #27557B;
+    }
+  }

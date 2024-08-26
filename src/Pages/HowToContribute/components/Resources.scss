@@ -1,0 +1,90 @@
+.resources-container{
+	position: relative;
+	overflow: hidden;
+
+	.tr-icon{
+		position: absolute;
+		top: -800px;
+		right: -800px;
+		z-index: -1;
+
+		img{
+			width: 80%;
+		}
+	}
+
+	.bl-icon{
+		position: absolute;
+		bottom: -700px;
+		left: -500px;
+		z-index: -1;
+
+		img{
+			width: 80%;
+		}
+	}
+
+	.resources {
+		font-size: 15em;
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		gap: 5em;
+	
+		margin: 5em 10%;
+	
+	
+		.video-container {
+			display: flex;
+			align-items: center;
+	
+			height: 50em;
+			padding: 0 10%;
+		}
+	
+		.icons-container {
+			display: flex;
+			align-items: center;
+			width: 100%;
+			flex-wrap: wrap;
+			justify-content: space-around;
+	
+			.icon-container {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				gap: 2em;
+	
+				img {
+					max-width: 100%;
+					height: auto;
+				}
+	
+				p {
+					font-family: $fontBabasNeue;
+					text-align: center;
+					font-size: 2em;
+				}
+			}
+		}
+	
+		.idea-container {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+	
+			gap: 2em;
+	
+			img {
+				max-width: 100%;
+				height: auto;
+			}
+			h1 {
+				font-size: 3.75em;
+				font-family: $fontBabasNeue;
+				font-weight: 400;
+			}
+		}
+	}
+}
+

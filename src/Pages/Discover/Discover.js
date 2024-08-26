@@ -1,13 +1,15 @@
-import React, { useEffect, useState, useRef } from 'react'
+import { useEffect, useState, useRef } from 'react'
 import "./Discover.css";
 import discoverButton from "../../assets/res/button-discover.png";
 import BannerCard from '../../Components/BannerCard/BannerCard';
 import CaptionedImg from '../../Components/CaptionedImg/CaptionedImg';
 import discoverbannerperson from "./res/discoverbannerperson.png";
 import { loadcards } from './cardloader';
-import DiscoverCard from '../../Components/DiscoverCard/DiscoverCard';
+import DiscoverCard from './Components/DiscoverCard';
 import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
+import { Search } from '../../Components/SearchBox/Search'
+import ReactMarkdown from 'react-markdown'
 var currentData = 'default'
 
 function Discover() {
@@ -221,7 +223,7 @@ function Discover() {
         <div className="discoverFeatured_cards">
           {featuredCards
             .filter(value => value.featured === 'true')
-            .map((value, index) => <DiscoverCard
+            .map((value) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
               href={`/Discover/${value.id}`}
@@ -237,13 +239,13 @@ function Discover() {
 
       {/**INTRO */}
       <div className="discoverIntro">
-        <p>{state.intro_text}</p>
+        <ReactMarkdown>{state.intro_text}</ReactMarkdown>
       </div>
 
       {/**SEARCH */}
       <div className="discoverSearch">
         <div className="discoverSearch_bar">
-          <input placeholder="Search Participants by Name" value={input} onChange={e => setInput(e.target.value)} />
+          <Search placeholder="Search Participants by Name" onSearch={setInput}/>
           <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
         <div className="discoverSearch_sortBy">

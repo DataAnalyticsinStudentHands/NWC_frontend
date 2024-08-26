@@ -1,0 +1,128 @@
+.homeMap_card {
+    width: 1271.01rem;
+    height: fit-content;
+    min-height: 352.54rem;
+    border: 10rem solid var(--colorDeepRed);
+    margin-left: 324rem;
+    margin-top: 260.5rem;
+  }
+  
+  .homeMap_headerBackdrop {
+    width: 599rem;
+    height: 96rem;
+    background-color: white;
+    margin-left: 58.92rem;
+    margin-top: -70rem;
+  }
+  
+  .homeMap_header {
+    font-family: 'babas_neue', 'normal';
+    font-size: 96rem;
+    margin-top: -96rem;
+    margin-left: 83.92rem;
+  }
+  
+  .homeMap_cardHr {
+    background-color: var(--colorDeepRed);
+    border-top: 15rem solid var(--colorDeepRed);
+    border-bottom: calc(10 * var(--xUnit)) solid var(--colorDeepOrange);
+    width: calc(563.29 * var(--xUnit));
+    margin-left: calc(80.72 * var(--xUnit));
+  }
+  
+  .homeMap_text {
+    font-size: calc(24 * var(--xUnit));
+    font-family: 'neobulletin', 'normal';
+    font-weight: bold;
+    width: calc(1171.8 * var(--xUnit));
+    margin-left: calc(32.01 * var(--xUnit));
+    margin-top: calc(54.67 * var(--xUnit));
+    text-align: left;
+  }
+  
+  .homeMap_opening {
+    width: 80%;
+    display: block;
+    margin: auto;
+  }
+  
+  .homeMap_tabs {
+    margin-top: calc(122.46 * var(--xUnit));
+    display: flex;
+    margin-left: calc(102.5 * var(--xUnit));
+    width: fit-content;
+  }
+  
+  .homeMap_tabs div {
+    width: calc(241 * var(--xUnit));
+    height: calc(110 * var(--xUnit));
+    margin-left: calc(33 * var(--xUnit));
+    background-color: var(--colorDeepOrange);
+    border-radius: calc(50 * var(--xUnit)) calc(50 * var(--xUnit)) 0 0;
+    text-align: center;
+    font-family: 'babas_neue', 'normal';
+    font-size: calc(40 * var(--xUnit));
+    color: var(--colorBeige);
+    padding-top: calc(29 * var(--xUnit));
+  }
+  
+  .homeMap_tabs div:hover {
+    cursor: pointer;
+    border-top: calc(4 * var(--xUnit)) solid #142f45;
+    border-left: calc(4 * var(--xUnit)) solid #142f45;
+    border-right: calc(4 * var(--xUnit)) solid #142f45;
+    color: #142f45;
+  }
+  
+  .homeMap_tabs .homeMap_tab--active {
+    border-top: calc(4 * var(--xUnit)) solid #142f45;
+    border-left: calc(4 * var(--xUnit)) solid #142f45;
+    border-right: calc(4 * var(--xUnit)) solid #142f45;
+    background-color: #ffffff;
+    color: #142f45;
+    pointer-events: none;
+  }
+  
+  .homeMap_tabsHr {
+    width: calc(1611.58 * var(--xUnit));
+    height: calc(4 * var(--xUnit));
+    background-color: #142f45;
+    margin-left: calc(135.5 * var(--xUnit));
+  }
+
+  @media screen and (max-width: 768px) {
+
+    .homeMap_card {
+      margin-left: auto;
+      margin-right: auto;
+      width: calc(1750 * var(--xUnit));
+      min-height: calc(329 * var(--xUnit));
+      border: calc(50 * var(--xUnit)) solid var(--colorDeepRed);
+      padding-bottom: calc(34 * var(--xUnit));
+    }
+
+    .homeMap_headerBackdrop {
+      width: 860rem;
+      height: 96rem;
+      margin-left: 58.92rem;
+      margin-top: -80rem;
+    }
+    
+    .homeMap_header {
+      font-size: 7vw;
+      margin-top: -86rem;
+      margin-left: 100rem;
+    }
+    
+    .homeMap_cardHr {
+      width: calc(700 * var(--xUnit));
+      margin-left: calc(100 * var(--xUnit));
+    }
+    
+    .homeMap_text {
+      font-size: 2.9vw;
+      width: calc(1400 * var(--xUnit));
+      margin-left: calc(80 * var(--xUnit));
+      text-align: left;
+    }
+  }

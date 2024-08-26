@@ -1,35 +1,41 @@
 .Research-Pagination {
 	list-style: none;
-	gap: 30px;
+	gap: 0.5em;
 
 	display: flex;
 	cursor: pointer;
 	justify-content: center;
 	align-items: center;
 }
-
 .Research-Pagination a {
 	font-style: normal;
 	font-weight: 400;
-	font-size: 48rem;
-	line-height: 72px;
+	font-size: 1.25em;
+	line-height: 1.5em;
 	display: flex;
 	align-items: center;
-
 	color: #cadfee;
-
 	transition: 0.1s;
+
+	box-sizing: border-box;
+	padding: 0 0.25em;
 }
 .Research-Pagination a:hover {
 	color: var(--colorDarkBlue);
+	background-color: #9EC7E1;
+}
+.Research-Pagination .previous a:hover {
+	background-color: transparent;
+}
+.Research-Pagination .next a:hover {
+	background-color: transparent;
 }
 .Research-Pagination .active a {
 	color: var(--colorDarkBlue);
-	font-size: 60rem;
+	background-color: #9EC7E1;
 }
 
 .Research-Pagination .disabled a {
-	/* color: #cadfee; */
 	color: var(--colorDarkBlue);
 }
 
@@ -37,6 +43,10 @@
 	display: flex;
 	justify-content: space-between;
 	margin: 1em 0;
+}
+
+.TableInfor-Left {
+	width:80%;
 }
 
 .TableInfor-Right-Button {

@@ -1,0 +1,126 @@
+.OralHistories_NWC_container {
+    margin-top: 5%;
+	.item {
+        font-size: 36px;
+		align-items: center;
+		.item-left {
+			flex: 50%;
+			text-align: center
+		}
+		.item-right {
+			flex: 50%;
+			display: flex;
+			flex-direction: column;
+
+            .paragraph-2 {
+                font-size: 16px; /* Adjust the font size to your preference */
+              }
+	}
+}
+}
+
+.OralHistories_Featured_container {
+    display: flex;
+    flex-direction: column;
+    padding: 4em; /* Adjust the em value as needed */
+    padding-top: 15%; 
+    padding-bottom: 5em; /* Adjust the em value as needed */
+    background-image: url("res/featuredbg.png");
+    background-size: 100% auto;
+    background-repeat: no-repeat;
+    min-height: 100%;
+    .featured_video_container {
+        
+        display: block;
+        border: 10px solid #FFD046;
+        padding-right: -20rem;
+        box-sizing: border-box;
+        box-shadow:
+            0 0 0 10px #CB4E28,
+            0 0 0 20px #B22524;
+        position: relative;
+        background-color: transparent;
+        margin-left: 30%; /* Adjust the percentage as needed to shift the frame to the right */
+        max-width: 56.7vw; /* Limit the width to prevent bleeding off the page */
+    }
+    .header-container {
+        font-size: 48px;
+        display: flex;
+        justify-content: center; /* Center horizontally */
+        align-items: center; /* Center vertically */
+        margin-right: -360rem; /* Adjust this value to shift the text to the right */
+        margin-bottom: 40rem;
+    }
+
+}
+
+.OralHistories_Voice_container {
+    margin-bottom: 5em; /* to make space for footer */
+    display: flex;
+    flex-direction: column;
+    background-color: $color-beige;
+    position: relative; /* Make the container a positioning context */
+
+    /* Add a red bottom border */
+    border-bottom: 30rem solid #B22524;
+
+    .centered-text {
+        text-align: center;
+        font-size: 80rem;
+        padding: 1em;
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 1; /* Place the text on top of the images */
+    }
+
+    .item {
+        display: flex;
+        position: relative; /* Make the item a positioning context */
+
+        .item-left,
+        .item-right {
+            flex: 1;
+            text-align: center;
+            position: relative; /* Make the item a positioning context */
+            width: 100%; /* Set width to 100% to take full width */
+            display: flex;
+            flex-direction: column;
+
+            /* Vertically align items at the bottom */
+            justify-content: flex-end;
+
+            /* Set background image and control size and position */
+            background-size: 40%; /* Adjust to your preference */
+            background-repeat: no-repeat; /* Prevent background images from repeating */
+            
+                img {
+                    width: 100%;
+                    object-fit: contain;
+                }
+        }
+
+        .item-left {
+            background-image: url("res/red_dots_decor.png");
+        }
+
+        .item-right {
+            background-image: url("res/blue_dots_decor.png");
+			background-position: right top; /* Align at the bottom right */
+
+            p {
+                font-size: 40rem;
+                padding: 0.5em 1em;
+                font-family: $fontBabasNeue;
+    
+                position: absolute;
+                right: 0;
+    
+                background-color: $color-blue-deep;
+                color: $color-beige;
+                margin-bottom: -0.01em
+            }
+        }
+    }
+}

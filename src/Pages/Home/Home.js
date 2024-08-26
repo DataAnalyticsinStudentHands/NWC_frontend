@@ -1,7 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 import './Home.css';
-import Map from './Map';
 import './OverlayVid.css';
 
 import opening from './res/City of Houston Map.png';
@@ -12,9 +10,6 @@ import museo from './res/museo.png';
 import mag from './res/mag.png';
 import astro from './res/astro.png';
 
-import toform from './res/toform.png';
-import aboutpeople from './res/aboutpeople.png';
-import minorityrightsplank from './res/minority_rights_plank.png';
 import button1 from '../../assets/res/button-why-the-nwc-matters.png';
 import button2 from '../../assets/res/button-discover.png';
 import button3 from '../../assets/res/button-research-the-nwc.png';
@@ -23,9 +18,15 @@ import dots1 from './res/dots1.png';
 import dots2 from './res/dots2.png';
 import dots3 from './res/dots3.png';
 import dots4 from './res/dots4.png';
-import Carousel3 from '../../Components/Carousel/Carousel3';
+import { Stack } from '../../Components/Stack';
 
 import { useGlobalContext } from '../../context/GlobalProvider';
+import { PinButtons } from '../../Components/PinButtons/PinButtons'
+import { HomeBanner } from './components/HomeBanner'
+import { HomeAbout } from './components/HomeAbout'
+import { HomeMap } from './components/HomeMap'
+import { HomeExplore } from './components/HomeExplore'
+import { HomeHighlights } from './components/HomeHighlights'
 
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
@@ -49,18 +50,15 @@ const superSorter = (list) => {
 function Home() {
   const [globalState, globalDispatch] = useGlobalContext();
 
-  const overlaymp4 = process.env.REACT_APP_OVERLAYMP4; 
+  const overlaymp4 = process.env.REACT_APP_API_URL + "/uploads/overlayvid_compressed_381cfa05b6.mp4";
 
-  const [homeAboutReadmore, setHomeAboutReadmore] = useState(false);
   const [homeDowntown, setHomeDowntown] = useState([]);
   const [homeThirdward_uh, setHomeThirdward_uh] = useState([]);
   const [homeMuseum_district, setHomeMuseum_district] = useState([]);
   const [homeMagnolia_park, setHomeMagnolia_park] = useState([]);
   const [homeAstrodome, setHomeAtrodome] = useState([]);
-  const [openingMap, setOpeningMap] = useState(true);
-  
+  const buttons = [button1, button2, button3, button4];
   const [state, setState] = useState({
-
     photoByExplore: "",
     photoByExplore_more:  "",
     aboutImgCredit: "",
@@ -69,17 +67,15 @@ function Home() {
     homeAbout_p: "",
     homeAbout_p1: "",
     homeAbout_p2: "",
-    homeButton1_link: "",
-    homeButton1_text: "",
-    homeButton2_link: "",
-    homeButton2_text: "",
-    homeButton3_link: "",
-    homeButton3_text: "",
-    homeButton4_link: "",
+    homeButtons: [
+      { link: "", text: "" },  // homeButton1
+      { link: "", text: "" },  // homeButton2
+      { link: "", text: "" },  // homeButton3
+      { link: "", text: "" },  // homeButton4
+    ],
     homeExplore_text: "",
     homeHighlights_content2: "",
     homeMap_text: ""
-  
   });
 
   const scroll = () => {
@@ -91,15 +87,17 @@ function Home() {
     fetch([process.env.REACT_APP_API_URL, 'api/content-home'].join('/'))
       .then((res) => res.json())
       .then((data) => {
-
-        const {data:
-                {attributes:
-                  {PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2, homeButton1_link, homeButton1_text,
-                    homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text, homeExplore_text, homeHighlights_content2, homeMap_text
-                  }
-                }
-              } = data;
-
+  
+        const {
+          data: {
+            attributes: {
+              PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2,
+              homeButton1_link, homeButton1_text, homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text,
+              homeExplore_text, homeHighlights_content2, homeMap_text
+            }
+          }
+        } = data;
+  
         setState({
           photoByExplore: PhotoByExplore,
           photoByExplore_more: PhotoByExplore_more,
@@ -109,19 +107,17 @@ function Home() {
           homeAbout_p: homeAbout_p,
           homeAbout_p1: homeAbout_p1,
           homeAbout_p2: homeAbout_p2,
-          homeButton1_link: homeButton1_link,
-          homeButton1_text: homeButton1_text,
-          homeButton2_link: homeButton2_link,
-          homeButton2_text: homeButton2_text,
-          homeButton3_link: homeButton3_link,
-          homeButton3_text: homeButton3_text,
-          homeButton4_link: homeButton4_link,
-          homeButton4_text: homeButton4_text,
+          homeButtons: [
+            { link: homeButton1_link, text: homeButton1_text },
+            { link: homeButton2_link, text: homeButton2_text },
+            { link: homeButton3_link, text: homeButton3_text },
+            { link: homeButton4_link, text: homeButton4_text },
+          ],
           homeExplore_text: homeExplore_text,
           homeHighlights_content2: homeHighlights_content2,
           homeMap_text: homeMap_text
-        })
-        
+        });
+  
       })
       .catch((err) => console.log(err));
   }, []);
@@ -139,7 +135,7 @@ function Home() {
               const 
                   {attributes:
                     {x, y, Name, Description, citation1, citation2, citation3, 
-                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3}} = p;
+                      mainImage, pdf1, pdf2, pdf3, img1, img2, img3, sources}} = p;
               const p2 = [];
               
               p2[0] = Name;
@@ -164,6 +160,7 @@ function Home() {
               //console.log(p);
               p2[14] = citation2 !== undefined ? citation2 : '';
               p2[15] = citation3 !== undefined ? citation3 : '';
+              p2[16] = sources
               //p2[16] = p.citation4 !== undefined ? p.citation4 : "";
               return p2;
             })
@@ -177,8 +174,6 @@ function Home() {
         setHomeAtrodome(get('astrodome'));
       });
   }, []);
-
-  const [currMap, setCurrMap] = useState('dt');
 
   const maps = {
     dt: {
@@ -228,6 +223,7 @@ function Home() {
     .catch(err => console.log(err));
 }, []); 
 
+
   return (
     <>
       <div
@@ -237,7 +233,7 @@ function Home() {
       >
         <p
           className="overlay_vid_skip"
-          onClick={(e) => {
+          onClick={() => {
             globalDispatch('VIDEO_OFF');
             scroll();
           }}
@@ -267,187 +263,36 @@ function Home() {
       </div>
 
       {!globalState.video ? (
+        
         <div className="home">
-          {/**SPLASH */}
-          <div className="homeSplash">
-            <div className="homeSplash_toForm">
-              <img src={toform} alt="conference_logo" />
-            </div>
-
-            <div className="homeSplash_card">
-              <h3>Sharing Stories from 1977</h3>
-              <div className="homeSplash_cardHr"></div>
-              <p>PUTTING THE NATIONAL WOMEN'S CONFERENCE ON THE MAP</p>
-            </div>
-          </div>
+          <button className="scroll-to-top" onClick={scroll}>
+            <div className="arrow-up"></div>
+          </button>
+          {/**Home Banner */}
+          <HomeBanner />
 
           {/**ABOUT */}
-          <div className="homeAbout">
-            <div className="homeAbout_beigeBackdrop"></div>
-            <div className="homeAbout_content">
-              <div className="homeAbout_card">
-                <div className="homeAbout_headerBackdrop"></div>
-                <p className="homeAbout_header">ABOUT THE PROJECT</p>
-                <div className="homeAbout_cardHr"></div>
-
-                {/*<p className="homeAbout_p1"><ReactMarkdown>{homeAbout_p}</ReactMarkdown></p>*/}
-                <div className="homeAbout_peas">
-                  <p className="homeAbout_p1">{state.homeAbout_p1}</p>
-                  {homeAboutReadmore ? (
-                    <p className="homeAbout_p2">{state.homeAbout_p2}</p>
-                  ) : (
-                    ''
-                  )}
-                </div>
-                <p
-                  className="homeAbout_readmore"
-                  onClick={(e) => setHomeAboutReadmore(!homeAboutReadmore)}
-                >
-                  READ {homeAboutReadmore ? 'LESS' : 'MORE'}
-                </p>
-              </div>
-
-              <div className="homeAbout_chicks">
-                <img src={aboutpeople} alt="female_athletes" />
-                <div title={state.aboutImgCredit_more} className="homeAbout_imgCred">
-                  <p title={state.aboutImgCredit_more}>
-                    {/* PHOTO BY {state.homeAboutImgCredit} */}
-                    PHOTO BY {state.aboutImgCredit}
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="homeAbout_border"></div>
+          <HomeAbout p1={state.homeAbout_p1} p2={state.homeAbout_p2} ImgCredit_more={state.aboutImgCredit_more} ImgCredit={state.aboutImgCredit}/>
 
           {/**MAP */}
+          <HomeMap homeMap_text={state.homeMap_text} maps={maps} opening={opening} />
 
-          <div className="homeMap">
-            <div className="homeMap_card">
-              <div className="homeMap_headerBackdrop"></div>
-              <p className="homeMap_header">INTERACTIVE MAP</p>
-              <div className="homeMap_cardHr"></div>
-              <p className="homeMap_text">{state.homeMap_text}</p>
-            </div>
-
-            {openingMap ? (
-              <>
-                <div className="homeMap_tabs">
-                  <div
-                    className={openingMap ? 'homeMap_tab--active' : ''}
-                    onClick={() => setOpeningMap(true)}
-                  >
-                    <p>HOUSTON 1977</p>
-                  </div>
-                  {Object.keys(maps).map((m) => (
-                    <div
-                      key={Math.random()}
-                      className={
-                        (currMap === m) & !openingMap
-                          ? 'homeMap_tab--active'
-                          : ''
-                      }
-                      onClick={() => {
-                        setCurrMap(m);
-                        setOpeningMap(false);
-                      }}
-                    >
-                      <p>{maps[m].name}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="homeMap_tabsHr"></div>
-
-                {[
-                  { color: '#3FA490', x: '930', y: '754', mapName: 'dt' },
-                  { color: '#615FBF', x: '960', y: '852', mapName: 'tw' },
-                  { color: '#9EC7E1', x: '890', y: '849', mapName: 'museo' },
-                  { color: '#142F45', x: '1070', y: '810', mapName: 'mag' },
-                  { color: '#FFD048', x: '795', y: '964', mapName: 'astro' },
-
-                ].map((p) => (
-                  <div 
-                    key={Math.random()}
-                    style={{
-                      position: 'absolute',
-                      width: 'calc(35*var(--xUnit))',
-                      height: 'calc(35*var(--xUnit))',
-                      backgroundColor: p.color,
-                      borderRadius: '999px',
-                      marginLeft: `calc(${p.x}*var(--xUnit))`,
-                      marginTop: `calc(${p.y}*var(--xUnit))`,
-                      cursor: 'pointer',
-                    }}
-                    onClick={() => {
-                      setCurrMap(p.mapName);
-                      setOpeningMap(false);
-                    }}
-                  ></div>
-                ))}
-                <img
-                  className="homeMap_opening"
-                  src={opening}
-                  alt="Opening Map"
-                />
-              </>
-            ) : (
-              <>
-                <div className="homeMap_tabs">
-                  <div
-                    className={openingMap ? 'homeMap_tab--active' : ''}
-                    onClick={() => setOpeningMap(true)}
-                  >
-                    <p>HOUSTON</p>
-                  </div>
-                  {Object.keys(maps).map((m) => (
-                    <div
-                      key={Math.random()}
-                      className={
-                        (currMap === m) & !openingMap
-                          ? 'homeMap_tab--active'
-                          : ''
-                      }
-                      onClick={() => {
-                        setCurrMap(m);
-                        setOpeningMap(false);
-                      }}
-                    >
-                      <p>{maps[m].name}</p>
-                    </div>
-                  ))}
-                </div>
-                <div className="homeMap_tabsHr"></div>
-
-                <Map
-                  mapImg={maps[currMap].mapImg}
-                  points={maps[currMap].points}
-                />
-              </>
-            )}
-          </div>
-
+          <HomeExplore homeExplore_text={state.homeExplore_text} photoBy={state.photoByExplore} title={state.photoByExplore_more} />
           {/**EXPLORE */}
-          <div className="homeExplore">
-            <div className="homeExplore_card">
-              <div className="homeExplore_headerBackdrop"></div>
-              <p className="homeExplore_header">EXPLORE THE SITE</p>
-              <div className="homeExplore_hr"></div>
-              <p className="homeExplore_text">{state.homeExplore_text}</p>
-            </div>
-
-            <div className="homeExplore_img">
-              <img src={minorityrightsplank} alt="minority_rights_plank" />
-            </div>
-            <div className="homeExplore_imgSrc" title={state.photoByExplore_more}>
-              <p>PHOTO BY {state.photoByExplore}</p>
-            </div>
-
-            <div className="homeExplore_borderBot"></div>
-          </div>
-
-          {/**BUTTONS */}
+                      
+          {/**PIN BUTTONS */}
           <div className="homeButtons">
-            <Link to={state.homeButton1_link}>
+            <Stack wrap margin="8% 0%">
+              {state.homeButtons.map((button, index) => (
+                <PinButtons
+                  key={index}
+                  button={buttons[index]} 
+                  link={button.link}
+                  text={button.text}
+                />
+              ))}
+            </Stack>
+            {/* <Link to={state.homeButton1_link}>
               <div className="homeButtons_button homeButtons_button1">
                 <img src={button1} alt="button_2" />
                 <p>{state.homeButton1_text}</p>
@@ -470,8 +315,7 @@ function Home() {
                 <img src={button4} alt="button_4" />
                 <p>{state.homeButton4_text}</p>
               </div>
-            </Link>
-
+            </Link> */}
             <img
               className="homeButtons_dots homeButtons_dots1"
               src={dots1}
@@ -491,16 +335,11 @@ function Home() {
               className="homeButtons_dots homeButtons_dots4"
               src={dots4}
               alt=""
-            />
+            /> 
           </div>
 
           {/**HIGHLIGHTS */}
-      <div className="homeLaunch">
-        <h1>SITE HIGHLIGHTS</h1>
-      <div className='homeLaunchPanel'>
-        <Carousel3 images={images}/>
-      </div>
-    </div>
+          <HomeHighlights images={images}/>
   </div>
       ) : (
         ''

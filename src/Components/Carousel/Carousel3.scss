@@ -30,10 +30,24 @@
   font-size: 15px;
  }
  .slick-dots {
-  bottom: -35px;
+  bottom: -20%;
  }
 
-.defaultItems img{
+ .defaultItems img {
   max-width: 300px;
   aspect-ratio: 4 / 5;
+}
+
+:root {
+  --arrow-size: calc(150*var(--xUnit));
+}
+
+@media (max-width: 768px) {
+  .slick-dots {
+    bottom: -50%;
+  }
+
+  :root {
+    --arrow-size: calc(350*var(--xUnit)); /* Adjust this value based on your requirements */
+  }
 }

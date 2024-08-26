@@ -1,4 +1,3 @@
-import React from 'react'
 import "./CaptionedImg.css";
 
 function CaptionedImg({src, caption, caption_more}) {

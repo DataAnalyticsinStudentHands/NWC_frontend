@@ -1,0 +1,12 @@
+// // Design System
+@import './0-base/_base-dir.scss';
+@import './1-themes/_themes-dir.scss';
+// @import './2-foundations/_foundations-dir.scss';
+@import './3-application/_application-dir.scss';
+@import './4-components/_components-dir.scss';
+
+// pages
+@import '../Pages/HowToContribute/HowToContribute.scss';
+@import "../Pages/HowToContribute/components/Resources.scss";
+@import '../Pages/OralHistories/OralHistories.scss';
+@import '../Pages/OralHistories/components/ParticipantsTable.scss'

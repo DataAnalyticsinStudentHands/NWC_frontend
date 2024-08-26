@@ -17,7 +17,7 @@
 
 .navigation {
   width: 100vw;
-  height: 80rem;
+  height: 100rem;
   display: flex;
   background-color: var(--colorDarkBlue);
   align-items: center;
@@ -27,9 +27,23 @@
   box-shadow: 0 3rem 6rem #00000029;
 }
 
-.navigation_hamburger {
-  width: 31.6rem;
-  margin-left: 35rem;
+.hamburger_icon {
+  display: none;
+  font-size: 35rem; /* Adjust as needed */
+  cursor: pointer;
+  position: absolute;
+  right: 0; /* Adjust as needed */
+  top: 0; /* Adjust as needed */
+  transition: none;
+  margin-right: 0;
+}
+
+.hamburger_icon_bg {
+  background-color: var(--colorLightBlue);
+  border-radius: 0;
+  height: 318rem;
+  margin-top: 0;
+  
 }
 
 .navigation_search {
@@ -65,5 +79,79 @@
   background-color: var(--colorDeepRed);
   border-top: 14rem solid var(--colorDeepRed);
   border-bottom: 14rem solid var(--colorDeepOrange);
-  margin-top: 80rem;
+  margin-top: 100rem;
+}
+
+/* Styles for larger screens */
+.navigation_total .dove_icon {
+  display: none; /* Hide dove icon */
+}
+
+
+@media (max-width: 768px) {
+  .navigation_border {
+    background-color: var(--colorDeepRed);
+    border-top: 30rem solid var(--colorDeepRed);
+    border-bottom: 30rem solid var(--colorDeepOrange);
+    margin-top: 20rem;
+
+  }
+
+  .navigation {
+    background-color: var(--colorDarkBlue); 
+    box-shadow: none;
+
+}
+  .hamburger_icon {
+    display: block;
+  }
+  
+  /* Display the navigation when the menu is open */
+  .navigation.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 320rem; 
+    width: 100vw;
+  }
+
+  /* Adjust navigation links */
+  .navigation_link {
+    color: var(--colorDarkBlue);
+    margin-left: 0;
+    font-size: 130rem; 
+    padding: 10px 0px;
+    width: 100%;
+    text-align: center;
+  }
+  
+  .navigation_link--inactive {
+    background-color: var(--colorDarkBlue); 
+    color: var(--colorLightBlue); 
+    margin: 0;
+  }
+
+  /* Styling for active links */
+  .navigation_link--active {
+    background-color: var(--colorLightBlue); 
+    color: var(--colorDarkBlue); 
+    margin: 0;
+  }
+
+  .navigation_total {
+    background-color: var(--colorDarkBlue); 
+  }
+
+  .navigation_total .dove_icon {
+    display: block;
+    width: 330rem; 
+    height: 300rem; 
+    margin-left: 50rem;
+}
+
+  .dove_icon_container {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+  }
 }

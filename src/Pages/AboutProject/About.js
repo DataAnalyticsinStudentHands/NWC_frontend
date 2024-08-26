@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
@@ -8,7 +8,7 @@ import tl from './res/timeline.png';
 import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
-import MeetTheTeam from '../MeetTheTeam/MeetTheTeam';
+import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 
 function About() {
   // one state to hold the regular page content loaded from Strapi
@@ -151,7 +151,7 @@ function About() {
         {state.aboutDocuments_ddlink &&
           <Link to={`/pdfviewer/${state.aboutDocuments_ddlink.split('/')[4]}`}>
             <div>
-              DESIGN DOCUMENT
+              STYLE DOCUMENT
             </div>
           </Link>
         }

@@ -36,7 +36,8 @@ SPLASH
   height: 6rem;
   background-color: #da4c4c;
   margin-left: 56.82rem;
-  margin-top: 22rem;
+  margin-bottom: 22rem;
+  /* margin-top: 22rem; */
 }
 
 .homeSplash_card p {
@@ -45,138 +46,6 @@ SPLASH
   margin-top: 41.47rem;
 }
 
-/*
-ABOUT
-*/
-
-.homeAbout_beigeBackdrop {
-  width: 1610rem;
-  height: 950rem;
-  background-color: var(--colorBeige);
-  margin-top: 112rem;
-  margin-left: 122rem;
-}
-
-.homeAbout_content {
-  display: flex;
-  margin-top: -1062rem;
-}
-
-.homeAbout_card {
-  width: 835rem;
-  min-height: 730rem;
-  height: fit-content;
-  border: 10rem solid var(--colorDeepRed);
-  margin-left: 46.78rem;
-  margin-top: 230rem;
-  padding-bottom: 56rem;
-  margin-bottom: 20rem;
-}
-
-.homeAbout_playnice {
-  width: 835rem;
-}
-
-.homeAbout_headerBackdrop {
-  background-color: var(--colorBeige);
-  height: 96rem;
-  width: 654rem;
-  margin-left: 109.22rem;
-  margin-top: -62rem;
-  overflow-y: hidden;
-}
-
-.homeAbout_header {
-  font-family: 'babas_neue', 'normal';
-  font-size: 96rem;
-  margin-left: 138.22rem;
-  margin-top: -96rem;
-}
-
-.homeAbout_cardHr {
-  width: 198.36rem;
-  background-color: var(--colorDeepRed);
-  border-top: 15rem solid var(--colorDeepRed);
-  border-bottom: 10rem solid var(--colorDeepOrange);
-  margin-left: 138.22rem;
-  margin-top: -4rem;
-}
-
-.homeAbout_p1 p {
-  margin-bottom: 36rem;
-}
-
-.homeAbout_peas {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 500rem;
-}
-
-.homeAbout_p1 {
-  margin-top: 76.5rem;
-  padding-right: 112.78rem;
-}
-
-.homeAbout_p2 {
-  margin-top: 36rem;
-  padding-right: 91.78rem;
-}
-
-.homeAbout_p1,
-.homeAbout_p2 {
-  font-family: 'neobulletin', 'normal';
-  font-weight: bold;
-  font-size: 24rem;
-  width: 835rem;
-  padding-left: 143.22rem;
-}
-
-.homeAbout_readmore {
-  font-size: 45rem;
-  font-family: var(--fontBabasNeue);
-  margin-left: 600rem;
-  margin-top: 50rem;
-}
-
-.homeAbout_readmore:hover {
-  color: var(--colorDeepRed);
-  cursor: pointer;
-}
-
-.homeAbout_chicks {
-  margin-left: 38.2rem;
-  margin-bottom: 0;
-}
-
-.homeAbout_chicks img {
-  width: 1114rem;
-}
-
-.homeAbout_imgCred {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: 'babas_neue', 'normal';
-  font-size: 36rem;
-  width: fit-content;
-  min-width: 323rem;
-  height: 84rem;
-  background-color: var(--colorDarkBlue);
-  margin-left: 500rem;
-  color: var(--colorBeige);
-  margin-top: -89rem;
-  position: relative;
-  text-align: right;
-  padding: 12rem;
-}
-
-.homeAbout_border {
-  width: 100vw;
-  border-top: 25rem solid var(--colorDeepRed); /*high*/
-  height: 75rem; /*mid*/
-  background-color: var(--colorDeepOrange);
-  border-bottom: 25rem solid var(--colorDeepYellow); /*low*/
-}
 
 /*
 MAP
@@ -200,10 +69,8 @@ MAP
 }
 
 .homeMap_header {
-  font-family: 'babas_neue', 'normal';
-  font-size: 96rem;
-  margin-top: -96rem;
-  margin-left: 83.92rem;
+  margin-top: -116rem;
+  margin-left: 42rem;
 }
 
 .homeMap_cardHr {
@@ -215,13 +82,10 @@ MAP
 }
 
 .homeMap_text {
-  font-size: calc(24 * var(--xUnit));
-  font-family: 'neobulletin', 'normal';
-  font-weight: bold;
   width: calc(1171.8 * var(--xUnit));
   margin-left: calc(32.01 * var(--xUnit));
   margin-top: calc(54.67 * var(--xUnit));
-  text-align: left;
+  margin-bottom: calc(25 * var(--xUnit));
 }
 
 .homeMap_opening {
@@ -307,10 +171,8 @@ EXPLORE
 }
 
 .homeExplore_header {
-  font-size: calc(96 * var(--xUnit));
-  margin-top: calc(-1 * 96 * var(--xUnit));
-  font-family: 'babas_neue', 'normal';
-  margin-left: calc(150 * var(--xUnit));
+  margin-top: calc(-1 * 116 * var(--xUnit));
+  margin-left: calc(110 * var(--xUnit));
 }
 
 .homeExplore_hr {
@@ -323,12 +185,8 @@ EXPLORE
 }
 
 .homeExplore_text {
-  font-size: calc(24 * var(--xUnit));
   margin-top: calc(29.67 * var(--xUnit));
-  font-family: 'neobulletin', 'normal';
-  font-weight: bold;
   width: calc(559 * var(--xUnit));
-  text-align: left;
   margin-left: calc(142.01 * var(--xUnit));
 }
 
@@ -373,13 +231,12 @@ BUTTONS
 
 .homeButtons {
   z-index: -1;
-  height: calc(1312.72 * var(--xUnit));
+  height: 100%;
+
 }
 
 .homeButtons_button {
   display: flex;
-  align-items: center;
-  position: absolute;
   z-index: 1;
   background-color: white;
 }
@@ -404,11 +261,12 @@ BUTTONS
 .homeButtons_button1 {
   margin-top: calc(157 * var(--xUnit));
   margin-left: calc(100 * var(--xUnit));
+  
 }
 
 .homeButtons_button2 {
   margin-top: calc(157 * var(--xUnit));
-  margin-left: calc(996.33 * var(--xUnit));
+  margin-left: calc(1800 * var(--xUnit));
 }
 
 .homeButtons_button3 {
@@ -418,84 +276,89 @@ BUTTONS
 
 .homeButtons_button4 {
   margin-top: calc(720 * var(--xUnit));
-  margin-left: calc(996.33 * var(--xUnit));
+  margin-left: calc(1800 * var(--xUnit));
 }
 
 .homeButtons_dots {
   position: absolute;
   width: calc(420 * var(--xUnit));
   height: calc(420 * var(--xUnit));
+  z-index: 1
 }
 
 .homeButtons_dots1 {
-  margin-top: calc(10 * var(--xUnit));
-  margin-left: calc(10 * var(--xUnit));
+  margin-top: calc(-1000 * var(--xUnit));
+  margin-left: calc(15 * var(--xUnit));
 }
 
 .homeButtons_dots2 {
   right: 0;
-  margin-top: calc(10 * var(--xUnit));
-  margin-right: calc(10 * var(--xUnit));
+  margin-top: calc(-1000 * var(--xUnit));
+  margin-right: calc(15 * var(--xUnit));
 }
 
 .homeButtons_dots3 {
-  margin-top: calc(880 * var(--xUnit));
-  margin-left: calc(10 * var(--xUnit));
+  margin-top: calc(-450 * var(--xUnit));
+  margin-left: calc(16 * var(--xUnit));
 }
 
 .homeButtons_dots4 {
-  margin-top: calc(880 * var(--xUnit));
-  margin-right: calc(10 * var(--xUnit));
+  margin-top: calc(-450 * var(--xUnit));
+  margin-right: calc(16 * var(--xUnit));
   right: 0;
 }
 
-/*
-HIGHLIGHTS
-*/
 
-.homeLaunch {
-  background: url("../../assets/res/mapbg.png");
-  height: calc(1000*var(--xUnit));
-  padding-top: calc(212*var(--xUnit));
+/* Default settings for the scroll-to-top button */
+.scroll-to-top {
+  display: none; /* Hide the button by default */
 }
 
-.homeLaunch h1{
-  font-family: 'babas_neue', 'normal';
-  font-size: calc(80*var(--xUnit));
-  color: var(--colorDeepRed);
-  text-align: center;
-}
+/* Media query for screens smaller than 768px */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    display: block; /* Show the button for smaller screens */
+    z-index: 1;
+    position: fixed;
+    right: 0%;
+    bottom: 5%; /* Adjust the distance from the bottom as a percentage */
+    background-color: #B22524;
+    min-width: 40px; /* Set a minimum width for the button */
+    min-height: 40px; /* Set a minimum height for the button */
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+  
+  .arrow-up {
+    position: relative; /* Required for ::before pseudo-element */
+    transform: rotate(270deg);
+  }
 
-.homeLaunch p{
-  font-family: 'neobulletin';
-  font-size: calc(30*var(--xUnit));
-  text-align: center;
+  .arrow-up::before {
+    content: ''; /* Required for pseudo-element */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    border-top: 2px solid white;
+    border-right: 2px solid white;
+  }
+  
+  .homeButtons_dots1 {
+    margin-top: calc(-7000 * var(--xUnit));
+    margin-left: calc(15 * var(--xUnit));
+  }
+  
+  .homeButtons_dots2 {
+    right: 0;
+    margin-top: calc(-7000 * var(--xUnit));
+    margin-right: calc(15 * var(--xUnit));
+  }
+  
 }
-
-.homeLaunchPanel{
-  /* display: flex; */
-  justify-content: center;
-  padding-top: calc(100*var(--xUnit));
-  padding: 40rem 120rem;
-  width: 80%;
-  margin: 60rem auto;
-}
-
-
-.homeLaunchPanel img{
-    display: block;
-    width: 350rem;
-    margin-right: auto;
-    margin-left: auto;
-}
-.homeLaunchPanel a:hover {
-  opacity: .6;
-}
-
-.homeLaunchPanel::-webkit-scrollbar {
-  width: 10px;
-}
-
 
 /*
 THE CSS FOR HANDLING THE ACTUAL INTERACTIVE MAP CAN BE FOUND IN
