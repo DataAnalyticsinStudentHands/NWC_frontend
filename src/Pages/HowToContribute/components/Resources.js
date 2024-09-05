@@ -43,7 +43,7 @@ export const Resources = () => {
 	useEffect(() => {
 		const query = qs.stringify(
 			{
-				fields: ["banner_text", "video_url", "resource_icon"],
+				fields: ["banner_text", "video_url"],
 				filters: {
 					resource: {
 						$eq: resource,
