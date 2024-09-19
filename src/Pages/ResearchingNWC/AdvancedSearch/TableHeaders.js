@@ -2,7 +2,7 @@ function processTableData(response, newArray, categories) {
   const tableData = response.data.map((person, index) => {
     const tableItem = {
       '#': index + 1,
-      'Name': `${person.attributes.last_name}, ${person.attributes.first_name}`,
+      'Name': `${person.attributes.last_name}, ${person.attributes.first_name}` || 'N/A', // Default to "N/A" if name is empty
     };
 
     // Initialize flags for checking presence of values
@@ -14,17 +14,17 @@ function processTableData(response, newArray, categories) {
         const residenceData = person.attributes.residence_in_1977s.data[0].attributes || {};
 
         // Extract Total Population and Median Household Income
-        const totalPopulation = residenceData.total_population || '';
-        const medianHouseholdIncome = residenceData.median_household_income || '';
+        const totalPopulation = residenceData.total_population || 'N/A'; // Default to "N/A"
+        const medianHouseholdIncome = residenceData.median_household_income || 'N/A'; // Default to "N/A"
 
         // Set flags based on presence of values
         hasTotalPopulation = !!totalPopulation;
         hasMedianHouseholdIncome = !!medianHouseholdIncome;
 
         if (categories.includes('total_population'))
-        tableItem['Total Population'] = convertBooleanToString(totalPopulation);
+          tableItem['Total Population'] = convertBooleanToString(totalPopulation);
         if (categories.includes('median_household_income'))
-        tableItem['Median Household Income'] = convertBooleanToString(medianHouseholdIncome);
+          tableItem['Median Household Income'] = convertBooleanToString(medianHouseholdIncome);
       } else {
         // General handling for other attributes
         const formattedKey = element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase());
@@ -43,18 +43,17 @@ function processTableData(response, newArray, categories) {
               const filteredValues = nestedValue[property].data.map((item) => {
                 const attributes = item.attributes;
                 const filteredAttributes = Object.entries(attributes).reduce((acc, [key, value]) => {
-                  
                   if (key !== 'createdAt' && key !== 'updatedAt' && categories.includes(key)) {
-                    acc[key] = convertBooleanToString(value);
+                    acc[key] = convertBooleanToString(value || 'N/A'); // Default to "N/A"
                   }
                   return acc;
                 }, {});
                 return Object.values(filteredAttributes);
               }).flat(); // Flatten arrays directly here
               nestedValuesArray.push(...filteredValues);
-            } 
+            }
           } else {
-            nestedValuesArray.push(convertBooleanToString(nestedValue[property]));
+            nestedValuesArray.push(convertBooleanToString(nestedValue[property] || 'N/A')); // Default to "N/A"
           }
         });
 
@@ -69,14 +68,14 @@ function processTableData(response, newArray, categories) {
         } else if (uniqueValuesArray.length === 1) {
           tableItem[formattedKey] = uniqueValuesArray[0];
         } else {
-          tableItem[formattedKey] = '';
+          tableItem[formattedKey] = 'N/A'; // Default to "N/A" if value is empty
         }
       }
     });
 
     // Add City State column if either Total Population or Median Household Income are present
     if (hasTotalPopulation || hasMedianHouseholdIncome) {
-      tableItem['City State'] = person.attributes.residence_in_1977s.data[0].attributes.city_state || '';
+      tableItem['City State'] = person.attributes.residence_in_1977s.data[0].attributes.city_state || 'N/A'; // Default to "N/A"
     }
 
     return tableItem;
@@ -91,7 +90,7 @@ function convertBooleanToString(value) {
   } else if (value === false || value === "false") {
     return "no";
   } else {
-    return value;
+    return value || 'N/A'; // Default to "N/A"
   }
 }
 

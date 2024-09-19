@@ -146,7 +146,7 @@ function AdvancedSearch() {
           );
         })
         .catch(err => console.log(err));
-    }, []); 
+    }, []);
 
     const [clickedPlanks, setclickedPlanks] = useState({});
 
@@ -425,7 +425,6 @@ function AdvancedSearch() {
     }
     else {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    
     if (response.data.length === 0) {
       setIsButtonClicked(true);
     }
@@ -569,7 +568,7 @@ function AdvancedSearch() {
                             For
                           </label>
                           <label className="advancedSearch_form-control">
-                            <input type="checkbox" value={plank.value} {...register("planks_againsts.plank")} />
+                            <input type="checkbox" value={plank.value} {...register("planks_against.plank")} />
                             Against
                           </label>
                           <label className="advancedSearch_form-control">
@@ -925,7 +924,7 @@ function AdvancedSearch() {
                 <h1> Degree</h1>
                 <div className="item">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('careers.job_profession.$containsi')}/> </label>
+                <input type="text" {...register('educations.degree.$containsi')}/> </label>
                 </div>
               </div>
                <div className="advancedSearch_container">
@@ -987,7 +986,7 @@ function AdvancedSearch() {
                 <h1> spouse&apos;s job/profession</h1>
                 <div className="item">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('spouse_careers.spouse_profession.$containsi')}/> </label>
+                <input type="text" {...register('spouses.professions.$containsi')}/> </label>
                 </div>
               </div>
               </div>
@@ -1073,7 +1072,7 @@ function AdvancedSearch() {
                 <h1> name of political offices spouse held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
+                <input type="text" {...register('spouses.political_offices.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -1124,6 +1123,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
+                      {...register('organizational_politicals.participants.last_name.$containsi')}
                     />
                   </div>
                 </div>  
@@ -1183,7 +1183,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.organizational_and_political.$containsi')}
+                      {...register('leadership_in_organizations.organizations.$containsi')}
                     />
                   </div>
                   <div className="item_ORG_row">
