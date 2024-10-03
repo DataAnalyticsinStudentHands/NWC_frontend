@@ -283,7 +283,6 @@ function AdvancedSearch() {
   }
   
   async function onSubmit(data) {
-    console.log(data)
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
@@ -425,7 +424,6 @@ function AdvancedSearch() {
       sort:[{'last_name':"asc"}],
     }
     data.switch ? queryObj.filters = { $and:array_query } : queryObj.filters = { $or: array_query  };
-    console.log(queryObj)
     let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
     if (array_query.length === 0) {
       alert('No search input')
