@@ -15,6 +15,8 @@ import { processTableData } from './TableHeaders'
 import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
+import infoIcon from '../res/Info Hover Icon.svg';
+
 import { Search } from '../../../Components/SearchBox/Search'
 import JaniceRubin from '../res/JaniceRubin.png'
 import button from '../../../assets/res/button-research-the-nwc.png'
@@ -281,6 +283,7 @@ function AdvancedSearch() {
   }
   
   async function onSubmit(data) {
+    console.log(data)
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
@@ -296,6 +299,7 @@ function AdvancedSearch() {
       }
     });
 
+    array_query = array_query.filter(item => Object.keys(item)[0] !== 'switch');
     function filterEmptyStringsInNestedStructure(obj) {
       const filteredObj = {};
     
@@ -361,15 +365,18 @@ function AdvancedSearch() {
 
     const allCategories = [];
 
-    function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
+    function extractAttributes(obj) {
       const keys = Object.keys(obj);
-      allCategories.push(...keys);
-
+      keys.forEach((key) => {
+        if (key !== 'switch') { // Exclude "switch" from allCategories
+          allCategories.push(key);
+        }
+      });
+    
       for (const key of keys) {
         const value = obj[key];
         if (typeof value === 'object' && value !== null) {
-          // If the value is an object (nested attribute), recursively extract its attributes
-          extractAttributes(value);
+          extractAttributes(value); // Recursively extract attributes
         }
       }
     }
@@ -378,10 +385,12 @@ function AdvancedSearch() {
       extractAttributes(item);
     });
 
-    const categories = array_query.map((item) => {
+    const categories = array_query
+    .map((item) => {
       const key = Object.keys(item)[0];
-      return key;
-    });
+      return key !== 'switch' ? key : null; // Exclude "switch" from categories
+    })
+    .filter((key) => key !== null); // Remove any null values
     const allValues = [];
 
     for (const item of array_query) {
@@ -411,15 +420,13 @@ function AdvancedSearch() {
       }
     }
     setUserInput(allValues);
-    const query = qs.stringify({
-      filters: {
-        $or: array_query,
-      },
+    let queryObj = {
       populate: categories,
-
-    }, {
-      encodeValuesOnly: true, // prettify URL
-    });
+      sort:[{'last_name':"asc"}],
+    }
+    data.switch ? queryObj.filters = { $and:array_query } : queryObj.filters = { $or: array_query  };
+    console.log(queryObj)
+    let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
     if (array_query.length === 0) {
       alert('No search input')
     }
@@ -1199,6 +1206,28 @@ function AdvancedSearch() {
             </div> 
             </div>
           </Tabs>
+          </div>
+          <div className="advancedSearch_toggle">
+              <div className='basicSearch_toggle-left'>
+                Widen search results 
+                  <div className='basicSearch_toggle-container'>
+                  <img className='infoIcon' src={infoIcon} alt="_" />
+                  <div className="basicSearch_toggle-tooltip">
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                  </div> 
+                  </div>
+              </div>           
+            <label className="basicSearchswitch">
+              <input type="checkbox" {...register("switch")} defaultChecked={true}/>
+              <span className="slider round"></span>
+            </label>
           </div>
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">

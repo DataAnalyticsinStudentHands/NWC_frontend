@@ -545,3 +545,19 @@
   margin-bottom: 10rem;
 }
 
+.advancedSearch_toggle{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2em;
+  margin-right: 3em;
+  margin-bottom:-1em;
+  gap: 1em;
+  position: relative;
+}
+
+.advancedSearch_toggle img{
+  position: relative;
+  top: -0.5em;
+}
+

@@ -13,6 +13,7 @@ import infoIcon from './res/Info Hover Icon.svg';
 
 import { Banner } from '../../Components/Banner';
 import { StateSelect } from '../../Components/StateSelect/StateSelect';
+import ReactMarkdown from 'react-markdown';
 
 function ResearchingNWC() {
 
@@ -235,7 +236,7 @@ const politicalOfficeObj = {
         <h1>BASIC SEARCH</h1>
         <hr></hr>
         <h2>HOW TO SEARCH THIS DATA</h2>
-        <p>{contentMap?.attributes?.BasicSearch_Text}</p>
+        <ReactMarkdown>{contentMap?.attributes?.BasicSearch_Text}</ReactMarkdown>
 
         <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
 
