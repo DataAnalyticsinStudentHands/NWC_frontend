@@ -15,6 +15,8 @@ import { processTableData } from './TableHeaders'
 import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
+import infoIcon from '../res/Info Hover Icon.svg';
+
 import { Search } from '../../../Components/SearchBox/Search'
 import JaniceRubin from '../res/JaniceRubin.png'
 import button from '../../../assets/res/button-research-the-nwc.png'
@@ -146,7 +148,7 @@ function AdvancedSearch() {
           );
         })
         .catch(err => console.log(err));
-    }, []); 
+    }, []);
 
     const [clickedPlanks, setclickedPlanks] = useState({});
 
@@ -296,6 +298,7 @@ function AdvancedSearch() {
       }
     });
 
+    array_query = array_query.filter(item => Object.keys(item)[0] !== 'switch');
     function filterEmptyStringsInNestedStructure(obj) {
       const filteredObj = {};
     
@@ -361,15 +364,18 @@ function AdvancedSearch() {
 
     const allCategories = [];
 
-    function extractAttributes(obj) { //gets list of all categories (incl. ones that dont have a name)
+    function extractAttributes(obj) {
       const keys = Object.keys(obj);
-      allCategories.push(...keys);
-
+      keys.forEach((key) => {
+        if (key !== 'switch') { // Exclude "switch" from allCategories
+          allCategories.push(key);
+        }
+      });
+    
       for (const key of keys) {
         const value = obj[key];
         if (typeof value === 'object' && value !== null) {
-          // If the value is an object (nested attribute), recursively extract its attributes
-          extractAttributes(value);
+          extractAttributes(value); // Recursively extract attributes
         }
       }
     }
@@ -378,10 +384,12 @@ function AdvancedSearch() {
       extractAttributes(item);
     });
 
-    const categories = array_query.map((item) => {
+    const categories = array_query
+    .map((item) => {
       const key = Object.keys(item)[0];
-      return key;
-    });
+      return key !== 'switch' ? key : null; // Exclude "switch" from categories
+    })
+    .filter((key) => key !== null); // Remove any null values
     const allValues = [];
 
     for (const item of array_query) {
@@ -411,21 +419,17 @@ function AdvancedSearch() {
       }
     }
     setUserInput(allValues);
-    const query = qs.stringify({
-      filters: {
-        $or: array_query,
-      },
+    let queryObj = {
       populate: categories,
-
-    }, {
-      encodeValuesOnly: true, // prettify URL
-    });
+      sort:[{'last_name':"asc"}],
+    }
+    data.switch ? queryObj.filters = { $and:array_query } : queryObj.filters = { $or: array_query  };
+    let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
     if (array_query.length === 0) {
       alert('No search input')
     }
     else {
     const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    
     if (response.data.length === 0) {
       setIsButtonClicked(true);
     }
@@ -569,7 +573,7 @@ function AdvancedSearch() {
                             For
                           </label>
                           <label className="advancedSearch_form-control">
-                            <input type="checkbox" value={plank.value} {...register("planks_againsts.plank")} />
+                            <input type="checkbox" value={plank.value} {...register("planks_against.plank")} />
                             Against
                           </label>
                           <label className="advancedSearch_form-control">
@@ -925,7 +929,7 @@ function AdvancedSearch() {
                 <h1> Degree</h1>
                 <div className="item">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('careers.job_profession.$containsi')}/> </label>
+                <input type="text" {...register('educations.degree.$containsi')}/> </label>
                 </div>
               </div>
                <div className="advancedSearch_container">
@@ -987,7 +991,7 @@ function AdvancedSearch() {
                 <h1> spouse&apos;s job/profession</h1>
                 <div className="item">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('spouse_careers.spouse_profession.$containsi')}/> </label>
+                <input type="text" {...register('spouses.professions.$containsi')}/> </label>
                 </div>
               </div>
               </div>
@@ -1073,7 +1077,7 @@ function AdvancedSearch() {
                 <h1> name of political offices spouse held</h1>
                 <div className="item_ELEC">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('spouse_political_offices.political_office.$containsi')}/> </label>
+                <input type="text" {...register('spouses.political_offices.$containsi')}/> </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -1124,6 +1128,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
+                      {...register('organizational_politicals.participants.last_name.$containsi')}
                     />
                   </div>
                 </div>  
@@ -1183,7 +1188,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.organizational_and_political.$containsi')}
+                      {...register('leadership_in_organizations.organizations.$containsi')}
                     />
                   </div>
                   <div className="item_ORG_row">
@@ -1199,6 +1204,28 @@ function AdvancedSearch() {
             </div> 
             </div>
           </Tabs>
+          </div>
+          <div className="advancedSearch_toggle">
+              <div className='basicSearch_toggle-left'>
+                Widen search results 
+                  <div className='basicSearch_toggle-container'>
+                  <img className='infoIcon' src={infoIcon} alt="_" />
+                  <div className="basicSearch_toggle-tooltip">
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                  </div> 
+                  </div>
+              </div>           
+            <label className="basicSearchswitch">
+              <input type="checkbox" {...register("switch")} defaultChecked={true}/>
+              <span className="slider round"></span>
+            </label>
           </div>
         <div className="advancedSearch"> 
         <div style={{border: "none", marginBottom: "50rem"}} className="advancedSearch_bar_container">

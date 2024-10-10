@@ -1,6 +1,8 @@
 import PropTypes from 'prop-types';
 import imageLeftDemo from '../assets/res/button-research-the-nwc.png'
 import imageRightDemo from '../Pages/ResearchingNWC/res/component119.png'
+import ReactMarkdown from 'react-markdown';
+
 export const Banner = ({
     imgLeft, text, imgRight, imgCredit, borderStyle,
     flexLeft, flexMiddle,flexRight
@@ -9,7 +11,7 @@ export const Banner = ({
     const style = {
         [`border${borderStyle}`]: '0.75em solid #B32525',
     }
-
+    
     return(
     <div className='Banner'>
         <div className='Banner_left' style={{flex:flexLeft}}>
@@ -19,9 +21,7 @@ export const Banner = ({
         <div className='Banner_center' style={ borderStyle === 'Corner' ? {padding:"4em 0em", flex:flexMiddle}: {flex:flexMiddle}}>
             <div className='Card' style={borderStyle !== 'Corner' ? style : {}}>
                 {borderStyle === 'Corner' ? <div className='bottomleft' /> : null}
-                <div className='text'>
-                    {text}
-                </div>
+                    <ReactMarkdown className='text'>{text}</ReactMarkdown>
                 {borderStyle === 'Corner' ? <div className='topright' /> : null }
             </div>
         </div>
