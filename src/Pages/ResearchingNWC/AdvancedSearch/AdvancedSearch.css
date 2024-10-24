@@ -338,10 +338,22 @@
     margin-bottom: 15rem;
 }
 
+.item_Collapsible_Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  gap: 0; /* Add spacing between columns */
+}
+
 .item_Collapsible {
   display: grid;
   margin-left: 350rem;
   margin-bottom: 40rem;
+  margin-top: -60rem;
+}
+
+.item_Collapsible_Column {
+  display: flex;
+  flex-direction: column;
   margin-top: -60rem;
 }
 
@@ -561,3 +573,12 @@
   top: -0.5em;
 }
 
+.advancedSearch_otherRole {
+  margin-left: 20rem;
+  margin-top: 20rem;
+}
+
+.advancedSearch_otherRole input[type="text"] {
+  width:280rem;
+
+}

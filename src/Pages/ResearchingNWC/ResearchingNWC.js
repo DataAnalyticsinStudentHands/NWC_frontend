@@ -191,7 +191,7 @@ const politicalOfficeObj = {
       }
     })
     setMap(mapData);
-
+    console.log(response)
     const NewTableData = response.data.map((person, index) => {
       return{
         '#': index+1,
