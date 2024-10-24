@@ -15,7 +15,6 @@ function processTableData(response, newArray, categories) {
 
     newArray.forEach((element) => {
       if (element === 'residence_in_1977s') {
-        console.log(person.attributes);
         const residenceData = person.attributes.residence_in_1977s.data[0]?.attributes || {};
         const totalPopulation = residenceData.total_population || 'N/A';
         const medianHouseholdIncome = residenceData.median_household_income || 'N/A';

@@ -14,8 +14,6 @@ export const ResultTableMap = (props) => {
   const [sortKey, setSortKey] = useState("#");
   const [sortOrder, setSortOrder] = useState("asc");
 
-  console.log(userInput)
-
   const handlePageClick = (event) => {
     const newOffset = (event.selected * coinsPerPage) % data.length;
     setItemOffset(newOffset);

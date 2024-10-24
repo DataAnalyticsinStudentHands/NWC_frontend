@@ -278,7 +278,6 @@ function AdvancedSearch() {
   }
   
   async function onSubmit(data) {
-    console.log(data)
     let array_query = [];
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
