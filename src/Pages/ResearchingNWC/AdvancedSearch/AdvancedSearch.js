@@ -2,7 +2,7 @@ import '../ResearchingNWC'
 import './AdvancedSearch.css'
 import '../ResearchingNWC.css'
 import Collapsible from './Collapsible'
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import { useState, useEffect, } from "react";
 import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
@@ -16,8 +16,6 @@ import { StateSelect } from '../../../Components/StateSelect/StateSelect';
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
 import infoIcon from '../res/Info Hover Icon.svg';
-
-import { Search } from '../../../Components/SearchBox/Search'
 import JaniceRubin from '../res/JaniceRubin.png'
 import button from '../../../assets/res/button-research-the-nwc.png'
 
@@ -63,7 +61,7 @@ function AdvancedSearch() {
     { value: "$15,001+", label: "$15,001+" },
   ]
 
-  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Christian non-Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other","Unitarian Universalist"];
+  const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other", "Protestant", "Unitarian Universalist"];
   const politicalData = ["American Independent Party", "Black Panther Party", "Communist Party USA", "Conservative Party of New York", "DC Statehood Party",
                           "Democratic Party", "Liberal Party of New York", "Libertarian Party", "Minnesota Democratic-Farmer-Labor Party", "North Dakota Democratic-Nonpartisan-League Party",
                           "Peace and Freedom Party", "Raza Unida Party", "Republican Party", "Socialist Party USA", "Socialist Workers Party", "Other"];
@@ -187,7 +185,7 @@ function AdvancedSearch() {
       {
         category: "NWC Caucuses",
         roles: ["American Indian and Alaskan Native Women’s Caucus", "Arts Caucus", "Asian and Pacific Women’s Caucus", 
-                "Chicana Caucus", "Disabled Women’s Caucus", "Farm Women Caucus", "Hispanic Caucus", "Jewish Women’s Caucus",
+                "Chicana Caucus", "Disabled Women’s Caucus", "Farm Women Caucus", "Hispanic Caucus", "Indian Women’s", "Jewish Women’s Caucus",
                 "Lesbian Caucus", "Minority Women’s Caucus", "National Congress of Neighborhood Women Caucus", "Peace Caucus",
                 "Pro-Plan Caucus", "Puerto Rican Caucus", "Sex and Poverty IWY Poor and Low-Income Women’s Caucus", "Wellfare Caucus",
                 "Women in Sports Caucus", "Youth Caucus"
@@ -251,11 +249,8 @@ function AdvancedSearch() {
 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
-  const [searchTableData, setSearchTableData] = useState([])
   const [hasChildren, setHasChildren] = useState(null)
-
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
-  const [isSearchButtonClicked, setIsSearchButtonClicked] = useState(false)
   const [ageCheckboxState, setAgeCheckboxState] = useState({
     age16to25: false,
     age26to55: false,
@@ -362,6 +357,18 @@ function AdvancedSearch() {
       array_query.push({ residence_in_1977s: {median_household_income: { $gte: 15001 } }});
     }
 
+    if (selectedOptions.races) {
+      // Remove any existing races object from array_query
+      array_query = array_query.filter(item => !item.races);
+    
+      data.races = {};
+      const values = Object.keys(selectedOptions.races).reduce((acc, race) => {
+        const values = selectedOptions.races[race].map(item => item.value);
+        return acc.concat(values);
+      }, []);
+      array_query.push({ races: {race: values} });
+    }
+    
     const allCategories = [];
 
     function extractAttributes(obj) {
@@ -450,42 +457,11 @@ function AdvancedSearch() {
     }
  }
 
- async function searchSubmit() {
-  let fullName = input.split(' ')
-  let firstname = fullName[0]
-  let category = ["highest_level_of_education_attained"]
-  let allCategories = [ "highest_level_of_education_attained"]
-
-  if (input.length === 0) {
-    alert('No search input')
-  }
-  else {
-  const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?filters[$or][0][first_name][$containsi]=${firstname}&filters[$or][1][last_name][$containsi]=${firstname}`).then(res => res.json());
-  if (response.data.length === 0) {
-    setIsButtonClicked(true);
-
-  }
-  else {
-    const mapData = response.data.map((person) => {
-      return{
-        lat:person.attributes.lat,
-        lon:person.attributes.lon,
-        first_name:person.attributes.first_name,
-        last_name:person.attributes.last_name,
-      }
-    })
-    setMap(mapData);
-    const tableData = processTableData(response, category, allCategories); //response is API response, newArray
-    setSearchTableData(tableData);
-    setIsSearchButtonClicked(true);
-    }
-  }
-}
   //Reset funnction for button
   const clearForm = () => {
     setTimeout(() => {
     reset();
-    setSelectedOptions({ represented_state: null }); // Reset the StateSelect component
+    setSelectedOptions({ represented_state: null, races: null });
     setTableData([])
     setMap([])
     setIsButtonClicked(false);
@@ -504,7 +480,30 @@ function AdvancedSearch() {
     }, 50)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
-  const [input, setInput] = useState("")
+    // State to track the toggle status
+  const [isToggleOn, setIsToggleOn] = useState(true);
+
+  // Function to handle toggle change
+  const handleToggleChange = (event) => {
+    setIsToggleOn(event.target.checked);
+  };
+
+  const CheckboxOption = (props) => {
+    return (
+      <components.Option {...props}>
+        <label style={{ flexGrow: 1 }}>{props.label}</label>
+        <div style={{ width: '20px', textAlign: 'right' }}> {/* Fixed width container for checkbox */}
+          <input
+            type="checkbox"
+            checked={props.isSelected} // Keeps the checkbox checked when selected
+            onChange={() => null} // Prevents triggering action on checkbox click
+            style={{ marginLeft: '10px', width: '16px', height: '16px' }} // Sets fixed size for checkbox
+          />
+        </div>
+      </components.Option>
+    );
+  };
+
   return (
     <>
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -529,26 +528,51 @@ function AdvancedSearch() {
             <div className="advancedSearch_form">
             <InfoBox category="National Women's Conference Participation" text={contentMap?.attributes?.AdvancedSearch_NWC || ''} />
                 <h1> Role AT NWC <br></br> Select One or More Roles: </h1>
-                <div className="item_Collapsible">
-
-                {roleCategories.map((category, index) => (
-                  <Collapsible label={category.category} key={index}>
-                        {category.roles.map((role, index) => {
-                          return (
-                            <label className="advancedSearch_form-control" key={index}>
-                              <input type="checkbox" value={role} {...register("roles.role")} />
-                              {role}
-                            </label>
-                          );
-                          })}
-                              {/* <label className="advancedSearch_form-control">
-                              <input type="checkbox" value="Other Role" {...register("role.role[$containsi]")} />
-                              Other
-                            </label> */}
-                  </Collapsible>
-                  
-                ))}
-                </div>
+                <div className="item_Collapsible_Container">
+                    <div className="item_Collapsible">
+                      {roleCategories.map((category, index) => {
+                        if (category.category === "NWC Caucuses") {
+                          return null; // Skip the certain category, we'll add it in the second column
+                        }
+                        return (
+                          <Collapsible label={category.category} key={index}>
+                            {category.roles.map((role, index) => (
+                              <label className="advancedSearch_form-control" key={index}>
+                                <input type="checkbox" value={role} {...register("roles.role")} />
+                                {role}
+                              </label>
+                            ))}
+                          </Collapsible>
+                        );
+                      })}
+                    </div>
+                      <div className="item_Collapsible_Column">
+                        {/* Render the specific Collapsible in the second column */}
+                        {roleCategories.map((category, index) => {
+                          if (category.category === "NWC Caucuses") {
+                            return (
+                              <Collapsible label={category.category} key={index}>
+                                {category.roles.map((role, index) => (
+                                  <label className="advancedSearch_form-control" key={index}>
+                                    <input type="checkbox" value={role} {...register("roles.role")} />
+                                    {role}
+                                  </label>
+                                ))}
+                              </Collapsible>
+                            );
+                          }
+                          return null; // Skip other categories
+                        })}
+                        {/* Other Role in the second column */}
+                        <div className="advancedSearch_otherRole">
+                          <label className="advancedSearch_form-control">
+                            <input type="checkbox"/>
+                            Other Role
+                            <input type="text" {...register("roles.role.$containsi")} />
+                          </label>
+                        </div>
+                      </div>
+                    </div>
                 <div className="advancedSearch_container">
                 <h1> Position Planks <br></br> Select One or More Planks: </h1>
                 
@@ -787,28 +811,57 @@ function AdvancedSearch() {
                 <h1> religion</h1>
                 <div className="item_DEMO">
                   <div className="advancedSearch_form-control">
-                  <Controller 
-                    control={control}
-                    name="religion"
-                    render={({ field }) => (
-                      <Select
-                      styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
-                        options={religionOptions} 
-                        onChange={(selectedOption) => {
-                          setSelectedOptions(prevOptions => ({
-                            ...prevOptions,
-                            religion: selectedOption.value
-                          }));
-                          field.onChange(selectedOption.value);
-                        }}
-                        onBlur={field.onBlur}
-                        value={selectedOptions.religion ? religionOptions.find(option => option.value === selectedOptions.religion) : null}
-                        placeholder="Select..."
-                        name={field.name}
-                        ref={field.ref}
-                      />
-                    )}
-                  />
+                    <Controller
+                      control={control}
+                      name="religion"
+                      render={({ field }) => (
+                        <Select
+                          isMulti
+                          closeMenuOnSelect={false} // Keeps the menu open after selection
+                          hideSelectedOptions={false} // Keeps selected options visible in the dropdown
+                          options={religionOptions}
+                          components={{ Option: CheckboxOption }} // Custom option with checkboxes
+                          onChange={(selectedOptions) => {
+                            setSelectedOptions((prevOptions) => ({
+                              ...prevOptions,
+                              religion: selectedOptions,
+                            }));
+                            field.onChange(selectedOptions.map((option) => option.value));
+                          }}
+                          onBlur={field.onBlur}
+                          value={selectedOptions.religion || []}
+                          placeholder="Select..."
+                          name={field.name}
+                          ref={field.ref}
+                          styles={{
+                            container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
+                            control: base => ({
+                              ...base,
+                              maxWidth: '300px', // Set a max width for the select component
+                              flexWrap: 'wrap', // Allows the selected options to wrap within the select
+                              whiteSpace: 'normal', // Prevents the selected options from extending the container size
+                            }),
+                            option: (base, state) => ({
+                              ...base,
+                              backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
+                              color: 'black', // Set text color to black
+                              display: 'flex', // Makes the label and checkbox aligned horizontally
+                            }),
+                            valueContainer: base => ({
+                              ...base,
+                              maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
+                              display: 'flex',
+                              flexWrap: 'wrap', // Enables wrapping of selected options
+                              overflow: 'hidden', // Prevents overflowing content
+                            }),
+                            multiValue: base => ({
+                              ...base,
+                              backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
+                            }),
+                          }}
+                        />
+                      )}
+                    />
                   </div>
                 </div>
               </div>
@@ -834,20 +887,49 @@ function AdvancedSearch() {
                     name="sexual_orientation"
                     render={({ field }) => (
                       <Select
-                      styles={{container: base => ({...base,  width: "max-content", minWidth: "11%"})}}
-                        options={sexualOrientation} 
-                        onChange={(selectedOption) => {
-                          setSelectedOptions(prevOptions => ({
+                        isMulti
+                        closeMenuOnSelect={false} // Keeps the menu open after selection
+                        hideSelectedOptions={false} // Keeps selected options visible in the dropdown
+                        options={sexualOrientation}
+                        components={{ Option: CheckboxOption }} // Custom option with checkboxes
+                        onChange={(selectedOptions) => {
+                          setSelectedOptions((prevOptions) => ({
                             ...prevOptions,
-                            sexual_orientation: selectedOption.value
+                            sexual_orientation: selectedOptions,
                           }));
-                          field.onChange(selectedOption.value);
+                          field.onChange(selectedOptions.map((option) => option.value));
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.sexual_orientation ? sexualOrientation.find(option => option.value === selectedOptions.sexual_orientation) : null}
+                        value={selectedOptions.sexual_orientation || []}
                         placeholder="Select..."
                         name={field.name}
                         ref={field.ref}
+                        styles={{
+                          container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
+                          control: base => ({
+                            ...base,
+                            maxWidth: '300px', // Set a max width for the select component
+                            flexWrap: 'wrap', // Allows the selected options to wrap within the select
+                            whiteSpace: 'normal', // Prevents the selected options from extending the container size
+                          }),
+                          option: (base, state) => ({
+                            ...base,
+                            backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
+                            color: 'black', // Set text color to black
+                            display: 'flex', // Makes the label and checkbox aligned horizontally
+                          }),
+                          valueContainer: base => ({
+                            ...base,
+                            maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
+                            display: 'flex',
+                            flexWrap: 'wrap', // Enables wrapping of selected options
+                            overflow: 'hidden', // Prevents overflowing content
+                          }),
+                          multiValue: base => ({
+                            ...base,
+                            backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
+                          }),
+                        }}
                       />
                     )}
                   /> </div>
@@ -861,7 +943,7 @@ function AdvancedSearch() {
                       <label>{item.race}</label>
                       <Controller
                         control={control}
-                        name='races.race'
+                        name={`races.race`}
                         render={({ field }) => (
                           <Select
                             isMulti
@@ -869,32 +951,42 @@ function AdvancedSearch() {
                               container: (base) => ({
                                 ...base,
                                 minWidth: '70%',
-                                maxWidth: '70%', // Ensure it doesn’t exceed the container width
+                                maxWidth: '70%',
                               }),
                               control: (base) => ({
                                 ...base,
-                                minWidth: '65%', // Set a reasonable minimum width
-                                maxWidth: '65%', // Prevent it from expanding beyond the container
+                                minWidth: '65%',
+                                maxWidth: '65%',
                               }),
                             }}
                             options={[
-                              { value: item.identities, label: "All Identities" },
-                              ...item.identities.map(identity => ({ value: identity, label: identity }))
+                              { value: 'all', label: 'All Identities' },
+                              ...item.identities.map(identity => ({ value: identity, label: identity })),
                             ]}
                             onChange={(selectedOptions) => {
-                              // Update the state for the specific race category
+                              let finalSelections = selectedOptions;
+
+                              // Check if "All Identities" is selected
+                              if (selectedOptions.some(option => option.value === 'all')) {
+                                finalSelections = item.identities.map(identity => ({
+                                  value: identity,
+                                  label: identity,
+                                }));
+                              }
+
                               setSelectedOptions(prevOptions => ({
                                 ...prevOptions,
-                                "races.race": selectedOptions
+                                races: {
+                                  ...prevOptions.races,
+                                  [item.race]: finalSelections, // Store the finalSelections directly
+                                }
                               }));
 
                               // Update the field value
-                              field.onChange(selectedOptions.map(option => option.value));
+                              field.onChange(finalSelections);
                             }}
                             onBlur={field.onBlur}
-                            value={
-                             selectedOptions["races.race"] || []
-                            }
+                            value={selectedOptions.races?.[item.race] || []} // Ensure it matches the format of the options array
                             placeholder="Select..."
                             name={field.name}
                             ref={field.ref}
@@ -905,6 +997,7 @@ function AdvancedSearch() {
                   ))}
                 </div>
               </div>
+
             </div>  
             </div>
             <div label="Education & Career">
@@ -994,6 +1087,13 @@ function AdvancedSearch() {
                 <input type="text" {...register('spouses.professions.$containsi')}/> </label>
                 </div>
               </div>
+              <div className="advancedSearch_container">
+                <h1> Union member</h1>
+                <div className="item">
+                <label className="advancedSearch_form-control">
+                <input type="checkbox" value="true" {...register('union_member')} />Yes </label>
+                </div>
+              </div>
               </div>
             </div> 
             <div label="Electoral Politics">
@@ -1039,6 +1139,8 @@ function AdvancedSearch() {
                   <label className="advancedSearch_form-control">
                   <input type="checkbox" value="state level" {...register('political_office_helds.jurisdiction')}/>State </label>
                   <label className="advancedSearch_form-control">
+                  <input type="checkbox" value="regional level" {...register('political_office_helds.jurisdiction')}/>Regional </label>
+                  <label className="advancedSearch_form-control">
                   <input type="checkbox"value="federal level" {...register('political_office_helds.jurisdiction')}/>Federal </label>
                   <label className="advancedSearch_form-control">
                   <input type="checkbox" value="" {...register('political_office_helds.jurisdiction')}/>None </label>
@@ -1060,6 +1162,8 @@ function AdvancedSearch() {
                   <input type="checkbox" value="county level" {...register('political_office_losts.jurisdiction')}/>County </label>
                   <label className="advancedSearch_form-control">
                   <input type="checkbox"value="state level" {...register('political_office_losts.jurisdiction')}/>State </label>
+                  <label className="advancedSearch_form-control">
+                  <input type="checkbox"value="regional level" {...register('political_office_losts.jurisdiction')}/>Regional </label>
                   <label className="advancedSearch_form-control">
                   <input type="checkbox"value="federal level" {...register('political_office_losts.jurisdiction')}/>Federal </label>
                   <label className="advancedSearch_form-control">
@@ -1107,6 +1211,13 @@ function AdvancedSearch() {
                   <input type="checkbox" value="true" {...register('state_level_commission')}/>State </label>
                   </div>
               </div>
+              <div className="advancedSearch_container">
+                <h1> National advisory committee</h1>
+                <div className="item">
+                <label className="advancedSearch_form-control">
+                <input type="checkbox" value="true" {...register('national_advisory_committee')} />Yes </label>
+                </div>
+              </div>
             </div>       
             </div> 
             <div label="Organizations">
@@ -1120,7 +1231,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.organizational_and_political.$containsi')}
+                      {...register('organizational_politicals.organizational_and_political.$contains')}
                     />
                   </div>
                   <div className="item_ORG_row">
@@ -1206,24 +1317,25 @@ function AdvancedSearch() {
           </Tabs>
           </div>
           <div className="advancedSearch_toggle">
-              <div className='basicSearch_toggle-left'>
-                Widen search results 
-                  <div className='basicSearch_toggle-container'>
-                  <img className='infoIcon' src={infoIcon} alt="_" />
-                  <div className="basicSearch_toggle-tooltip">
-                    <p>
-                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
-                    </p>
-                    <p>
-                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
-                    </p>
-                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
-                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
-                  </div> 
-                  </div>
-              </div>           
+            <div className='basicSearch_toggle-left'>
+              {isToggleOn ? 'Broaden search results' : 'Narrow search results'}
+              <div className='basicSearch_toggle-container'>
+                <img className='infoIcon' src={infoIcon} alt="_" />
+                <div className="basicSearch_toggle-tooltip">
+                  <p><b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.</p>
+                  <p>Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican</p>
+                  <p><strong>On</strong> NARROWS the results list to only the participants for whom all selections are true.</p>
+                  <p>Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                </div>
+              </div>
+            </div>
             <label className="basicSearchswitch">
-              <input type="checkbox" {...register("switch")} defaultChecked={true}/>
+              <input 
+                type="checkbox" 
+                {...register("switch")} 
+                defaultChecked={isToggleOn} 
+                onChange={handleToggleChange}
+              />
               <span className="slider round"></span>
             </label>
           </div>
@@ -1244,34 +1356,6 @@ function AdvancedSearch() {
          </div>
         )} 
       <div className="AdvancedSearch_border">  </div>
-      </div>
-      </form>
-      <form onSubmit={handleSubmit(searchSubmit)} >
-      <div className="advancedSearch_font">
-      <div className="advancedSearch">
-        <div className="advancedSearch_text">
-          <h1> Open Text search </h1>
-          <hr></hr>
-          <ReactMarkdown>{contentMap?.attributes?.AdvancedSearch_OpenSearch}</ReactMarkdown>
-        </div>
-        
-      </div>
-      <div className="advancedSearch_bar_container">
-      <div className="advancedSearch_bar">
-          <Search placeholder="Search" onSearch={setInput}/>
-          <button type="submit" className="discoverSearch_icon"></button>
-        </div>
-      </div> 
-      {isSearchButtonClicked && searchTableData.length > 0 && (
-        <div className='Result-Continer'>
-          <ResultTableMap data={searchTableData} map_data={maps} userInput={[input]}/>
-        </div>
-        )}
-        {isSearchButtonClicked && searchTableData.length === 0 && (
-          <div style={{textAlign: "center", marginBottom: "50rem"}}> 
-         <p> No results found </p>
-         </div>
-        )} 
       </div>
       </form>
       </>
