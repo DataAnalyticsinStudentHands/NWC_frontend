@@ -49,16 +49,29 @@ function AdvancedSearch() {
   })
 
   const populationOptions = [
-    { value: "1 - 2,500", label: "1 - 2,500" },
-    { value: "2,501 - 49,999", label: "2,501 - 49,999" },
-    { value: "50,000+", label: "50,000+" },
+    { value: "1 - 2,500", label: "1 - 2,500", filter: { $gte: 1, $lte: 2500 }},
+    { value: "2,501 - 49,999", label: "2,501 - 49,999", filter: { $gte: 2501, $lte: 49999 }},
+    { value: "50,000+", label: "50,000+", filter: { $gte: 50000 }},
 
   ]
 
   const incomeOptions = [
-    { value: "$0 - $10,000", label: "$0 - $10,000" },
-    { value: "$10,001 - $15,000", label: "$10,001 - $15,000" },
-    { value: "$15,001+", label: "$15,001+" },
+    { value: "$0 - $10,000", label: "$0 - $10,000", filter: { $gte: '0', $lte: 10000 }},
+    { value: "$10,001 - $15,000", label: "$10,001 - $15,000", filter: { $gte: 10001, $lte: 15000 }},
+    { value: "$15,001+", label: "$15,001+", filter: { $gte: 15001 }},
+  ]
+
+  const decadeOptions = [
+    { value: "Before 1977", label: "Before 1977", filter: { $lt: 1977 }},
+    { value: "After 1977", label: "After 1977", filter : { $gt: 1977 }},
+    { value: "1900 - 1909", label: "1900 - 1909", filter : { $gte: 1900, $lte: 1909 }},
+    { value: "1910 - 1919", label: "1910 - 1919", filter : { $gte: 1909, $lte: 1919 }},
+    { value: "1920 - 1929", label: "1920 - 1929", filter : { $gte: 1920, $lte: 1929 }},
+    { value: "1930 - 1939", label: "1930 - 1939", filter : { $gte: 1930, $lte: 1939 }},
+    { value: "1940 - 1949", label: "1940 - 1949", filter : { $gte: 1940, $lte: 1949 }},
+    { value: "1950 - 1959", label: "1950 - 1959", filter : { $gte: 1950, $lte: 1959 }},
+    { value: "1960 - 1969", label: "1960 - 1969", filter : { $gte: 1960, $lte: 1969 }},
+    { value: "1970 - 1977", label: "1970 - 1977", filter : { $gte: 1970, $lte: 1977 }},
   ]
 
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other", "Protestant", "Unitarian Universalist"];
@@ -276,31 +289,32 @@ function AdvancedSearch() {
       [name]: checked,
     });
   }
-  
   async function onSubmit(data) {
     let array_query = [];
+    
     Object.entries(data).forEach(([key, value]) => {
       if (value !== undefined && value !== false && typeof value === 'object') {
-        const filteredValue = filterEmptyStringsInNestedStructure(value);
+        const filteredValue = filterEmptyStringsAndTimestamps(value);
         if (Object.keys(filteredValue).length > 0) {
           const newObj = { [key]: filteredValue };
           array_query.push(newObj);
         }
-      }
-      else if (value !== undefined && value !== false){
+      } else if (value !== undefined && value !== false){
         const newObj = { [key]: value };
-        array_query.push(newObj)
+        array_query.push(newObj);
       }
     });
-
+  
     array_query = array_query.filter(item => Object.keys(item)[0] !== 'switch');
-    function filterEmptyStringsInNestedStructure(obj) {
+  
+    function filterEmptyStringsAndTimestamps(obj) {
       const filteredObj = {};
-    
+  
       for (const prop in obj) {
-        if (typeof obj[prop] === 'object') {
-          const filteredNested = filterEmptyStringsInNestedStructure(obj[prop]);
-    
+        if (prop === 'createdAt' || prop === 'updatedAt') continue; // Skip these attributes
+  
+        if (typeof obj[prop] === 'object' && obj[prop] !== null) {
+          const filteredNested = filterEmptyStringsAndTimestamps(obj[prop]);
           if (Object.keys(filteredNested).length > 0) {
             filteredObj[prop] = filteredNested;
           }
@@ -310,67 +324,73 @@ function AdvancedSearch() {
       }
       return filteredObj;
     }
-    //checks age ranges
+  
+    // Checks age ranges
     if (ageCheckboxState.age16to25) {
       array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
     }
-
-    // Handle the '26-55' checkbox
+  
     if (ageCheckboxState.age26to55) {
       array_query.push({ 'age_in_1977': { $gte: 26, $lte: 55 } });
     }
-
-    // Handle the '56+' checkbox
+  
     if (ageCheckboxState.age56plus) {
       array_query.push({ 'age_in_1977': { $gte: 56 } });
     }
-
+  
     if (childrenCheckboxState.children_12) {
       array_query.push({ 'total_number_of_children': { $gte: 1, $lte: 2 } });
     }
-
+  
     if (childrenCheckboxState.children_34) {
       array_query.push({ 'total_number_of_children': { $gte: 3, $lte: 4 } });
     }
-
+  
     if (childrenCheckboxState.children5) {
       array_query.push({ 'total_number_of_children': { $gte: 5 } });
     }
+    if (selectedOptions.population) {
+      const selectedOption = populationOptions.find(option => option.value === selectedOptions.population);
+      
+      if (selectedOption) {
+        array_query.push({ residence_in_1977s: { total_population: selectedOption.filter } });
+      }
+    }
+    
+    if (selectedOptions.income) {
+      const selectedOption = incomeOptions.find(option => option.value === selectedOptions.income);
+      
+      if (selectedOption) {
+        array_query.push({ residence_in_1977s: { median_household_income: selectedOption.filter } });
+      }
+    }
+  
+    if (selectedOptions.decade && selectedOptions.decade.length > 0) {
+      selectedOptions.decade.forEach(option => {
+        array_query.push({ political_office_helds: { start_year: option.filter }});
+      });
+    }
 
-    if (selectedOptions.population === '1 - 2,500') {
-      array_query.push({ residence_in_1977s: {total_population: { $gte: 1, $lte: 2500 } }});
+    if (selectedOptions.decadeEDU && selectedOptions.decadeEDU.length > 0) {
+      selectedOptions.decadeEDU.forEach(option => {
+        array_query.push({ educations: { year: option.filter }});
+      });
     }
-    if (selectedOptions.population === '2,501 - 49,999') {
-      array_query.push({ residence_in_1977s: {total_population: { $gte: 2501, $lte: 49999 } }});
-    }
-    if (selectedOptions.population === '50,000+') {
-      array_query.push({ residence_in_1977s: {total_population: { $gte: 50000 } }});
-    }
-
-    if (selectedOptions.income === '$0 - $10,000') {
-      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 0, $lte: 10000 } }});
-    }
-    if (selectedOptions.income === '$10,001 - $15,000') {
-      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 10001, $lte: 15000 } }});
-    }
-    if (selectedOptions.income === '$15,001+') {
-      array_query.push({ residence_in_1977s: {median_household_income: { $gte: 15001 } }});
-    }
-
+  
     if (selectedOptions.races) {
       // Remove any existing races object from array_query
       array_query = array_query.filter(item => !item.races);
-    
+      
       data.races = {};
       const values = Object.keys(selectedOptions.races).reduce((acc, race) => {
         const values = selectedOptions.races[race].map(item => item.value);
         return acc.concat(values);
       }, []);
-      array_query.push({ races: {race: values} });
+      array_query.push({ races: { race: values } });
     }
-    
+  
     const allCategories = [];
-
+  
     function extractAttributes(obj) {
       const keys = Object.keys(obj);
       keys.forEach((key) => {
@@ -378,7 +398,7 @@ function AdvancedSearch() {
           allCategories.push(key);
         }
       });
-    
+  
       for (const key of keys) {
         const value = obj[key];
         if (typeof value === 'object' && value !== null) {
@@ -386,32 +406,76 @@ function AdvancedSearch() {
         }
       }
     }
-
+  
     array_query.forEach((item) => {
       extractAttributes(item);
     });
-
+  
     const categories = array_query
-    .map((item) => {
-      const key = Object.keys(item)[0];
-      return key !== 'switch' ? key : null; // Exclude "switch" from categories
-    })
-    .filter((key) => key !== null); // Remove any null values
+      .map((item) => {
+        const key = Object.keys(item)[0];
+        return key !== 'switch' ? key : null; // Exclude "switch" from categories
+      })
+      .filter((key) => key !== null); // Remove any null values
     const allValues = [];
-
+  
     for (const item of array_query) {
       const key = Object.keys(item)[0];
       const value = item[key];
-    
       if (typeof value === 'object') {
-        for (const nestedKey of Object.keys(value)) {
-          const nestedValue = value[nestedKey];
-          if (typeof nestedValue === 'object') {
-            for (const deeplyNestedValue of Object.values(nestedValue)) {
-              allValues.push(deeplyNestedValue);
+        // Check for the "political_office_helds" condition
+        if (key === "political_office_helds" && value.start_year) {
+          if (value.start_year.$lte && value.start_year.$gte) {
+            const range = `${value.start_year.$gte} - ${value.start_year.$lte}`;
+            allValues.push(`Range: ${range}`);
+          } else if (value.start_year.$lt) {
+            allValues.push(`Before ${value.start_year.$lt}`);
+          } else if (value.start_year.$gt) {
+            allValues.push(`After ${value.start_year.$gt}`);
+          }
+        }
+        
+        // Check for the "educations" condition
+        else if (key === "educations" && value.year) {
+          if (value.year.$lte && value.year.$gte) {
+            const range = `${value.year.$gte} - ${value.year.$lte}`;
+            allValues.push(`Range: ${range}`);
+          } else if (value.year.$lt) {
+            allValues.push(`Before ${value.year.$lt}`);
+          } else if (value.year.$gt) {
+            allValues.push(`After ${value.year.$gt}`);
+          }
+        }
+        else if (key === "residence_in_1977s" && value.total_population) {
+          if (value.total_population.$lte && value.total_population.$gte ) {
+            const range = `${value.total_population.$gte} - ${value.total_population.$lte}`;
+            allValues.push(`Population Range: ${range}`);
+          }
+          else if (value.total_population.$gte ) {
+            allValues.push(`Population: ${value.total_population.$gte}+`);
+          }
+        }
+        else if (key === "residence_in_1977s" && value.median_household_income) {
+          if (value.median_household_income.$lte && value.median_household_income.$gte ) {
+            const range = `${value.median_household_income.$gte} - $${value.median_household_income.$lte}`;
+            allValues.push(`Income Range: $${range}`);
+          }
+          else if (value.median_household_income.$gte ) {
+            allValues.push(`Income: $${value.median_household_income.$gte}+`);
+          }
+        }
+        else {
+          // Process nested values as before
+          for (const nestedKey of Object.keys(value)) {
+            if (nestedKey === 'createdAt' || nestedKey === 'updatedAt') continue; // Skip these attributes
+            const nestedValue = value[nestedKey];
+            if (typeof nestedValue === 'object') {
+              for (const deeplyNestedValue of Object.values(nestedValue)) {
+                allValues.push(deeplyNestedValue);
+              }
+            } else {
+              allValues.push(nestedValue);
             }
-          } else {
-            allValues.push(nestedValue);
           }
         }
       } else {
@@ -425,43 +489,42 @@ function AdvancedSearch() {
         allValues.push(`${transformedKey}: ${transformedValue}`);
       }
     }
+    
     setUserInput(allValues);
     let queryObj = {
       populate: categories,
-      sort:[{'last_name':"asc"}],
+      sort: [{'last_name': "asc"}],
     }
-    data.switch ? queryObj.filters = { $and:array_query } : queryObj.filters = { $or: array_query  };
-    let query = qs.stringify(queryObj, {encodeValuesOnly: true,});
+    data.switch ? queryObj.filters = { $and: array_query } : queryObj.filters = { $or: array_query };
+    let query = qs.stringify(queryObj, { encodeValuesOnly: true });
     if (array_query.length === 0) {
       alert('No search input')
-    }
-    else {
-    const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-    if (response.data.length === 0) {
-      setIsButtonClicked(true);
-    }
-    else {
-      const mapData = response.data.map((person) => {
-        return{
-          lat:person.attributes.lat,
-          lon:person.attributes.lon,
-          first_name:person.attributes.first_name,
-          last_name:person.attributes.last_name,
-        }
-      })
-      setMap(mapData);
-      const tableData = processTableData(response, categories, allCategories); //response is API response, newArray
-      setTableData(tableData);
-      setIsButtonClicked(true);
+    } else {
+      const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
+      if (response.data.length === 0) {
+        setIsButtonClicked(true);
+      } else {
+        const mapData = response.data.map((person) => {
+          return {
+            lat: person.attributes.lat,
+            lon: person.attributes.lon,
+            first_name: person.attributes.first_name,
+            last_name: person.attributes.last_name,
+          };
+        });
+        setMap(mapData);
+        const tableData = processTableData(response, categories, allCategories, allValues); // response is API response, newArray
+        setTableData(tableData);
+        setIsButtonClicked(true);
       }
     }
- }
+  }
+  
 
   //Reset funnction for button
   const clearForm = () => {
-    setTimeout(() => {
     reset();
-    setSelectedOptions({ represented_state: null, races: null });
+    setSelectedOptions({ represented_state: null, races: null, decade: null });
     setTableData([])
     setMap([])
     setIsButtonClicked(false);
@@ -477,12 +540,11 @@ function AdvancedSearch() {
     })
     setclickedPlanks({})
     setHasChildren(null)
-    }, 50)
+    setIsToggleOn(true)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
     // State to track the toggle status
   const [isToggleOn, setIsToggleOn] = useState(true);
-
   // Function to handle toggle change
   const handleToggleChange = (event) => {
     setIsToggleOn(event.target.checked);
@@ -582,12 +644,12 @@ function AdvancedSearch() {
                   return (
                     <div key={index}>
                       <label className="advancedSearch_form-control">
-                        <input
-                          type="checkbox"
-                          value={plank.value}
-                          // {...register(plank.value)}
-                          onChange={() => handleCheckboxClick(plank.value)}
-                        />
+                      <input
+                        type="checkbox"
+                        value={plank.value}
+                        checked={!!clickedPlanks[plank.value]} // Ensure the checkbox state is controlled
+                        onChange={() => handleCheckboxClick(plank.value)}
+                      />
                         {plank.label}
                       </label>
                       {isChecked && (
@@ -681,13 +743,12 @@ function AdvancedSearch() {
               </div>
               <div className="advancedSearch_container">
                 <h1> city of residence in 1977</h1>
-                <div className="item_EDU">
+                <div className="item_DEMO">
                 <label className="advancedSearch_input">
                 <input type="text" {...register('residence_in_1977s.city_state.$containsi')}/> </label> 
                 <div className="advancedSearch_form-control">
                 <Controller 
                     control={control}
-                    name="residence_in_1977s"
                     render={({ field }) => (
                       <Select
                       styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
@@ -709,7 +770,6 @@ function AdvancedSearch() {
                   />
                 <Controller 
                     control={control}
-                    name="residence_in_1977s"
                     render={({ field }) => (
                       <Select
                       styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
@@ -1003,21 +1063,90 @@ function AdvancedSearch() {
             <div label="Education & Career">
             <div className="advancedSearch_form">
             <InfoBox category="Education & Career" text={contentMap?.attributes?.AdvancedSearch_Education}/>
-              <div className="advancedSearch_container">
-                <h1> Education completed</h1>
-                <div className="item_EDU">
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="some high school" {...register(`highest_level_of_education_attained`)} />Some High School </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="high school diploma" {...register(`highest_level_of_education_attained`)} />High School Diploma</label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="some college" {...register(`highest_level_of_education_attained`)} />Some college </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="college degree" {...register(`highest_level_of_education_attained`)} />College degree </label>
-                <label className="advancedSearch_form-control">
-                <input type="checkbox" value="graduate/professional degree" {...register(`highest_level_of_education_attained`)} />Graduate professional </label>
+            <div className="advancedSearch_container">
+              <h1> Education completed</h1>
+              <div className="item_EDU">
+                <div className="edu_column">
+                  <label className="advancedSearch_form-control">
+                    <input type="checkbox" value="some high school" {...register(`highest_level_of_education_attained`)} />Some High School
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input type="checkbox" value="high school diploma" {...register(`highest_level_of_education_attained`)} />High School Diploma
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input type="checkbox" value="some college" {...register(`highest_level_of_education_attained`)} />Some college
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input type="checkbox" value="college degree" {...register(`highest_level_of_education_attained`)} />College degree
+                  </label>
+                  <label className="advancedSearch_form-control">
+                    <input type="checkbox" value="graduate/professional degree" {...register(`highest_level_of_education_attained`)} />Graduate professional
+                  </label>
                 </div>
-               </div>
+                <div className="edu_column">
+                  <div className="item_EDU_row">
+                      <h1>Learning establishment name</h1>
+                      <input type="text" {...register('educations.institution.$containsi')}/>
+                  </div>
+                  <div className="item_EDU_row">
+                      <h1>decade graduated/left</h1>
+                      <div className="advancedSearch_form-control">
+                      <Controller
+                        control={control}
+                        name={`educations.year`}
+                        render={({ field }) => (
+                          <Select
+                            isMulti
+                            closeMenuOnSelect={false} // Keeps the menu open after selection
+                            hideSelectedOptions={false} // Keeps selected options visible in the dropdown
+                            options={decadeOptions}
+                            components={{ Option: CheckboxOption }} // Custom option with checkboxes
+                            onChange={(selectedOptions) => {
+                              setSelectedOptions((prevOptions) => ({
+                                ...prevOptions,
+                                decadeEDU: selectedOptions,
+                              }));
+                              
+                            }}
+                            onBlur={field.onBlur}
+                            value={selectedOptions.decadeEDU || []} // Ensure value is an array
+                            placeholder="Select..."
+                            name={field.name}
+                            ref={field.ref}
+                            styles={{
+                              container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
+                              control: base => ({
+                                ...base,
+                                maxWidth: '300px', // Set a max width for the select component
+                                flexWrap: 'wrap', // Allows the selected options to wrap within the select
+                                whiteSpace: 'normal', // Prevents the selected options from extending the container size
+                              }),
+                              option: (base, state) => ({
+                                ...base,
+                                backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
+                                color: 'black', // Set text color to black
+                                display: 'flex', // Makes the label and checkbox aligned horizontally
+                              }),
+                              valueContainer: base => ({
+                                ...base,
+                                maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
+                                display: 'flex',
+                                flexWrap: 'wrap', // Enables wrapping of selected options
+                                overflow: 'hidden', // Prevents overflowing content
+                              }),
+                              multiValue: base => ({
+                                ...base,
+                                backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
+                              }),
+                            }}
+                          />
+                        )}
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
                <div className="advancedSearch_container">
                 <h1> Degree</h1>
                 <div className="item">
@@ -1154,6 +1283,64 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
+                <h1> decade political offices held</h1>
+                <div className="item_DEMO">
+                  <div className="advancedSearch_form-control">
+                    <Controller
+                      control={control}
+                      name={`political_office_helds.start_year`}
+                      render={({ field }) => (
+                        <Select
+                          isMulti
+                          closeMenuOnSelect={false} // Keeps the menu open after selection
+                          hideSelectedOptions={false} // Keeps selected options visible in the dropdown
+                          options={decadeOptions}
+                          components={{ Option: CheckboxOption }} // Custom option with checkboxes
+                          onChange={(selectedOptions) => {
+                            setSelectedOptions((prevOptions) => ({
+                              ...prevOptions,
+                              decade: selectedOptions,
+                            }));
+                            
+                          }}
+                          onBlur={field.onBlur}
+                          value={selectedOptions.decade || []} // Ensure value is an array
+                          placeholder="Select..."
+                          name={field.name}
+                          ref={field.ref}
+                          styles={{
+                            container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
+                            control: base => ({
+                              ...base,
+                              maxWidth: '300px', // Set a max width for the select component
+                              flexWrap: 'wrap', // Allows the selected options to wrap within the select
+                              whiteSpace: 'normal', // Prevents the selected options from extending the container size
+                            }),
+                            option: (base, state) => ({
+                              ...base,
+                              backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
+                              color: 'black', // Set text color to black
+                              display: 'flex', // Makes the label and checkbox aligned horizontally
+                            }),
+                            valueContainer: base => ({
+                              ...base,
+                              maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
+                              display: 'flex',
+                              flexWrap: 'wrap', // Enables wrapping of selected options
+                              overflow: 'hidden', // Prevents overflowing content
+                            }),
+                            multiValue: base => ({
+                              ...base,
+                              backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
+                            }),
+                          }}
+                        />
+                      )}
+                    />
+                  </div>
+                </div>
+              </div>
+              <div className="advancedSearch_container">
                   <h1> jurisdiction of political offices sought but lost </h1>
                   <div className="item_ELEC">
                   <label className="advancedSearch_form-control">
@@ -1231,7 +1418,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.organizational_and_political.$contains')}
+                      {...register('organizational_politicals.organizational_and_political.$containsi')}
                     />
                   </div>
                   <div className="item_ORG_row">
@@ -1239,7 +1426,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.participants.last_name.$containsi')}
+                      {...register('organizational_politicals.participants.last_name.$startsWith')}
                     />
                   </div>
                 </div>  

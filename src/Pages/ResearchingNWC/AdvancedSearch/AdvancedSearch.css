@@ -328,11 +328,29 @@
 }
 
 .item_EDU {
-    display: grid;
-    margin-left: -150rem;
-    margin-bottom: 40rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  margin-left: -150rem; /* Adjust margin as needed */
+  margin-bottom: 40rem;
 }
 
+.item_EDU_row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rem; /* Space between rows, adjust as needed */
+  margin-left: -400rem;
+  margin-top: -5rem;
+}
+
+
+.item_EDU_row h1 {
+  margin-right: -20rem; /* Space between the <h1> and the input box */
+  width: 300rem; /* Fixed width to align with other rows */
+}
+
+.item_EDU_row input {
+  width: 300rem; /* Fixed width for all input boxes */
+}
 .item_DEMO {
     margin-left: -150rem;
     margin-bottom: 15rem;
