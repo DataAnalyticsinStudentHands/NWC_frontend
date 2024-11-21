@@ -1,7 +1,10 @@
 function processTableData(response, newArray, categories, allValues) {
-  console.log(response, newArray, categories, allValues)
   // Function to modify the display name (remove trailing 's')
   const formatDisplayName = (category) => {
+    if (category === 'Political Parties') {
+      // Return 'Political Party' instead of modifying the name
+      return 'Political Parties';
+    }
     return category.endsWith('s') ? category.slice(0, -1) : category; // Remove 's' if it ends with 's'
   };
 
@@ -15,7 +18,7 @@ function processTableData(response, newArray, categories, allValues) {
     let hasMedianHouseholdIncome = false;
 
     newArray.forEach((element) => {
-      if (element === 'residence_in_1977s' && categories.includes('total_population')) {
+      if (element === 'residence_in_1977s' && (categories.includes('total_population') || categories.includes('median_household_income'))) {
         const residenceData = person.attributes.residence_in_1977s.data[0]?.attributes || {};
         const totalPopulation = residenceData.total_population || 'N/A';
         const medianHouseholdIncome = residenceData.median_household_income || 'N/A';
@@ -104,7 +107,6 @@ function processTableData(response, newArray, categories, allValues) {
         const nestedProperties = element.split('.');
         let nestedValue = person.attributes;
         let nestedValuesArray = [];
-
         nestedProperties.forEach((property) => {
           if (nestedValue && property in nestedValue) {
             nestedValue = nestedValue[property];
@@ -115,19 +117,26 @@ function processTableData(response, newArray, categories, allValues) {
             nestedValue = 'N/A';
           }
         });
-
-        if (Array.isArray(nestedValue)) {
+        if (Array.isArray(nestedValue) ) {
           nestedValuesArray = nestedValue.flatMap(item => {
             return Object.entries(item)
-              .filter(([key, value]) => 
-                key !== 'createdAt' && key !== 'updatedAt' && key !== 'oralhistory_role_toggle' && key !== 'job_profession' && allValues.includes(value)
+              .filter(([key, value]) =>   
+                categories.includes(key) &&
+                value != null && // Ensure value is not null or undefined
+                allValues
+                  .map(substring => substring.toLowerCase()) // Convert allValues to lowercase
+                  .some(substring => 
+                    typeof value === 'string' && 
+                    value.toLowerCase().includes(substring) // Convert value to lowercase
+                  )
               )
-              .map(([, value]) => value);
+              .map(([, value]) => {
+                return value;
+              });
           });
-        } else if (allValues.includes(nestedValue)) {
+        } else {
           nestedValuesArray.push(convertBooleanToString(nestedValue || 'N/A'));
         }
-
         const uniqueValuesArray = [...new Set(nestedValuesArray)];
         tableItem[formattedKey] = uniqueValuesArray.length > 1 
           ? uniqueValuesArray.join(', ') 

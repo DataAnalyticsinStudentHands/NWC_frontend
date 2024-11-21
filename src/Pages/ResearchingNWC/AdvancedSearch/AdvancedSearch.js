@@ -811,7 +811,7 @@ function AdvancedSearch() {
                 <h1>name of spouse</h1>
                 <div className="item">
                 <label className="advancedSearch_input">
-                <input type="text" {...register('name_of_spouse.$containsi')}/> </label>                
+                <input type="text" {...register('spouses.last_name.$containsi')}/> </label>                
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -1426,7 +1426,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('organizational_politicals.participants.last_name.$startsWith')}
+                      {...register('organizational_politicals.participants.$containsi')}
                     />
                   </div>
                 </div>  
@@ -1486,7 +1486,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
-                      {...register('leadership_in_organizations.organizations.$containsi')}
+                      {...register('leadership_in_organizations.organization.$containsi')}
                     />
                   </div>
                   <div className="item_ORG_row">
