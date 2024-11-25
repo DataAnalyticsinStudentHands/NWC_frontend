@@ -464,6 +464,22 @@ function AdvancedSearch() {
             allValues.push(`Income: $${value.median_household_income.$gte}+`);
           }
         }
+        else if (key === "age_in_1977" ){
+          if (value.$gte && value.$lte) {
+            const range = `${value.$gte} - ${value.$lte}`;
+            allValues.push(`Age Range: ${range}`);
+          } else if (value.$gte) {
+            allValues.push(`Age: ${value.$gte}+`);
+          }
+        }
+        else if (key === "total_number_of_children") {
+          if (value.$gte && value.$lte) {
+            const range = `${value.$gte} - ${value.$lte}`;
+            allValues.push(`Children: ${range}`);
+          } else if (value.$gte) {
+            allValues.push(`Children: ${value.$gte}+`);
+          }
+        }
         else {
           // Process nested values as before
           for (const nestedKey of Object.keys(value)) {
@@ -501,7 +517,7 @@ function AdvancedSearch() {
       alert('No search input')
     } else {
       const response = await fetch(`${process.env.REACT_APP_API_URL}/api/nwc-participants?${query}`).then(res => res.json());
-      if (response.data.length === 0) {
+      if (response.data.length === 0 && !response) {
         setIsButtonClicked(true);
       } else {
         const mapData = response.data.map((person) => {
@@ -519,28 +535,28 @@ function AdvancedSearch() {
       }
     }
   }
-  
 
   //Reset funnction for button
   const clearForm = () => {
-    reset();
-    setSelectedOptions({ represented_state: null, races: null, decade: null });
-    setTableData([])
-    setMap([])
-    setIsButtonClicked(false);
-    setAgeCheckboxState({
-      age16to25: false,
-      age26to55: false,
-      age56plus: false,
-    });
-    setchildrenCheckboxState({
-      children_12: false,
-      children_34: false,
-      children5: false,
-    })
-    setclickedPlanks({})
-    setHasChildren(null)
-    setIsToggleOn(true)
+    setTimeout(() => {
+      reset();
+      setSelectedOptions({});
+      setTableData([])
+      setMap([])
+      setIsButtonClicked(false);
+      setAgeCheckboxState({
+        age16to25: false,
+        age26to55: false,
+        age56plus: false,
+      });
+      setchildrenCheckboxState({
+        children_12: false,
+        children_34: false,
+        children5: false,
+      })
+      setclickedPlanks({})
+      setHasChildren(null)
+      }, 50)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
     // State to track the toggle status
@@ -933,9 +949,9 @@ function AdvancedSearch() {
                 <label className="advancedSearch_form-control">
                 <input type="checkbox" value="male" {...register('gender')}/>Male </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" {...register('gender')}/>Transgender </label>
+                <input type="checkbox" value="transgender "{...register('gender')}/>Transgender </label>
                 <label className="advancedSearch_form-control">
-                <input type="checkbox" {...register('gender')}/>Non-binary </label>
+                <input type="checkbox" value="non-binary" {...register('gender')}/>Non-binary </label>
                 </div>
               </div>
               <div className="advancedSearch_container">
