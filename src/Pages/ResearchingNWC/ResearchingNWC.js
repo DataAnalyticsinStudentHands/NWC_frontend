@@ -14,6 +14,7 @@ import infoIcon from './res/Info Hover Icon.svg';
 import { Banner } from '../../Components/Banner';
 import { StateSelect } from '../../Components/StateSelect/StateSelect';
 import ReactMarkdown from 'react-markdown';
+import { processTableData } from './AdvancedSearch/TableHeaders'
 
 function ResearchingNWC() {
 
@@ -96,10 +97,22 @@ const politicalOfficeObj = {
     Object.entries(data).forEach(([key,value], index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
-          case "role":
-            query_array.push({ roles:{role: roleObj[Object.keys(data)[index].slice(5)]}});
-            selectArr.push(key.slice(5))
+          case "role": {
+            const roles = roleObj[Object.keys(data)[index].slice(5)];
+            
+            if (Array.isArray(roles)) {
+              // If roles is an array, push each role individually
+              roles.forEach(role => {
+                query_array.push({ roles: { role: role } });
+                selectArr.push(role);
+              });
+            } else {
+              // If roles is not an array, push the role directly
+              query_array.push({ roles: { role: roles } });
+              selectArr.push(roles);
+            }
             break;
+          }
           case 'race':
             query_array.push({basic_races:{race:raceObj[Object.keys(data)[index].slice(5)]}});
             selectArr.push(key.slice(5))
@@ -124,13 +137,13 @@ const politicalOfficeObj = {
             query_array.push({ planks_fors: {
               plank: 'Equal Rights Amendment Plank'
             }}); 
-            selectArr.push('For')
+            selectArr.push('Equal Rights Amendment Plank')
             break;
           case 'era_against':
             query_array.push({ planks_against: {
               plank: 'Equal Rights Amendment Plank'
             }}); 
-            selectArr.push('Against')
+            selectArr.push('Equal Rights Amendment Plank')
             break;
           default:
             break;
@@ -172,9 +185,37 @@ const politicalOfficeObj = {
         });
       } 
     }
+    const allCategories = [];
+  
+    function extractAttributes(obj) {
+      const keys = Object.keys(obj);
+      keys.forEach((key) => {
+        if (key !== 'switch') { // Exclude "switch" from allCategories
+          allCategories.push(key);
+        }
+      });
+  
+      for (const key of keys) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          extractAttributes(value); // Recursively extract attributes
+        }
+      }
+    }
+  
+    query_array.forEach((item) => {
+      extractAttributes(item);
+    });
+    const categories = query_array
+    .map((item) => {
+      const key = Object.keys(item)[0];
+      return key !== 'switch' ? key : null; // Exclude "switch" from categories
+    })
+    .filter((key) => key !== null); // Remove any null values
+
     setUserInput(selectArr);
     let queryObj = {
-      populate: ['residence_in_1977s','roles', 'basic_races','educations'],
+      populate: categories,
       sort:[{'last_name':"asc"}],
     }
     data.switch ? queryObj.filters = { $and: query_array } : queryObj.filters = { $or: query_array };
@@ -191,25 +232,8 @@ const politicalOfficeObj = {
       }
     })
     setMap(mapData);
-    console.log(response)
-    const NewTableData = response.data.map((person, index) => {
-      return{
-        '#': index+1,
-        'Last Name': person.attributes.last_name,
-        'First Name': person.attributes.first_name,
-        'Residence in 1977':person.attributes.residence_in_1977s.data.map((residence) => residence.attributes.city_state),
-        'Education':person.attributes.educations.data.map((education) => {
-          const { degree, institution, year } = education.attributes;
-          return `${degree ?? ''} ${institution ?? ''} ${year ?? ''}`
-        }
-          
-          ),
-        'NWC Role':person.attributes.roles.data.map((role) => role.attributes.role),
-        // 'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
-      }
-    })
-    
-    setTableData(NewTableData);
+    const tableData = processTableData(response, categories, allCategories, selectArr); // response is API response, newArray
+    setTableData(tableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
