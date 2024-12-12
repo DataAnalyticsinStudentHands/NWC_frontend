@@ -4,6 +4,7 @@ import qs from 'qs';
 import './ResearchingNWC.css'
 import button from "../../assets/res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
+import progress_map from './res/Map 1.png';
 // import BannerCard from "../../Components/BannerCard/BannerCard";
 // import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
@@ -23,7 +24,7 @@ function ResearchingNWC() {
   useEffect(() => {
     async function fetchContentMap() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc?populate=*`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -36,6 +37,7 @@ function ResearchingNWC() {
   
     fetchContentMap();
   },[]);
+
 
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
@@ -89,7 +91,7 @@ const politicalOfficeObj = {
       $notIn:["Democratic Party", "Republican Party"]
     }
   }
-
+  
   // submit basic search query
   async function onSubmit(data) {
     let selectArr = [];
@@ -261,7 +263,16 @@ const politicalOfficeObj = {
         <hr></hr>
         <h2>HOW TO SEARCH THIS DATA</h2>
         <ReactMarkdown>{contentMap?.attributes?.BasicSearch_Text}</ReactMarkdown>
-
+        <h1>FOLLOW OUR PROGRESS AS WE RELEASE DATA SETS BY STATE AND TERRITORY</h1>
+        <img
+          src={
+            contentMap?.attributes?.BasicSearch_Progress_Map.data
+              ? [process.env.REACT_APP_API_URL, contentMap.attributes.BasicSearch_Progress_Map.data.attributes.url].join('')
+              : progress_map
+          }
+          alt="Progress Map"
+          className="progress-map"
+        />
         <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}

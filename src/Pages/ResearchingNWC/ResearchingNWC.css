@@ -410,6 +410,11 @@ line-height: 43px; /* 179.167% */
   gap: 1em;
 }
 
+.progress-map {
+  width: 100%;
+  height: auto; /* Optional: Maintains aspect ratio */
+}
+
 
 
 

@@ -236,75 +236,54 @@ function AdvancedSearch() {
 
     ]
 
-    // useEffect(() => {
-    //   fetch(`${process.env.REACT_APP_API_URL}/api/nwc-roles?sort=role&filters[role][$notContainsi]=Other Role`)
-    //     .then(res => res.json())
-    //     .then(data => {
-    //       const roles = data.data.map(item => item.attributes.role);
-    //       setRoles(
-    //         roles.map(label => {
-    //           return {
-    //             value: label,
-    //             label: label
-    //           };
-    //         })
-    //       );
-    //     })
-    //     .catch(err => console.log(err));
-    // }, []);
-
   const {
     register, 
     handleSubmit,
     reset,
     control,
+    resetField
   } = useForm()
 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [hasChildren, setHasChildren] = useState(null)
   const [isButtonClicked, setIsButtonClicked] = useState(false); // state used to display chart
-  const [ageCheckboxState, setAgeCheckboxState] = useState({
-    age16to25: false,
-    age26to55: false,
-    age56plus: false,
-  });
-  const [childrenCheckboxState, setChildrenCheckboxState] = useState({
-    children_12: false,
-    children_34: false,
-    children5: false,
-  });
+
   const [userInput, setUserInput] = useState([])
 
-  const handleAgeChange = (e) => {
-    const { name, checked } = e.target;
-    if (name) {
-      setAgeCheckboxState((prevState) => ({
-        ...prevState,
-        [name]: checked,
-      }));
-    }
-  };
-
-  const handleChildrenCheckboxChange = (e) => {
-    const { name, checked } = e.target;
-    setChildrenCheckboxState((prevState) => ({
-      ...prevState,
-      [name]: checked,
-    }));
-  };
-  
   async function onSubmit(data) {
     let array_query = [];
-    
+
     Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined && value !== false && typeof value === 'object') {
+      if (key === 'total_number_of_children' && Array.isArray(value)) {
+        value.forEach((val) => {
+          if (val === '12') {
+            array_query.push({ 'total_number_of_children': { $gte: 1, $lte: 2 } });
+          } else if (val === '34') {
+            array_query.push({ 'total_number_of_children': { $gte: 3, $lte: 4 } });
+          } else if (val === '5+') {
+            array_query.push({ 'total_number_of_children': { $gte: 5 } });
+          }
+        });
+      } 
+      else if (key === 'age_in_1977' && Array.isArray(value)) {
+        value.forEach((val) => {
+          if (val === '1625') {
+            array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
+          } else if (val === '2655') {
+            array_query.push({ 'age_in_1977': { $gte: 26, $lte: 55 } });
+          } else if (val === '56+') {
+            array_query.push({ 'age_in_1977': { $gte: 56 } });
+          }
+        });
+      } 
+      else if (value !== undefined && value !== false && typeof value === 'object') {
         const filteredValue = filterEmptyStringsAndTimestamps(value);
         if (Object.keys(filteredValue).length > 0) {
           const newObj = { [key]: filteredValue };
           array_query.push(newObj);
         }
-      } else if (value !== undefined && value !== false){
+      } else if (value !== undefined && value !== false) {
         const newObj = { [key]: value };
         array_query.push(newObj);
       }
@@ -329,31 +308,7 @@ function AdvancedSearch() {
       }
       return filteredObj;
     }
-  
-    // Checks age ranges
-    if (ageCheckboxState.age16to25) {
-      array_query.push({ 'age_in_1977': { $gte: 16, $lte: 25 } });
-    }
-  
-    if (ageCheckboxState.age26to55) {
-      array_query.push({ 'age_in_1977': { $gte: 26, $lte: 55 } });
-    }
-  
-    if (ageCheckboxState.age56plus) {
-      array_query.push({ 'age_in_1977': { $gte: 56 } });
-    }
-  
-    if (childrenCheckboxState.children_12) {
-      array_query.push({ 'total_number_of_children': { $gte: 1, $lte: 2 } });
-    }
-  
-    if (childrenCheckboxState.children_34) {
-      array_query.push({ 'total_number_of_children': { $gte: 3, $lte: 4 } });
-    }
-  
-    if (childrenCheckboxState.children5) {
-      array_query.push({ 'total_number_of_children': { $gte: 5 } });
-    }
+
     if (selectedOptions.population) {
       const selectedOption = populationOptions.find(option => option.value === selectedOptions.population);
       
@@ -423,7 +378,6 @@ function AdvancedSearch() {
       })
       .filter((key) => key !== null); // Remove any null values
     const allValues = [];
-  
     for (const item of array_query) {
       const key = Object.keys(item)[0];
       const value = item[key];
@@ -549,18 +503,9 @@ function AdvancedSearch() {
       setTableData([])
       setMap([])
       setIsButtonClicked(false);
-      setAgeCheckboxState({
-        age16to25: false,
-        age26to55: false,
-        age56plus: false,
-      });
-      setChildrenCheckboxState({
-        children_12: false,
-        children_34: false,
-        children5: false,
-      })
       setclickedPlanks({})
       setHasChildren(null)
+      setIsToggleOn(true);
       }, 50)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
@@ -701,17 +646,17 @@ function AdvancedSearch() {
             <InfoBox category="Participant Demographics" text={contentMap?.attributes?.AdvancedSearch_Participants}/>
               <div className="advancedSearch_container">
                 <h1> Age range</h1>
-                <div className="item" onChange={handleAgeChange}>
+                <div className="item">
                   <label className="advancedSearch_form-control">
-                    <input type="checkbox" name="age16to25" checked={ageCheckboxState.age16to25} />
+                  <input type="checkbox" value="1625" {...register('age_in_1977')} />
                     16-25
                   </label>
                   <label className="advancedSearch_form-control">
-                    <input type="checkbox" name="age26to55" checked={ageCheckboxState.age26to55} />
+                  <input type="checkbox" value="2655" {...register('age_in_1977')} />
                     26-55
                   </label>
                   <label className="advancedSearch_form-control">
-                    <input type="checkbox" name="age56plus" checked={ageCheckboxState.age56plus} />
+                  <input type="checkbox" value="56+" {...register('age_in_1977')} />
                     56 and over
                   </label>
                 </div>
@@ -823,46 +768,51 @@ function AdvancedSearch() {
                 </div>
               </div>
               <div className="advancedSearch_container">
-                <h1>Has children</h1>
-                <div className="item">
-                  <label className="advancedSearch_form-control">
-                    <input
-                      type="radio"
-                      value="true"
-                      checked={hasChildren === true}
-                      onChange={() => setHasChildren(true)}
-                    />
-                    Yes
-                  </label>
-                  <label className="advancedSearch_form-control">
-                    <input
-                    {...register('has_children')}
-                      type="radio"
-                      value="false"
-                      checked={hasChildren === false}
-                      onChange={() => setHasChildren(false)}
-                    />
-                    No
-                  </label>
+                  <h1>Has children</h1>
+                  <div className="item">
+                    <label className="advancedSearch_form-control">
+                      <input
+                        type="radio"
+                        value="true"
+                        checked={hasChildren === true}
+                        onChange={() => {
+                          setHasChildren(true);
+                          resetField('has_children'); // Clear child-related checkboxes
+                        }}
+                      />
+                      Yes
+                    </label>
+                    <label className="advancedSearch_form-control">
+                      <input
+                        {...register('has_children')} // Register the field
+                        type="radio"
+                        value="false"
+                        checked={hasChildren === false}
+                        onChange={() => {
+                          setHasChildren(false);
+                          resetField('total_number_of_children'); // Clear child-related checkboxes
+                        }}
+                      />
+                      No
+                    </label>
+                  </div>
+                  {hasChildren && (
+                    <div className="advanced_children">
+                      <label className="advancedSearch_form-control">
+                        <input type="checkbox" value="12" {...register('total_number_of_children')} />
+                        1-2
+                      </label>
+                      <label className="advancedSearch_form-control">
+                        <input type="checkbox" value="34" {...register('total_number_of_children')} />
+                        3-4
+                      </label>
+                      <label className="advancedSearch_form-control">
+                        <input type="checkbox" value="5+" {...register('total_number_of_children')} />
+                        5+
+                      </label>
+                    </div>
+                  )}
                 </div>
-
-                {hasChildren && (
-    <div className="advanced_children" onChange={handleChildrenCheckboxChange}>
-    <label className="advancedSearch_form-control">
-      <input type="checkbox" name="children_12" checked={childrenCheckboxState.children_12} />
-      1-2
-    </label>
-    <label className="advancedSearch_form-control">
-      <input type="checkbox" name="children_34" checked={childrenCheckboxState.children_34} />
-      3-4
-    </label>
-    <label className="advancedSearch_form-control">
-      <input type="checkbox" name="children5" checked={childrenCheckboxState.children5} />
-      5+
-    </label>
-  </div>
-                )}
-              </div>
               <div className="advancedSearch_container">
                 <h1> religion</h1>
                 <div className="item_DEMO">
@@ -1490,6 +1440,7 @@ function AdvancedSearch() {
                     <input
                       type="text"
                       placeholder="Search"
+                      {...register('leadership_in_organizations.participant.last_name.$containsi')}
                     />
                   </div>
                 </div>    
