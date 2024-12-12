@@ -58,36 +58,53 @@ function processTableData(response, newArray, categories, allValues) {
           }
         }
       }
-      else if (element === 'leadership_in_organizations' && categories.includes('organization')) {
+      else if (element === 'leadership_in_organizations' && categories.includes('specific_role')) {
         const leadership = person.attributes.leadership_in_organizations.data.flatMap(item => ({
             organization: item?.attributes?.organization || '',
-            role: item?.attributes?.role || '' // Extract role attribute
+            role: item?.attributes?.specific_role || '' // Extract role attribute
         }));
-    
+      
         // Filter leadership items where the organization matches allValues and return the role
         const matchingRoles = leadership
-            .filter(item => allValues.some(value => item.organization.toLowerCase().includes(value.toLowerCase())))
-            .map(item => item.role); // Map to role after filtering
-    
+          .filter(item => allValues.some(value => item.role.toLowerCase().includes(value.toLowerCase())))
+          .map(item => item.role); // Map to role after filtering
+      
+        // Remove duplicates by converting to a Set and back to an array
+        const uniqueRoles = [...new Set(matchingRoles)];
+      
         // Populate the table item with roles or leave empty if no match
-        tableItem[formatDisplayName('Leadership')] = matchingRoles.length > 0 
-            ? matchingRoles.join(', ') 
-            : ''; // Leave empty if no match
-    } 
-    else if (element === 'last_name') {
-      // Extract and flatten all organizational data
-      const organizations = person.attributes.organizational_politicals.data.flatMap(item => 
-        item?.attributes?.organizational_and_political || []
-      );
-    
-      // Collect all organizations into a single array
-      const allOrganizations = Array.isArray(organizations) ? organizations : [];
-    
-      // Join all organizations with a comma and display them, or leave it empty if none
-      tableItem[formatDisplayName('Organizations')] = allOrganizations.length > 0 
-        ? allOrganizations.join(', ') 
-        : ''; // Leave it empty if no organizations are found
-    }
+        tableItem[formatDisplayName('Leadership Specific Role')] = uniqueRoles.length > 0
+          ? uniqueRoles.join(', ')
+          : 'N/A'; // Leave empty if no match
+      }
+      else if (element === 'last_name') {
+        // Extract and flatten all organizational data
+        const organizations = person.attributes.organizational_politicals.data.flatMap(item => 
+          item?.attributes?.organizational_and_political || []
+        );
+      
+        // Collect all organizations into a single array
+        const allOrganizations = Array.isArray(organizations) ? organizations : [];
+      
+        // Join all organizations with a comma and display them, or leave it empty if none
+        tableItem[formatDisplayName('Organizations')] = allOrganizations.length > 0 
+          ? allOrganizations.join(', ') 
+          : ''; // Leave it empty if no organizations are found
+      }
+
+      else if (element === 'leadership_in_organizations' && categories.includes('last_name')) {
+        // Extract and flatten all organizational data
+        const organizations = person.attributes.leadership_in_organizations.data.flatMap(item => 
+          item?.attributes?.organization || []
+        );
+        console.log(organizations)
+        // Collect all organizations into a single array
+        const allOrganizations = Array.isArray(organizations) ? organizations : [];
+        // Only create the tableItem if there are organizations
+        if (allOrganizations.length > 0) {
+          tableItem[formatDisplayName('Leadership Organizations')] = allOrganizations.join(', ');
+        }
+      }
     
       else if ((element === 'political_office_helds' && categories.includes('start_year')) || (element === 'educations' && categories.includes('year'))) {
           // Select the appropriate data array for political_office_helds or educations
