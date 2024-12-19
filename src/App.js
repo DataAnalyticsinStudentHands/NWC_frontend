@@ -27,12 +27,18 @@ import PageNotFound from "./Pages/404Page";
 
 const ScrollToTop = (props) => {
   const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const timeoutId = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100); // Adjust the timeout duration as needed
+
+    return () => clearTimeout(timeoutId);
   }, [location]);
 
   return <>{props.children}</>;
 };
+
 
 function Routing() {
   if (process.env.REACT_APP_PRODUCTION === "true") {
