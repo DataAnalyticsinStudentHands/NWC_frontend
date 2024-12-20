@@ -48,23 +48,8 @@
   color: var(--colorDarkBlue);
 }
 
-.advancedSearch_text hr {
-  border: none;
-  height: 4rem;
-  color: var(--colorDarkBlue); /* old IE */
-  background-color: var(--colorDarkBlue); /* Modern Browsers */
-  margin-bottom: 10rem;
-}
-
-.advancedSearch_text h2 {
-  font-family: var(--fontMontserrat);
-  font-size:25rem;
-  color: var(--colorDarkBlue);
-}
-
 .advancedSearch_bar_container {
     width: 100%;
-    margin-bottom: 3em;
     margin-bottom: 3em;
 }
 
@@ -75,20 +60,11 @@
   width: fit-content;
   display: flex;
   padding: 0.2em .2em;
-  margin: auto;
-  width: fit-content;
-  display: flex;
-  padding: 0.2em .2em;
 }
 
 .advancedSearch_bar > input{
     border: none;
-    border: none;
     outline: none;
-    border-bottom: .1em solid var(--colorLightBlue);
-    font-size: 1em;
-    margin: auto;
-    width: 500rem;
     border-bottom: .1em solid var(--colorLightBlue);
     font-size: 1em;
     margin: auto;
@@ -112,7 +88,6 @@
 
 .advancedSearch_button_reset {
     background: rgba(3, 103, 165, 0.35);
-    background: rgba(3, 103, 165, 0.35);
     width: 200rem;
     height: 60rem;
     font-family: var(--fontBabasNeue);
@@ -133,26 +108,14 @@
   border-radius: 0px;
   margin-right: 21rem;
   width: 300rem;
-  margin-left: 20rem;
-  border-radius: 0px;
-  margin-right: 21rem;
-  width: 300rem;
 }
 
 .Collapsible .toggle {
     font-size:25rem;
-    font-size:25rem;
     font-weight: normal;
     color: var(--colorDarkBlue);
     width: 100%;
-    width: 100%;
     text-align: left;
-    margin-bottom: 0rem;
-    padding-left: 0px; 
-    border-bottom: 2px solid var(--colorDarkBlue);
-    border-radius: 0px;
-    padding-right: 0px;
-
     margin-bottom: 0rem;
     padding-left: 0px; 
     border-bottom: 2px solid var(--colorDarkBlue);
@@ -165,7 +128,6 @@
     font-size:45rem;
     font-weight: normal;
     color: var(--colorDarkBlue);
-    margin-top: 10rem
     margin-top: 10rem
 }
 
@@ -187,7 +149,6 @@
 .Collapsible.active .toggle::after {
   transform: rotate(0deg);
 
-
 }
 
 /* FORM */
@@ -200,9 +161,7 @@
 .advancedSearch_form{
     margin-bottom: 30rem;
     background-color: rgba(158,199,225,.35);
-    background-color: rgba(158,199,225,.35);
     width: 100%;
-    padding-top: 10rem;
     padding-top: 10rem;
     padding-bottom: 50rem;
     margin-top: -5rem
@@ -305,8 +264,6 @@
   .advancedSearch_form-control {
     font-size: 18rem;
     font-family: var(--fontMontserrat);
-    font-size: 18rem;
-    font-family: var(--fontMontserrat);
     font-weight: normal;
     line-height: 1.1;
     display: flex;
@@ -314,14 +271,8 @@
     text-align: left;
     margin-bottom: 15rem;
     margin-right: 10rem;
-    margin-bottom: 15rem;
-    margin-right: 10rem;
   }
 
-  .advancedSearch_input input[type="text"] {
-    width: 300rem;
-    display: flex;
-    margin-bottom: 15rem;
   .advancedSearch_input input[type="text"] {
     width: 300rem;
     display: flex;
@@ -338,32 +289,6 @@
   display:flex;
   margin-bottom: 40rem;
   margin-left: -150rem;
-  display:flex;
-  margin-bottom: 40rem;
-  margin-left: -150rem;
-}
-
-.item_ORG {
-  display: flex;
-  flex-direction: column;
-  margin-top: 50rem;
-}
-
-.item_ORG_row {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30rem; /* Space between rows, adjust as needed */
-  margin-left: -200rem;
-}
-
-.item_ORG_row h1 {
-  /* Adjusts styling for the <h1> element */
-  margin-right: 10px; /* Space between the <h1> and the input box */
-  width: 300rem; /* Fixed width to align with other rows */
-}
-
-.item_ORG_row input {
-  width: 400rem; /* Fixed width for all input boxes */
 }
 
 .item_ORG {
@@ -391,10 +316,6 @@
 
 .item_NWC {
     display: grid;
-    grid-template-columns: 40% 30%;
-    margin-left: -160rem;
-    margin-bottom: 50rem;
-    margin-top: 40rem;
     grid-template-columns: 40% 30%;
     margin-left: -160rem;
     margin-bottom: 50rem;
@@ -482,7 +403,6 @@
   .tab-list-item {
   list-style: none;
   width: 12em;
-  width: 12em;
   background-color: var(--colorDarkBlue);
   border-radius: 40px 40px 0 0;
   text-align: center;
@@ -493,7 +413,6 @@
   padding-bottom: calc(15 * var(--xUnit));
   color: white;
   margin-right: 30rem;
-  margin-right: 30rem;
   }
 
   .tab-list-item:hover {
@@ -501,7 +420,6 @@
   }
   
   .tab-list-active {
-    background-color: rgba(158,199,225,.35);
     background-color: rgba(158,199,225,.35);
     
     border-width: 1px 1px 0 1px;
@@ -512,7 +430,6 @@
     display: flex;
     justify-content: left; /* Align tabs horizontally in the center */
     margin-bottom: 5rem;
-    padding-left: 0;
     padding-left: 0;
   }
   
