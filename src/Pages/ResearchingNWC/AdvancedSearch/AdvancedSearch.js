@@ -6,7 +6,6 @@ import Collapsible from './Collapsible'
 import Select, { components } from 'react-select';
 import { useState, useEffect, } from "react";
 import Tabs from "../Components/Tabs";
-import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
 import stateTerritories from '../../../assets/stateTerritories.json';
