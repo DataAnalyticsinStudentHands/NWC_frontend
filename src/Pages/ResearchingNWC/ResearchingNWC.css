@@ -271,7 +271,7 @@ line-height: 43px; /* 179.167% */
   position: absolute;
   top:0;
   left: 0;
-  width: 7em;
+  width: 210rem;
   background-color: #FFF4E8;
   color: black;
   padding: 0.25em;
@@ -408,6 +408,11 @@ line-height: 43px; /* 179.167% */
   justify-content: space-between;
   align-items: center;
   gap: 1em;
+}
+
+.progress-map {
+  width: 100%;
+  height: auto; /* Optional: Maintains aspect ratio */
 }
 
 

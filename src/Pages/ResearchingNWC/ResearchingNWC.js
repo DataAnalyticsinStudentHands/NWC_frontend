@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useForm, Controller } from "react-hook-form";
+import { useEffect, useState } from 'react';
+import { useForm, Controller } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
 import button from "../../assets/res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
+import progress_map from './res/Map 1.png';
 // import BannerCard from "../../Components/BannerCard/BannerCard";
 // import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
@@ -13,6 +16,8 @@ import infoIcon from './res/Info Hover Icon.svg';
 
 import { Banner } from '../../Components/Banner';
 import { StateSelect } from '../../Components/StateSelect/StateSelect';
+import ReactMarkdown from 'react-markdown';
+import { processTableData } from './AdvancedSearch/TableHeaders'
 
 function ResearchingNWC() {
 
@@ -21,7 +26,7 @@ function ResearchingNWC() {
   useEffect(() => {
     async function fetchContentMap() {
       try {
-        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc`);
+        const response = await fetch(`${process.env.REACT_APP_API_URL}/api/content-mapping-nwc?populate=*`);
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -35,13 +40,16 @@ function ResearchingNWC() {
     fetchContentMap();
   },[]);
 
+
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
   const [tableData, setTableData] = useState([]);
   const [userInput, setUserInput] = useState([]);
+  const [userInput, setUserInput] = useState([]);
   // 3rd state for form search by name
   // const { register: registerSearch, handleSubmit: handleSubmitSearch, formState: { errors: errorsSearch } } = useForm();
   // 4th state for form checkboxes
+  const { register, handleSubmit, reset, control} = useForm();
   const { register, handleSubmit, reset, control} = useForm();
   // 5th state form multi-select
   const [selectedOptions, setSelectedOptions] = useState([]);
@@ -54,7 +62,9 @@ function ResearchingNWC() {
 
 const raceObj = {
   "Asian American/Pacific Islander": "Asian American/Pacific Islander",
+  "Asian American/Pacific Islander": "Asian American/Pacific Islander",
   "Black": "Black",
+  "Hispanic": "Hispanic",
   "Hispanic": "Hispanic",
   "Native American/American Indian": "Native American/American Indian",
   "white": "white"
@@ -84,22 +94,40 @@ const politicalOfficeObj = {
     "Democratic": "Democratic Party",
     "Republican": "Republican Party",
     "Third Party": {
+    "Third Party": {
       $notIn:["Democratic Party", "Republican Party"]
     }
   }
-
+  
   // submit basic search query
   async function onSubmit(data) {
     let selectArr = [];
+    let selectArr = [];
     let query_array = [];
+    Object.entries(data).forEach(([key,value], index) => {
     Object.entries(data).forEach(([key,value], index) => {
       if (value === true) {
         switch(Object.keys(data)[index].split(' ')[0]){
-          case "role":
-            query_array.push({ roles:{role: roleObj[Object.keys(data)[index].slice(5)]}});
+          case "role": {
+            const roles = roleObj[Object.keys(data)[index].slice(5)];
+            
+            if (Array.isArray(roles)) {
+              // If roles is an array, push each role individually
+              roles.forEach(role => {
+                query_array.push({ roles: { role: role } });
+                selectArr.push(role);
+              });
+            } else {
+              // If roles is not an array, push the role directly
+              query_array.push({ roles: { role: roles } });
+              selectArr.push(roles);
+            }
+            break;
+          }
+          case 'race':
+            query_array.push({basic_races:{race:raceObj[Object.keys(data)[index].slice(5)]}});
             selectArr.push(key.slice(5))
             break;
-          case 'race':
             query_array.push({basic_races:{race:raceObj[Object.keys(data)[index].slice(5)]}});
             selectArr.push(key.slice(5))
             break;
@@ -107,7 +135,13 @@ const politicalOfficeObj = {
             query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]});
             selectArr.push(key.slice(9))
             break;
+            query_array.push({ religion:religionObj[Object.keys(data)[index].slice(9)]});
+            selectArr.push(key.slice(9))
+            break;
           case 'education':
+            query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]});
+            selectArr.push(key.slice(10))
+            break;
             query_array.push({ highest_level_of_education_attained: educationObj[Object.keys(data)[index].slice(10)]});
             selectArr.push(key.slice(10))
             break;
@@ -115,7 +149,13 @@ const politicalOfficeObj = {
             query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); 
             selectArr.push(key.slice(6))
             break;
+            query_array.push({ political_office_helds:{jurisdiction:politicalOfficeObj[Object.keys(data)[index].slice(6)]}}); 
+            selectArr.push(key.slice(6))
+            break;
           case 'party':
+            query_array.push({ political_parties:{party: politicalPartyObj[Object.keys(data)[index].slice(6)]}}); 
+            selectArr.push(key.slice(6))
+            break;
             query_array.push({ political_parties:{party: politicalPartyObj[Object.keys(data)[index].slice(6)]}}); 
             selectArr.push(key.slice(6))
             break;
@@ -123,13 +163,14 @@ const politicalOfficeObj = {
             query_array.push({ planks_fors: {
               plank: 'Equal Rights Amendment Plank'
             }}); 
-            selectArr.push('For')
+            selectArr.push('Equal Rights Amendment Plank')
             break;
           case 'era_against':
             query_array.push({ planks_against: {
+            query_array.push({ planks_against: {
               plank: 'Equal Rights Amendment Plank'
             }}); 
-            selectArr.push('Against')
+            selectArr.push('Equal Rights Amendment Plank')
             break;
           default:
             break;
@@ -142,8 +183,17 @@ const politicalOfficeObj = {
       })
       
     }
+      }
+    if (typeof value === 'object') {
+      value.forEach(item => {
+        query_array.push({represented_state: item.value})
+        selectArr.push(item.label)
+      })
+      
+    }
     });
     if(data.participantsName){
+      selectArr.push(data.participantsName)
       selectArr.push(data.participantsName)
       let names = data.participantsName.split(' ');
       let first_name = names[0];
@@ -171,9 +221,37 @@ const politicalOfficeObj = {
         });
       } 
     }
+    const allCategories = [];
+  
+    function extractAttributes(obj) {
+      const keys = Object.keys(obj);
+      keys.forEach((key) => {
+        if (key !== 'switch') { // Exclude "switch" from allCategories
+          allCategories.push(key);
+        }
+      });
+  
+      for (const key of keys) {
+        const value = obj[key];
+        if (typeof value === 'object' && value !== null) {
+          extractAttributes(value); // Recursively extract attributes
+        }
+      }
+    }
+  
+    query_array.forEach((item) => {
+      extractAttributes(item);
+    });
+    const categories = query_array
+    .map((item) => {
+      const key = Object.keys(item)[0];
+      return key !== 'switch' ? key : null; // Exclude "switch" from categories
+    })
+    .filter((key) => key !== null); // Remove any null values
+
     setUserInput(selectArr);
     let queryObj = {
-      populate: ['residence_in_1977s','roles', 'basic_races','educations'],
+      populate: categories,
       sort:[{'last_name':"asc"}],
     }
     data.switch ? queryObj.filters = { $and: query_array } : queryObj.filters = { $or: query_array };
@@ -190,30 +268,14 @@ const politicalOfficeObj = {
       }
     })
     setMap(mapData);
-
-    const NewTableData = response.data.map((person, index) => {
-      return{
-        '#': index+1,
-        'Last Name': person.attributes.last_name,
-        'First Name': person.attributes.first_name,
-        'Residence in 1977':person.attributes.residence_in_1977s.data.map((residence) => residence.attributes.city_state),
-        'Education':person.attributes.educations.data.map((education) => {
-          const { degree, institution, year } = education.attributes;
-          return `${degree ?? ''} ${institution ?? ''} ${year ?? ''}`
-        }
-          
-          ),
-        'NWC Role':person.attributes.roles.data.map((role) => role.attributes.role),
-        // 'Descirption of Role at NWC':person.attributes.role.data.map((role) => role.attributes.role),
-      }
-    })
-    
-    setTableData(NewTableData);
+    const tableData = processTableData(response, categories, allCategories, selectArr); // response is API response, newArray
+    setTableData(tableData);
   }
   // adding USA list of states for select input
   //reset form fields and map data
   const onClear = () => {
     reset();
+    setSelectedOptions([]);
     setSelectedOptions([]);
     setMap([])
     setTableData([])
@@ -229,14 +291,30 @@ const politicalOfficeObj = {
         imgRight={component119}
         imgCredit={contentMap?.attributes?.BannerImage_Credit}
       />
+      <Banner
+        imgLeft={button}
+        text={contentMap?.attributes?.Banner_text}
+        imgRight={component119}
+        imgCredit={contentMap?.attributes?.BannerImage_Credit}
+      />
         
       {/**SEARCH */}
       <div className="mappingNWCSearch">
         <h1>BASIC SEARCH</h1>
+        <h1>BASIC SEARCH</h1>
         <hr></hr>
         <h2>HOW TO SEARCH THIS DATA</h2>
-        <p>{contentMap?.attributes?.BasicSearch_Text}</p>
-
+        <ReactMarkdown>{contentMap?.attributes?.BasicSearch_Text}</ReactMarkdown>
+        <h1>FOLLOW OUR PROGRESS AS WE RELEASE DATA SETS BY STATE AND TERRITORY</h1>
+        <img
+          src={
+            contentMap?.attributes?.BasicSearch_Progress_Map.data
+              ? [process.env.REACT_APP_API_URL, contentMap.attributes.BasicSearch_Progress_Map.data.attributes.url].join('')
+              : progress_map
+          }
+          alt="Progress Map"
+          className="progress-map"
+        />
         <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
@@ -244,6 +322,27 @@ const politicalOfficeObj = {
           <div className="row">
             <div className='panel'>
               <p>STATE/TERRITORY</p>
+              <Controller
+                    control={control}
+                    name="represented_state"
+                    render={({ field }) => (
+                      <StateSelect
+                        css={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" })}}
+                        onSelect={(selectedOption) => {
+                          setSelectedOptions((prevOptions) => ({
+                            ...prevOptions,
+                            "represented_state": selectedOption,
+                          }));
+
+                          field.onChange(selectedOption.map(option => ({
+                            label: option.label,
+                            value: option.value
+                          })));
+                        }}
+                        selectedOptions={selectedOptions["represented_state"] || []}
+                      />
+                    )}
+                  />
               <Controller
                     control={control}
                     name="represented_state"
@@ -353,6 +452,22 @@ const politicalOfficeObj = {
                   </div> 
                   </div>
               </div>           
+              <div className='basicSearch_toggle-left'>
+                Narrow search results 
+                  <div className='basicSearch_toggle-container'>
+                  <img className='infoIcon' src={infoIcon} alt="_" />
+                  <div className="basicSearch_toggle-tooltip">
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                  </div> 
+                  </div>
+              </div>           
             <label className="basicSearchswitch">
               <input type="checkbox" {...register("switch")}/>
               <span className="slider round"></span>
@@ -375,6 +490,7 @@ const politicalOfficeObj = {
 
       {tableData.length >0 ?
         <div className='Result-Continer'>
+          <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
           <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         : <div className='Result-Continer'>

@@ -11,7 +11,6 @@ export const ResearchTable = (props) => {
       return a[props.sortKey] < b[props.sortKey] ? 1 : -1;
     }
   });
-
   const data = props.data.map((val) => {
     Object.entries(val).forEach(([key, value]) => {
       if (Array.isArray(value)) {
