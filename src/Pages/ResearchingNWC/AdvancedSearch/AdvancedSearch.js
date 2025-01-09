@@ -1452,9 +1452,9 @@ function AdvancedSearch() {
           <div className="advancedSearch_toggle">
             <div className='basicSearch_toggle-left'>
               {isToggleOn ? 'Broaden search results' : 'Narrow search results'}
-              <div className='basicSearch_toggle-container'>
+              <div className='advancedSearch_toggle-container'>
                 <img className='infoIcon' src={infoIcon} alt="_" />
-                <div className="basicSearch_toggle-tooltip">
+                <div className="advancedSearch_toggle-tooltip">
                   <p><b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.</p>
                   <p>Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican</p>
                   <p><strong>On</strong> NARROWS the results list to only the participants for whom all selections are true.</p>
