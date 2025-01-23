@@ -219,8 +219,8 @@ function AdvancedSearch() {
       },
       {
         category: "NWC Caucuses",
-        roles: ["American Indian and Alaskan Native Women’s Caucus", "Arts Caucus", "Asian and Pacific Women’s Caucus", 
-                "Chicana Caucus", "Disabled Women’s Caucus", "Farm Women Caucus", "Hispanic Caucus", "Indian Women’s", "Jewish Women’s Caucus",
+        roles: ["American Indian and Alaskan Native Women’s Caucus", "Arts Caucus", "Asian and Pacific Women’s Caucus", "Black Women’s Caucus",
+                "Chicana Caucus", "Disabled Women’s Caucus", "Farm Women Caucus", "Hispanic Caucus", "Indian Women’s Caucus", "Jewish Women’s Caucus",
                 "Lesbian Caucus", "Minority Women’s Caucus", "National Congress of Neighborhood Women Caucus", "Peace Caucus",
                 "Pro-Plan Caucus", "Puerto Rican Caucus", "Sex and Poverty IWY Poor and Low-Income Women’s Caucus", "Wellfare Caucus",
                 "Women in Sports Caucus", "Youth Caucus"
@@ -1060,7 +1060,6 @@ function AdvancedSearch() {
                   ))}
                 </div>
               </div>
-
             </div>  
             </div>
             <div label="Education & Career">
@@ -1566,9 +1565,9 @@ function AdvancedSearch() {
           <div className="advancedSearch_toggle">
             <div className='basicSearch_toggle-left'>
               {isToggleOn ? 'Broaden search results' : 'Narrow search results'}
-              <div className='basicSearch_toggle-container'>
+              <div className='advancedSearch_toggle-container'>
                 <img className='infoIcon' src={infoIcon} alt="_" />
-                <div className="basicSearch_toggle-tooltip">
+                <div className="advancedSearch_toggle-tooltip">
                   <p><b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.</p>
                   <p>Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican</p>
                   <p><strong>On</strong> NARROWS the results list to only the participants for whom all selections are true.</p>

@@ -679,6 +679,36 @@
   margin-top: 20rem;
 }
 
+.advancedSearch_toggle-container{
+  position: relative;
+}
+.advancedSearch_toggle-tooltip{
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 150rem;
+  background-color: #FFF4E8;
+  color: black;
+  padding: 0.25em;
+  border-radius: 0.5em;
+  font-size: 1.5em;
+  display: none;
+  border: 1px solid #000;
+  z-index: 1;
+}
+.advancedSearch_toggle-container:hover .advancedSearch_toggle-tooltip{
+  display: block;
+}
+.advancedSearch_toggle-tooltip p {
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: var(--fontMontserrat);
+  margin-bottom: 1em;
+}
+
 .advancedSearch_otherRole input[type="text"] {
   width:280rem;
 
