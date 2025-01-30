@@ -18,17 +18,87 @@ export const ResultTableMap = (props) => {
     const newOffset = (event.selected * coinsPerPage) % data.length;
     setItemOffset(newOffset);
   };
+
   useEffect(() => {
-    setDownloadData(
-      data.map((participant) => {
-        Object.entries(participant).forEach(([key, value]) => {
-          Array.isArray(value)
-            ? (participant[key] = value.join("; "))
-            : (participant[key] = value);
+    // Step 1: Collect all unique races, plank values, and roles from the dataset
+    const allRaces = new Set();
+    const allPlanks = new Set();
+    const allRoles = new Set();
+  
+    data.forEach((participant) => {
+      // Collect races
+      if (participant.Race) {
+        const races = participant.Race.split(",").map((race) => race.trim());
+        races.forEach((race) => allRaces.add(race));
+      }
+  
+      // Collect plank values from "Planks For" and "Planks Against"
+      if (participant["Planks For"]) {
+        const planksFor = participant["Planks For"].split(",").map((plank) => plank.trim());
+        planksFor.forEach((plank) => allPlanks.add(plank));
+      }
+      if (participant["Planks Against"]) {
+        const planksAgainst = participant["Planks Against"].split(",").map((plank) => plank.trim());
+        planksAgainst.forEach((plank) => allPlanks.add(plank));
+      }
+  
+      // Collect roles
+      if (participant.Role) {
+        const roles = participant.Role.split(",").map((role) => role.trim());
+        roles.forEach((role) => allRoles.add(role));
+      }
+    });
+  
+    // Step 2: Transform the data
+    const transformedData = data.map((participant) => {
+      const newParticipant = { ...participant };
+  
+      // Handle the Race key
+      if (newParticipant.Race) {
+        const races = newParticipant.Race.split(",").map((race) => race.trim());
+        allRaces.forEach((race) => {
+          newParticipant[race] = races.includes(race) ? "yes" : "no";
         });
-        return participant;
-      })
-    );
+        delete newParticipant.Race; // Remove the original Race key
+      }
+  
+      // Handle "Planks For" and "Planks Against" keys
+      if (newParticipant["Planks For"]) {
+        const planksFor = newParticipant["Planks For"].split(",").map((plank) => plank.trim());
+        planksFor.forEach((plank) => {
+          newParticipant[plank] = "for";
+        });
+        delete newParticipant["Planks For"]; // Remove the original key
+      }
+      if (newParticipant["Planks Against"]) {
+        const planksAgainst = newParticipant["Planks Against"].split(",").map((plank) => plank.trim());
+        planksAgainst.forEach((plank) => {
+          newParticipant[plank] = "against";
+        });
+        delete newParticipant["Planks Against"]; // Remove the original key
+      }
+  
+      // Handle the Role key
+      if (newParticipant.Role) {
+        const roles = newParticipant.Role.split(",").map((role) => role.trim());
+        allRoles.forEach((role) => {
+          newParticipant[role] = roles.includes(role) ? "yes" : "no";
+        });
+        delete newParticipant.Role; // Remove the original Role key
+      }
+  
+      // Handle other keys (e.g., join arrays into strings)
+      Object.entries(newParticipant).forEach(([key, value]) => {
+        if (Array.isArray(value) && key !== "Race" && key !== "Planks For" && key !== "Planks Against" && key !== "Role") {
+          newParticipant[key] = value.join("; ");
+        }
+      });
+  
+      return newParticipant;
+    });
+  
+    // Step 3: Update the downloadData state
+    setDownloadData(transformedData);
   }, [data]);
 
   const sortedData = [...data].sort((a, b) => {
@@ -73,7 +143,7 @@ export const ResultTableMap = (props) => {
         <div className="TableInfor-Right">
           <CSVLink
             data={downloadData}
-            headers={Object.keys(data[0]).map((key) => {
+            headers={Object.keys(downloadData[0] || {}).map((key) => {
               return { label: key, key: key };
             })}
             filename={`Participants_Results_${userInput.join("_")}.csv`}
