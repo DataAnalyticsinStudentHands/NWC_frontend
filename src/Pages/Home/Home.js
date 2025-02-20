@@ -200,7 +200,7 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([process.env.REACT_APP_API_URL, "api/home-highlights?populate=*"].join('/'))
+    fetch([process.env.REACT_APP_API_URL, "api/content-home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
       
