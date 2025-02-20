@@ -20,7 +20,6 @@ export const ResultTableMap = (props) => {
   };
 
   useEffect(() => {
-    // Step 1: Collect all unique races, plank values, and roles from the dataset
     const allRaces = new Set();
     const allPlanks = new Set();
     const allRoles = new Set();
@@ -28,68 +27,80 @@ export const ResultTableMap = (props) => {
     data.forEach((participant) => {
       // Collect races
       if (participant.Race) {
-        const races = participant.Race.split(",").map((race) => race.trim());
-        races.forEach((race) => allRaces.add(race));
+        participant.Race.split(",").map((race) => race.trim()).forEach((race) => allRaces.add(race));
       }
   
-      // Collect plank values from "Planks For" and "Planks Against"
+      // Collect planks **without "N/A"**
       if (participant["Planks For"]) {
-        const planksFor = participant["Planks For"].split(",").map((plank) => plank.trim());
-        planksFor.forEach((plank) => allPlanks.add(plank));
+        participant["Planks For"].split(",").map((plank) => plank.trim()).forEach((plank) => {
+          if (plank !== "N/A") allPlanks.add(plank);
+        });
       }
       if (participant["Planks Against"]) {
-        const planksAgainst = participant["Planks Against"].split(",").map((plank) => plank.trim());
-        planksAgainst.forEach((plank) => allPlanks.add(plank));
+        participant["Planks Against"].split(",").map((plank) => plank.trim()).forEach((plank) => {
+          if (plank !== "N/A") allPlanks.add(plank);
+        });
       }
   
       // Collect roles
       if (participant.Role) {
-        const roles = participant.Role.split(",").map((role) => role.trim());
-        roles.forEach((role) => allRoles.add(role));
+        participant.Role.split(",").map((role) => role.trim()).forEach((role) => allRoles.add(role));
       }
     });
   
-    // Step 2: Transform the data
+    // **Ensure "N/A" is removed from sets just in case**
+    allPlanks.delete("N/A");
+    allRaces.delete("N/A");
+    allRoles.delete("N/A");
+  
+    // Transform the data
     const transformedData = data.map((participant) => {
       const newParticipant = { ...participant };
   
-      // Handle the Race key
+      // Handle Race
       if (newParticipant.Race) {
         const races = newParticipant.Race.split(",").map((race) => race.trim());
         allRaces.forEach((race) => {
           newParticipant[race] = races.includes(race) ? "yes" : "no";
         });
-        delete newParticipant.Race; // Remove the original Race key
+        delete newParticipant.Race;
       }
   
-      // Handle "Planks For" and "Planks Against" keys
+      // Initialize all plank columns with "no"
+      allPlanks.forEach((plank) => {
+        newParticipant[plank] = "";
+      });
+  
+      // Assign "for" to planks in "Planks For"
       if (newParticipant["Planks For"]) {
-        const planksFor = newParticipant["Planks For"].split(",").map((plank) => plank.trim());
-        planksFor.forEach((plank) => {
-          newParticipant[plank] = "for";
+        newParticipant["Planks For"].split(",").map((plank) => plank.trim()).forEach((plank) => {
+          if (plank !== "N/A") newParticipant[plank] = "for";
         });
-        delete newParticipant["Planks For"]; // Remove the original key
-      }
-      if (newParticipant["Planks Against"]) {
-        const planksAgainst = newParticipant["Planks Against"].split(",").map((plank) => plank.trim());
-        planksAgainst.forEach((plank) => {
-          newParticipant[plank] = "against";
-        });
-        delete newParticipant["Planks Against"]; // Remove the original key
       }
   
-      // Handle the Role key
+      // Assign "against" to planks in "Planks Against"
+      if (newParticipant["Planks Against"]) {
+        newParticipant["Planks Against"].split(",").map((plank) => plank.trim()).forEach((plank) => {
+          if (plank !== "N/A") newParticipant[plank] = "against";
+        });
+      }
+  
+      // Remove the original "Planks For" and "Planks Against" keys
+      delete newParticipant["Planks For"];
+      delete newParticipant["Planks Against"];
+  
+      // Handle Role
       if (newParticipant.Role) {
         const roles = newParticipant.Role.split(",").map((role) => role.trim());
         allRoles.forEach((role) => {
           newParticipant[role] = roles.includes(role) ? "yes" : "no";
         });
-        delete newParticipant.Role; // Remove the original Role key
+        delete newParticipant.Role;
       }
   
-      // Handle other keys (e.g., join arrays into strings)
+      // Handle other keys (join arrays into strings)
       Object.entries(newParticipant).forEach(([key, value]) => {
-        if (Array.isArray(value) && key !== "Race" && key !== "Planks For" && key !== "Planks Against" && key !== "Role") {
+        if (Array.isArray(value) && !["Race", "Planks For", "Planks Against", "Role"].includes(key)) {
           newParticipant[key] = value.join("; ");
         }
       });
@@ -97,9 +108,9 @@ export const ResultTableMap = (props) => {
       return newParticipant;
     });
   
-    // Step 3: Update the downloadData state
     setDownloadData(transformedData);
   }, [data]);
+  
 
   const sortedData = [...data].sort((a, b) => {
     if (sortOrder === "asc") {
