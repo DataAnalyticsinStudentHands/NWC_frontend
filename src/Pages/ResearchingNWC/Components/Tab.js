@@ -4,7 +4,6 @@ const Tab = ({ activeTab, label, onClick }) => {
   const className = activeTab === label ? 'tab-list-item tab-list-active' : 'tab-list-item';
 
   const handleClick = () => {
-    console.log(label);
     onClick(label);
   };
 
