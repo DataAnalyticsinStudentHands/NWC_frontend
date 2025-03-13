@@ -702,6 +702,7 @@ function AdvancedSearch() {
                 <div className="advancedSearch_form-control">
                 <Controller 
                     control={control}
+                    name="residence_in_1977s.total_population"
                     render={({ field }) => (
                       <Select
                       styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
@@ -711,10 +712,9 @@ function AdvancedSearch() {
                             ...prevOptions,
                             population: selectedOption.value
                           }));
-                          field.onChange(selectedOption.value);
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.population ? populationOptions.find(option => option.value === selectedOptions.population) : null}
+                        value={populationOptions.find(option => option.value === selectedOptions.population) || []}
                         placeholder="Population"
                         name={field.name}
                         ref={field.ref}
@@ -723,6 +723,7 @@ function AdvancedSearch() {
                   />
                 <Controller 
                     control={control}
+                    name="residence_in_1977s.median_household_income"
                     render={({ field }) => (
                       <Select
                       styles={{container: base => ({ ...base, width: "max-content", minWidth: "11%"})}}
@@ -732,10 +733,9 @@ function AdvancedSearch() {
                             ...prevOptions,
                             income: selectedOption.value
                           }));
-                          field.onChange(selectedOption.value);
                         }}
                         onBlur={field.onBlur}
-                        value={selectedOptions.income ? populationOptions.find(option => option.value === selectedOptions.income) : null}
+                        value={incomeOptions.find(option => option.value === selectedOptions.income) || []}
                         placeholder="Median Household Income"
                         name={field.name}
                         ref={field.ref}
