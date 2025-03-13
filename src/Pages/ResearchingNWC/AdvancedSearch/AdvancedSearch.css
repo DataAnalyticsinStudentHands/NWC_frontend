@@ -328,29 +328,29 @@ width: 400rem; /* Fixed width for all input boxes */
 }
 
 .item_EDU {
-display: grid;
-grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
-margin-left: -150rem; /* Adjust margin as needed */
-margin-bottom: 40rem;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Creates two equal-width columns */
+  margin-left: -150rem; /* Adjust margin as needed */
+  margin-bottom: 40rem;
 }
 
 .item_EDU_row {
-display: flex;
-align-items: center;
-margin-bottom: 30rem; /* Space between rows, adjust as needed */
-margin-left: -400rem;
-margin-top: -5rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rem; /* Space between rows, adjust as needed */
+  margin-left: -400rem;
+  margin-top: -5rem;
 }
 
-
 .item_EDU_row h1 {
-margin-right: -20rem; /* Space between the <h1> and the input box */
-width: 300rem; /* Fixed width to align with other rows */
+  margin-right: -20rem; /* Space between the <h1> and the input box */
+  width: 300rem; /* Fixed width to align with other rows */
 }
 
 .item_EDU_row input {
-width: 300rem; /* Fixed width for all input boxes */
+  width: 300rem; /* Fixed width for all input boxes */
 }
+
 .item_DEMO {
   margin-left: -150rem;
   margin-bottom: 15rem;
@@ -360,6 +360,12 @@ width: 300rem; /* Fixed width for all input boxes */
 display: grid;
 grid-template-columns: 1fr 1fr; /* Two equal-width columns */
 gap: 0; /* Add spacing between columns */
+}
+
+.item_Collapsible_Container {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  gap: 0; /* Add spacing between columns */
 }
 
 .item_Collapsible {
@@ -373,6 +379,12 @@ margin-top: -60rem;
 display: flex;
 flex-direction: column;
 margin-top: -60rem;
+}
+
+.item_Collapsible_Column {
+  display: flex;
+  flex-direction: column;
+  margin-top: -60rem;
 }
 
 .item_planks {
@@ -569,64 +581,64 @@ top: 0rem;
 }
 
 .advanced_children {
-display:flex;
-margin-top: -10rem;
-margin-left:400rem;
-margin-bottom: 10rem;
+  display:flex;
+  margin-top: -10rem;
+  margin-left:400rem;
+  margin-bottom: 10rem;
 }
 
 .advancedSearch_toggle{
-display: flex;
-justify-content: flex-end;
-align-items: center;
-margin-top: 2em;
-margin-right: 3em;
-margin-bottom:-1em;
-gap: 1em;
-position: relative;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 2em;
+  margin-right: 3em;
+  margin-bottom:-1em;
+  gap: 1em;
+  position: relative;
 }
 
 .advancedSearch_toggle img{
-position: relative;
-top: -0.5em;
+  position: relative;
+  top: -0.5em;
 }
 
 .advancedSearch_otherRole {
-margin-left: 20rem;
-margin-top: 20rem;
+  margin-left: 20rem;
+  margin-top: 20rem;
 }
 
 .advancedSearch_toggle-container{
-position: relative;
+  position: relative;
 }
 .advancedSearch_toggle-tooltip{
-position: absolute;
-top:0;
-left: 0;
-width: 150rem;
-background-color: #FFF4E8;
-color: black;
-padding: 0.25em;
-border-radius: 0.5em;
-font-size: 1.5em;
-display: none;
-border: 1px solid #000;
-z-index: 1;
+  position: absolute;
+  top:0;
+  left: 0;
+  width: 150rem;
+  background-color: #FFF4E8;
+  color: black;
+  padding: 0.25em;
+  border-radius: 0.5em;
+  font-size: 1.5em;
+  display: none;
+  border: 1px solid #000;
+  z-index: 1;
 }
 .advancedSearch_toggle-container:hover .advancedSearch_toggle-tooltip{
-display: block;
+  display: block;
 }
+
 .advancedSearch_toggle-tooltip p {
-color: #000;
-font-size: 12px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-font-family: var(--fontMontserrat);
-margin-bottom: 1em;
+  color: #000;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+  font-family: var(--fontMontserrat);
+  margin-bottom: 1em;
 }
 
 .advancedSearch_otherRole input[type="text"] {
-width:280rem;
-
+  width:280rem;
 }

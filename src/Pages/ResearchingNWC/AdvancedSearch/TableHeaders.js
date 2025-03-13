@@ -91,7 +91,6 @@ function processTableData(response, newArray, categories, allValues) {
           ? allOrganizations.join(', ') 
           : ''; // Leave it empty if no organizations are found
       }
-
       else if (element === 'leadership_in_organizations' && categories.includes('last_name')) {
         // Extract and flatten all organizational data
         const organizations = person.attributes.leadership_in_organizations.data.flatMap(item => 
@@ -104,7 +103,6 @@ function processTableData(response, newArray, categories, allValues) {
           tableItem[formatDisplayName('Leadership Organizations')] = allOrganizations.join(', ');
         }
       }
-
       else if (element === 'leadership_in_organizations' && categories.includes('organization')) {
         const leadership = person.attributes.leadership_in_organizations.data.flatMap(item => ({
           organization: item?.attributes?.organization || '',
@@ -126,7 +124,6 @@ function processTableData(response, newArray, categories, allValues) {
           ? formattedLeadership.join(', ')
           : 'N/A'; // Leave empty if no match
       }
-  
       else if ((element === 'political_office_helds' && categories.includes('start_year')) || (element === 'educations' && categories.includes('year'))) {
           // Select the appropriate data array for political_office_helds or educations
           const decadeDataArray = (element === 'political_office_helds') 

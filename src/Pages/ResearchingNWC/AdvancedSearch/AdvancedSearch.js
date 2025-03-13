@@ -1003,6 +1003,7 @@ function AdvancedSearch() {
                   ))}
                 </div>
               </div>
+
             </div>  
             </div>
             <div label="Education & Career">
