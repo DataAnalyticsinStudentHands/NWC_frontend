@@ -3,6 +3,8 @@
   align-items: center;
   background-color: white;
   width: 45vw;
+  position: relative; /* Required for z-index to work */
+  z-index: 10; /* High z-index to ensure it appears on top */
 }
 
 .item_pin:hover {
