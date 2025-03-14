@@ -52,6 +52,9 @@ function Routing() {
             <Route path="essay/:essayId" element={<Essay />} />
             <Route path="discover/:storyId" element={<DiscoverInfo />} />
             <Route path="discover" element={<Discover />} />
+            <Route path="researchingNWC" element={<ResearchingNWC />} />
+            <Route path="advancedSearch" element={<AdvancedSearch />} />
+            <Route path="organizations" element={<Organizations />} />
             <Route path="participants" element={<Participants />} />
             <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
             <Route path="forms/corrections" element={<CorrectionsForm />} />
