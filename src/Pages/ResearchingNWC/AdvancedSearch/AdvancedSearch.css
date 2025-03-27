@@ -11,12 +11,13 @@
   padding: .4em;
   display:flex
 }
+
 .advancedSearch1 {
-margin-right: 80rem;
-margin-top: 50rem;
-margin-left: 80rem;
-padding: .4em;
-display:flex
+  margin-right: 80rem;
+  margin-top: 50rem;
+  margin-left: 80rem;
+  padding: .4em;
+  display:flex
 }
 
 .advancedSearch_text h1 {
@@ -35,17 +36,17 @@ display:flex
 }
 
 .advancedSearch_text hr {
-border: none;
-height: 4rem;
-color: var(--colorDarkBlue); /* old IE */
-background-color: var(--colorDarkBlue); /* Modern Browsers */
-margin-bottom: 10rem;
+  border: none;
+  height: 4rem;
+  color: var(--colorDarkBlue); /* old IE */
+  background-color: var(--colorDarkBlue); /* Modern Browsers */
+  margin-bottom: 10rem;
 }
 
 .advancedSearch_text h2 {
-font-family: var(--fontMontserrat);
-font-size:25rem;
-color: var(--colorDarkBlue);
+  font-family: var(--fontMontserrat);
+  font-size:25rem;
+  color: var(--colorDarkBlue);
 }
 
 .advancedSearch_bar_container {
@@ -56,10 +57,10 @@ color: var(--colorDarkBlue);
 /* SEARCH BAR */
 
 .advancedSearch_bar {
-margin: auto;
-width: fit-content;
-display: flex;
-padding: 0.2em .2em;
+  margin: auto;
+  width: fit-content;
+  display: flex;
+  padding: 0.2em .2em;
 }
 
 .advancedSearch_bar > input{
@@ -104,10 +105,10 @@ padding: 0.2em .2em;
 /* COLLAPSIBLE */
 
 .Collapsible {
-margin-left: 20rem;
-border-radius: 0px;
-margin-right: 21rem;
-width: 300rem;
+  margin-left: 20rem;
+  border-radius: 0px;
+  margin-right: 21rem;
+  width: 300rem;
 }
 
 .Collapsible .toggle {
@@ -121,7 +122,6 @@ width: 300rem;
   border-bottom: 2px solid var(--colorDarkBlue);
   border-radius: 0px;
   padding-right: 0px;
-
 }
 
 .Collapsible .content {
@@ -140,15 +140,14 @@ width: 300rem;
 }
 
 .Collapsible .toggle::after {
-content: "\2303";
-float: right;
-transition: transform 0.3s;
-transform: rotate(180deg);
+  content: "\2303";
+  float: right;
+  transition: transform 0.3s;
+  transform: rotate(180deg);
 }
 
 .Collapsible.active .toggle::after {
 transform: rotate(0deg);
-
 }
 
 /* FORM */
@@ -156,8 +155,8 @@ transform: rotate(0deg);
 .advancedSearch_container {
   display: grid;
   grid-template-columns: 30% 70%
-
 }
+
 .advancedSearch_form{
   margin-bottom: 30rem;
   background-color: rgba(158,199,225,.35);
@@ -256,7 +255,6 @@ transform: rotate(0deg);
   cursor: not-allowed;
 }
 
-
 .advancedSearch_container input[type="input"] {
   width:500rem;
 }
@@ -286,32 +284,32 @@ transform: rotate(0deg);
 }
 
 .item_ELEC {
-display:flex;
-margin-bottom: 40rem;
-margin-left: -150rem;
+  display:flex;
+  margin-bottom: 40rem;
+  margin-left: -150rem;
 }
 
 .item_ORG {
-display: flex;
-flex-direction: column;
-margin-top: 50rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: 50rem;
 }
 
 .item_ORG_row {
-display: flex;
-align-items: center;
-margin-bottom: 30rem; /* Space between rows, adjust as needed */
-margin-left: -200rem;
+  display: flex;
+  align-items: center;
+  margin-bottom: 30rem; /* Space between rows, adjust as needed */
+  margin-left: -200rem;
 }
 
 .item_ORG_row h1 {
-/* Adjusts styling for the <h1> element */
-margin-right: 10px; /* Space between the <h1> and the input box */
-width: 300rem; /* Fixed width to align with other rows */
+  /* Adjusts styling for the <h1> element */
+  margin-right: 10px; /* Space between the <h1> and the input box */
+  width: 300rem; /* Fixed width to align with other rows */
 }
 
 .item_ORG_row input {
-width: 400rem; /* Fixed width for all input boxes */
+  width: 400rem; /* Fixed width for all input boxes */
 }
 
 .item_NWC {
@@ -356,10 +354,12 @@ width: 400rem; /* Fixed width for all input boxes */
   margin-bottom: 15rem;
 }
 
+/* COLLAPSIBLE */
+
 .item_Collapsible_Container {
-display: grid;
-grid-template-columns: 1fr 1fr; /* Two equal-width columns */
-gap: 0; /* Add spacing between columns */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal-width columns */
+  gap: 0; /* Add spacing between columns */
 }
 
 .item_Collapsible_Container {
@@ -369,16 +369,16 @@ gap: 0; /* Add spacing between columns */
 }
 
 .item_Collapsible {
-display: grid;
-margin-left: 350rem;
-margin-bottom: 40rem;
-margin-top: -60rem;
+  display: grid;
+  margin-left: 350rem;
+  margin-bottom: 40rem;
+  margin-top: -60rem;
 }
 
 .item_Collapsible_Column {
-display: flex;
-flex-direction: column;
-margin-top: -60rem;
+  display: flex;
+  flex-direction: column;
+  margin-top: -60rem;
 }
 
 .item_Collapsible_Column {
@@ -388,43 +388,47 @@ margin-top: -60rem;
 }
 
 .item_planks {
-display: flex;
-gap: 10px; /* Adjust the gap as needed */
-align-items: center;
-margin-bottom: 30rem;
+  display: flex;
+  gap: 10px; /* Adjust the gap as needed */
+  align-items: center;
+  margin-bottom: 30rem;
 }
 .item_race {
-display: grid;
-grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
-gap: 1em; /* 
-Space between items */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 columns per row */
+  gap: 1em; /* 
+  Space between items */
 }
 
 .item_race_layout {
-display: flex;
-flex-direction: column;
-margin-left: -150rem;
+  display: flex;
+  flex-direction: column;
+  margin-left: -150rem;
 }
 
 .role-container {
-margin-right: 0rem;
+  margin-right: 0rem;
 }
+
+/* TABS */
+
 .tabs {
   width: 100%;
 }
+
 .tab-list-item {
-list-style: none;
-width: 12em;
-background-color: var(--colorDarkBlue);
-border-radius: 40px 40px 0 0;
-text-align: center;
-font-size: calc(30 * var(--xUnit));
-font-family: var(--fontBabasNeue);
-font-weight: bold;
-padding-top: calc(20 * var(--xUnit));
-padding-bottom: calc(15 * var(--xUnit));
-color: white;
-margin-right: 30rem;
+  list-style: none;
+  width: 12em;
+  background-color: var(--colorDarkBlue);
+  border-radius: 40px 40px 0 0;
+  text-align: center;
+  font-size: calc(30 * var(--xUnit));
+  font-family: var(--fontBabasNeue);
+  font-weight: bold;
+  padding-top: calc(20 * var(--xUnit));
+  padding-bottom: calc(15 * var(--xUnit));
+  color: white;
+  margin-right: 30rem;
 }
 
 .tab-list-item:hover {
@@ -433,7 +437,6 @@ margin-right: 30rem;
 
 .tab-list-active {
   background-color: rgba(158,199,225,.35);
-  
   border-width: 1px 1px 0 1px;
   color: var(--colorDarkBlue);
 }
@@ -445,139 +448,145 @@ margin-right: 30rem;
   padding-left: 0;
 }
 
-
 /* TABLE */
 .advancedTable {
-margin-top: -5rem;
-border-spacing: 0;
-width: 100%;
-table-layout:fixed;
-
+  margin-top: -5rem;
+  border-spacing: 0;
+  width: 100%;
+  table-layout:fixed;
 }
-.advancedTable th {
-padding-right: 0rem;
-font-size: calc(30 * var(--xUnit));
-border-bottom: 3px solid black;
 
+.advancedTable th {
+  padding-right: 0rem;
+  font-size: calc(30 * var(--xUnit));
+  border-bottom: 3px solid black;
 }
 
 .advancedTable td {
 padding-left: 20rem;
-font-size: calc(21 * var(--xUnit));
-vertical-align: text-top;
-text-align: left;
-word-wrap: break-word;
+  font-size: calc(21 * var(--xUnit));
+  vertical-align: text-top;
+  text-align: left;
+  word-wrap: break-word;
 }
 
 .advancedTable tr:nth-child(even) {
-background-color: #cadfee;
+  background-color: #cadfee;
 }
 
 .pagination {
-justify-content: center;
-align-items: center;
-
+  justify-content: center;
+  align-items: center;
 }
 
 .pagination button {
-background-color: #ffffff;
-color: var(--colorLightBlue);
-padding: 8px 8px;
-border-radius: 0;
-margin: 0 4px;
-cursor: pointer;
-margin-top: -60rem;
-
+  background-color: #ffffff;
+  color: var(--colorLightBlue);
+  padding: 8px 8px;
+  border-radius: 0;
+  margin: 0 4px;
+  cursor: pointer;
+  margin-top: -60rem;
 }
 
 .pagination button:disabled {
-cursor: not-allowed;
-
+  cursor: not-allowed;
 }
 
 .pagination span {
-padding: 8px 16px;
-background-color: #cadfee;
-color: #000;
-border: none;
-margin: 0 4px;
+  padding: 8px 16px;
+  background-color: #cadfee;
+  color: #000;
+  border: none;
+  margin: 0 4px;
 }
 
 .pagination button.active {
-/* Styles for the active button */
-background: var(--colorLightBlue);
-color: #333;
-pointer-events: none;
+  /* Styles for the active button */
+  background: var(--colorLightBlue);
+  color: #333;
+  pointer-events: none;
 }
 
 .map-area1 {
-margin-top: -7rem;
-width:1750rem
+  margin-top: -7rem;
+  width:1750rem
 }
 
 .map-container1 {
-height: 600px;
-width:100%
+  height: 600px;
+  width:100%
 }
 
 .AdvancedSearch_border {
-width: 100vw;
-border-top: 50rem solid var(--colorDeepRed); /*high*/
-height: 120rem; /*mid*/
-background-color: var(--colorDeepOrange);
-border-bottom: 30rem solid var(--colorDeepYellow); /*low*/
+  width: 100vw;
+  border-top: 50rem solid var(--colorDeepRed); /*high*/
+  height: 120rem; /*mid*/
+  background-color: var(--colorDeepOrange);
+  border-bottom: 30rem solid var(--colorDeepYellow); /*low*/
 }
 
 /* Info Box component */
 
 .info-container {
-position: relative;
-display: inline-block;
+  position: relative;
+  display: inline-block;
 }
 
 .info-image {
-cursor: pointer;
-margin-left: 20rem;
-width: 20px; /* Adjust the size as needed */
-height: 20px; /* Adjust the size as needed */
+  cursor: pointer;
+  margin-left: 20rem;
+  width: 20rem; /* Adjust the size as needed */
+  height: 20rem; /* Adjust the size as needed */
 }
 
 .info-box {
-position: absolute;
-margin-left: 20rem;
-margin-top: -20rem;
-padding: 10px;
-border: 1px solid #ccc;
-border-radius: 20rem;
-background-color: #f9f9f9;
-box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-z-index: 1;
-width: 500rem;
-padding-bottom: 40rem;
+  position: absolute;
+  margin-left: 29rem;
+  margin-top: -21rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 40rem;
+  background-color: #f9f9f9;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  z-index: 1;
+  width: 500rem;
+  padding-bottom: 40rem;
 }
 
 .info-box h3 {
-padding-left: 20rem;
-padding-right: 20rem;
-margin-top: 60rem;
-font-size: 25rem;
-font-family: var(--fontBabasNeue)
+  padding-left: 20rem;
+  padding-right: 20rem;
+  margin-top: 80rem;
+  font-size: 25rem;
+  font-family: var(--fontBabasNeue)
 }
 .info-box p {
-padding-left: 20rem;
-padding-right: 20rem;
-font-family: var(--fontMontserrat);
-font-size: 16rem;
-margin-top: 10rem;
+  padding-left: 20rem;
+  padding-right: 20rem;
+  font-family: var(--fontMontserrat);
+  font-size: 16rem;
+  margin-top: 20rem;
 }
 
 .info-box-close {
-cursor: pointer;
-font-size: 60rem;
-color: black;
-position: absolute;
-right: 10rem; /* Adjust as needed */
-top: 0rem;
+  cursor: pointer;
+  font-size: 60rem;
+  color: black;
+  position: absolute;
+  right: 10rem; /* Adjust as needed */
+  top: 0rem;
+}
+
+.info-box-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60rem; /* Adjust height as needed */
+  background-color: #FFD046; /* Change to desired color */
+  border-top-left-radius: 0; /* Match parent border radius */
+  border-top-right-radius: 40rem;
 }
 
 .advanced_children {
@@ -611,6 +620,7 @@ top: 0rem;
 .advancedSearch_toggle-container{
   position: relative;
 }
+
 .advancedSearch_toggle-tooltip{
   position: absolute;
   top:0;
@@ -625,6 +635,7 @@ top: 0rem;
   border: 1px solid #000;
   z-index: 1;
 }
+
 .advancedSearch_toggle-container:hover .advancedSearch_toggle-tooltip{
   display: block;
 }

@@ -24,6 +24,7 @@ export const InfoBox = (props) => {
         />
         {showInfo && (
         <div className="info-box">
+            <div className="info-box-banner"></div>
             <span className="info-box-close" onClick={handleCloseClick}>
             &times;
             </span>
