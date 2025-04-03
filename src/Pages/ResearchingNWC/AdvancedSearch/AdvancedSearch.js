@@ -472,6 +472,7 @@ function AdvancedSearch() {
     }
     data.switch ? queryObj.filters = { $and: array_query } : queryObj.filters = { $or: array_query };
     let query = qs.stringify(queryObj, { encodeValuesOnly: true });
+
     if (array_query.length === 0) {
       alert('No search input')
     } else {
@@ -620,17 +621,21 @@ function AdvancedSearch() {
                       </label>
                       {isChecked && (
                         <div className="item_planks">
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_fors.plank")} />
                             For
                           </label>
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_against.plank")} />
                             Against
                           </label>
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_spoke_fors.plank")} />
                             Spoke about with position unknown
+                          </label>
+                          <label className="advancedSearch_checkbox">
+                            <input type="checkbox" value={plank.value} {...register("planks_no_known_position.plank")} />
+                            No known position
                           </label>
                             </div>
                           )}

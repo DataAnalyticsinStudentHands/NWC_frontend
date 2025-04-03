@@ -221,6 +221,17 @@ transform: rotate(0deg);
   cursor: not-allowed;
 }
 
+.advancedSearch_checkbox {
+  font-size: 18rem;
+  font-family: var(--fontMontserrat);
+  font-weight: normal;
+  line-height: 1.1;
+  display: flex;
+  gap: 0.5em;
+  margin-bottom: 35rem;
+  margin-right: 10rem;
+}
+
 .advancedSearch_container input[type="radio"] {
   margin: 0;
   font-size:20rem;
@@ -389,9 +400,9 @@ transform: rotate(0deg);
 
 .item_planks {
   display: flex;
-  gap: 10px; /* Adjust the gap as needed */
+  gap: 10rem; /* Adjust the gap as needed */
   align-items: center;
-  margin-bottom: 30rem;
+  width: 800rem
 }
 .item_race {
   display: grid;
