@@ -65,8 +65,6 @@ function Home() {
     aboutImgCredit_more: "",
     createdAt:"",
     homeAbout_p: "",
-    homeAbout_p1: "",
-    homeAbout_p2: "",
     homeButtons: [
       { link: "", text: "" },  // homeButton1
       { link: "", text: "" },  // homeButton2
@@ -91,7 +89,7 @@ function Home() {
         const {
           data: {
             attributes: {
-              PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p, homeAbout_p1, homeAbout_p2,
+              PhotoByExplore, PhotoByExplore_more, aboutImgCredit, aboutImgCredit_more, createdAt, homeAbout_p,
               homeButton1_link, homeButton1_text, homeButton2_link, homeButton2_text, homeButton3_link, homeButton3_text, homeButton4_link, homeButton4_text,
               homeExplore_text, homeHighlights_content2, homeMap_text
             }
@@ -105,8 +103,6 @@ function Home() {
           aboutImgCredit_more: aboutImgCredit_more,
           createdAt: createdAt,
           homeAbout_p: homeAbout_p,
-          homeAbout_p1: homeAbout_p1,
-          homeAbout_p2: homeAbout_p2,
           homeButtons: [
             { link: homeButton1_link, text: homeButton1_text },
             { link: homeButton2_link, text: homeButton2_text },
@@ -204,7 +200,7 @@ function Home() {
   };
 
   useEffect(() => {
-    fetch([process.env.REACT_APP_API_URL, "api/home-highlights?populate=*"].join('/'))
+    fetch([process.env.REACT_APP_API_URL, "api/content-home-highlights?populate=*"].join('/'))
     .then(res => res.json())
     .then(data => {
       
@@ -272,7 +268,7 @@ function Home() {
           <HomeBanner />
 
           {/**ABOUT */}
-          <HomeAbout p1={state.homeAbout_p1} p2={state.homeAbout_p2} ImgCredit_more={state.aboutImgCredit_more} ImgCredit={state.aboutImgCredit}/>
+          <HomeAbout p={state.homeAbout_p} ImgCredit_more={state.aboutImgCredit_more} ImgCredit={state.aboutImgCredit}/>
 
           {/**MAP */}
           <HomeMap homeMap_text={state.homeMap_text} maps={maps} opening={opening} />

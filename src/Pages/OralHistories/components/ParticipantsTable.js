@@ -3,7 +3,7 @@ import leftIcon from '../../ResearchingNWC/res/Left Button.svg'
 import rightIcon from '../../ResearchingNWC/res/Right Button.svg'
 import '../../Discover/Discover.css'
 import stateTerritories from '../../../assets/stateTerritories.json';
-import { Pagination } from '../../ResearchingNWC/Components/Pagination'
+import { Pagination } from '../../../Components/Pagination/Pagination'
 import { Stack } from "../../../Components/Stack";
 import { Search } from "../../../Components/SearchBox/Search"
 import { Typography } from "../../../Components/Typography"

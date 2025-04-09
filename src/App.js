@@ -27,12 +27,18 @@ import PageNotFound from "./Pages/404Page";
 
 const ScrollToTop = (props) => {
   const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0);
+    const timeoutId = setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 100); // Adjust the timeout duration as needed
+
+    return () => clearTimeout(timeoutId);
   }, [location]);
 
   return <>{props.children}</>;
 };
+
 
 function Routing() {
   if (process.env.REACT_APP_PRODUCTION === "true") {
@@ -46,6 +52,9 @@ function Routing() {
             <Route path="essay/:essayId" element={<Essay />} />
             <Route path="discover/:storyId" element={<DiscoverInfo />} />
             <Route path="discover" element={<Discover />} />
+            <Route path="researchingNWC" element={<ResearchingNWC />} />
+            <Route path="advancedSearch" element={<AdvancedSearch />} />
+            <Route path="organizations" element={<Organizations />} />
             <Route path="participants" element={<Participants />} />
             <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
             <Route path="forms/corrections" element={<CorrectionsForm />} />
