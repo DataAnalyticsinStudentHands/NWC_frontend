@@ -282,6 +282,11 @@ transform: rotate(0deg);
   margin-right: 10rem;
 }
 
+.advancedSearch_form-control input[type="checkbox"] {
+  min-width: 21rem;
+  height: 20rem;
+}
+
 .advancedSearch_input input[type="text"] {
   width: 300rem;
   display: flex;
