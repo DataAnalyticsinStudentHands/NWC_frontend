@@ -169,6 +169,74 @@ function processTableData(response, newArray, categories, allValues) {
               : 'N/A';
           }
         }
+        else if (element === 'races' && categories.includes('race')) {
+          const race_ethnicity = [
+            {
+              race: "Asian American/Pacific Islander",
+              identities: ["American Samoan", "Asian American", "Cambodian", "Chamorro", "Chinese", "Filipino", "Guamanian", "Indian", "Japanese", 
+                           "Korean", "Malaysian", "Marshallese", "Micronesian", "Native Hawaiian", "Pacific Islander", "Pakistani", "Polynesian", "South Asian", "Thai", "Vietnamese"]
+            },
+            {
+              race: "Black",
+              identities: ["African", "African American", "Afro-Caribbean", "Afro-Latina/Latino", "Black"]
+            },
+            {
+              race: "Hispanic",
+              identities: ["Chicana/Chicano", "Cuban", "Latina/Latin", "Latinx", "Mexican", "Mexican American", "Other Hispanic", "Puerto Rican", "Spanish/Hispanic"]
+            },
+            {
+              race: "Middle Eastern",
+              identities: ["Arab", "Israeli", "Persian"]
+            },
+            {
+              race: "Native American/American Indian",
+              identities: ["Alaska Native", "Choctaw", "First Nations", "Huichol", "Indigenous", "Native American/American Indian"]
+            },
+            {
+              race: "White",
+              identities: ["Albanian", "Czech", "Dutch", "English", "French", "German", "Greek", "Hungarian", "Irish", "Italian", "Jewish", "Polish", "Portuguese", "Russian",
+                           "Ruthenian", "Scotch", "Slavic", "Spanish", "Ukrainian", "Welch", "white"]  
+            },
+          ];
+        
+          const identitiesData = person.attributes.races?.data || [];
+          const personIdentities = identitiesData.flatMap(item => item?.attributes?.race || []);
+        
+          const selectedRaces = allValues
+            .filter(val => val.startsWith("All Identities: "))
+            .map(val => val.replace("All Identities: ", "").trim());
+        
+          const selectedIdentities = allValues.filter(val => !val.startsWith("All Identities: "));
+        
+          const matchedIdentities = [];
+        
+          // Match all identities for selected races
+          selectedRaces.forEach(selectedRace => {
+            const group = race_ethnicity.find(g => g.race === selectedRace);
+            if (group) {
+              group.identities.forEach(identity => {
+                if (personIdentities.some(p => p.toLowerCase() === identity.toLowerCase())) {
+                  matchedIdentities.push(identity);
+                }
+              });
+            }
+          });
+        
+          // Match directly selected identities
+          selectedIdentities.forEach(identity => {
+            if (personIdentities.some(p => p.toLowerCase() === identity.toLowerCase())) {
+              matchedIdentities.push(identity);
+            }
+          });
+        
+          // Remove duplicates and format
+          const uniqueIdentities = [...new Set(matchedIdentities)];
+        
+          tableItem[formatDisplayName('Race')] = uniqueIdentities.length > 0
+            ? uniqueIdentities.join(', ') // Join matching identities with commas
+            : 'N/A'; // If no match, show 'N/A'
+        }
+        
         else {
         const formattedKey = formatDisplayName(element.replace(/_/g, ' ').replace(/\b\w/g, (match) => match.toUpperCase()));
         const nestedProperties = element.split('.');
