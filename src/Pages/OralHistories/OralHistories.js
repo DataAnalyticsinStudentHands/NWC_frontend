@@ -20,7 +20,7 @@ function OralHistories() {
     const [state, setState] = useState({
         bannerText: '',
         imgCredit: '',
-        meanText: '',
+        ReflectionsText: '',
         exploreText: '',
         Reflections_VideoURL1: '',
         Reflections_VideoURL2: '',
@@ -184,12 +184,10 @@ function OralHistories() {
                     <ParticipantsTable cards={cards} roles={roles} />
             </Stack>
             */}
-
-                        {/* WHAT THE NWC MEANS */}
             <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <div className="reflection">
                     <Typography type="heading-2" paddingLR="0" paddingTB="0"> Reflections </Typography>
-                    <Typography type="paragraph-2" paddingLR="10" paddingTB="1"> {state.meanText} </Typography>
+                    <Typography type="paragraph-2" paddingLR="10" paddingTB="1"> {state.ReflectionsText} </Typography>
                 </div>
 
                 <Stack direction='row' className='item'>
