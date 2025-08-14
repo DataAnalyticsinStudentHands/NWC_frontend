@@ -20,7 +20,6 @@ function OralHistories() {
     const [state, setState] = useState({
         bannerText: '',
         imgCredit: '',
-        NWC_Means_VideoURL: '',
         meanText: '',
         exploreText: '',
         Reflections_VideoURL1: '',
@@ -195,7 +194,7 @@ function OralHistories() {
 
                 <Stack direction='row' className='item'>
                         <InfoVideo src={state.Reflections_VideoURL1}/>
-                        <InfoVideo src={state.NWC_Means_VideoURL}/>
+                        <InfoVideo src={state.Reflections_VideoURL2}/>
                 </Stack>
             </Stack>
 
