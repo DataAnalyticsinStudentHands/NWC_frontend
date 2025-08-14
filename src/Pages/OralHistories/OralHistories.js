@@ -11,6 +11,8 @@ import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Typography } from "../../Components/Typography"
 import InfoVideo from "../../Components/Avalon/InfoVideo"
+import CassetteCard from './components/Cassette'
+import { Pagination } from '../ResearchingNWC/Components/Pagination';
 // import { loadcards } from '../Discover/cardloader';
 
 function OralHistories() {
@@ -21,7 +23,8 @@ function OralHistories() {
         NWC_Means_VideoURL: '',
         meanText: '',
         exploreText: '',
-
+        Reflections_VideoURL1: '',
+        Reflections_VideoURL2: '',
     });
     
     // // const [participants, setParticipants] = useState([])
@@ -46,9 +49,33 @@ function OralHistories() {
     ];
 
     const [activeTab, setActiveTab] = useState('All');
+    
+    const [people, setPeople] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9;
 
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?populate=*`)
+        .then((res) => res.json())
+        .then((data) => {
+            const mapped = data.data.map((person) => ({
+            name: person.attributes.name,
+            role: person.attributes.role,
+            description:
+                "Collection/Library/Repository Lorem ipsum dolor sit amet...",
+            }));
+            setPeople(mapped);
+        });
+    }, []);
+        
+    
+  const offset = currentPage * itemsPerPage;
+  const currentItems = people.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(people.length / itemsPerPage);
 
-
+  const handlePageClick = (selected) => {
+    setCurrentPage(selected.selected);
+  };
     
     useEffect(() => {
 		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
@@ -62,6 +89,8 @@ function OralHistories() {
                             NWC_Means_VideoURL,
                             What_NWC_Means,
                             ExploreText,
+                            Reflections_VideoURL1,
+                            Reflections_VideoURL2,
 						},
 					},
 				} = data;
@@ -71,60 +100,12 @@ function OralHistories() {
                     NWC_Means_VideoURL: NWC_Means_VideoURL || video_placeholder,
                     meanText: What_NWC_Means,
                     exploreText: ExploreText,
+                    Reflections_VideoURL1: Reflections_VideoURL1 || video_placeholder,
+                    Reflections_VideoURL2: Reflections_VideoURL2 || video_placeholder,
                   });
 
 			});
         }, [])
-    // useEffect(() => {
-    //     fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?sort=lastname&populate=*"].join('/'))
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //         setParticipants(
-    //             data.data
-    //             .filter((d) => d.attributes.AvalonUrl !== null || d.attributes.VideoUrl !== null) // Filter out items with null AvalonURL
-    //             .map((d) => {
-    //                 const name = d.attributes.name;
-    //                 const id = d.id;
-    //                 const avalonURL = d.attributes.AvalonUrl || video_placeholder
-    //                 const state = d.attributes.state;
-    //                 const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
-    //                 const featured = d.attributes.featured
-    //                 const role = d.attributes.role
-    //                 const videoURL =  d.attributes.VideoUrl || video_placeholder
-    //                 return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
-    //             })
-    //         );
-    //         })
-    //         .catch((err) => console.log(err));
-    //     }, []); // eslint-disable-line
-
-        // useEffect(() => {
-        // fetch([process.env.REACT_APP_API_URL, "api/nwc-roles?sort=role&populate=*"].join('/'))
-        //     .then((res) => res.json())
-        //     .then((data) => {
-        //     const filteredRoles = data.data
-        //     .filter((d) => d.attributes.OralHistory_Role_Toggle === true && !d.attributes.role.includes('Other Role')) //filter for toggle and 'Other Role'
-        //     .map((d) => d.attributes.role);
-    
-        //     // Check if "Other Role" is not already in the array and add it
-        //         if (!filteredRoles.includes("Other Role")) {
-        //             filteredRoles.push("Other Role");
-        //         }
-            
-        //         setRoles(filteredRoles);
-        //         })
-        //     .catch((err) => console.log(err));
-        // }, []); // eslint-disable-line
-
-        // useEffect(() => {
-        //     fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?_limit=-1&populate=*`)
-        //       .then(response => response.json())
-        //       .then(data => {
-        //         loadcards(data.data, setCards);
-        //         // setDataLength(data.data.length)
-        //         listOfCards.current = data.data
-        //       }).catch(err => console.log(err));
-        //   }, []); // eslint-disable-line
 
     return (
         <Stack direction='column' spacing={10}>
@@ -179,6 +160,22 @@ function OralHistories() {
                         </button>
                         ))}
                     </div>
+                        <div className="cassette-grid-container">
+                            <div className="cassette-grid">
+                                {currentItems.map((p) => (
+                                <CassetteCard
+                                    key={p.id}
+                                    name={p.name}
+                                    role={p.role}
+                                    description={p.description}
+                                />
+                                ))}
+                            </div>
+
+                            <div className="oral-histories-pagination">
+                                <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+                            </div>
+                        </div>
                     </div>
 
                           <div className="AdvancedSearch_border">  </div>
@@ -197,7 +194,7 @@ function OralHistories() {
                 </div>
 
                 <Stack direction='row' className='item'>
-                        <InfoVideo src={state.NWC_Means_VideoURL}/>
+                        <InfoVideo src={state.Reflections_VideoURL1}/>
                         <InfoVideo src={state.NWC_Means_VideoURL}/>
                 </Stack>
             </Stack>

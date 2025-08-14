@@ -195,3 +195,18 @@
   }
 }
 
+.oral-histories-pagination {
+  margin-top: 130rem;
+}
+.oral-histories-pagination .Research-Pagination a {
+  font-family: var(--fontBabasNeue);
+	font-weight: 400;
+	font-size: 44rem;
+	line-height: 1.5em;
+	display: flex;
+	align-items: center;
+	color: #cadfee;
+	transition: 0.1s;
+	box-sizing: border-box;
+	padding: 0 0.25em;
+}
