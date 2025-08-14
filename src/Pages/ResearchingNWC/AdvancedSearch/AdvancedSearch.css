@@ -536,10 +536,10 @@ padding-left: 20rem;
 
 .AdvancedSearch_border {
   width: 100vw;
-  border-top: 45rem solid var(--colorDeepRed); /*high*/
+  border-top: 50rem solid var(--colorDeepRed); /*high*/
   height: 120rem; /*mid*/
   background-color: var(--colorDeepOrange);
-  border-bottom: 35rem solid var(--colorDeepYellow); /*low*/
+  border-bottom: 30rem solid var(--colorDeepYellow); /*low*/
 }
 
 /* Info Box component */
