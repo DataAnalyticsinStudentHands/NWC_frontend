@@ -1,0 +1,82 @@
+.cassette-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: auto;
+    margin-top: 100rem;
+}
+
+.cassette-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40rem 100rem;
+    padding: 20rem;
+}
+
+.cassette-card {
+    position: relative;
+    width: 300rem;
+}
+
+.cassette-image {
+    position: relative;
+
+    img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+}
+
+.cassette-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    font-family: 'neobulletin', 'normal';
+    pointer-events: none; // prevent blocking clicks
+}
+
+.cassette-text {
+    position: absolute;
+    top: 14%;
+    left: 12%;
+    width: 70%;
+}
+
+.cassette-name {
+    font-weight: bold;
+    font-size: 18rem;
+    white-space: normal;
+    word-break: break-word;
+    width: 80%;
+}
+
+.cassette-role {
+    font-size: 14rem;
+    white-space: normal;
+    word-break: break-word;
+}
+
+
+.cassette-code {
+    position: absolute;
+    top: 15%;
+    right: 10%;
+    width: 20%;
+}
+
+.cassette-description {
+    padding: 5rem;
+    background:white;
+    border-radius: 5rem;
+    position: absolute;
+    bottom: 1%;
+    left: 8%;
+    right: 8%;
+    font-size: 12rem;
+    line-height: 1.2;
+    text-align: left;
+    height:24%;
+}

@@ -28,7 +28,7 @@
 .participants-table {
     display: flex;
     flex-direction: column;
-    border: 1px solid #ccc;
+    border: 5px solid #000000;
     padding: 16px;
     width: 100%;
     font-size: 24px;
@@ -38,12 +38,24 @@
         margin-bottom: 2em; /* Add margin below the search-row */
         .search-cell {
           flex: 1;
-          padding: 8px;
-    
+
           &.align-center {
             display: flex;
             justify-content: center;
           }
+        }
+
+        .filter-text {
+          display:flex;
+          font-size: 26rem;
+          margin-right: 20rem;
+          padding-top: 35rem;
+          padding-bottom: 35rem;
+        }
+
+        .oral_history_select {
+          padding-top: 35rem;
+          padding-bottom: 35rem;
         }
 
         .button_search {
