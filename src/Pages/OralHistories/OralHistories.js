@@ -85,8 +85,7 @@ function OralHistories() {
 						attributes: {
 							BannerText,
 							BannerImage_Credit,
-                            NWC_Means_VideoURL,
-                            What_NWC_Means,
+                            ReflectionsText,
                             ExploreText,
                             Reflections_VideoURL1,
                             Reflections_VideoURL2,
@@ -96,8 +95,7 @@ function OralHistories() {
                 setState({
                     bannerText: BannerText,
                     imgCredit: BannerImage_Credit,
-                    NWC_Means_VideoURL: NWC_Means_VideoURL || video_placeholder,
-                    meanText: What_NWC_Means,
+                    ReflectionsText: ReflectionsText,
                     exploreText: ExploreText,
                     Reflections_VideoURL1: Reflections_VideoURL1 || video_placeholder,
                     Reflections_VideoURL2: Reflections_VideoURL2 || video_placeholder,
