@@ -11,7 +11,7 @@ import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Typography } from "../../Components/Typography"
 import InfoVideo from "../../Components/Avalon/InfoVideo"
-import CassetteCard from './components/Cassette'
+import Card from './components/Card'
 import { Pagination } from '../ResearchingNWC/Components/Pagination';
 // import { loadcards } from '../Discover/cardloader';
 
@@ -51,7 +51,7 @@ function OralHistories() {
     
     const [people, setPeople] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const itemsPerPage = 9;
+    const itemsPerPage = 6;
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?populate=*`)
@@ -61,20 +61,22 @@ function OralHistories() {
             name: person.attributes.name,
             role: person.attributes.role,
             description:
-                "Collection/Library/Repository Lorem ipsum dolor sit amet...",
+                "Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...",
+            profilepic: person.attributes.profilepic?.data  ? `${process.env.REACT_APP_API_URL}${person.attributes.profilepic.data.attributes.url}` : null,
             }));
             setPeople(mapped);
         });
     }, []);
         
     
-  const offset = currentPage * itemsPerPage;
-  const currentItems = people.slice(offset, offset + itemsPerPage);
-  const pageCount = Math.ceil(people.length / itemsPerPage);
+    const offset = (currentPage - 1) * itemsPerPage;
+    const currentItems = people.slice(offset, offset + itemsPerPage);
 
-  const handlePageClick = (selected) => {
-    setCurrentPage(selected.selected);
-  };
+    const pageCount = Math.ceil(people.length / itemsPerPage);
+
+    const handlePageClick = (selected) => {
+    setCurrentPage(selected.selected + 1); // +1 if you want currentPage to be 1-indexed
+    };  
     
     useEffect(() => {
 		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
@@ -157,21 +159,21 @@ function OralHistories() {
                         </button>
                         ))}
                     </div>
-                        <div className="cassette-grid-container">
-                            <div className="cassette-grid">
+                        <div className="card-grid-container">
+                            <div className="card-grid">
                                 {currentItems.map((p) => (
-                                <CassetteCard
+                                <Card
                                     key={p.id}
                                     name={p.name}
                                     role={p.role}
                                     description={p.description}
+                                    profilepic={p.profilepic}
                                 />
                                 ))}
                             </div>
-
-                            <div className="oral-histories-pagination">
-                                <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
-                            </div>
+                        <div className="oral-histories-pagination">
+                            <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+                        </div>
                         </div>
                     </div>
 

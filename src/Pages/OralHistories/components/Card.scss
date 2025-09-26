@@ -1,0 +1,94 @@
+.card-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 3 cards per row
+    gap: 2rem; // spacing between cards
+    justify-items: center; // center cards horizontally
+    align-items: start; // top align cards
+    gap: 100rem 100rem;
+    margin-top: 200rem;
+}
+
+.card {
+    width: 300rem;
+    height: 400rem;
+    border: 3rem solid;
+    border-radius: 12rem;
+    border-color: #fae0c4;
+    padding: 16rem;
+    background: #fef7f0;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.card-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-header {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 12rem;
+
+    .card-name {
+    font-family: var(--fontBabasNeue);
+    color: var(--colorDarkBlue);
+    font-size: 24rem;
+    line-height: 1.2;
+    }
+
+    .card-code {
+    font-family: var(--fontBabasNeue);
+    font-size: 20rem;
+    color: #d33;
+    margin-top: 4rem;
+    }
+  
+}
+
+.card-description {
+    margin-top: auto;    // pushes description to the bottom
+    width: 100%;
+    font-size: 12rem;
+    line-height: 1.4;
+    text-align: center;
+}
+
+.card-profilepic {
+    width: 160rem;
+    height: 160rem;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;      // vertically center the image
+    justify-content: center;  // horizontally center the image
+
+    img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;      // ensures the image fills the circle nicely
+    }
+
+    .placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    color: #555;
+    background: #ccc;       // fallback background
+    }
+}
+
+
