@@ -392,7 +392,7 @@ input:checked + .slider:before {
 .basicSearch_footer-left input::placeholder{
   color: #939393;
 font-family: Montserrat;
-font-size: 24px;
+font-size: 25rem;
 font-style: normal;
 font-weight: 500;
 line-height: 43px; /* 179.167% */
