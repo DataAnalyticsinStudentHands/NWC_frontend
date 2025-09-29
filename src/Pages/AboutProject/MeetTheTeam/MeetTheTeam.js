@@ -33,7 +33,7 @@ function MeetTheTeam() {
     "EducatorCollaborators": 'EDUCATOR COLLABORATORS',
     "ContentResearchAssistants": 'CONTENT RESEARCH ASSISTANTS',
     "ContentInterns": 'CONTENT INTERNS',
-    "DevUXInterns": 'FULL-STACK DEV AND UX INTERNS',
+    "DevUXInterns": 'FULL-STACK DEV AND UX INTERNS/STAFF',
     "InauguralTeam": 'INAUGURAL TEAM',
     "SteeringCommittee": 'STEERING COMMITTEE',
     "InternalAdvisoryCommittee": 'INTERNAL ADVISORY COMMITTEE',
