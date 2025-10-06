@@ -309,7 +309,7 @@ function Discover() {
 
       <div className="discoverButtons">
         <Link to="/participants">
-          <div className="discoverButtons_participants">VIEW FULL LIST OF PARTICIPANTS</div>
+          <div className="discoverButtons_participants">VIEW FULL LIST OF DELEGATES/ALTERNATES</div>
         </Link>
       </div>
     </div>
