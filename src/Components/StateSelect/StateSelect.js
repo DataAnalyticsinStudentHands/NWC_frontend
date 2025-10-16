@@ -3,10 +3,11 @@ import Select from 'react-select';
 import './StateSelect.scss'
 
 export const StateSelect = (props) => {
-    const stateOptions = [] // Store states
-    Object.values(stateTerritories).forEach((state) => {
-        stateOptions.push({value: state.stateCode, label: state.state}) 
-    })
+    const stateOptions = Object.values(stateTerritories).map((state) => ({
+    value: state.stateCode,
+    label: state.state,
+    isDisabled: props.states.length > 0 && !props.states.includes(state.stateCode),
+  }));
 
     return (
         <Select
