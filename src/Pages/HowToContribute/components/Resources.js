@@ -60,12 +60,21 @@ export const Resources = () => {
 			.then((data) => {
 				let dataObj = data.data[0].attributes;
 				dataObj.files.forEach((file, i) => {
+					if (file.title !== "PERMISSIONS DOCUMENTS") {
 					file.link_to_form
 						? (dataObj.files[i].link = formObj[file.link_to_form])
 						: (dataObj.files[
 								i
 						].link = `/pdfviewer/${file.file.data.attributes.hash}.pdf`);
-
+					}
+					else {
+						file.title = "Contact us for Permissions"
+						file.link_to_form
+						? (dataObj.files[i].link = formObj[file.link_to_form])
+						: (dataObj.files[
+								i
+						].link = `/forms/contactus`);			
+					}
 					Object.entries(IconObj).forEach(([key, value]) => {
 						file.title.toLowerCase().includes(key) &&
 							(dataObj.files[i].icon = value);
