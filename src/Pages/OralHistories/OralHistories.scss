@@ -106,15 +106,16 @@
   background-color: #ffffff;
   margin-top: 2%;
   margin-bottom: 3%;
-  margin-left: 300rem;
-  margin-right: 300rem;
+  margin-left: 240rem;
+  margin-right: 240rem;
   border: 4rem solid #000000;
-  z-index: 1
+  z-index: 1;
 }
 
 .tab-column {
   position: absolute;
   top: 0;
+  gap: 43rem;
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -122,21 +123,24 @@
 
   &.left {
     align-items: flex-end;
-    left: -146rem;
+    left: -175rem;
   }
 
   &.right {
     align-items: flex-start;
-    right: -146rem;
+    right: -175rem;
 
   }
-  
+}
+
+.tab-button.active .tab-blob .blob-shape {
+  fill: currentColor;
 }
 
 .tab-button {
-  all: unset; // Reset all inherited styles (especially from global button styles)
-  width: 100rem; 
-  height: 120rem; 
+  all: unset;
+  width: 130rem;
+  height: 150rem;
   text-align: center;
   font-family: 'babas_neue', 'normal';
   font-size: 22rem;
@@ -145,6 +149,14 @@
   border: 4rem solid #000000;
   padding: 20rem;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column; // 👈 stack icon above text
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
 
   &:hover {
     background-color: #235da3;
@@ -154,17 +166,53 @@
     background-color: #ffffff;
     color: #000000;
   }
+
   &.left-tab {
     border-radius: 25rem 0 0 25rem;
     border-right: none;
-    
   }
 
   &.right-tab {
     border-radius: 0 25rem 25rem 0;
-        border-left: none;
+    border-left: none;
+  }
 
+  /* 👇 new wrapper to isolate icon + blob */
+  .tab-icon-wrapper {
+    position: relative;
+    width: 60%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
+  /* 👇 blob sits behind icon */
+  .tab-blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 160%;
+    height: 120%;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    opacity: 0.8;
+    pointer-events: none;
+    object-fit: contain;
+  }
+
+  /* 👇 icon sits above blob */
+  .tab-icon {
+    position: relative;
+    z-index: 1;
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  /* 👇 label text below icon */
+  .tab-text {
+    z-index: 2;
   }
 }
 
@@ -193,7 +241,7 @@
     background-color: #ffffff;
     color: #000000;
   }
-}
+  }
 
 .oral-histories-pagination {
   margin-top: 130rem;
