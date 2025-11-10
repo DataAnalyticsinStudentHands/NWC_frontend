@@ -20,6 +20,7 @@ import { processTableData } from './AdvancedSearch/TableHeaders'
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
+  const [states, setStates] = useState([]);
 
   useEffect(() => {
     async function fetchContentMap() {
@@ -38,6 +39,30 @@ function ResearchingNWC() {
     fetchContentMap();
   },[]);
 
+  useEffect(() => {
+  async function fetchAvailableStates() {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/nwc-participants?fields=represented_state&pagination[pageSize]=1000`
+      );
+      const data = await response.json();
+
+      const states = [
+        ...new Set(
+          data.data
+            .map((person) => person.attributes.represented_state)
+            .filter(Boolean) // remove null/undefined
+        )
+      ];
+
+      setStates(states);
+    } catch (error) {
+      console.error("Error fetching available states:", error);
+    }
+  }
+
+  fetchAvailableStates();
+}, []);
 
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
@@ -297,7 +322,8 @@ const politicalOfficeObj = {
                             value: option.value
                           })));
                         }}
-                        selectedOptions={selectedOptions["represented_state"] || []}
+                          selectedOptions={selectedOptions["represented_state"] || []}
+                          states={states}
                       />
                     )}
                   />
