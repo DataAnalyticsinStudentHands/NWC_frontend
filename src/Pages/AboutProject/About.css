@@ -203,7 +203,7 @@ TABLE
 
 .aboutTable_entries { 
   width: 70%;
-  max-height: 20em;
+  max-height: 36em;
   flex-direction: row;
   padding-top: 0.2em;
   overflow-y: scroll;
