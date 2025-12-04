@@ -2,7 +2,7 @@ import '../ResearchingNWC'
 import './AdvancedSearch.css'
 import '../ResearchingNWC.css'
 import Collapsible from './Collapsible'
-import Select, { components } from 'react-select';
+import Select from 'react-select';
 import { useState, useEffect, } from "react";
 import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
@@ -12,7 +12,7 @@ import ReactMarkdown from 'react-markdown';
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 import { processTableData } from './TableHeaders'
-import { StateSelect } from '../../../Components/StateSelect/StateSelect';
+import { Multiselect } from '../Components/Multiselect'
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
 import infoIcon from '../res/Info Hover Icon.svg';
@@ -210,7 +210,7 @@ function AdvancedSearch() {
       {
         race: "Asian American/Pacific Islander",
         identities: ["American Samoan", "Asian American", "Cambodian", "Chamorro", "Chinese", "Filipino", "Guamanian", "Indian", "Japanese", 
-                    "Korean"," Malaysian", "Marshallese", "Micronesian", "Native Hawaiian", "Pacific Islander", "Pakistani", "Polynesian", "South Asian", "Thai", "Vietnamese"]
+                    "Korean", "Malaysian", "Marshallese", "Micronesian", "Native Hawaiian", "Pacific Islander", "Pakistani", "Polynesian", "South Asian", "Thai", "Vietnamese"]
       },
       {
         race: "Black",
@@ -340,15 +340,36 @@ function AdvancedSearch() {
     if (selectedOptions.races) {
       // Remove any existing races object from array_query
       array_query = array_query.filter(item => !item.races);
-      
       data.races = {};
+    
+      const allIdentitiesRaces = [];
+    
       const values = Object.keys(selectedOptions.races).reduce((acc, race) => {
         const values = selectedOptions.races[race].map(item => item.value);
-        return acc.concat(values);
+        const allIdentitiesLabel = `All Identities: ${race}`;
+    
+        const newValues = [];
+    
+        if (values.includes(allIdentitiesLabel)) {
+          allIdentitiesRaces.push(allIdentitiesLabel);
+          const identities = race_ethnicity.find(item => item.race === race)?.identities || [];
+          newValues.push(...identities);
+        }
+    
+        // Also include and track each individual non-"All Identities" value
+        const nonAllIdentities = values.filter(val => val !== allIdentitiesLabel);
+        newValues.push(...nonAllIdentities);
+        allIdentitiesRaces.push(...nonAllIdentities); // << Individually concatenate
+    
+        return acc.concat(newValues);
       }, []);
+    
       array_query.push({ races: { race: values } });
+    
+      // Store it on selectedOptions so it can be accessed later when building allValues
+      selectedOptions._allIdentitiesRaces = allIdentitiesRaces;
     }
-  
+    
     const allCategories = [];
   
     function extractAttributes(obj) {
@@ -377,23 +398,30 @@ function AdvancedSearch() {
         return key !== 'switch' ? key : null; // Exclude "switch" from categories
       })
       .filter((key) => key !== null); // Remove any null values
-    const allValues = [];
-    for (const item of array_query) {
-      const key = Object.keys(item)[0];
-      const value = item[key];
-      if (typeof value === 'object') {
-        // Check for the "political_office_helds" condition
-        if (key === "political_office_helds" && value.start_year) {
-          if (value.start_year.$lte && value.start_year.$gte) {
-            const range = `${value.start_year.$gte} - ${value.start_year.$lte}`;
-            allValues.push(`Range: ${range}`);
-          } else if (value.start_year.$lt) {
-            allValues.push(`Before ${value.start_year.$lt}`);
-          } else if (value.start_year.$gt) {
-            allValues.push(`After ${value.start_year.$gt}`);
+      const allValues = [];
+      for (const item of array_query) {
+        const key = Object.keys(item)[0];
+        const value = item[key];
+        if (typeof value === 'object') {
+          // Check for the "political_office_helds" condition
+          if (key === "political_office_helds" && value.start_year) {
+            if (value.start_year.$lte && value.start_year.$gte) {
+              const range = `${value.start_year.$gte} - ${value.start_year.$lte}`;
+              allValues.push(`Range: ${range}`);
+            } else if (value.start_year.$lt) {
+              allValues.push(`Before ${value.start_year.$lt}`);
+            } else if (value.start_year.$gt) {
+              allValues.push(`After ${value.start_year.$gt}`);
+            }
+          }
+        else if (key === "races") {
+          if (selectedOptions._allIdentitiesRaces?.length > 0) {
+            allValues.push(...selectedOptions._allIdentitiesRaces); // e.g., "All Identities: Asian"
+          } else {
+            const flatValues = Array.isArray(value.race) ? value.race : [value.race];
+            allValues.push(...flatValues);
           }
         }
-        
         // Check for the "educations" condition
         else if (key === "educations" && value.year) {
           if (value.year.$lte && value.year.$gte) {
@@ -516,22 +544,6 @@ function AdvancedSearch() {
     setIsToggleOn(event.target.checked);
   };
 
-  const CheckboxOption = (props) => {
-    return (
-      <components.Option {...props}>
-        <label style={{ flexGrow: 1 }}>{props.label}</label>
-        <div style={{ width: '20px', textAlign: 'right' }}> {/* Fixed width container for checkbox */}
-          <input
-            type="checkbox"
-            checked={props.isSelected} // Keeps the checkbox checked when selected
-            onChange={() => null} // Prevents triggering action on checkbox click
-            style={{ marginLeft: '10px', width: '16px', height: '16px' }} // Sets fixed size for checkbox
-          />
-        </div>
-      </components.Option>
-    );
-  };
-
   return (
     <>
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -620,17 +632,21 @@ function AdvancedSearch() {
                       </label>
                       {isChecked && (
                         <div className="item_planks">
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_fors.plank")} />
                             For
                           </label>
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_against.plank")} />
                             Against
                           </label>
-                          <label className="advancedSearch_form-control">
+                          <label className="advancedSearch_checkbox">
                             <input type="checkbox" value={plank.value} {...register("planks_spoke_fors.plank")} />
                             Spoke about with position unknown
+                          </label>
+                          <label className="advancedSearch_checkbox">
+                            <input type="checkbox" value={plank.value} {...register("planks_no_known_position.plank")} />
+                            No known position
                           </label>
                             </div>
                           )}
@@ -664,27 +680,27 @@ function AdvancedSearch() {
               <div className="advancedSearch_container">
                 <h1> State/territory</h1>
                 <div className="item_DEMO" >
-                  <div className="advancedSearch_form-control" >
+                <div className="advancedSearch_form-control">
                   <Controller
                     control={control}
                     name="represented_state"
                     render={({ field }) => (
-                      <StateSelect
-                        css={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" })}}
-                        onSelect={(selectedOption) => {
-                          setSelectedOptions((prevOptions) => ({
-                            ...prevOptions,
-                            "represented_state": selectedOption,
+                      <Multiselect
+                        options={stateOptions}
+                        value={selectedOptions.represented_state || []}
+                        onChange={(selected) => {
+                          setSelectedOptions(prev => ({
+                            ...prev,
+                            represented_state: selected,
                           }));
-
-                            field.onChange(selectedOption.map(option => option.value));
-
+                          field.onChange(selected.map(opt => opt.value));
                         }}
-                        selectedOptions={selectedOptions["represented_state"] || []}
-                      />
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        />
                     )}
                   />
-                  </div>
+                </div>
                 </div>
               </div>
               <div className="advancedSearch_container">
@@ -821,51 +837,19 @@ function AdvancedSearch() {
                       control={control}
                       name="religion"
                       render={({ field }) => (
-                        <Select
-                          isMulti
-                          closeMenuOnSelect={false} // Keeps the menu open after selection
-                          hideSelectedOptions={false} // Keeps selected options visible in the dropdown
-                          options={religionOptions}
-                          components={{ Option: CheckboxOption }} // Custom option with checkboxes
-                          onChange={(selectedOptions) => {
-                            setSelectedOptions((prevOptions) => ({
-                              ...prevOptions,
-                              religion: selectedOptions,
-                            }));
-                            field.onChange(selectedOptions.map((option) => option.value));
-                          }}
-                          onBlur={field.onBlur}
-                          value={selectedOptions.religion || []}
-                          placeholder="Select..."
-                          name={field.name}
-                          ref={field.ref}
-                          styles={{
-                            container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
-                            control: base => ({
-                              ...base,
-                              maxWidth: '300px', // Set a max width for the select component
-                              flexWrap: 'wrap', // Allows the selected options to wrap within the select
-                              whiteSpace: 'normal', // Prevents the selected options from extending the container size
-                            }),
-                            option: (base, state) => ({
-                              ...base,
-                              backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
-                              color: 'black', // Set text color to black
-                              display: 'flex', // Makes the label and checkbox aligned horizontally
-                            }),
-                            valueContainer: base => ({
-                              ...base,
-                              maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
-                              display: 'flex',
-                              flexWrap: 'wrap', // Enables wrapping of selected options
-                              overflow: 'hidden', // Prevents overflowing content
-                            }),
-                            multiValue: base => ({
-                              ...base,
-                              backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
-                            }),
-                          }}
-                        />
+                        <Multiselect
+                        options={religionOptions}
+                        value={selectedOptions.religion || []}
+                        onChange={(selected) => {
+                          setSelectedOptions(prev => ({
+                            ...prev,
+                            religion: selected,
+                          }));
+                          field.onChange(selected.map(opt => opt.value));
+                        }}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                      />
                       )}
                     />
                   </div>
@@ -892,51 +876,19 @@ function AdvancedSearch() {
                     control={control}
                     name="sexual_orientation"
                     render={({ field }) => (
-                      <Select
-                        isMulti
-                        closeMenuOnSelect={false} // Keeps the menu open after selection
-                        hideSelectedOptions={false} // Keeps selected options visible in the dropdown
-                        options={sexualOrientation}
-                        components={{ Option: CheckboxOption }} // Custom option with checkboxes
-                        onChange={(selectedOptions) => {
-                          setSelectedOptions((prevOptions) => ({
-                            ...prevOptions,
-                            sexual_orientation: selectedOptions,
-                          }));
-                          field.onChange(selectedOptions.map((option) => option.value));
-                        }}
-                        onBlur={field.onBlur}
-                        value={selectedOptions.sexual_orientation || []}
-                        placeholder="Select..."
-                        name={field.name}
-                        ref={field.ref}
-                        styles={{
-                          container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
-                          control: base => ({
-                            ...base,
-                            maxWidth: '300px', // Set a max width for the select component
-                            flexWrap: 'wrap', // Allows the selected options to wrap within the select
-                            whiteSpace: 'normal', // Prevents the selected options from extending the container size
-                          }),
-                          option: (base, state) => ({
-                            ...base,
-                            backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
-                            color: 'black', // Set text color to black
-                            display: 'flex', // Makes the label and checkbox aligned horizontally
-                          }),
-                          valueContainer: base => ({
-                            ...base,
-                            maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
-                            display: 'flex',
-                            flexWrap: 'wrap', // Enables wrapping of selected options
-                            overflow: 'hidden', // Prevents overflowing content
-                          }),
-                          multiValue: base => ({
-                            ...base,
-                            backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
-                          }),
-                        }}
-                      />
+                      <Multiselect
+                      options={sexualOrientation}
+                      value={selectedOptions.sexual_orientation || []}
+                      onChange={(selected) => {
+                        setSelectedOptions(prev => ({
+                          ...prev,
+                          sexual_orientation: selected,
+                        }));
+                        field.onChange(selected.map(opt => opt.value));
+                      }}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                    />
                     )}
                   /> </div>
                 </div>
@@ -951,8 +903,37 @@ function AdvancedSearch() {
                         control={control}
                         name={`races.race`}
                         render={({ field }) => (
-                          <Select
-                            isMulti
+                          <Multiselect
+                            options={[
+                              { value: `All Identities: ${item.race}`, label: 'All Identities' },
+                              ...item.identities.map(identity => ({ value: identity, label: identity }))
+                            ]}
+                            value={selectedOptions.races?.[item.race] || []}
+                            onChange={(selectedOptions) => {
+                              const allIdentitiesValue = `All Identities: ${item.race}`;
+                              const isAllIdentitiesSelected = selectedOptions.some(
+                                (opt) => opt.value === allIdentitiesValue
+                              );             
+                              let updatedSelection = selectedOptions;                           
+                              if (isAllIdentitiesSelected) {
+                                // Only keep 'All Identities' option
+                                updatedSelection = selectedOptions.filter(opt => opt.value === allIdentitiesValue);
+                              } else {
+                                // Remove 'All Identities' if it was previously selected
+                                updatedSelection = selectedOptions.filter(opt => opt.value !== allIdentitiesValue);
+                              }        
+                              setSelectedOptions(prevOptions => ({
+                                ...prevOptions,
+                                races: {
+                                  ...prevOptions.races,
+                                  [item.race]: updatedSelection,
+                                }
+                              }));              
+                              field.onChange(updatedSelection);
+                            }}                         
+                            onBlur={field.onBlur}
+                            name={field.name}
+                            placeholder="Select..."
                             styles={{
                               container: (base) => ({
                                 ...base,
@@ -965,45 +946,14 @@ function AdvancedSearch() {
                                 maxWidth: '65%',
                               }),
                             }}
-                            options={[
-                              { value: 'all', label: 'All Identities' },
-                              ...item.identities.map(identity => ({ value: identity, label: identity })),
-                            ]}
-                            onChange={(selectedOptions) => {
-                              let finalSelections = selectedOptions;
-
-                              // Check if "All Identities" is selected
-                              if (selectedOptions.some(option => option.value === 'all')) {
-                                finalSelections = item.identities.map(identity => ({
-                                  value: identity,
-                                  label: identity,
-                                }));
-                              }
-
-                              setSelectedOptions(prevOptions => ({
-                                ...prevOptions,
-                                races: {
-                                  ...prevOptions.races,
-                                  [item.race]: finalSelections, // Store the finalSelections directly
-                                }
-                              }));
-
-                              // Update the field value
-                              field.onChange(finalSelections);
-                            }}
-                            onBlur={field.onBlur}
-                            value={selectedOptions.races?.[item.race] || []} // Ensure it matches the format of the options array
-                            placeholder="Select..."
-                            name={field.name}
-                            ref={field.ref}
                           />
+
                         )}
                       />
                     </div>
                   ))}
                 </div>
               </div>
-
             </div>  
             </div>
             <div label="Education & Career">
@@ -1041,50 +991,18 @@ function AdvancedSearch() {
                         control={control}
                         name={`educations.year`}
                         render={({ field }) => (
-                          <Select
-                            isMulti
-                            closeMenuOnSelect={false} // Keeps the menu open after selection
-                            hideSelectedOptions={false} // Keeps selected options visible in the dropdown
-                            options={decadeOptions}
-                            components={{ Option: CheckboxOption }} // Custom option with checkboxes
-                            onChange={(selectedOptions) => {
-                              setSelectedOptions((prevOptions) => ({
-                                ...prevOptions,
-                                decadeEDU: selectedOptions,
-                              }));
-                              
-                            }}
-                            onBlur={field.onBlur}
-                            value={selectedOptions.decadeEDU || []} // Ensure value is an array
-                            placeholder="Select..."
-                            name={field.name}
-                            ref={field.ref}
-                            styles={{
-                              container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
-                              control: base => ({
-                                ...base,
-                                maxWidth: '300px', // Set a max width for the select component
-                                flexWrap: 'wrap', // Allows the selected options to wrap within the select
-                                whiteSpace: 'normal', // Prevents the selected options from extending the container size
-                              }),
-                              option: (base, state) => ({
-                                ...base,
-                                backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
-                                color: 'black', // Set text color to black
-                                display: 'flex', // Makes the label and checkbox aligned horizontally
-                              }),
-                              valueContainer: base => ({
-                                ...base,
-                                maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
-                                display: 'flex',
-                                flexWrap: 'wrap', // Enables wrapping of selected options
-                                overflow: 'hidden', // Prevents overflowing content
-                              }),
-                              multiValue: base => ({
-                                ...base,
-                                backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
-                              }),
-                            }}
+                          <Multiselect
+                          options={decadeOptions}
+                          value={selectedOptions.decadeEDU || []}
+                          onChange={(selected) => {
+                            setSelectedOptions(prev => ({
+                              ...prev,
+                              decadeEDU: selected,
+                            }));
+                          }}
+                          onBlur={field.onBlur}
+                          name={field.name}
+                          ref={field.ref}
                           />
                         )}
                       />
@@ -1115,22 +1033,19 @@ function AdvancedSearch() {
                         control={control}
                         name="careers.category_of_employment"
                         render={({ field }) => (
-                          <Select
-                            isMulti
-                            styles={{ container: base => ({ ...base, width: "max-content", minWidth: "14%" }) }}
-                            options={professions}
-                            onChange={(selectedOptions) => {
-                              setSelectedOptions(prevOptions => ({
-                                ...prevOptions,
-                                "careers.category_of_employment": selectedOptions
-                              }));
-                              field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
-                            }}
-                            onBlur={field.onBlur}
-                            value={selectedOptions["careers.category_of_employment"] || []}
-                            placeholder="Select..."
-                            name={field.name}
-                            ref={field.ref}
+                          <Multiselect
+                          options={professions}
+                          value={selectedOptions["careers.category_of_employment"] || []}
+                          onChange={(selected) => {
+                            setSelectedOptions(prev => ({
+                              ...prev,
+                              "careers.category_of_employment": selected,
+                            }));
+                            field.onChange(selected.map(opt => opt.value));
+                          }}
+                          onBlur={field.onBlur}
+                          name={field.name}
+                          ref={field.ref}
                           />
                         )}
                       />
@@ -1182,22 +1097,19 @@ function AdvancedSearch() {
                     control={control}
                     name="political_parties.party"
                     render={({ field }) => (
-                      <Select
-                        isMulti
-                        styles={{ container: base => ({ ...base, width: "max-content", minWidth: "15%" }) }}
-                        options={politicalOptions}
-                        onChange={(selectedOptions) => {
-                          setSelectedOptions(prevOptions => ({
-                            ...prevOptions,
-                            political_parties: selectedOptions
-                          }));
-                          field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
-                        }}
-                        onBlur={field.onBlur}
-                        value={selectedOptions.political_parties || []} // Ensure value is an array
-                        placeholder="Select..."
-                        name={field.name}
-                        ref={field.ref}
+                      <Multiselect
+                      options={politicalOptions}
+                      value={selectedOptions.political_parties || []}
+                      onChange={(selected) => {
+                        setSelectedOptions(prev => ({
+                          ...prev,
+                          political_parties: selected,
+                        }));
+                        field.onChange(selected.map(opt => opt.value));
+                      }}
+                      onBlur={field.onBlur}
+                      name={field.name}
+                      ref={field.ref}
                       />
                     )}
                   />
@@ -1236,50 +1148,18 @@ function AdvancedSearch() {
                       control={control}
                       name={`political_office_helds.start_year`}
                       render={({ field }) => (
-                        <Select
-                          isMulti
-                          closeMenuOnSelect={false} // Keeps the menu open after selection
-                          hideSelectedOptions={false} // Keeps selected options visible in the dropdown
-                          options={decadeOptions}
-                          components={{ Option: CheckboxOption }} // Custom option with checkboxes
-                          onChange={(selectedOptions) => {
-                            setSelectedOptions((prevOptions) => ({
-                              ...prevOptions,
-                              decade: selectedOptions,
-                            }));
-                            
-                          }}
-                          onBlur={field.onBlur}
-                          value={selectedOptions.decade || []} // Ensure value is an array
-                          placeholder="Select..."
-                          name={field.name}
-                          ref={field.ref}
-                          styles={{
-                            container: base => ({ ...base, width: 'max-content', minWidth: '15%' }),
-                            control: base => ({
-                              ...base,
-                              maxWidth: '300px', // Set a max width for the select component
-                              flexWrap: 'wrap', // Allows the selected options to wrap within the select
-                              whiteSpace: 'normal', // Prevents the selected options from extending the container size
-                            }),
-                            option: (base, state) => ({
-                              ...base,
-                              backgroundColor: state.isSelected ? 'transparent' : base.backgroundColor, // Remove blue background
-                              color: 'black', // Set text color to black
-                              display: 'flex', // Makes the label and checkbox aligned horizontally
-                            }),
-                            valueContainer: base => ({
-                              ...base,
-                              maxWidth: '300px', // Ensures the value container doesn't expand indefinitely
-                              display: 'flex',
-                              flexWrap: 'wrap', // Enables wrapping of selected options
-                              overflow: 'hidden', // Prevents overflowing content
-                            }),
-                            multiValue: base => ({
-                              ...base,
-                              backgroundColor: '#e2e2e2', // Change the background of selected value pill (optional)
-                            }),
-                          }}
+                        <Multiselect
+                        options={decadeOptions}
+                        value={selectedOptions.decade || []}
+                        onChange={(selected) => {
+                          setSelectedOptions(prev => ({
+                            ...prev,
+                            decade: selected,
+                          }));
+                        }}
+                        onBlur={field.onBlur}
+                        name={field.name}
+                        ref={field.ref}
                         />
                       )}
                     />
@@ -1387,34 +1267,18 @@ function AdvancedSearch() {
                       control={control}
                       name="leadership_in_organizations.role"
                       render={({ field }) => (
-                        <Select
-                          isMulti
-                          styles={{
-                            container: (base) => ({
-                              ...base,
-                              minWidth: '54%',
-                              maxWidth: '54%', // Ensure it doesn’t exceed the container width
-                            }),
-                            control: (base) => ({
-                              ...base,
-                              minWidth: '65%', // Set a reasonable minimum width
-                              maxWidth: '65%', // Prevent it from expanding beyond the container
-                              
-                            }),
-                          }}
-                          options={leaderships}
-                          onChange={(selectedOptions) => {
-                            setSelectedOptions(prevOptions => ({
-                              ...prevOptions,
-                              "leadership_in_organizations.role": selectedOptions
-                            }));
-                            field.onChange(selectedOptions.map(option => option.value)); // Update field value with an array of selected values
-                          }}
-                          onBlur={field.onBlur}
-                          value={selectedOptions["leadership_in_organizations.role"] || []}
-                          placeholder="Select..."
-                          name={field.name}
-                          ref={field.ref}
+                        <Multiselect
+                        options={leaderships}
+                        value={selectedOptions["leadership_in_organizations.role"] || []}
+                        onChange={(selected) => {
+                          setSelectedOptions(prev => ({
+                            ...prev,
+                            "leadership_in_organizations.role": selected,
+                          }));
+                          field.onChange(selected.map(opt => opt.value));
+                        }}
+                        onBlur={field.onBlur}
+                        name={field.name}
                         />
                       )}
                     />

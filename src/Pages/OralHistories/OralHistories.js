@@ -4,27 +4,77 @@ import oral_histories_bannerpic from './res/oral_histories_bannerpic.png';
 import oral_histories_button from "../../assets/res/button-oral-histories.png";
 import bible_women from './res/bible_women.png'
 import pro_plan_progress from './res/pro_plan_progress.png'
-import placeholder from './res/placeholder.png'
-import Carousel from './components/Carousel';
-import { ParticipantsTable } from './components/ParticipantsTable';
+// import placeholder from './res/placeholder.png'
+// import Carousel from './components/Carousel';
+// import { ParticipantsTable } from './components/ParticipantsTable';
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Typography } from "../../Components/Typography"
 import InfoVideo from "../../Components/Avalon/InfoVideo"
+import CassetteCard from './components/Cassette'
+import { Pagination } from '../ResearchingNWC/Components/Pagination';
+// import { loadcards } from '../Discover/cardloader';
 
 function OralHistories() {
 
     const [state, setState] = useState({
         bannerText: '',
         imgCredit: '',
-        NWC_Means_VideoURL: '',
-        meanText: '',
+        ReflectionsText: '',
         exploreText: '',
-
+        Reflections_VideoURL1: '',
+        Reflections_VideoURL2: '',
     });
     
-    const [participants, setParticipants] = useState([])
-    const [roles, setRoles] = useState([]);
+    // // const [participants, setParticipants] = useState([])
+    // const [roles, setRoles] = useState([]);
+    // // states from Discover component
+    // const [cards, setCards] = useState([])
+    // const [dataLength, setDataLength] = useState()
+    // const listOfCards = useRef([]);
+
+    const tabs = [
+    "DELEGATES & ALTERNATES",
+    "DELEGATES AT LARGE",
+    "EXHIBITORS",
+    "INTERNATIONAL DIGNITARIES",
+    "JOURNALISTS",
+    "NATIONAL COMMISSIONERS",
+    "NOTABLE SPEAKERS",
+    "OBSERVERS",
+    "PAID STAFF MEMBERS",
+    "TORCH RELAY RUNNERS",
+    "VOLUNTEERS",
+    ];
+
+    const [activeTab, setActiveTab] = useState('All');
+    
+    const [people, setPeople] = useState([]);
+    const [currentPage, setCurrentPage] = useState(1);
+    const itemsPerPage = 9;
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?populate=*`)
+        .then((res) => res.json())
+        .then((data) => {
+            const mapped = data.data.map((person) => ({
+            name: person.attributes.name,
+            role: person.attributes.role,
+            description:
+                "Collection/Library/Repository Lorem ipsum dolor sit amet...",
+            }));
+            setPeople(mapped);
+        });
+    }, []);
+        
+    
+  const offset = currentPage * itemsPerPage;
+  const currentItems = people.slice(offset, offset + itemsPerPage);
+  const pageCount = Math.ceil(people.length / itemsPerPage);
+
+  const handlePageClick = (selected) => {
+    setCurrentPage(selected.selected);
+  };
     
     useEffect(() => {
 		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
@@ -35,62 +85,24 @@ function OralHistories() {
 						attributes: {
 							BannerText,
 							BannerImage_Credit,
-                            NWC_Means_VideoURL,
-                            What_NWC_Means,
+                            ReflectionsText,
                             ExploreText,
+                            Reflections_VideoURL1,
+                            Reflections_VideoURL2,
 						},
 					},
 				} = data;
                 setState({
                     bannerText: BannerText,
                     imgCredit: BannerImage_Credit,
-                    NWC_Means_VideoURL: NWC_Means_VideoURL || video_placeholder,
-                    meanText: What_NWC_Means,
+                    ReflectionsText: ReflectionsText,
                     exploreText: ExploreText,
+                    Reflections_VideoURL1: Reflections_VideoURL1 || video_placeholder,
+                    Reflections_VideoURL2: Reflections_VideoURL2 || video_placeholder,
                   });
 
 			});
         }, [])
-    useEffect(() => {
-        fetch([process.env.REACT_APP_API_URL, "api/content-discover-stories?sort=lastname&populate=*"].join('/'))
-            .then((res) => res.json())
-            .then((data) => {
-            setParticipants(
-                data.data
-                .filter((d) => d.attributes.AvalonUrl !== null || d.attributes.VideoUrl !== null) // Filter out items with null AvalonURL
-                .map((d) => {
-                    const name = d.attributes.name;
-                    const id = d.id;
-                    const avalonURL = d.attributes.AvalonUrl || video_placeholder
-                    const state = d.attributes.state;
-                    const profilepic = d.attributes.profilepic.data ? [process.env.REACT_APP_API_URL, d.attributes.profilepic.data.attributes.url].join(''): placeholder; // Use the imported image
-                    const featured = d.attributes.featured
-                    const role = d.attributes.role
-                    const videoURL =  d.attributes.VideoUrl || video_placeholder
-                    return [id, name, avalonURL, profilepic, state, featured, role, videoURL];
-                })
-            );
-            })
-            .catch((err) => console.log(err));
-        }, []); // eslint-disable-line
-
-        useEffect(() => {
-        fetch([process.env.REACT_APP_API_URL, "api/nwc-roles?sort=role&populate=*"].join('/'))
-            .then((res) => res.json())
-            .then((data) => {
-            const filteredRoles = data.data
-            .filter((d) => d.attributes.OralHistory_Role_Toggle === true && !d.attributes.role.includes('Other Role')) //filter for toggle and 'Other Role'
-            .map((d) => d.attributes.role);
-    
-            // Check if "Other Role" is not already in the array and add it
-                if (!filteredRoles.includes("Other Role")) {
-                    filteredRoles.push("Other Role");
-                }
-            
-                setRoles(filteredRoles);
-                })
-            .catch((err) => console.log(err));
-        }, []); // eslint-disable-line
 
     return (
         <Stack direction='column' spacing={10}>
@@ -101,28 +113,87 @@ function OralHistories() {
                 imgRight={oral_histories_bannerpic}
                 imgCredit={state.imgCredit}
             />
-            {/* WHAT THE NWC MEANS */}
+            {/* EXPLORE ORAL HISTORIES */}
             <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <Stack direction='row' className='item'>
-                    <div className="item-left">
-                        <InfoVideo src={state.NWC_Means_VideoURL}/>
-                    </div>
                     <div className="item-right">
-                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> WHAT THE NWC MEANS TO ME </Typography>
-                        <Typography type="paragraph-2" paddingLR="0"> {state.meanText} </Typography>
+                        <Typography type="heading-2" paddingLR="0" paddingTB="0" fontSize="64"> Explore Oral Histories </Typography>
+                        <Typography type="paragraph-2" paddingLR="0" fontSize="18"> {state.exploreText} </Typography>
                     </div>
                 </Stack>
             </Stack>
 
-            {/* FEATURED */}
-            <Stack direction='column' className="OralHistories_Featured_container">
-                <div className="header-container">
-                    <Typography type="heading-1" paddingLR="0" paddingTB="0"> Featured Oral Histories </Typography>
-                </div>               
-                <div className="featured_video_container" >
-                    <Carousel videos={participants}/>
-                </div>
+            
+                <div className="tab-container">
+                    {/* Top-Left "All" Button */}
+                        <button
+                            className={`tab-button all-tab ${activeTab === 'All' ? 'active' : ''}`}
+                            onClick={() => setActiveTab('All')}
+                        >
+                            All
+                        </button>
+                    {/* Left Tabs */}
+                    <div className="tab-column left">
+                        {tabs.slice(0, 6).map((tab) => (
+                        <button
+                            key={tab}
+                            className={`tab-button left-tab ${activeTab === tab ? 'active' : ''}`}
+                            onClick={() => setActiveTab(tab)}
+                        >
+                            {tab}
+                        </button>
+                        ))}
+                    </div>
+
+                    {/* Right Tabs */}
+                    <div className="tab-column right">
+                        {tabs.slice(6).map((tab) => (
+                        <button
+                            key={tab}
+                            className={`tab-button right-tab ${activeTab === tab ? 'active' : ''}`}
+                            onClick={() => setActiveTab(tab)}
+                        >
+                            {tab}
+                        </button>
+                        ))}
+                    </div>
+                        <div className="cassette-grid-container">
+                            <div className="cassette-grid">
+                                {currentItems.map((p) => (
+                                <CassetteCard
+                                    key={p.id}
+                                    name={p.name}
+                                    role={p.role}
+                                    description={p.description}
+                                />
+                                ))}
+                            </div>
+
+                            <div className="oral-histories-pagination">
+                                <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
+                            </div>
+                        </div>
+                    </div>
+
+                          <div className="AdvancedSearch_border">  </div>
+           { /*
+           EXPLORE ORAL HISTORIES 
+           <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
+                    <ParticipantsTable cards={cards} roles={roles} />
             </Stack>
+            */}
+            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
+                <div className="reflection">
+                    <Typography type="heading-2" paddingLR="0" paddingTB="0"> Reflections </Typography>
+                    <Typography type="paragraph-2" paddingLR="10" paddingTB="1"> {state.ReflectionsText} </Typography>
+                </div>
+
+                <Stack direction='row' className='item'>
+                        <InfoVideo src={state.Reflections_VideoURL1}/>
+                        <InfoVideo src={state.Reflections_VideoURL2}/>
+                </Stack>
+            </Stack>
+
             {/* BANNER 2 */}
             <Stack direction='column' margin={'5% 0 0 0'} className="OralHistories_Voice_container">
                 <div className="centered-text">
@@ -137,17 +208,6 @@ function OralHistories() {
                             <p>Photos by {state.imgCredit}</p>
                         </div>
                     </Stack>
-            </Stack>
-
-            {/* EXPLORE ORAL HISTORIES */}
-            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
-                <Stack direction='row' className='item'>
-                    <div className="item-right">
-                        <Typography type="heading-2" paddingLR="0" paddingTB="0"> Explore Oral Histories </Typography>
-                        <Typography type="paragraph-2" paddingLR="0"> {state.exploreText} </Typography>
-                    </div>
-                </Stack>
-                    <ParticipantsTable participants={participants} roles={roles} />
             </Stack>
         </Stack>
     );

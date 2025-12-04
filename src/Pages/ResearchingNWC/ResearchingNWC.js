@@ -5,6 +5,7 @@ import './ResearchingNWC.css'
 import button from "../../assets/res/button-research-the-nwc.png";
 import component119 from './res/component119.png';
 import progress_map from './res/Map 1.png';
+import digdeeper from './res/digdeeper.png';
 // import BannerCard from "../../Components/BannerCard/BannerCard";
 // import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 
@@ -16,10 +17,13 @@ import { Banner } from '../../Components/Banner';
 import { StateSelect } from '../../Components/StateSelect/StateSelect';
 import ReactMarkdown from 'react-markdown';
 import { processTableData } from './AdvancedSearch/TableHeaders'
+import { Link } from 'react-router-dom';
+
 
 function ResearchingNWC() {
 
   const [contentMap, setContentMap] = useState([]);
+  const [states, setStates] = useState([]);
 
   useEffect(() => {
     async function fetchContentMap() {
@@ -38,6 +42,30 @@ function ResearchingNWC() {
     fetchContentMap();
   },[]);
 
+  useEffect(() => {
+  async function fetchAvailableStates() {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/nwc-participants?fields=represented_state&pagination[pageSize]=1000`
+      );
+      const data = await response.json();
+
+      const states = [
+        ...new Set(
+          data.data
+            .map((person) => person.attributes.represented_state)
+            .filter(Boolean) // remove null/undefined
+        )
+      ];
+
+      setStates(states);
+    } catch (error) {
+      console.error("Error fetching available states:", error);
+    }
+  }
+
+  fetchAvailableStates();
+}, []);
 
   // 2nd state to hold map data 
   const [maps, setMap] = useState([]);
@@ -297,7 +325,8 @@ const politicalOfficeObj = {
                             value: option.value
                           })));
                         }}
-                        selectedOptions={selectedOptions["represented_state"] || []}
+                          selectedOptions={selectedOptions["represented_state"] || []}
+                          states={states}
                       />
                     )}
                   />
@@ -419,7 +448,31 @@ const politicalOfficeObj = {
           </p>
         </div>
       }
+      <div className="dig-deeper">
+        
+      <div className="red-frame">
+        <div className="orange-frame">
+          <div className="yellow-frame">
+              <img 
+              src={digdeeper}
+              alt="Framed Content" 
+              className="frame-image" 
 
+              />
+              <Link to="/AdvancedSearch">
+                <div className="advanced-search-button">
+                Click here to go to the Advanced Search
+                </div>
+            </Link>
+          </div>
+        </div>
+        <div className="img_credit">
+        <p >
+          PHOTO BY JANE DOE
+        </p>
+        </div>
+    </div>
+    </div>
     </div>
   )
 }

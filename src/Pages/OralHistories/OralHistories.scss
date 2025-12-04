@@ -1,54 +1,27 @@
 .OralHistories_NWC_container {
-    margin-top: 5%;
-	.item {
-        font-size: 36px;
-		align-items: center;
-		.item-left {
-			flex: 50%;
-			text-align: center
-		}
-		.item-right {
-			flex: 50%;
-			display: flex;
-			flex-direction: column;
 
-            .paragraph-2 {
-                font-size: 16px; /* Adjust the font size to your preference */
-              }
-	}
+  .reflection {
+    		text-align: center;
+        margin-bottom: 2%;
+  }
+	.item {
+		align-items: center;
+
 }
 }
 
 .OralHistories_Featured_container {
     display: flex;
     flex-direction: column;
-    padding: 4em; /* Adjust the em value as needed */
-    padding-top: 15%; 
+    padding-top: 3%; 
     padding-bottom: 5em; /* Adjust the em value as needed */
-    background-image: url("res/featuredbg.png");
-    background-size: 100% auto;
-    background-repeat: no-repeat;
     min-height: 100%;
-    .featured_video_container {
-        
-        display: block;
-        border: 10px solid #FFD046;
-        padding-right: -20rem;
-        box-sizing: border-box;
-        box-shadow:
-            0 0 0 10px #CB4E28,
-            0 0 0 20px #B22524;
-        position: relative;
-        background-color: transparent;
-        margin-left: 30%; /* Adjust the percentage as needed to shift the frame to the right */
-        max-width: 56.7vw; /* Limit the width to prevent bleeding off the page */
-    }
+
     .header-container {
         font-size: 48px;
         display: flex;
         justify-content: center; /* Center horizontally */
         align-items: center; /* Center vertically */
-        margin-right: -360rem; /* Adjust this value to shift the text to the right */
         margin-bottom: 40rem;
     }
 
@@ -123,4 +96,117 @@
             }
         }
     }
+}
+
+.tab-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  min-height: 999rem;
+  background-color: #ffffff;
+  margin-top: 2%;
+  margin-bottom: 3%;
+  margin-left: 300rem;
+  margin-right: 300rem;
+  border: 4rem solid #000000;
+  z-index: 1
+}
+
+.tab-column {
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+      top: -3rem;
+
+  &.left {
+    align-items: flex-end;
+    left: -146rem;
+  }
+
+  &.right {
+    align-items: flex-start;
+    right: -146rem;
+
+  }
+  
+}
+
+.tab-button {
+  all: unset; // Reset all inherited styles (especially from global button styles)
+  width: 100rem; 
+  height: 120rem; 
+  text-align: center;
+  font-family: 'babas_neue', 'normal';
+  font-size: 22rem;
+  background-color: var(--colorDarkBlue);
+  color: white;
+  border: 4rem solid #000000;
+  padding: 20rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #235da3;
+  }
+
+  &.active {
+    background-color: #ffffff;
+    color: #000000;
+  }
+  &.left-tab {
+    border-radius: 25rem 0 0 25rem;
+    border-right: none;
+    
+  }
+
+  &.right-tab {
+    border-radius: 0 25rem 25rem 0;
+        border-left: none;
+
+
+  }
+}
+
+.all-tab {
+  position: absolute;
+  top: -98rem;       // adjust based on button height and spacing
+  left: 0rem;     // match your left tab column offset
+  width: 200rem;
+  height: 50rem;
+  font-size: clamp(16rem, 2vw, 30rem);
+  background-color: var(--colorDarkBlue);
+  color: white;
+  border-radius: 12rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 25rem 25rem 0 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #1e4a80;
+  }
+
+  &.active {
+    background-color: #ffffff;
+    color: #000000;
+  }
+}
+
+.oral-histories-pagination {
+  margin-top: 130rem;
+}
+.oral-histories-pagination .Research-Pagination a {
+  font-family: var(--fontBabasNeue);
+	font-weight: 400;
+	font-size: 44rem;
+	line-height: 1.5em;
+	display: flex;
+	align-items: center;
+	color: #cadfee;
+	transition: 0.1s;
+	box-sizing: border-box;
+	padding: 0 0.25em;
 }
