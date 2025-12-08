@@ -53,7 +53,7 @@ function Discover() {
   
   useEffect(() => {
     if(currentData === 'default'){
-      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -162,6 +162,7 @@ function Discover() {
 
   function resetData(){
     currentData='default'
+    setActiveSortMethod(0)
     setOffSet()
   }
 
