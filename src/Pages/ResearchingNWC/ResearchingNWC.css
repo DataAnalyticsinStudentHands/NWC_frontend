@@ -415,6 +415,69 @@ input:checked + .slider:before {
   height: auto; /* Optional: Maintains aspect ratio */
 }
 
+.dig-deeper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 100rem;
+  margin-left: 90rem;
+  margin-right: 90rem;
+}
+.red-frame {
+  background-color: var(--colorDeepRed);
+  padding: 12rem;
+  position: relative; /* Enables absolute positioning inside it */
+
+}
+
+.orange-frame {
+  background-color: var(--colorDeepOrange);
+  padding: 12rem;
+}
+
+.yellow-frame {
+  background-color: var(--colorDeepYellow);
+  padding: 12rem;
+}
+
+.frame-image {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.img_credit {
+  position: absolute;
+  font-family: 'babas_neue', 'normal';
+  bottom: 0;
+  right: 0;
+  background-color: var(--colorDarkBlue);
+  color: white;
+  padding: 12rem;
+  font-size: 36rem;
+  width: fit-content;
+  min-width: 323rem;
+  text-align: center;
+}
+
+.advanced-search-button {
+  font-size: 80rem;
+  position: absolute;
+  bottom: 100rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--colorDeepRed);
+  color: white;
+  padding: 25rem 20rem;
+  border-radius: 2rem;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 5;
+  border-radius: 20rem;
+  width: 80%;
+}
+
 
 
 
