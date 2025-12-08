@@ -14,19 +14,44 @@
     margin-top: 200rem;
 }
 
-.card {
-    width: 300rem;
-    height: 400rem;
-    border: 3rem solid;
-    border-radius: 12rem;
-    border-color: #fae0c4;
-    padding: 16rem;
-    background: #fef7f0;
-    box-sizing: border-box;
+.card-wrapper {
+  position: relative;
+  width: 300rem;
+  height: 400rem;
+
+  .card {
+    position: absolute;  // make it fill the space inside the border
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
     display: flex;
-    justify-content: center;
-    position: relative;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #eee5db;
+    border-radius: 12rem;
+    padding: 40rem;     // padding stays inside the card
+    box-sizing: border-box;
+  }
+
+  .card-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+
+    // Optional: inset the border so content doesn’t overlap
+    padding: 10rem;
+    box-sizing: border-box;
+  }
 }
+
+
 
 .card-content {
     width: 100%;
@@ -50,45 +75,42 @@
     .card-code {
     font-family: var(--fontBabasNeue);
     font-size: 20rem;
-    color: #d33;
+    color: var(--colorDarkBlue);
     margin-top: 4rem;
     }
   
 }
 
 .card-description {
-    margin-top: auto;    // pushes description to the bottom
+    margin-top: auto;  
     width: 100%;
     font-size: 12rem;
     line-height: 1.4;
     text-align: center;
 }
 
-.card-profilepic {
-    width: 160rem;
-    height: 160rem;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    align-items: center;      // vertically center the image
-    justify-content: center;  // horizontally center the image
+.card-profile {
+    position: relative;
+    width: 200rem;
+    height: 180rem;
+    margin: 0 auto;
 
-    img {
+  .card-blob {
     width: 100%;
     height: 100%;
-    object-fit: cover;      // ensures the image fills the circle nicely
-    }
+    
+  }
 
-    .placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    color: #555;
-    background: #ccc;       // fallback background
-    }
+  .card-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto; // adjust size as needed
+    height: 50%;
+    pointer-events: none;
+  }
 }
+
 
 

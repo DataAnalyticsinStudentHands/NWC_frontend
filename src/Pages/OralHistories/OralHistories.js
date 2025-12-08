@@ -14,28 +14,44 @@ import { Pagination } from '../ResearchingNWC/Components/Pagination';
 
 //import explore oral history resources
 import da_icon from './res/explore/Delegates & Alternates - Nametag.png'
-import da_blob from './res/explore/Delegates & Alternates Tab Blob.svg'
 import dal_icon from './res/explore/Delegates at Large - US Map.png'
-import dal_blob from './res/explore/Delegates at Large Tab Blob.svg'
 import exhibitor_icon from './res/explore/Exhibitors - Booth.png'
-import exhibitor_blob from './res/explore/Exhibitors Tab Blob.svg'
 import dignitaries_icon from './res/explore/International Dignitaries - Globe.png' 
-import dignitaries_blob from './res/explore/International Dignitaries Tab blob.svg'
 import journalist_icon from './res/explore/Journalists - Newspaper.png'
-import journalist_blob from './res/explore/Journalists Tab Blob.svg'
 import commissioners_icon from './res/explore/National Commissioners - Gavel.png'
-import commissioners_blob from './res/explore/National Commissioners Tab Blob.svg'
 import speakers_icon from './res/explore/Notable Speakers - Microphone.png'
-import speakers_blob from './res/explore/Notable Speakers Tab Blob.svg'
 import observers_icon from './res/explore/Observers - Binoculars.png'
-import observers_blob from './res/explore/Observers Tab Blob.svg'
 import staff_icon from './res/explore/Paid Staff Members - Clipboard.png'
-import staff_blob from './res/explore/Paid Staff Members Tab Blob.svg'
 import torch_icon from './res/explore/Torch Relay Runners - Shoes.png'
-import torch_blob from './res/explore/Torch Relay Runners Tab Blob.svg'
 import volunteers_icon from './res/explore/Volunteers - Helping Hands.png'
-import volunteers_blob from './res/explore/Volunteers Tab Blob.svg'
-
+import { ReactComponent as DaBlob } from './res/explore/Delegates & Alternates Tab Blob.svg';
+import { ReactComponent as DalBlob } from './res/explore/Delegates at Large Tab Blob.svg';
+import { ReactComponent as ExhibitorBlob } from './res/explore/Exhibitors Tab Blob.svg';
+import { ReactComponent as DignitariesBlob } from './res/explore/International Dignitaries Tab blob.svg';
+import { ReactComponent as JournalistBlob } from './res/explore/Journalists Tab Blob.svg';
+import { ReactComponent as CommissionersBlob } from './res/explore/National Commissioners Tab Blob.svg';
+import { ReactComponent as SpeakersBlob } from './res/explore/Notable Speakers Tab Blob.svg';
+import { ReactComponent as ObserversBlob } from './res/explore/Observers Tab Blob.svg';
+import { ReactComponent as StaffBlob } from './res/explore/Paid Staff Members Tab Blob.svg';
+import { ReactComponent as TorchBlob } from './res/explore/Torch Relay Runners Tab Blob.svg';
+import { ReactComponent as VolunteersBlob } from './res/explore/Volunteers Tab Blob.svg';
+import Border1 from './res/explore/Border 1.svg';
+import Border2 from './res/explore/Border 2.svg';
+import Border3 from './res/explore/Border 3.svg';
+import Border4 from './res/explore/Border 4.svg';
+import Border5 from './res/explore/Border 5.svg';
+import Border6 from './res/explore/Border 6.svg';
+import Blob1 from './res/explore/Blob 1.svg';
+import Blob2 from './res/explore/Blob 2.svg';
+import Blob3 from './res/explore/Blob 3.svg';
+import Blob4 from './res/explore/Blob 4.svg';
+import Blob5 from './res/explore/Blob 5.svg';
+import Blob6 from './res/explore/Blob 6.svg';
+import Blob7 from './res/explore/Blob 7.svg';
+import Blob8 from './res/explore/Blob 8.svg';
+import Blob9 from './res/explore/Blob 9.svg';
+import Blob10 from './res/explore/Blob 10.svg';
+import Blob11 from './res/explore/Blob 11.svg';
 
 function OralHistories() {
 
@@ -47,22 +63,25 @@ function OralHistories() {
         Reflections_VideoURL1: '',
         Reflections_VideoURL2: '',
     });
-    
 
     const tabs = [
-        { name: "DELEGATES & ALTERNATES", icon: da_icon, blob: da_blob },
-        { name: "DELEGATES AT LARGE", icon: dal_icon, blob: dal_blob },
-        { name: "EXHIBITORS", icon: exhibitor_icon, blob: exhibitor_blob },
-        { name: "INTERNATIONAL DIGNITARIES", icon: dignitaries_icon, blob: dignitaries_blob },
-        { name: "JOURNALISTS", icon: journalist_icon, blob: journalist_blob },
-        { name: "NATIONAL COMMISSIONERS", icon: commissioners_icon, blob: commissioners_blob },
-        { name: "NOTABLE SPEAKERS", icon: speakers_icon, blob: speakers_blob },
-        { name: "OBSERVERS", icon: observers_icon, blob: observers_blob },
-        { name: "PAID STAFF MEMBERS", icon: staff_icon, blob: staff_blob },
-        { name: "TORCH RELAY RUNNERS", icon: torch_icon, blob: torch_blob },
-        { name: "VOLUNTEERS", icon: volunteers_icon, blob: volunteers_blob },
+    { name: "DELEGATES & ALTERNATES", icon: da_icon, Blob: DaBlob, activeColor: "#B32525" },
+    { name: "DELEGATES AT LARGE", icon: dal_icon, Blob: DalBlob, activeColor: "#00779D" },
+    { name: "EXHIBITORS", icon: exhibitor_icon, Blob: ExhibitorBlob, activeColor: "#FFD048" },
+    { name: "INTERNATIONAL DIGNITARIES", icon: dignitaries_icon, Blob: DignitariesBlob, activeColor: "#615FBF" },
+    { name: "JOURNALISTS", icon: journalist_icon, Blob: JournalistBlob, activeColor: "#CB4E28" },
+    { name: "NATIONAL COMMISSIONERS", icon: commissioners_icon, Blob: CommissionersBlob, activeColor: "#9FC6DF" },
+    { name: "NOTABLE SPEAKERS", icon: speakers_icon, Blob: SpeakersBlob, activeColor: "#B32525" },
+    { name: "OBSERVERS", icon: observers_icon, Blob: ObserversBlob, activeColor: "#00779D" },
+    { name: "PAID STAFF MEMBERS", icon: staff_icon, Blob: StaffBlob, activeColor: "#FFD046" },
+    { name: "TORCH RELAY RUNNERS", icon: torch_icon, Blob: TorchBlob, activeColor: "#615FBF" },
+    { name: "VOLUNTEERS", icon: volunteers_icon, Blob: VolunteersBlob, activeColor: "#CB4E28" },
     ];
 
+    const borders = [Border1, Border2, Border3, Border4, Border5, Border6];
+    const blobs = [Blob1, Blob2, Blob3, Blob4, Blob5, Blob6, Blob7, Blob8, Blob9, Blob10, Blob11];
+    const icons = [da_icon, dal_icon, exhibitor_icon, dignitaries_icon, journalist_icon, commissioners_icon, 
+                    speakers_icon, observers_icon, staff_icon, torch_icon, volunteers_icon];
 
     const [activeTab, setActiveTab] = useState('All');
     
@@ -78,7 +97,7 @@ function OralHistories() {
             name: person.attributes.name,
             role: person.attributes.role,
             description:
-                "Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository Lorem ipsum dolor sit amet...",
+                "Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository",
             profilepic: person.attributes.profilepic?.data  ? `${process.env.REACT_APP_API_URL}${person.attributes.profilepic.data.attributes.url}` : null,
             }));
             setPeople(mapped);
@@ -158,13 +177,24 @@ function OralHistories() {
                 onClick={() => setActiveTab(tab.name)}
                 >
                 <div className="tab-icon-wrapper">
-                    <img src={tab.blob} alt={`${tab.name} blob`} className="tab-blob" />
-                    <img src={tab.icon} alt={`${tab.name} icon`} className="tab-icon" />
+
+                    <tab.Blob
+                    className="tab-blob"
+                    fill={activeTab === tab.name ? tab.activeColor : "none"}
+                    />
+
+                    <img
+                    src={tab.icon}
+                    alt={`${tab.name} icon`}
+                    className="tab-icon"
+                    />
                 </div>
+
                 <span className="tab-text">{tab.name}</span>
                 </button>
             ))}
             </div>
+
 
             {/* Right Tabs */}
             <div className="tab-column right">
@@ -175,25 +205,43 @@ function OralHistories() {
                 onClick={() => setActiveTab(tab.name)}
                 >
                 <div className="tab-icon-wrapper">
-                    <img src={tab.blob} alt={`${tab.name} blob`} className="tab-blob" />
-                    <img src={tab.icon} alt={`${tab.name} icon`} className="tab-icon" />
+
+                    <tab.Blob
+                    className="tab-blob"
+                    fill={activeTab === tab.name ? tab.activeColor : "none"}
+                    />
+
+                    <img
+                    src={tab.icon}
+                    alt={`${tab.name} icon`}
+                    className="tab-icon"
+                    />
                 </div>
+
                 <span className="tab-text">{tab.name}</span>
                 </button>
             ))}
             </div>
 
+
             <div className="card-grid-container">
                 <div className="card-grid">
-                    {currentItems.map((p) => (
-                    <Card
-                        key={p.id}
-                        name={p.name}
-                        role={p.role}
-                        description={p.description}
-                        profilepic={p.profilepic}
-                    />
-                    ))}
+                {currentItems.map((p, index) => {
+                    const border = borders[index % borders.length]; 
+                    const randomBlob = blobs[Math.floor(Math.random() * blobs.length)];
+                    const icon = icons[index % icons.length];
+                    return (
+                        <Card
+                            key={p.id}
+                            name={p.name}
+                            role={p.role}
+                            description={p.description}
+                            blob={randomBlob}
+                            icon={icon} 
+                            borderImage={border} 
+                        />
+                    );
+                })}
                 </div>
             <div className="oral-histories-pagination">
                 <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />

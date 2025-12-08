@@ -99,39 +99,36 @@
 }
 
 .tab-container {
-  position: relative;
+  position: relative; 
   display: flex;
-  justify-content: center;
-  min-height: 999rem;
-  background-color: #ffffff;
-  margin-top: 2%;
-  margin-bottom: 3%;
-  margin-left: 240rem;
-  margin-right: 240rem;
-  border: 4rem solid #000000;
+  justify-content: center; 
+  min-height: 999rem; 
+  background-color: #fff;
+  margin: 2% 240rem 3% 240rem;
+  border: 4rem solid #000;
   z-index: 1;
 }
 
+
+
 .tab-column {
   position: absolute;
-  top: 0;
-  gap: 43rem;
   display: flex;
   flex-direction: column;
-  background-color: white;
-      top: -3rem;
+  gap: 43rem;          
+  max-height: 100%;   
 
   &.left {
+    left: -176rem;      // keep your left offset
     align-items: flex-end;
-    left: -175rem;
   }
 
   &.right {
+    right: -175rem;     // keep your right offset
     align-items: flex-start;
-    right: -175rem;
-
   }
 }
+
 
 .tab-button.active .tab-blob .blob-shape {
   fill: currentColor;
@@ -139,8 +136,8 @@
 
 .tab-button {
   all: unset;
-  width: 130rem;
-  height: 150rem;
+  width: 130rem;     // fixed width
+  height: 160rem;    // fixed height for all tabs
   text-align: center;
   font-family: 'babas_neue', 'normal';
   font-size: 22rem;
@@ -178,37 +175,37 @@
   }
 
   /* 👇 new wrapper to isolate icon + blob */
-  .tab-icon-wrapper {
-    position: relative;
-    width: 60%;
-    aspect-ratio: 1 / 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+.tab-icon-wrapper {
+  position: relative;
+  width: 140rem;  // fixed width
+  height: 120rem; // fixed height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 
   /* 👇 blob sits behind icon */
-  .tab-blob {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 160%;
-    height: 120%;
-    transform: translate(-50%, -50%);
-    z-index: 0;
-    opacity: 0.8;
-    pointer-events: none;
-    object-fit: contain;
-  }
+ .tab-blob {
+  position: absolute;
+  width: 100%; // fit the wrapper
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 0;
+  opacity: 0.8;
+  pointer-events: none;
+}
+
 
   /* 👇 icon sits above blob */
-  .tab-icon {
-    position: relative;
-    z-index: 1;
-    width: 80%;
-    height: auto;
-    object-fit: contain;
-  }
+.tab-icon {
+  position: relative;
+  z-index: 1;
+  width: 70%;  // same width for all
+  height: 70%; // maintain aspect ratio
+  object-fit: contain;
+}
 
   /* 👇 label text below icon */
   .tab-text {
@@ -219,7 +216,7 @@
 .all-tab {
   position: absolute;
   top: -98rem;       // adjust based on button height and spacing
-  left: 0rem;     // match your left tab column offset
+  left: -3rem;     // match your left tab column offset
   width: 200rem;
   height: 50rem;
   font-size: clamp(16rem, 2vw, 30rem);
@@ -248,13 +245,13 @@
 }
 .oral-histories-pagination .Research-Pagination a {
   font-family: var(--fontBabasNeue);
-	font-weight: 400;
-	font-size: 44rem;
-	line-height: 1.5em;
-	display: flex;
-	align-items: center;
-	color: #cadfee;
-	transition: 0.1s;
-	box-sizing: border-box;
-	padding: 0 0.25em;
+  font-weight: 400;
+  font-size: 44rem;
+  line-height: 1.5em;
+  display: flex;
+  align-items: center;
+  color: #cadfee;
+  transition: 0.1s;
+  box-sizing: border-box;
+  padding: 0 0.25em;
 }
