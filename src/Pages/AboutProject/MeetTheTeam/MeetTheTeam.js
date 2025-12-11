@@ -33,12 +33,14 @@ function MeetTheTeam() {
     "EducatorCollaborators": 'EDUCATOR COLLABORATORS',
     "ContentResearchAssistants": 'CONTENT RESEARCH ASSISTANTS',
     "ContentInterns": 'CONTENT INTERNS',
-    "DevUXInterns": 'FULL-STACK DEV AND UX INTERNS',
+    "DevUXInterns": 'FULL-STACK DEV AND UX INTERNS/STAFF',
     "InauguralTeam": 'INAUGURAL TEAM',
     "SteeringCommittee": 'STEERING COMMITTEE',
     "InternalAdvisoryCommittee": 'INTERNAL ADVISORY COMMITTEE',
     "ExternalAdvisoryCommittee": 'EXTERNAL ADVISORY COMMITTEE',
     "DonorGrantingAgencies": 'DONOR AND GRANTING AGENCIES',
+    "EditorialBoardFellows": 'EDITORIAL BOARD FELLOWS',
+    "EditorialBoardLeads": 'EDITORIAL BOARD LEADS'
   }; 
 
   useEffect(() => {
