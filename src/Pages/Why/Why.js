@@ -144,19 +144,6 @@ function Why() {
             <Carousel3 images={essays} />
           </div>
         </div>
-
-        {/**PUBLICATIONS */}
-        <div className="whyPublications">
-          <h2>CONFERENCE PUBLICATIONS</h2>
-
-          <div className="whyPublications_list">
-            {pageState.documents.map((d) => (
-              <a key={d[1]} href={d[1]}>
-                <img key={d[0]} src={d[0]} alt="" />
-              </a>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
