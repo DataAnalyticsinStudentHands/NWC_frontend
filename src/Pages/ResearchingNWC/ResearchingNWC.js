@@ -301,7 +301,7 @@ const politicalOfficeObj = {
           alt="Progress Map"
           className="progress-map"
         />
-        <div className='mappingNWCSearchTemp'>Please click boxes below to begin a search.</div>
+        <div className='mappingNWCSearchTemp'>Click boxes below to search. This search uses the participant identifiers from the original NWC Registration Forms.</div>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
         <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
