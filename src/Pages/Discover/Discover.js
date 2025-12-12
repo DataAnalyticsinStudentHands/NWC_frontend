@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
-var currentData = 'default'
+var currentData = 'lastname'
 
 function Discover() {
   //state for main page conent
@@ -30,7 +30,7 @@ function Discover() {
   const [input, setInput] = useState("");
   const listOfCards = useRef([]);
   const [activeCardsPerPage, setActiveCardsPerPage] = useState('12');
-  const [activeSortMethod, setActiveSortMethod] = useState(0);
+  const [activeSortMethod, setActiveSortMethod] = useState(2);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   function setOffSet(){
@@ -53,7 +53,7 @@ function Discover() {
   
   useEffect(() => {
     if(currentData === 'default'){
-      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -162,6 +162,7 @@ function Discover() {
 
   function resetData(){
     currentData='default'
+    setActiveSortMethod(2)
     setOffSet()
   }
 
