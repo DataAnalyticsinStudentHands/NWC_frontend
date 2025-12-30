@@ -30,10 +30,12 @@ const IconObj = {
 // Some of the forms are missing.
 const formObj = {
 	Corrections: "/forms/corrections",
-	"Biographies and Orale Histories": "/",
-	Archives: "/",
 	"More Ideas": "/forms/moreideas",
 	"Donate Papers": "/forms/donatepapers",
+	"Educator Inquiry": "/forms/inquiryeducator",
+	"Participant Inquiry": "/forms/inquiryparticipant",
+	"Researcher Inquiry": "/forms/inquiryresearcher",
+	"Student Inquiry": "/forms/inquirystudent"
 };
 
 export const Resources = () => {
