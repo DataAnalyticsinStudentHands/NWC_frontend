@@ -38,14 +38,19 @@ CORRECTIONS
   font-style: italic;
 }
 
-.corrections :is(input, textarea) {
+.corrections :is(input:not([type="button"]):not([type="submit"]), textarea) {
   width: 100%;
   max-width: 140ch;
   display: block;
-  margin: 1em;
   text-indent: 1ch;
   padding: 0.4em;
-  border-radius: 8px;
+  border-radius: 3px;
+  border: 1px solid;
+}
+
+.corrections_textarea {
+  min-height: 120px;
+  resize: vertical;
 }
 
 .corrections_submit {

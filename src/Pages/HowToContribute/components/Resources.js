@@ -18,22 +18,24 @@ import { ResourcesBanner } from "./ResourcesBanner";
 import { Card } from "../../../Components/Card";
 import { Stack } from "../../../Components/Stack";
 const IconObj = {
-	oral: oralIcon,
+	calling: oralIcon,
 	biographies: contributeIcon,
 	information: archivalIcon,
 	papers: iconPapers,
 	classroom: iconClass,
 	guidelines: techIcon,
-	permissions: permissionIcon,
+	inquiry: permissionIcon,
 };
 
 // Some of the forms are missing.
 const formObj = {
 	Corrections: "/forms/corrections",
-	"Biographies and Orale Histories": "/",
-	Archives: "/",
 	"More Ideas": "/forms/moreideas",
 	"Donate Papers": "/forms/donatepapers",
+	"Educator Inquiry": "/forms/inquiryeducator",
+	"Participant Inquiry": "/forms/inquiryparticipant",
+	"Researcher Inquiry": "/forms/inquiryresearcher",
+	"Student Inquiry": "/forms/inquirystudent"
 };
 
 export const Resources = () => {
@@ -60,15 +62,14 @@ export const Resources = () => {
 			.then((data) => {
 				let dataObj = data.data[0].attributes;
 				dataObj.files.forEach((file, i) => {
-					if (file.title !== "PERMISSIONS DOCUMENTS") {
+					if (!file.title.toLowerCase().includes("inquiry")) {
 					file.link_to_form
 						? (dataObj.files[i].link = formObj[file.link_to_form])
 						: (dataObj.files[
 								i
 						].link = `/pdfviewer/${file.file.data.attributes.hash}.pdf`);
 					}
-					else {
-						file.title = "Contact us for Permissions"
+					else {	
 						file.link_to_form
 						? (dataObj.files[i].link = formObj[file.link_to_form])
 						: (dataObj.files[
