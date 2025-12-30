@@ -73,13 +73,13 @@ function HowToDonatePapersForm() {
           <p className={styles.corrections_validate}>Name is invalid</p>
         )}
 
-        <p className={styles.forms_p}> Role at NWC</p>
+        <p className={styles.forms_p}>Role at NWC</p>
         <input placeholder="Role at NWC" {...register("role_at_nwc")} />
 
-        <p className={styles.forms_p}> Address</p>
+        <p className={styles.forms_p}>Address</p>
         <input placeholder="Address" {...register("address")} />
 
-        <p className={styles.forms_p}> Phone</p>
+        <p className={styles.forms_p}>Phone</p>
         <input
           placeholder="Phone"
           {...register("phone", {
@@ -91,7 +91,7 @@ function HowToDonatePapersForm() {
           <p className={styles.corrections_validate}>Phone number is invalid</p>
         )}
 
-        <p className={styles.forms_p}> Email*</p>
+        <p className={styles.forms_p}>Email*</p>
         <input
           placeholder="Email"
           {...register("email", {
@@ -107,7 +107,7 @@ function HowToDonatePapersForm() {
           <p className={styles.corrections_validate}>Email is invalid</p>
         )}
 
-        <p className={styles.forms_p}> Comments*</p>
+        <p className={styles.forms_p}>Comments*</p>
         <textarea placeholder="Comments" {...register("comments")}></textarea>
         {errors?.comments?.type === "required" && (
           <p className={styles.corrections_validate}>This field is required</p>

@@ -49,7 +49,7 @@ function InquiryResearcherForm() {
       >
         <header>
           <h1 className={styles.corrections_heading}>
-            Participant Inquiry Form
+            Researcher Inquiry Form
           </h1>
           <p className={styles.corrections_p}>Please send us a message!</p>
           <p className={styles.corrections_preq}>* Required fields</p>
@@ -68,18 +68,20 @@ function InquiryResearcherForm() {
         {errors?.name?.type === "pattern" && (
           <p className={styles.corrections_validate}>Name is invalid</p>
         )}
-        <p className={styles.forms_p}>Role at NWC*</p>
+        <p className={styles.forms_p}>Title</p>
+        <input placeholder="Title" {...register("title")} />
+        <p className={styles.forms_p}>Affiliation*</p>
         <input
-          placeholder="Role at NWC"
-          {...register("role_at_nwc", {
+          placeholder="Affiliation"
+          {...register("affiliation", {
             required: true,
             pattern: /^[A-Za-z' -]+$/,
           })}
         />
-        {errors?.role_at_nwc?.type === "required" && (
+        {errors?.affiliation?.type === "required" && (
           <p className={styles.corrections_validate}>This field is required</p>
         )}
-        {errors?.Name?.type === "pattern" && (
+        {errors?.affiliation?.type === "pattern" && (
           <p className={styles.corrections_validate}>Name is invalid</p>
         )}
         <p className={styles.forms_p}>Email*</p>
@@ -97,7 +99,7 @@ function InquiryResearcherForm() {
         {errors?.email?.type === "pattern" && (
           <p className={styles.corrections_validate}>Email is invalid</p>
         )}
-        <p className={styles.forms_p}> Phone</p>
+        <p className={styles.forms_p}>Phone</p>
         <input
           placeholder="Phone"
           {...register("phone", {
@@ -109,40 +111,28 @@ function InquiryResearcherForm() {
           <p className={styles.corrections_validate}>Phone number is invalid</p>
         )}
         <p className={styles.forms_p}>
-          Tell us a little bit about your experience at the NWC*
+          What current or past projects connect to the history of the 1977
+          National Women’s Conference?
         </p>
         <textarea
-          placeholder="Tell us a little bit about your experience at the NWC"
-          {...register("experience")}
+          placeholder="What current or past projects connect to the history of the 1977 National Women’s Conference?"
+          {...register("projects")}
         ></textarea>
         <p className={styles.forms_p}>
-          How would you like to be involved in this project?
+          What interests you about the Sharing Stories from 1977 project? How
+          might you like to get involved?
         </p>
         <textarea
-          placeholder="How would you like to be involved in this project"
-          {...register("involved")}
+          placeholder="What interests you about the Sharing Stories from 1977 project? How might you like to get involved?"
+          {...register("interest")}
         ></textarea>
         <p className={styles.forms_p}>
-          Would you like to be interviewed about your experience?
+          What guidance might you need on how to use the Sharing Stories from
+          1977 site for your research?
         </p>
         <textarea
-          placeholder="Would you like to be interviewed about your experience?"
-          {...register("interview")}
-        ></textarea>
-        <p className={styles.forms_p}>
-          Do you have memorabilia from the NWC that you would like help
-          preserving?
-        </p>
-        <textarea
-          placeholder="Do you have memorabilia from the NWC that you would like help preserving?"
-          {...register("memorabilia")}
-        ></textarea>
-        <p className={styles.forms_p}>
-          What more do you hope to learn from us?
-        </p>
-        <textarea
-          placeholder="What more do you hope to learn from us?"
-          {...register("more")}
+          placeholder="What guidance might you need on how to use the Sharing Stories from 1977 site for your research?"
+          {...register("guidance")}
         ></textarea>
         <input
           type="submit"
