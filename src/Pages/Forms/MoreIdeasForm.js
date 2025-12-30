@@ -13,7 +13,6 @@ function MoreideasForm() {
 
   const onSubmit = (data) => {
     const submission = { data, template: "moreideas" };
-
     fetch([process.env.REACT_APP_API_URL, `api/form-moreidea`].join("/"), {
       method: "POST",
       headers: {

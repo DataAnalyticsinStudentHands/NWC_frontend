@@ -13,7 +13,6 @@ function ContactUsForm() {
 
   const onSubmit = (data) => {
     const submission = { data, template: "contactus" };
-
     fetch([process.env.REACT_APP_API_URL, `api/contact`].join("/"), {
       method: "POST",
       headers: {
