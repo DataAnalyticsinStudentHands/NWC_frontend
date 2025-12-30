@@ -95,33 +95,19 @@ function MoreideasForm() {
           </p>
         )}
 
-        <p className={styles.forms_p}> Address*</p>
+        <p className={styles.forms_p}>Address</p>
         <input
           placeholder="Address"
-          {...register("Address", { required: true })}
+          {...register("Address")}
         />
-        {errors?.Address?.type === "required" && (
-          <p className={styles.corrections_validate}>
-            {" "}
-            This field is required{" "}
-          </p>
-        )}
-
-        <p className={styles.forms_p}> Phone</p>
+        <p className={styles.forms_p}>Phone</p>
         <input
           placeholder="Phone"
           {...register("Phone", {
-            required: true,
             pattern: /^\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}$/,
           })}
           type="phone"
         />
-        {errors?.Phone?.type === "required" && (
-          <p className={styles.corrections_validate}>
-            {" "}
-            This field is required{" "}
-          </p>
-        )}
         {errors?.Phone?.type === "pattern" && (
           <p className={styles.corrections_validate}>
             {" "}
@@ -129,7 +115,7 @@ function MoreideasForm() {
           </p>
         )}
 
-        <p className={styles.forms_p}> Email*</p>
+        <p className={styles.forms_p}>Email*</p>
         <input
           placeholder="Email"
           {...register("Email", {
@@ -145,7 +131,7 @@ function MoreideasForm() {
           <p className={styles.corrections_validate}> Email is invalid </p>
         )}
 
-        <p className={styles.forms_p}> Comments*</p>
+        <p className={styles.forms_p}>Comments*</p>
         <textarea placeholder="Comments" {...register("Comments")}></textarea>
         {errors?.Comments?.type === "required" && (
           <p className={styles.corrections_validate}>
