@@ -407,6 +407,12 @@ transform: rotate(0deg);
   margin-top: -60rem;
 }
 
+.item_Collapsible_Column {
+  display: flex;
+  flex-direction: column;
+  margin-top: -60rem;
+}
+
 .item_planks {
   display: flex;
   gap: 45rem; /* space between checkboxes */
@@ -599,6 +605,17 @@ padding-left: 20rem;
   position: absolute;
   right: 10rem; /* Adjust as needed */
   top: 0rem;
+}
+
+.info-box-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60rem; /* Adjust height as needed */
+  background-color: #FFD046; /* Change to desired color */
+  border-top-left-radius: 0; /* Match parent border radius */
+  border-top-right-radius: 40rem;
 }
 
 .info-box-banner {
