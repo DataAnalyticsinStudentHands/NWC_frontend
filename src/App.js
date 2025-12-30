@@ -19,6 +19,11 @@ import HowToDonatePapersForm from "./Pages/Forms/HowToDonatePapers";
 import CorrectionsForm from "./Pages/Forms/CorrectionsForm";
 import ContactUsForm from "./Pages/Forms/ContactUsForm";
 import MoreIdeasForm from "./Pages/Forms/MoreIdeasForm";
+import InquiryEducatorForm from "./Pages/Forms/InquiryEducatorForm";
+import InquiryParticipantForm from "./Pages/Forms/InquiryParticipantForm";
+import InquiryResearcherForm from "./Pages/Forms/InquiryResearcherForm";
+import InquiryStudentForm from "./Pages/Forms/InquiryStudentForm";
+import ThankYouPage from "./Pages/Forms/ThankYouPage";
 import PDFViewer from "./Pages/PDFViewer/PDFViewer";
 import { Resources } from "./Pages/HowToContribute/components/Resources";
 import OralHistories from "./Pages/OralHistories/OralHistories";
@@ -63,7 +68,12 @@ function Routing() {
               path="forms/donatepapers"
               element={<HowToDonatePapersForm />}
             />
+            <Route path="forms/inquiryeducator" element={<InquiryEducatorForm />} />
+            <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
+            <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
+            <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
             <Route path="forms/moreideas" element={<MoreIdeasForm />} />
+            <Route path="forms/thank-you" element={<ThankYouPage />} />
             <Route path="howtocontribute" element={<HowToContribute />} />
             <Route path="howtocontribute/:resource" element={<Resources />} />
             <Route path="/" element={<Home />} />
@@ -96,7 +106,12 @@ function Routing() {
             path="forms/donatepapers"
             element={<HowToDonatePapersForm />}
           />
+          <Route path="forms/inquiryeducator" element={<InquiryEducatorForm />} />
+          <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
+          <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
+          <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
           <Route path="forms/moreideas" element={<MoreIdeasForm />} />
+          <Route path="forms/thank-you" element={<ThankYouPage />} />
           <Route path="howtocontribute" element={<HowToContribute />} />
           <Route path="howtocontribute/:resource" element={<Resources />} />
           <Route path="oralhistories" element={<OralHistories />} />
