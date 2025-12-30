@@ -13,9 +13,8 @@ function InquiryResearcherForm() {
 
   const onSubmit = (data) => {
     const submission = { data, template: "contactus" };
-
     fetch(
-      [process.env.REACT_APP_API_URL, `api/forms-inquiryparticipant`].join("/"),
+      [process.env.REACT_APP_API_URL, `api/forms-inquiryresearcher`].join("/"),
       {
         method: "POST",
         headers: {
