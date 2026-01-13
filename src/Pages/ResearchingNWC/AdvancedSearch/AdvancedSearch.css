@@ -88,7 +88,7 @@
 }
 
 .advancedSearch_button_reset {
-  background: rgba(3, 103, 165, 0.35);
+  background: #615fbf;
   width: 200rem;
   height: 60rem;
   font-family: var(--fontBabasNeue);
@@ -665,7 +665,7 @@ padding-left: 20rem;
   position: absolute;
   top:0;
   left: 0;
-  width: 150rem;
+  width: 210rem;
   background-color: #FFF4E8;
   color: black;
   padding: 0.25em;
