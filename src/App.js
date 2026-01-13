@@ -23,6 +23,7 @@ import InquiryEducatorForm from "./Pages/Forms/InquiryEducatorForm";
 import InquiryParticipantForm from "./Pages/Forms/InquiryParticipantForm";
 import InquiryResearcherForm from "./Pages/Forms/InquiryResearcherForm";
 import InquiryStudentForm from "./Pages/Forms/InquiryStudentForm";
+import InquiryArchivistForm from "./Pages/Forms/InquiryArchivistForm";
 import ThankYouPage from "./Pages/Forms/ThankYouPage";
 import PDFViewer from "./Pages/PDFViewer/PDFViewer";
 import { Resources } from "./Pages/HowToContribute/components/Resources";
@@ -72,6 +73,7 @@ function Routing() {
             <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
             <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
             <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
+            <Route path="forms/inquiryarchivist" element={<InquiryArchivistForm />} />
             <Route path="forms/moreideas" element={<MoreIdeasForm />} />
             <Route path="forms/thank-you" element={<ThankYouPage />} />
             <Route path="howtocontribute" element={<HowToContribute />} />
@@ -110,6 +112,7 @@ function Routing() {
           <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
           <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
           <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
+          <Route path="forms/inquiryarchivist" element={<InquiryArchivistForm />} />
           <Route path="forms/moreideas" element={<MoreIdeasForm />} />
           <Route path="forms/thank-you" element={<ThankYouPage />} />
           <Route path="howtocontribute" element={<HowToContribute />} />
