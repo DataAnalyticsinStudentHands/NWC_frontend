@@ -8,11 +8,14 @@
 CORRECTIONS
 */
 .corrections {
-  margin: 2em;
-  width: fit-content;
-  margin: auto;
+  margin: 2em auto;
   padding: 2em 1em;
   background-color: #ebf6fc;
+  /* 75% of page, but capped for readability */
+  width: 75%;
+  max-width: 140ch;
+  /* prevent it from getting too narrow on mobile */
+  min-width: 320px;
 }
 
 .corrections_heading {
@@ -39,8 +42,8 @@ CORRECTIONS
 }
 
 .corrections :is(input:not([type="button"]):not([type="submit"]), textarea) {
+  box-sizing: border-box;
   width: 100%;
-  max-width: 140ch;
   display: block;
   text-indent: 1ch;
   padding: 0.4em;
@@ -48,7 +51,7 @@ CORRECTIONS
   border: 1px solid;
 }
 
-.corrections_textarea {
+.corrections textarea {
   min-height: 120px;
   resize: vertical;
 }
@@ -90,6 +93,7 @@ CORRECTIONS
 .forms_p {
   font-family: var(--fontMontserrat);
   font-size: 0.6em;
+  max-width: 100%;
   margin: 0.9em;
 
 }
