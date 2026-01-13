@@ -35,7 +35,8 @@ const formObj = {
 	"Educator Inquiry": "/forms/inquiryeducator",
 	"Participant Inquiry": "/forms/inquiryparticipant",
 	"Researcher Inquiry": "/forms/inquiryresearcher",
-	"Student Inquiry": "/forms/inquirystudent"
+	"Student Inquiry": "/forms/inquirystudent",
+	"Archivist Inquiry": "/forms/inquiryarchivist"
 };
 
 export const Resources = () => {
