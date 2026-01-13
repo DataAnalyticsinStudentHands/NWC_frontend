@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useForm, Controller } from "react-hook-form";
 import qs from 'qs';
 import './ResearchingNWC.css'
@@ -33,6 +33,7 @@ function ResearchingNWC() {
           throw new Error('Network response was not ok');
         }
         let data = await response.json();
+        console.log("data:", data)
         setContentMap(data.data);
       } catch (error) {
         console.error('Error fetching content map:', error);
@@ -274,6 +275,15 @@ const politicalOfficeObj = {
     setTableData([])
   }
 
+  const resultsRef = useRef(null);
+  useEffect(() => {
+    if (tableData.length > 0 && resultsRef.current) {
+      resultsRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [tableData]);
   return (
     <div className="mappingNWC">
 
@@ -401,7 +411,13 @@ const politicalOfficeObj = {
                 <input type="checkbox" {...register("era_against")} />AGAINST</label>
             </div>
           </div>
-          <div className="basicSearch_toggle">
+          <div className="basicSearch_footer">
+            <div className='basicSearch_footer-left'>
+              <p>You can also search participants by name:</p>
+              <input type="text" placeholder='FirstName LastName' {...register("participantsName")} />
+            </div>
+            <div className='basicSearch_footer-right'>
+              <div className="basicSearch_toggle">
               <div className='basicSearch_toggle-left'>
                 Narrow search results 
                   <div className='basicSearch_toggle-container'>
@@ -423,23 +439,15 @@ const politicalOfficeObj = {
               <span className="slider round"></span>
             </label>
           </div>
-          <div className="basicSearch_footer">
-            <div className='basicSearch_footer-left'>
-              <p>You can also search participants by name:</p>
-              <input type="text" placeholder='FirstName LastName' {...register("participantsName")} />
             </div>
-            <div className='basicSearch_footer-right'>
-              <button type="button" className="resetButton" onClick={onClear}>RESET</button>
-              <button type="submit" className="searchButton">SEARCH</button>
-            </div>
-
-
+            <button type="submit" className="NWC_searchButton">SEARCH</button>
+            <button type="button" className="NWC_resetButton" onClick={onClear}>RESET</button>
           </div>
         </form>
       </div>
 
       {tableData.length >0 ?
-        <div className='Result-Continer'>
+        <div className='Result-Continer' ref={resultsRef}>
           <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         : <div className='Result-Continer'>
@@ -467,8 +475,8 @@ const politicalOfficeObj = {
           </div>
         </div>
         <div className="img_credit">
-        <p >
-          PHOTO BY JANE DOE
+        <p>
+          PHOTO BY {contentMap?.attributes?.DigDeeperImage_Credit}
         </p>
         </div>
     </div>
