@@ -69,7 +69,7 @@ function DiscoverCard({
 
                     </div>
                     <div className="discoverCard_data">
-                        <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{firstname} {lastname}</p>
+                        <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{lastname}, {firstname} </p>
                         <p className="discoverCard_role" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{role}</p>
                         <p className="discoverCard_state" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{state}</p>
                     </div>

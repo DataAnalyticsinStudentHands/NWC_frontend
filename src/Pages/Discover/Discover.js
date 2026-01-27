@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
+import Shuffle from './res/Shuffle.svg'
 var currentData = 'lastname'
 
 function Discover() {
@@ -206,6 +207,14 @@ function Discover() {
     setCurrentOffSet(e.selected+1)
   }
 
+  //shuffle featured cards
+  function shuffleFeatured() {
+  setFeatured(prev => {
+    const shuffled = [...prev].sort(() => Math.random() - 0.5);
+    return shuffled;
+  });
+}
+
   return (
     <div className="discover">
       {/**BANNER */}
@@ -218,12 +227,20 @@ function Discover() {
           caption_more={state.bannerimagecredit_more} />
       </div>
 
+      
       {/**FEATURED */}
       <div className="discoverFeatured">
-        <h2>FEATURED STORIES</h2>
-        <div className="discoverFeatured_cards">
+        <h2>EVERY STORY MATTERS</h2>
+      </div>
+      <div className="discoverFeatured_header">
+        <button className="shuffleButton" onClick={shuffleFeatured}>
+            <img src={Shuffle} alt="Shuffle" />
+        </button>
+      </div>
+      <div className="discoverFeatured_cards">
           {featuredCards
-            .filter(value => value.featured === 'true')
+            .sort(() => 0.5 - Math.random()) 
+            .slice(0, 3)
             .map((value) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
@@ -235,7 +252,6 @@ function Discover() {
               profilepic={value.profilepic}
             />)
           }
-        </div>
       </div>
 
       {/**INTRO */}
@@ -252,9 +268,9 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
-          <p className="discoverSearch_separater">|</p>
           <p className={activeSortMethod === 2?'activeSortMethod':"discoverSearch_sorter"} onClick={() => lastNameSort()}>LAST NAME</p>
+          <p className="discoverSearch_separater">|</p>
+          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
           <p className="discoverSearch_separater">|</p>
           <p className= {activeSortMethod === 3?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
@@ -290,7 +306,6 @@ function Discover() {
         />)
         }
       </div>
-
       <ReactPaginate
         containerClassName={"pagination"}
         nextLabel="next >"
@@ -306,13 +321,17 @@ function Discover() {
         renderOnZeroPageCount={null}
         // breakLabel="..."
         // forcePage={resetPagination()}    
-        />
-
+      />
       <div className="discoverButtons">
         <Link to="/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF DELEGATES/ALTERNATES</div>
         </Link>
       </div>
+
+      <div className="discoverButtons">
+          <div className="discoverButtons_participants">VIEW FULL LIST OF Presidential Commissioners</div>
+      </div>
+      
     </div>
   )
 }

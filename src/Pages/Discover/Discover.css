@@ -32,12 +32,36 @@ Control the individal space for each item in the banner
 /*
 FEATURED
 */
-
 .discoverFeatured > h2 {
     font-weight: normal;
     text-align: center;
     margin-top: 1em;
     margin-bottom: 1em;
+}
+
+.discoverFeatured_header {
+    display: flex;
+    justify-content: center; /* centers the heading initially */
+    align-items: center;
+    position: relative;
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
+.shuffleButton {
+    position: absolute;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    right: 0;
+    margin-right: 2.2em;
+    margin-bottom: 1em;
+}
+
+.shuffleButton img {
+    width: 1.5em;
+    height: 1.5em;
 }
 
 .discoverFeatured_cards {
@@ -51,7 +75,7 @@ FEATURED
 }
 
 .discoverFeatured_cards > * {
-    margin: 1em 0;
+    margin: 0em 0;
     width: 30%;
     position: relative;
     border-radius: 16px;
@@ -155,7 +179,7 @@ SEARCH
     margin: .5em auto;
     display: flex;
     justify-content: left;
-    margin-bottom: 50rem;
+    margin-bottom: 30rem;
 }
 
 .discoverButtons_participants {

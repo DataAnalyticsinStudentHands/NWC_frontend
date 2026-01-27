@@ -1,7 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import "./listOf.css";
 import { CSVLink } from "react-csv";
-import { StateSelect } from '../../Components/StateSelect/StateSelect'
+import Select from 'react-select';
+import stateTerritories from '../../assets/stateTerritories.json';
 
 var currentData = "default";
 
@@ -18,6 +19,11 @@ function ListOf(props) {
 	const listOfData = useRef([]);
 
 	const alphabet = "abcdefghijklmnopqrstuvwxyz";
+
+	const stateOptions = Object.values(stateTerritories).map((state) => ({
+		value: state.stateCode,
+		label: state.state,
+	}));
 
 	useEffect(() => {
 		if (dataType === "Participants") {
@@ -82,23 +88,24 @@ function ListOf(props) {
 		setOffset();
 	}
 
-	const handleChange = (e) => {
-		let selectedValues = e.map((e) => {
-			return e.label;
-		});
-		setSelectedValue(selectedValues);
-		const list = listOfData.current
-			.filter((fullList) =>
-				selectedValues.includes(fullList.attributes.States)
-			)
-			.map((p) => {
-				return p;
-			});
-		setStateChoices(list);
-		selectedValues.length === 0
-			? setListData(listOfData.current)
-			: setListData(list);
+	const handleChange = (selected) => {
+	setSelectedValue(selected);
+
+	if (!selected || selected.length === 0) {
+		setListData(listOfData.current);
+		setStateChoices([]);
+		return;
+	}
+
+	const selectedStates = selected.map(opt => opt.label);
+	const list = listOfData.current.filter((item) =>
+		selectedStates.includes(item.attributes.States)
+	);
+
+	setStateChoices(list);
+	setListData(list);
 	};
+
 
 	function handleLetterChange(letter) {
 		setActiveLetter(letter);
@@ -158,9 +165,15 @@ function ListOf(props) {
 				{filter ? (
 					<div className="listOfFilter">
 						<p>Filter by State: </p>
-						<StateSelect  css={'participants-select'} onSelect={handleChange} selectedOptions={selectedValue ? selectedValue.find(
-							(obj) => obj.value === selectedValue
-						) : null}/>
+						<Select
+							isMulti
+							options={stateOptions}
+							onChange={handleChange}
+							value={selectedValue}
+							placeholder="State/Territory"
+							className="participants-select"
+							classNamePrefix="select"
+						/>
 					</div>
 				) : (
 					""
