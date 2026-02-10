@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
-import Shuffle from './res/Shuffle.svg'
 var currentData = 'lastname'
 
 function Discover() {
@@ -46,12 +45,16 @@ function Discover() {
     fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?_limit=-1&populate=*`)
       .then(response => response.json())
       .then(data => {
-        loadcards(data.data, setFeatured);
-        setDataLength(data.data.length)
-        listOfCards.current = data.data
-      }).catch(err => console.log(err));
-  }, []); // eslint-disable-line
-  
+        loadcards(data.data, (cards) => {
+          const shuffled = [...cards].sort(() => Math.random() - 0.5);
+          setFeatured(shuffled);
+        });
+        setDataLength(data.data.length);
+        listOfCards.current = data.data;
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   useEffect(() => {
     if(currentData === 'default'){
       fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
@@ -215,6 +218,8 @@ function Discover() {
   });
 }
 
+const [featuredVisibleCount, setFeaturedVisibleCount] = useState(3);
+
   return (
     <div className="discover">
       {/**BANNER */}
@@ -234,13 +239,12 @@ function Discover() {
       </div>
       <div className="discoverFeatured_header">
         <button className="shuffleButton" onClick={shuffleFeatured}>
-            <img src={Shuffle} alt="Shuffle" />
+          Shuffle Featured Stories
         </button>
       </div>
       <div className="discoverFeatured_cards">
           {featuredCards
-            .sort(() => 0.5 - Math.random()) 
-            .slice(0, 3)
+            .slice(0, featuredVisibleCount)
             .map((value) => <DiscoverCard
               key={Math.random()}
               color={"teal"}
@@ -253,6 +257,18 @@ function Discover() {
             />)
           }
       </div>
+                                {featuredVisibleCount < featuredCards.length && (
+  <div className="discoverFeatured_more">
+    <button
+      className="discoverFeatured_moreButton"
+      onClick={() => setFeaturedVisibleCount(prev => prev + 3)}
+      aria-label="Load more featured stories"
+    >
+      ...
+    </button>
+  </div>
+)}
+
 
       {/**INTRO */}
       <div className="discoverIntro">
