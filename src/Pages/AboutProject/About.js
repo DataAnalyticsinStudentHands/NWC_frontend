@@ -7,8 +7,10 @@ import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
 import BannerCard from "../../Components/BannerCard/BannerCard";
 import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
-
+import VideoReel from "./res/Video Reel.svg";
 import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
+import ReactPlayer from "react-player";
+import placeholder from '../OralHistories/res/video_placeholder.png'
 
 function About() {
   // one state to hold the regular page content loaded from Strapi
@@ -41,7 +43,7 @@ function About() {
                     aboutDocuments_cblink, aboutDocuments_frlink, aboutDocuments_eclink, aboutDocuments_fmlink, 
                     aboutDocuments_tblink, aboutDocuments_tdlink,aboutDocuments_edlink ,aboutDocuments_ddlink, 
                     aboutDocuments_collectionsGuide,
-                    aboutDocuments_aplink
+                    aboutDocuments_aplink, BehindTheScenes_Video1, BehindTheScenes_Video2
                   }
                 }
               } = data;
@@ -65,10 +67,14 @@ function About() {
           aboutDocuments_edlink: aboutDocuments_edlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_edlink.data.attributes.url : undefined,
           aboutDocuments_ddlink: aboutDocuments_ddlink.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_ddlink.data.attributes.url : undefined,
           aboutDocuments_collectionsGuide: aboutDocuments_collectionsGuide.data !== null ? process.env.REACT_APP_API_URL + aboutDocuments_collectionsGuide.data.attributes.url: undefined,
+          BehindTheScenes_Video1: BehindTheScenes_Video1,
+          BehindTheScenes_Video2: BehindTheScenes_Video2
         });
       })
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
+
+  console.log(state)
 
   return (
     <div className="about">
@@ -176,6 +182,46 @@ function About() {
             </div>
           </Link>
         }
+      </div>
+      
+      { /* LOOK BEHIND THE SCENES */}
+      <img src={VideoReel} className="aboutVideoReel" alt="Video Reel" />
+      <div className="aboutHead"><h1>LOOK BEHIND THE SCENES</h1></div>
+
+      <div className="behindTheScenesGrid">
+        <div className="behindTheScenesItem">
+          {state.BehindTheScenes_Video1 ? (
+            <ReactPlayer
+              url={state.BehindTheScenes_Video1}
+              controls
+              width="100%"
+              height="100%"
+            />
+          ) : (
+            <img
+              src={placeholder}
+              alt="Behind the scenes video coming soon"
+              className="videoPlaceholder"
+            />
+          )}
+        </div>
+
+        <div className="behindTheScenesItem">
+          {state.BehindTheScenes_Video2 ? (
+            <ReactPlayer
+              url={state.BehindTheScenes_Video2}
+              controls
+              width="100%"
+              height="100%"
+            />
+          ) : (
+            <img
+              src={placeholder}
+              alt="Behind the scenes video coming soon"
+              className="videoPlaceholder"
+            />
+          )}
+        </div>
       </div>
 
       {/**MEET */}
