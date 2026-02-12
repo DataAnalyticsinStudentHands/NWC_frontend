@@ -323,13 +323,15 @@ function Discover() {
         // forcePage={resetPagination()}    
       />
       <div className="discoverButtons">
-        <Link to="/participants">
+        <Link to="/list/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF DELEGATES/ALTERNATES</div>
         </Link>
       </div>
 
       <div className="discoverButtons">
+        <Link to="/list/commissioners">
           <div className="discoverButtons_participants">VIEW FULL LIST OF Presidential Commissioners</div>
+        </Link>
       </div>
       
     </div>

@@ -1,0 +1,236 @@
+/* ================================
+   Page + List Wrappers
+================================== */
+:is(.participants, .listOf) {
+  font-size: calc(16px + 1vw);
+  font-family: var(--fontBabasNeue);
+  padding: 1em 0;
+  color: var(--colorDarkBlue);
+}
+
+/* Links (but NOT buttons) */
+.participants a:not(.btn),
+.listOf a:not(.btn) { color: var(--colorDeepRed); }
+.participants a:not(.btn):hover,
+.listOf a:not(.btn):hover { text-decoration: underline; }
+
+/* Headings */
+.participants > h1,
+.listOf > h1 {
+  text-align: center;
+  margin-bottom: 1em;
+  font-weight: normal;
+}
+
+/* Back link */
+.backToDiscover { padding-left: 2em; }
+
+/* ================================
+   Controls Row
+================================== */
+.listOfOptions {
+  display: flex;
+  align-items: center;
+  gap: 0.75em;
+  flex-wrap: wrap;
+  padding: 0 2em;
+  margin-bottom: 1.25em;   /* tweak to taste: 1em–1.5em */
+}
+
+/* Inline label + select */
+.listOfFilter {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;        /* spacing between label and Select */
+  padding-left: 0;   /* remove indent */
+  flex: 0 1 auto;
+}
+.filterLabel {
+  margin: 0;
+  white-space: nowrap;
+  font-weight: normal;
+}
+
+/* React-Select sizing */
+.participants-select { min-width: 260px; max-width: 40vw; }
+.participants-select .select__control { min-width: 260px; }
+
+/* Right-align the CSV button in the controls row */
+.csv-download { margin-left: auto; }
+
+/* ================================
+   List Area
+================================== */
+.listOfList {
+  padding: 0 2em 1em 2em;
+  margin: auto;
+  height: 20em;
+  overflow-y: auto;
+}
+
+.listOfContainer {
+  columns: 3;
+  background-color: rgba(117, 178, 224, 0.3);
+  padding: 0.5em;
+}
+.listOfContainer > ul {
+  display: flex;
+  flex-flow: column wrap;
+  font-family: var(--fontMontserrat);
+  font-size: 0.5em;
+}
+
+/* ================================
+   Alphabet Filter (full-width grid)
+================================== */
+.alphabetList {
+  width: 100%;
+  padding: 0 2em 0.75em 2em;
+  display: grid;
+  grid-template-columns: repeat(27, minmax(1.5ch, 1fr)); /* 27 equal columns */
+  gap: 0.25em;
+  align-items: center;
+  justify-items: center; /* center letters in each cell */
+  position: relative;
+}
+
+/* Dotted baseline under the entire alphabet row */
+.alphabetList::after {
+  content: "";
+  grid-column: 1 / -1;
+  width: 100%;
+  height: 0;
+  margin-top: 0.5em;
+  border-bottom: 3px dotted rgba(117, 178, 224, 0.3);
+}
+
+/* Clickable letters (buttons for a11y) */
+.letterBtn {
+  background: none;
+  border: none;
+  padding: 0.15em 0.1em;
+  margin: 0;
+  font: inherit;
+  line-height: 1;
+  cursor: pointer;
+  color: rgba(117, 178, 224, 0.3); /* base color like .letterSort */
+}
+.letterBtn:hover { opacity: 0.85; transform: scale(1.04); }
+.letterBtn:focus-visible { outline: 2px solid rgba(117, 178, 224, 0.5); border-radius: 6px; }
+
+/* Active letter color */
+.activeLetter { color: var(--colorDarkBlue); }
+
+/* Back-compat (not used now) */
+.letterSort { color: rgba(117, 178, 224, 0.3); }
+.letterSeperator { display: none; }
+
+/* ================================
+   Organization Search
+================================== */
+.organizationSearch {
+  width: calc(100% - 5em);
+  margin: auto;
+  display: flex;
+  justify-content: space-between;
+  padding: 0.4em;
+  align-items: center;
+}
+.organizationSearch_bar { width: fit-content; display: flex; padding: 0.2em; }
+.organizationSearch_bar > input {
+  border: none;
+  outline: none;
+  border-bottom: 0.1em solid var(--colorLightBlue);
+  height: fit-content;
+  font-size: 0.9em;
+  margin: auto;
+  padding-left: 1ch;
+  margin-right: 1ch;
+}
+.organizationSearch_bar > input::placeholder { color: lightgray; font-size: 0.8em; }
+.organizationSearch_bar > input:focus { border-bottom: 0.1em solid var(--colorDeepRed); }
+.organizationSearch_icon {
+  background-image: url("../assets/res/searchicon.png");
+  background-repeat: no-repeat;
+  border-radius: 0;
+  background-size: 30%;
+  cursor: pointer;
+  margin: 0;
+}
+.organizationSearch_icon:hover { color: var(--colorDeepRed); transform: scale(1.04); }
+
+/* ================================
+   Buttons (CSV, Reset, etc.)
+================================== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--fontBabasNeue);
+  font-size: 0.7em;
+  padding: 0.5em 3em;
+  border-radius: 30rem;                 /* pill radius for ALL buttons */
+  border: 2px solid transparent;
+  text-decoration: none !important;     /* anchors-as-buttons never underline */
+  cursor: pointer;
+  transition: background-color .2s, color .2s, border .2s, box-shadow .2s;
+}
+
+/* Primary (CSV) */
+.btn--primary {
+  background-color: var(--colorDeepRed);
+  color: #fff;
+}
+.btn--primary:hover,
+.btn--primary:focus {
+  background-color: #fff;
+  color: var(--colorDeepRed);
+  border-color: var(--colorDeepRed);
+  outline: none;
+}
+
+/* Secondary (Reset) */
+.btn--secondary {
+  background-color: var(--colorLightPurple, #a78bfa); /* fallback if var missing */
+  color: #fff;
+}
+.btn--secondary:hover,
+.btn--secondary:focus {
+  background-color: #fff;
+  color: var(--colorLightPurple, #a78bfa);
+  border-color: var(--colorLightPurple, #a78bfa);
+  outline: none;
+}
+
+/* Visible keyboard focus for all buttons */
+.btn:focus-visible { box-shadow: 0 0 0 3px rgba(167, 139, 250, 0.35); }
+
+/* ================================
+   Responsive
+================================== */
+@media (max-width: 1024px) {
+  .listOfContainer { columns: 2; }
+  .listOfList { height: 24em; }
+}
+
+@media (max-width: 768px) {
+  .backToDiscover { padding-left: 1em; }
+  .listOfOptions { padding: 0 1em; justify-content: center; }
+  .listOfFilter { width: 100%; justify-content: center; flex-wrap: wrap; gap: 0.5em 0.75em; }
+  .participants-select { max-width: min(520px, 90vw); width: 100%; }
+  .participants-select .select__control { min-width: 220px; width: 100%; }
+  .organizationSearch { width: calc(100% - 2em); }
+  .organizationSearch_bar > input { width: 60vw; }
+  .listOfContainer { columns: 1; }
+  .listOfList { height: auto; max-height: 60vh; overflow-y: auto; }
+  .alphabetList { padding-left: 1em; padding-right: 1em; }
+  .alphabetActions { padding-left: 1em; padding-right: 1em; }
+}
+
+@media (max-width: 480px) {
+  :is(.participants, .listOf) { font-size: calc(14px + 1.2vw); }
+  .organizationSearch_bar > input { width: 70vw; }
+  /* Tighten alphabets a bit on very small screens */
+  .alphabetList { gap: 0.2em; }
+  .letterBtn { padding: 0.1em 0; }
+}
