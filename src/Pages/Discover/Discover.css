@@ -49,19 +49,12 @@ FEATURED
 }
 
 .shuffleButton {
+    color: white;
+    background-color: var(--colorDarkBlue);
     position: absolute;
-    background: none;
     border: none;
-    cursor: pointer;
-    padding: 0;
-    right: 0;
-    margin-right: 2.2em;
-    margin-bottom: 1em;
-}
-
-.shuffleButton img {
-    width: 1.5em;
-    height: 1.5em;
+    right: 0.5em;
+    margin-bottom: 2em;
 }
 
 .discoverFeatured_cards {
@@ -76,11 +69,37 @@ FEATURED
 
 .discoverFeatured_cards > * {
     margin: 0em 0;
+    margin-bottom: 1em;
     width: 30%;
     position: relative;
     border-radius: 16px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
+
+.discoverFeatured_more {
+    display: flex;
+    justify-content: center; /* centers the heading initially */
+    align-items: center;
+    position: relative;
+}
+
+.discoverFeatured_moreButton {
+    margin-top: 0;
+    color: white;
+    background-color: var(--colorDarkBlue);
+    position: absolute;
+    border: none;
+    right: 0.5em;
+    font-size: 1em;
+    padding-left: 0.7em;
+    padding-right: 0.7em;
+    padding-top: 0.1em;
+}
+
+.discoverFeatured_moreButton:hover {
+    color: white;
+}
+
 
 /*
 INTRO
