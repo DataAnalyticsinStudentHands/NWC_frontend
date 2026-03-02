@@ -41,65 +41,42 @@ FEATURED
 
 .discoverFeatured_header {
     display: flex;
-    justify-content: center; /* centers the heading initially */
+    justify-content: flex-end; /* centers the heading initially */
     align-items: center;
     position: relative;
     margin-top: 1em;
     margin-bottom: 1em;
 }
 
-.shuffleButton {
-    color: white;
-    background-color: var(--colorDarkBlue);
-    position: absolute;
-    border: none;
-    right: 0.5em;
-    margin-bottom: 2em;
-}
-
 .discoverFeatured_cards {
-    display: flex;
-    justify-content: space-around;
+    display: block; 
     margin-bottom: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    flex-wrap: wrap;
+    margin-left: 2em;
+    margin-right: 2em;
     position: relative;
 }
 
-.discoverFeatured_cards > * {
-    margin: 0em 0;
-    margin-bottom: 1em;
-    width: 30%;
-    position: relative;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.discoverFeatured_cards .slick-slide {
+    padding: 0 50px;
 }
 
-.discoverFeatured_more {
-    display: flex;
-    justify-content: center; /* centers the heading initially */
-    align-items: center;
-    position: relative;
+.discoverFeatured_cards .slick-dots {
+    bottom: -25%;
 }
 
-.discoverFeatured_moreButton {
-    margin-top: 0;
-    color: white;
-    background-color: var(--colorDarkBlue);
+.shuffleButton {
     position: absolute;
+    right: 4%;
+    background: none;
     border: none;
-    right: 0.5em;
-    font-size: 1em;
-    padding-left: 0.7em;
-    padding-right: 0.7em;
-    padding-top: 0.1em;
+    cursor: pointer;
+    padding: 0;
 }
 
-.discoverFeatured_moreButton:hover {
-    color: white;
+.shuffleButton img {
+    width: 1.5em;
+    height: 1.5em;
 }
-
 
 /*
 INTRO
@@ -283,15 +260,10 @@ PAGINATION COMPONENET
 }
 
 .pagination {
-    position: absolute;
     display: flex;
     list-style: none;
     cursor: pointer;
-    margin-left: 220rem;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    left: 50%;
-}
+    }
 
 .pagination a {
     display: inline-block;

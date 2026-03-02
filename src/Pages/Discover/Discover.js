@@ -10,6 +10,8 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
+import FeaturedCarousel from './Components/FeaturedCarousel';
+import Shuffle from "./res/Shuffle.svg"
 var currentData = 'lastname'
 
 function Discover() {
@@ -25,6 +27,7 @@ function Discover() {
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
+  const [allFeaturedCards, setAllFeaturedCards] = useState([]);
   const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
@@ -46,8 +49,9 @@ function Discover() {
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, (cards) => {
+          setAllFeaturedCards(cards); // store full list
           const shuffled = [...cards].sort(() => Math.random() - 0.5);
-          setFeatured(shuffled);
+          setFeatured(shuffled.slice(0, 10)); // only show 10
         });
         setDataLength(data.data.length);
         listOfCards.current = data.data;
@@ -211,14 +215,10 @@ function Discover() {
   }
 
   //shuffle featured cards
-  function shuffleFeatured() {
-  setFeatured(prev => {
-    const shuffled = [...prev].sort(() => Math.random() - 0.5);
-    return shuffled;
-  });
-}
-
-const [featuredVisibleCount, setFeaturedVisibleCount] = useState(3);
+  const shuffleFeatured = () => {
+    const shuffled = [...allFeaturedCards].sort(() => Math.random() - 0.5);
+    setFeatured(shuffled.slice(0, 10));
+  };
 
   return (
     <div className="discover">
@@ -239,35 +239,12 @@ const [featuredVisibleCount, setFeaturedVisibleCount] = useState(3);
       </div>
       <div className="discoverFeatured_header">
         <button className="shuffleButton" onClick={shuffleFeatured}>
-          Shuffle Featured Stories
+          <img src={Shuffle} alt="Shuffle" />
         </button>
       </div>
       <div className="discoverFeatured_cards">
-          {featuredCards
-            .slice(0, featuredVisibleCount)
-            .map((value) => <DiscoverCard
-              key={Math.random()}
-              color={"teal"}
-              href={`/Discover/${value.id}`}
-              firstname={value.firstname}
-              lastname={value.lastname}
-              role={value.role}
-              state={value.state}
-              profilepic={value.profilepic}
-            />)
-          }
+        <FeaturedCarousel cards={featuredCards.slice(0, 10)} />
       </div>
-                                {featuredVisibleCount < featuredCards.length && (
-  <div className="discoverFeatured_more">
-    <button
-      className="discoverFeatured_moreButton"
-      onClick={() => setFeaturedVisibleCount(prev => prev + 3)}
-      aria-label="Load more featured stories"
-    >
-      ...
-    </button>
-  </div>
-)}
 
 
       {/**INTRO */}
