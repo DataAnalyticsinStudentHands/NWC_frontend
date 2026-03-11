@@ -53,30 +53,27 @@ function DiscoverCard({
     }
 
     return (
-        
-        <Link className="discoverCard" to={href} style={{"border": border}}>
-            <div href="discoverCard_body">
+        <div className="discoverCard" style={{"border": border}}>
+        <Link to={href}>
                 <div className="discoverCard_holePunch" style={{"border": border}}></div>
                 <div className="discoverCard_items">
                     <div className="discoverCard_logo">
-
                         <div className="discoverCard_logoPic">
                         {logoPic}
                         </div>
                         <div className="discoverCard_logoPlace">
                         {logoPlace}
                         </div>
-
                     </div>
                     <div className="discoverCard_data">
-                        <p className="discoverCard_name" style={{"border": border, "borderLeft": "none"}}>{firstname} {lastname}</p>
-                        <p className="discoverCard_role" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{role}</p>
-                        <p className="discoverCard_state" style={{"border": border, "borderTop": "none", "borderLeft": "none"}}>{state}</p>
+                        <p className="discoverCard_name" style={{"borderTop": border, "borderLeft": "none", "borderRight": border, "borderBottom": border}}>{lastname}, {firstname} </p>
+                        <p className="discoverCard_role" style={{"borderTop": "none", "borderLeft": "none", "borderRight": border, "borderBottom": border}}>{role}</p>
+                        <p className="discoverCard_state" style={{"borderTop": "none", "borderLeft": "none", "borderRight": border, "borderBottom": border}}>{state}</p>
                     </div>
                 </div>
                 <p className="discoverCard_bottom">National Women&apos;s Conference 1977</p>
-            </div>
         </Link>
+        </div>
     )
 }
 

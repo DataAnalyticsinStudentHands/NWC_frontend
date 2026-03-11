@@ -11,7 +11,7 @@ import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearch
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
-import Participants from "./Pages/Participants/Participants";
+import ListPage from './Pages/ListPage';
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
@@ -28,7 +28,6 @@ import ThankYouPage from "./Pages/Forms/ThankYouPage";
 import PDFViewer from "./Pages/PDFViewer/PDFViewer";
 import { Resources } from "./Pages/HowToContribute/components/Resources";
 import OralHistories from "./Pages/OralHistories/OralHistories";
-import Organizations from "./Pages/ResearchingNWC/Organizations";
 import PageNotFound from "./Pages/404Page";
 
 const ScrollToTop = (props) => {
@@ -60,8 +59,7 @@ function Routing() {
             <Route path="discover" element={<Discover />} />
             <Route path="researchingNWC" element={<ResearchingNWC />} />
             <Route path="advancedSearch" element={<AdvancedSearch />} />
-            <Route path="organizations" element={<Organizations />} />
-            <Route path="participants" element={<Participants />} />
+            <Route path="/list/:type" element={<ListPage />} />
             <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
             <Route path="forms/corrections" element={<CorrectionsForm />} />
             <Route path="forms/contactus" element={<ContactUsForm />} />
@@ -99,8 +97,7 @@ function Routing() {
           <Route path="discover" element={<Discover />} />
           <Route path="researchingNWC" element={<ResearchingNWC />} />
           <Route path="advancedSearch" element={<AdvancedSearch />} />
-          <Route path="organizations" element={<Organizations />} />
-          <Route path="participants" element={<Participants />} />
+          <Route path="/list/:type" element={<ListPage />} />
           <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
           <Route path="forms/corrections" element={<CorrectionsForm />} />
           <Route path="forms/contactus" element={<ContactUsForm />} />

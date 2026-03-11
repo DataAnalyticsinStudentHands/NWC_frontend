@@ -5,6 +5,7 @@
     border-radius: 24px;
     position: relative;
     text-decoration: none;
+    min-height: 260px;
 }
 
 .discoverCard:hover {
@@ -54,6 +55,7 @@
     font-size: .6em;
     padding-top: .4em;
     color: rgb(0, 0, 0);
+    margin-top: -1rem;
 }
 
 .discoverCard_data .discoverCard_name {
