@@ -32,7 +32,6 @@ Control the individal space for each item in the banner
 /*
 FEATURED
 */
-
 .discoverFeatured > h2 {
     font-weight: normal;
     text-align: center;
@@ -40,22 +39,43 @@ FEATURED
     margin-bottom: 1em;
 }
 
-.discoverFeatured_cards {
+.discoverFeatured_header {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-end; /* centers the heading initially */
+    align-items: center;
+    position: relative;
+    margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 1em;
-    margin-right: 1em;
-    flex-wrap: wrap;
+}
+
+.discoverFeatured_cards {
+    display: block; 
+    margin-bottom: 1em;
+    margin-left: 2em;
+    margin-right: 2em;
     position: relative;
 }
 
-.discoverFeatured_cards > * {
-    margin: 1em 0;
-    width: 30%;
-    position: relative;
-    border-radius: 16px;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+.discoverFeatured_cards .slick-slide {
+    padding: 0 50px;
+}
+
+.discoverFeatured_cards .slick-dots {
+    bottom: -25%;
+}
+
+.shuffleButton {
+    position: absolute;
+    right: 4%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.shuffleButton img {
+    width: 1.5em;
+    height: 1.5em;
 }
 
 /*
@@ -155,7 +175,7 @@ SEARCH
     margin: .5em auto;
     display: flex;
     justify-content: left;
-    margin-bottom: 50rem;
+    margin-bottom: 30rem;
 }
 
 .discoverButtons_participants {
@@ -240,15 +260,10 @@ PAGINATION COMPONENET
 }
 
 .pagination {
-    position: absolute;
     display: flex;
     list-style: none;
     cursor: pointer;
-    margin-left: 220rem;
-    margin-top: 15px;
-    margin-bottom: 10px;
-    left: 50%;
-}
+    }
 
 .pagination a {
     display: inline-block;
