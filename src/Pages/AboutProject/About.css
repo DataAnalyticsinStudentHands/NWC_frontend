@@ -16,7 +16,7 @@ BANNER
 Control the individal space for each item in the banner
 */
 .aboutBanner > img {
-  width: 25%;
+  width: 15%;
 }
 
 .aboutBanner > .bannercard {
@@ -26,7 +26,6 @@ Control the individal space for each item in the banner
 
 .aboutBanner > .captionedImg {
   width: 25%;
-  margin-left: 4em;
 }
 
 .aboutHead > h1 {
@@ -45,7 +44,7 @@ TIMELINE
 */
 
 .aboutTimeline {
-  min-height: 2100rem;
+  min-height: 1750rem;
 }
 
 .aboutTimeline_header {
@@ -61,27 +60,27 @@ TIMELINE
 
 .aboutTimeline_annot1 {
   /* margin-top: 1050rem; */
-  margin-left: 180rem;
+  margin-left: 120rem;
 }
 
 .aboutTimeline_annot2 {
-  margin-left: 535rem;
-  margin-top: 1300rem;
+  margin-left: 435rem;
+  margin-top: 1100rem;
 }
 
 .aboutTimeline_annot3 {
   /* margin-top: 1050rem; */
-  margin-left: 810rem;
+  margin-left: 710rem;
 }
 
 .aboutTimeline_annot4 {
-  margin-left: 1150rem;
-  margin-top: 1300rem;
+  margin-left: 1100rem;
+  margin-top: 1100rem;
 }
 
 .aboutTimeline_annot5 {
   /* margin-top: 1050rem; */
-  margin-left: 1450rem;
+  margin-left: 1300rem;
 }
 
 .aboutTimeline_annotNo {
@@ -97,13 +96,13 @@ TIMELINE
   font-family: var(--fontMontserrat);
   margin-top: 110rem;
   margin-left: 38rem;
-  width: 234rem;
+  width: 460rem;
 }
 
 .aboutTimeline_tl {
   width: 1877rem;
   margin-left: 43rem;
-  margin-top: 540rem;
+  margin-top: 400rem;
 }
 
 /*

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom';
 import "./About.css";
 
-import button from "../../assets/res/button-50th-anniversary.png";
+import button from "./res/AboutProjectButton.png";
 import barbarajordan from './res/barbara-jordan.png';
 import tl from './res/timeline.png';
 import BannerCard from "../../Components/BannerCard/BannerCard";
