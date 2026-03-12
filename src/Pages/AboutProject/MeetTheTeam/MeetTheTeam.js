@@ -89,47 +89,93 @@ function MeetTheTeam() {
 
     {/**TABLE */}
     <div className="aboutTable">
-    <div className="aboutTable_tabs">
-    {
-      Object.keys(lookup).map(k =>
-        <div
-          key={k}
-          className={`aboutTable_tab ${currentTab === lookup[k] ? 'aboutTable_tab--active' : ''}`}
-          onClick={() => setCurrentTab(lookup[k])}
-        >
-          <p>{lookup[k]}</p>
-        </div>
-        
-      )
-    }
-  </div>
 
+      {/* Desktop: left tabs column */}
+      <div className="aboutTable_tabs">
+        {Object.keys(lookup).map(k =>
+          <div
+            key={k}
+            className={`aboutTable_tab ${currentTab === lookup[k] ? 'aboutTable_tab--active' : ''}`}
+            onClick={() => setCurrentTab(lookup[k])}
+          >
+            <p>{lookup[k]}</p>
+          </div>
+        )}
+      </div>
+
+      {/* Desktop view */}
       <div className="aboutTable_entries">
         {isLoading ? (
           <p>Loading ...</p>
         ) : (
-          contributors[currentTab].map(content =>
+          contributors[currentTab]?.map(content =>
             <div className="aboutTable_entry" key={Math.random()}>
-              {currentTab !== "STEERING COMMITTEE" && currentTab !== "INAUGURAL TEAM" ? 
-              <div className="aboutTable_entry">
-                <p className="aboutTable_name"> {content.attributes.FirstName !== 'None' ? content.attributes.FirstName:''} {content.attributes.LastName} - 
-                <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span></p>
-              </div> : 
-              <div className="aboutTable_steering_entry"> 
-                    {content.attributes.ProfilePicture.data ?
-                      <img src={process.env.REACT_APP_API_URL + content.attributes.ProfilePicture.data.attributes.url} alt="_" /> : 
-                      <img src={empty_profile_image} alt="empty_image_profile"/>}
-                    <div className="aboutTable_steering_box">
-                      <p className="aboutTable_steering_name"> {content.attributes.FirstName} {content.attributes.LastName}</p>
-                      <p className="aboutTable_steering_txt">{content.attributes.Description}</p>
-                    </div>
+              {currentTab !== "STEERING COMMITTEE" && currentTab !== "INAUGURAL TEAM" ?
+                <div className="aboutTable_entry">
+                  <p className="aboutTable_name">
+                    {content.attributes.FirstName !== 'None' ? content.attributes.FirstName : ''} {content.attributes.LastName} -
+                    <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span>
+                  </p>
+                </div> :
+                <div className="aboutTable_steering_entry">
+                  {content.attributes.ProfilePicture.data ?
+                    <img src={process.env.REACT_APP_API_URL + content.attributes.ProfilePicture.data.attributes.url} alt="_" /> :
+                    <img src={empty_profile_image} alt="empty_image_profile" />}
+                  <div className="aboutTable_steering_box">
+                    <p className="aboutTable_steering_name">{content.attributes.FirstName} {content.attributes.LastName}</p>
+                    <p className="aboutTable_steering_txt">{content.attributes.Description}</p>
+                  </div>
                 </div>
               }
-
             </div>
           )
         )}
       </div>
+
+      {/* Mobile*/}
+      {Object.keys(lookup).map(k => {
+        const tabName = lookup[k];
+        const isActive = currentTab === tabName;
+        return (
+          <div key={k} className="aboutTable_section">
+            <div
+              className={`aboutTable_tab ${isActive ? 'aboutTable_tab--active' : ''}`}
+              onClick={() => setCurrentTab(isActive ? null : tabName)}
+            >
+              <p>{tabName}</p>
+              <span className="aboutTable_chevron">{isActive ? '▲' : '▼'}</span>
+            </div>
+            <div className={`aboutTable_entries--inline ${isActive ? 'aboutTable_entries--open' : ''}`}>
+              {isLoading ? (
+                <p>Loading ...</p>
+              ) : (
+                contributors[tabName]?.map(content =>
+                  <div className="aboutTable_entry" key={Math.random()}>
+                    {tabName !== "STEERING COMMITTEE" && tabName !== "INAUGURAL TEAM" ?
+                      <div className="aboutTable_entry">
+                        <p className="aboutTable_name">
+                          {content.attributes.FirstName !== 'None' ? content.attributes.FirstName : ''} {content.attributes.LastName} -
+                          <span className="aboutTable_txt"> {content.attributes.Description}, {content.attributes.Years}</span>
+                        </p>
+                      </div> :
+                      <div className="aboutTable_steering_entry">
+                        {content.attributes.ProfilePicture.data ?
+                          <img src={process.env.REACT_APP_API_URL + content.attributes.ProfilePicture.data.attributes.url} alt="_" /> :
+                          <img src={empty_profile_image} alt="empty_image_profile" />}
+                        <div className="aboutTable_steering_box">
+                          <p className="aboutTable_steering_name">{content.attributes.FirstName} {content.attributes.LastName}</p>
+                          <p className="aboutTable_steering_txt">{content.attributes.Description}</p>
+                        </div>
+                      </div>
+                    }
+                  </div>
+                )
+              )}
+            </div>
+          </div>
+        );
+      })}
+
     </div>
   </div>
 }
