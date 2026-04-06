@@ -36,8 +36,7 @@ function MeetTheTeam() {
     "DevUXInterns": 'FULL-STACK DEV AND UX INTERNS/STAFF',
     "InauguralTeam": 'INAUGURAL TEAM',
     "SteeringCommittee": 'STEERING COMMITTEE',
-    "InternalAdvisoryCommittee": 'INTERNAL ADVISORY COMMITTEE',
-    "ExternalAdvisoryCommittee": 'EXTERNAL ADVISORY COMMITTEE',
+    "InauguralAdvisoryCommittees": 'INAUGURAL ADVISORY COMMITTEES',
     "DonorGrantingAgencies": 'DONOR AND GRANTING AGENCIES',
     "EditorialBoardFellows": 'EDITORIAL BOARD FELLOWS',
     "EditorialBoardLeads": 'EDITORIAL BOARD LEADS'
@@ -55,6 +54,12 @@ function MeetTheTeam() {
         return result
       }, [])
       
+      Object.keys(grouped).forEach(group => {
+        grouped[group].sort((a, b) =>
+          a.attributes.LastName.localeCompare(b.attributes.LastName)
+        );
+      });
+
       setContributors(grouped);
       setIsLoading(false);
     })
