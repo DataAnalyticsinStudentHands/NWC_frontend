@@ -74,6 +74,8 @@ function About() {
       .catch(err => console.log(err));
   }, []); // eslint-disable-line
 
+  console.log(state)
+
   return (
     <div className="about">
 
