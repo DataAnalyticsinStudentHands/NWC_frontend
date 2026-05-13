@@ -3,16 +3,17 @@ import './AdvancedSearch.css'
 import '../ResearchingNWC.css'
 import Collapsible from './Collapsible'
 import Select from 'react-select';
-import { useState, useEffect, } from "react";
+import { useState, useEffect, useRef} from "react";
 import Tabs from "../Components/Tabs";
 import { useForm, Controller } from 'react-hook-form';
 import qs from 'qs'
-import stateTerritories from '../../../assets/stateTerritories.json';
 import ReactMarkdown from 'react-markdown';
 import '../ResearchingNWC.css'
 import {ResultTableMap} from '../Components/ResultTableMap/ResultTableMap';
 import { processTableData } from './TableHeaders'
 import { Multiselect } from '../Components/Multiselect'
+import { StateSelect } from '../../../Components/StateSelect/StateSelect';
+
 import { Banner } from '../../../Components/Banner';
 import { InfoBox } from '../Components/InfoBox';
 import infoIcon from '../res/Info Hover Icon.svg';
@@ -40,13 +41,31 @@ function AdvancedSearch() {
     fetchContentMap();
   },[]);
 
-  // adding USA list of states for select input
-  const stateOptions = []
-  Object.values(stateTerritories).forEach((state) => {
-    if (state.isActive) {
-      stateOptions.push({value: state.stateCode, label: state.state}) 
+  const [stateOptions, setStateOptions] = useState([])
+  useEffect(() => {
+  async function fetchAvailableStates() {
+    try {
+      const response = await fetch(
+        `${process.env.REACT_APP_API_URL}/api/nwc-participants?fields=represented_state&pagination[pageSize]=1000`
+      );
+      const data = await response.json();
+
+      const states = [
+        ...new Set(
+          data.data
+            .map((person) => person.attributes.represented_state)
+            .filter(Boolean) // remove null/undefined
+        )
+      ];
+
+      setStateOptions(states);
+    } catch (error) {
+      console.error("Error fetching available states:", error);
     }
-  })
+  }
+
+  fetchAvailableStates();
+}, []);
 
   const populationOptions = [
     { value: "1 - 2,500", label: "1 - 2,500", filter: { $gte: 1, $lte: 2500 }},
@@ -72,6 +91,11 @@ function AdvancedSearch() {
     { value: "1950 - 1959", label: "1950 - 1959", filter : { $gte: 1950, $lte: 1959 }},
     { value: "1960 - 1969", label: "1960 - 1969", filter : { $gte: 1960, $lte: 1969 }},
     { value: "1970 - 1977", label: "1970 - 1977", filter : { $gte: 1970, $lte: 1977 }},
+    { value: "1978 - 1989", label: "1978 - 1989", filter : { $gte: 1978, $lte: 1989 }},
+    { value: "1990 - 1999", label: "1990 - 1999", filter : { $gte: 1990, $lte: 1999 }},
+    { value: "2000 - 2009", label: "2000 - 2009", filter : { $gte: 2000, $lte: 2009 }},
+    { value: "2010 - 2019", label: "2010 - 2019", filter : { $gte: 2010, $lte: 2019 }},
+    { value: "2020 - 2029", label: "2020 - 2029", filter : { $gte: 2020, $lte: 2029 }},
   ]
 
   const religionData = ["Agnostic","Atheist","Baha’i","Catholic","Eastern Religions","Jewish","Mormon","Muslim","None","Other", "Protestant", "Unitarian Universalist"];
@@ -533,16 +557,19 @@ function AdvancedSearch() {
       setIsButtonClicked(false);
       setclickedPlanks({})
       setHasChildren(null)
-      setIsToggleOn(true);
       }, 50)
   }
   const [selectedOptions, setSelectedOptions] = useState({});
-    // State to track the toggle status
-  const [isToggleOn, setIsToggleOn] = useState(true);
-  // Function to handle toggle change
-  const handleToggleChange = (event) => {
-    setIsToggleOn(event.target.checked);
-  };
+
+  const resultsRef = useRef(null);
+  useEffect(() => {
+    if (tableData.length > 0 && resultsRef.current) {
+      resultsRef.current.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  }, [tableData]);
 
   return (
     <>
@@ -685,19 +712,19 @@ function AdvancedSearch() {
                     control={control}
                     name="represented_state"
                     render={({ field }) => (
-                      <Multiselect
-                        options={stateOptions}
-                        value={selectedOptions.represented_state || []}
-                        onChange={(selected) => {
-                          setSelectedOptions(prev => ({
-                            ...prev,
-                            represented_state: selected,
-                          }));
-                          field.onChange(selected.map(opt => opt.value));
-                        }}
-                        onBlur={field.onBlur}
-                        name={field.name}
-                        />
+                      <StateSelect
+                      css={{ container: base => ({ ...base, width: "max-content", minWidth: "11%" })}}
+                      onSelect={(selectedOption) => {
+                        setSelectedOptions((prevOptions) => ({
+                          ...prevOptions,
+                          represented_state: selectedOption,
+                        }));
+
+                        field.onChange(selectedOption.map(opt => opt.value));
+                      }}
+                        selectedOptions={selectedOptions["represented_state"] || []}
+                        states={stateOptions}
+                      />
                     )}
                   />
                 </div>
@@ -1316,14 +1343,18 @@ function AdvancedSearch() {
           </div>
           <div className="advancedSearch_toggle">
             <div className='basicSearch_toggle-left'>
-              {isToggleOn ? 'Broaden search results' : 'Narrow search results'}
+              Narrow search results
               <div className='advancedSearch_toggle-container'>
                 <img className='infoIcon' src={infoIcon} alt="_" />
                 <div className="advancedSearch_toggle-tooltip">
-                  <p><b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.</p>
-                  <p>Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican</p>
-                  <p><strong>On</strong> NARROWS the results list to only the participants for whom all selections are true.</p>
-                  <p>Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
+                    <p>
+                    <b>Off</b> WIDENS the results to all the participants for whom at least one of the selections are true.
+                    </p>
+                    <p>
+                      Ex: Notable Speakers <strong>OR</strong> Catholic <strong>OR</strong> Republican
+                    </p>
+                    <p><strong>On</strong> NARROWS  the results list to only the participants for whom all selections are true.</p>
+                    <p> Ex: Notable Speakers <strong>AND</strong> Catholic <strong>AND</strong> Republican</p>
                 </div>
               </div>
             </div>
@@ -1331,8 +1362,6 @@ function AdvancedSearch() {
               <input 
                 type="checkbox" 
                 {...register("switch")} 
-                defaultChecked={isToggleOn} 
-                onChange={handleToggleChange}
               />
               <span className="slider round"></span>
             </label>
@@ -1344,7 +1373,7 @@ function AdvancedSearch() {
         </div>
         </div>
         {isButtonClicked && tableData.length > 0 && (
-        <div className='Result-Continer'>
+        <div className='Result-Continer' ref={resultsRef}>
           <ResultTableMap data={tableData} map_data={maps} userInput={userInput}/>
         </div>
         )}

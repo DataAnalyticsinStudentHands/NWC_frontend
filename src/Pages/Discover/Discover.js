@@ -10,7 +10,9 @@ import { Link } from 'react-router-dom';
 import ReactPaginate from 'react-paginate';
 import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
-var currentData = 'default'
+import FeaturedCarousel from './Components/FeaturedCarousel';
+import Shuffle from "./res/Shuffle.svg"
+var currentData = 'lastname'
 
 function Discover() {
   //state for main page conent
@@ -25,12 +27,13 @@ function Discover() {
   const [dataLength, setDataLength] = useState()
   const [cards, setCards] = useState([]);
   const [featuredCards, setFeatured] = useState([])
+  const [allFeaturedCards, setAllFeaturedCards] = useState([]);
   const [currentOffSet, setCurrentOffSet] = useState(0);
   const [postsPerPage, setPostsPerPage] = useState(12);
   const [input, setInput] = useState("");
   const listOfCards = useRef([]);
   const [activeCardsPerPage, setActiveCardsPerPage] = useState('12');
-  const [activeSortMethod, setActiveSortMethod] = useState(0);
+  const [activeSortMethod, setActiveSortMethod] = useState(2);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   function setOffSet(){
@@ -45,15 +48,20 @@ function Discover() {
     fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?_limit=-1&populate=*`)
       .then(response => response.json())
       .then(data => {
-        loadcards(data.data, setFeatured);
-        setDataLength(data.data.length)
-        listOfCards.current = data.data
-      }).catch(err => console.log(err));
-  }, []); // eslint-disable-line
-  
+        loadcards(data.data, (cards) => {
+          setAllFeaturedCards(cards); // store full list
+          const shuffled = [...cards].sort(() => Math.random() - 0.5);
+          setFeatured(shuffled.slice(0, 10)); // only show 10
+        });
+        setDataLength(data.data.length);
+        listOfCards.current = data.data;
+      })
+      .catch(err => console.log(err));
+  }, []);
+
   useEffect(() => {
     if(currentData === 'default'){
-      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${process.env.REACT_APP_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
       .then(response => response.json())
       .then(data => {
         loadcards(data.data, setCards);
@@ -162,6 +170,7 @@ function Discover() {
 
   function resetData(){
     currentData='default'
+    setActiveSortMethod(2)
     setOffSet()
   }
 
@@ -205,6 +214,12 @@ function Discover() {
     setCurrentOffSet(e.selected+1)
   }
 
+  //shuffle featured cards
+  const shuffleFeatured = () => {
+    const shuffled = [...allFeaturedCards].sort(() => Math.random() - 0.5);
+    setFeatured(shuffled.slice(0, 10));
+  };
+
   return (
     <div className="discover">
       {/**BANNER */}
@@ -217,25 +232,20 @@ function Discover() {
           caption_more={state.bannerimagecredit_more} />
       </div>
 
+      
       {/**FEATURED */}
       <div className="discoverFeatured">
-        <h2>FEATURED STORIES</h2>
-        <div className="discoverFeatured_cards">
-          {featuredCards
-            .filter(value => value.featured === 'true')
-            .map((value) => <DiscoverCard
-              key={Math.random()}
-              color={"teal"}
-              href={`/Discover/${value.id}`}
-              firstname={value.firstname}
-              lastname={value.lastname}
-              role={value.role}
-              state={value.state}
-              profilepic={value.profilepic}
-            />)
-          }
-        </div>
+        <h2>EVERY STORY MATTERS</h2>
       </div>
+      <div className="discoverFeatured_header">
+        <button className="shuffleButton" onClick={shuffleFeatured}>
+          <img src={Shuffle} alt="Shuffle" />
+        </button>
+      </div>
+      <div className="discoverFeatured_cards">
+        <FeaturedCarousel cards={featuredCards.slice(0, 10)} />
+      </div>
+
 
       {/**INTRO */}
       <div className="discoverIntro">
@@ -251,9 +261,9 @@ function Discover() {
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
-          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
-          <p className="discoverSearch_separater">|</p>
           <p className={activeSortMethod === 2?'activeSortMethod':"discoverSearch_sorter"} onClick={() => lastNameSort()}>LAST NAME</p>
+          <p className="discoverSearch_separater">|</p>
+          <p className={activeSortMethod === 1?'activeSortMethod':"discoverSearch_sorter"} onClick={() => firstNameSort()}>FIRST NAME</p>
           <p className="discoverSearch_separater">|</p>
           <p className= {activeSortMethod === 3?'activeSortMethod':"discoverSearch_sorter"} onClick={() => sortRole()}>ROLE</p>
           <p className="discoverSearch_separater">|</p>
@@ -289,7 +299,6 @@ function Discover() {
         />)
         }
       </div>
-
       <ReactPaginate
         containerClassName={"pagination"}
         nextLabel="next >"
@@ -305,13 +314,19 @@ function Discover() {
         renderOnZeroPageCount={null}
         // breakLabel="..."
         // forcePage={resetPagination()}    
-        />
-
+      />
       <div className="discoverButtons">
-        <Link to="/participants">
+        <Link to="/list/participants">
           <div className="discoverButtons_participants">VIEW FULL LIST OF DELEGATES/ALTERNATES</div>
         </Link>
       </div>
+
+      <div className="discoverButtons">
+        <Link to="/list/commissioners">
+          <div className="discoverButtons_participants">VIEW FULL LIST OF Presidential Commissioners</div>
+        </Link>
+      </div>
+      
     </div>
   )
 }

@@ -81,11 +81,11 @@ SEARCH
 
 .mappingNWCSearchTemp{
   color: #000;
-font-family: Montserrat;
-font-size: 24px;
-font-style: normal;
-font-weight: 700;
-line-height: 43px; /* 179.167% */
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 43px; /* 179.167% */
 } 
 
 
@@ -215,20 +215,22 @@ button {
   transition: color .5s, background-color .5s;
 }
 
-.searchButton {
+.NWC_searchButton {
   background-color: var(--colorDeepRed); 
   padding: 10rem 50rem;
   color: white;
   border-radius: 30rem;
   font-size: 30rem;
+  margin-left: auto;
+  margin-right: 10rem;
+  margin-top: -20rem;
 }
 
-.resetButton {
-  background-color: var(--colorDarkBlue);
-  padding: 10rem 50rem;
-  color: white;
-  border-radius: 30rem;
+.NWC_resetButton {
+  background-color: #615fbf;
   font-size: 30rem;
+  margin-top: -20rem;
+  margin-right: 15rem;
 }
 
 button:hover {
@@ -236,15 +238,15 @@ button:hover {
 }
 
 .Result-Continer{
-    margin: 50rem 80rem;
+    margin: 50rem 90rem;
 }
 .Result-Continer p{
   color: #000;
-font-family: Montserrat;
-font-size: 24px;
-font-style: normal;
-font-weight: 400;
-line-height: 43px; /* 179.167% */
+  font-family: Montserrat;
+  font-size: 32px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 43px; /* 179.167% */
 }
 
 .basicSearch_toggle{
@@ -252,9 +254,8 @@ line-height: 43px; /* 179.167% */
   /* flex-direction: row; */
   justify-content: flex-end;
   align-items: center;
-  margin-top: 2em;
-  margin-right: 2em;
   gap: 1em;
+  margin-left: 200rem;
   position: relative;
 }
 .basicSearch_toggle-left{
@@ -263,6 +264,7 @@ line-height: 43px; /* 179.167% */
   justify-content: flex-end;
   align-items: center;
   position: relative;
+  font-size: 30rem;
 }
 .basicSearch_toggle-container{
   position: relative;
@@ -303,8 +305,11 @@ line-height: 43px; /* 179.167% */
 .basicSearchswitch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 34px;
+  width: 70rem;
+  height: 35rem;
+  border: 4rem solid #000;
+  border-radius: 34rem;  
+
 }
 
 .basicSearchswitch input { 
@@ -316,44 +321,53 @@ line-height: 43px; /* 179.167% */
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+  inset: 0;
+  background-color: #ccc;  
 }
 
-.slider:before {
+.slider::after {
+  content: "OFF";
+  position: absolute;
+  right: 5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12rem;
+  font-family: var(--fontMontserrat);
+  font-weight: 600;
+  color: black;
+  pointer-events: none;
+}
+
+.slider::before {
   position: absolute;
   content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
+  height: 26rem;
+  width: 26rem;
+  left: -4rem;               
+  top: 50%;
+  transform: translateY(-50%);
   background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+  border: 4rem solid #000;
 }
+
 
 input:checked + .slider {
   background-color: #60C1FF;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #60C1FF;
+input:checked + .slider::after {
+  content: "ON";
+  left: 8rem;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+input:checked + .slider::before {
+  transform: translate(39rem, -50%);
 }
+
 
 /* Rounded sliders */
 .slider.round {
-  border-radius: 34px;
+  border-radius: 34rem;  
 }
 
 .slider.round:before {
@@ -367,6 +381,7 @@ input:checked + .slider:before {
   /* justify-content: space-between; */
   align-items: center;
   gap: 1em;
+  margin-top: 20rem;
 }
 .basicSearch_footer-left{
   display: flex;
@@ -383,7 +398,7 @@ input:checked + .slider:before {
   border: none;
   background: transparent;
 	border-bottom: 0.1em solid var(--colorLightBlue);
-  padding: 5px;
+  padding: 3px;
   font-size: 24rem;
   font-family: var(--fontBabasNeue);
   font-weight: 500;
