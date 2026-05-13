@@ -105,6 +105,10 @@ TIMELINE
   margin-top: 400rem;
 }
 
+.aboutTimeline_tl2 {
+  display: none;
+}
+
 /*
 DOCUMENTS
 */
@@ -351,12 +355,97 @@ TABLE
   }
 
   /* TIMELINE */
+  .aboutTimeline {
+    position: relative;
+  }
+
+  .timelineWrapper {
+    position: relative;
+    width: fit-content;
+  }
+
   .aboutTimeline_tl {
-    transform: rotate(270deg) scaleX(-1);
-    width: 9000rem;
-    margin-left: -3500rem;
-    margin-top: 2600rem;
-    margin-bottom: 2600rem;
+    display: none;
+  }
+  
+  .aboutTimeline_tl2 {
+    display: block;
+    width: 100%;
+  }
+
+  .aboutTimeline_annot {
+    position: absolute;
+  }
+
+  .aboutTimeline_annot1 {
+    left: 9%;
+    top: 15%;
+  }
+
+  .aboutTimeline_annot2 {
+    left: 6%;
+    top: 21.5%;
+  }
+
+  .aboutTimeline_annot3 {
+    left: -34%;
+    top: 51.5%;
+  }
+
+  .aboutTimeline_annot4 {
+    left: -24%;
+    top: 56.5%;
+  }
+
+  .aboutTimeline_annot5 {
+    left: -63%;
+    top: 86%;
+  }
+
+  .aboutTimeline_annot1 p {
+    left: -140rem;
+    top: -700rem;
+  }
+
+  .aboutTimeline_annot2 p {
+    left: 280rem;
+    top: -650rem;
+  }
+
+  .aboutTimeline_annot3 p {
+    left: 50rem;
+    top: -850rem;
+  }
+
+  .aboutTimeline_annot4 p {
+    left: 230rem;
+    top: -650rem;
+  }
+
+  .aboutTimeline_annot5 p {
+    left: 70rem;
+    top: -730rem;
+  }
+
+  .aboutTimeline_annotNo {
+    position: absolute;
+  }
+
+  .aboutTimeline_annotNo p {
+    font-size: 360rem;
+    font-family: var(--fontBabasNeue);
+    color: #9EC7E1;
+    position: absolute;
+    z-index: 999;
+  }
+
+  .aboutTimeline_annotText {
+    font-size: 48rem;
+    font-family: var(--fontMontserrat);
+    margin-top: 110rem;
+    margin-left: 38rem;
+    width: 1200rem;
+    z-index: 1;
   }
 
 /* DOCUMENTS & VIDEO REEL */

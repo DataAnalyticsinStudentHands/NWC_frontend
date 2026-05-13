@@ -9,7 +9,9 @@ function MeetTheTeam() {
   // multiple states to hold the leads and contributors loaded from Strapi
   const [leads, setLeads] = useState([]);
   const [contributors, setContributors] = useState([]);
-  const [currentTab, setCurrentTab] = useState("STEERING COMMITTEE");
+  const [currentTab, setCurrentTab] = useState(
+    window.innerWidth <= 768 ? null : "STEERING COMMITTEE"
+  );
   const [isLoading, setIsLoading] = useState(true)
 
   const fetchData = async () => {
