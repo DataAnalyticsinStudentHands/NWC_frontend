@@ -1,0 +1,127 @@
+.card-grid-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); // 3 cards per row
+    gap: 2rem; // spacing between cards
+    justify-items: center; // center cards horizontally
+    align-items: start; // top align cards
+    gap: 100rem 100rem;
+    margin-top: 100rem;
+    min-height: calc((300rem * 2) + 200rem);
+}
+
+.card-wrapper {
+  position: relative;
+  width: 300rem;
+  height: 400rem;
+
+  .card {
+    position: absolute;  // make it fill the space inside the border
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: #eee5db;
+    border-radius: 12rem;
+    padding: 40rem;     // padding stays inside the card
+    box-sizing: border-box;
+  }
+
+  .card-border {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+
+    // Optional: inset the border so content doesn’t overlap
+    padding: 10rem;
+    box-sizing: border-box;
+  }
+}
+
+
+
+.card-content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.card-header {
+    width: 100%;
+    text-align: left;
+    margin-bottom: 12rem;
+
+    .card-name {
+    font-family: var(--fontBabasNeue);
+    color: var(--colorDarkBlue);
+    font-size: 24rem;
+    line-height: 1.2;
+    }
+
+    .card-code {
+    font-family: var(--fontBabasNeue);
+    font-size: 20rem;
+    color: var(--colorDarkBlue);
+    margin-top: 4rem;
+    }
+  
+}
+
+.card-description {
+    margin-top: 15%;  
+    width: 100%;
+    font-size: 12rem;
+    line-height: 1.4;
+    text-align: center;
+    font-family: var(--fontMontserrat);
+    color: var(--colorDarkBlue);
+}
+
+.card-profile {
+    position: relative;
+    width: 200rem;
+    height: 180rem;
+}
+
+.card-blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+}
+
+  .card-blob * {
+    fill: currentColor;
+    stroke: none;
+}
+
+  .card-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto; // adjust size as needed
+    height: 60%;
+    pointer-events: none;
+  }
+
+
+
+
