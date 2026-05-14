@@ -308,45 +308,8 @@ BUTTONS
   right: 0;
 }
 
-
-/* Default settings for the scroll-to-top button */
-.scroll-to-top {
-  display: none; /* Hide the button by default */
-}
-
 /* Media query for screens smaller than 768px */
 @media (max-width: 768px) {
-  .scroll-to-top {
-    display: block; /* Show the button for smaller screens */
-    z-index: 1;
-    position: fixed;
-    right: 0%;
-    bottom: 5%; /* Adjust the distance from the bottom as a percentage */
-    background-color: #B22524;
-    min-width: 40px; /* Set a minimum width for the button */
-    min-height: 40px; /* Set a minimum height for the button */
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .arrow-up {
-    position: relative; /* Required for ::before pseudo-element */
-    transform: rotate(270deg);
-  }
-
-  .arrow-up::before {
-    content: ''; /* Required for pseudo-element */
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    border-top: 2px solid white;
-    border-right: 2px solid white;
-  }
-  
   .homeButtons_dots1 {
     margin-top: calc(-7000 * var(--xUnit));
     margin-left: calc(15 * var(--xUnit));

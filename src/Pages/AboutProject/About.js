@@ -10,7 +10,9 @@ import CaptionedImg from "../../Components/CaptionedImg/CaptionedImg";
 import VideoReel from "./res/Video Reel.svg";
 import MeetTheTeam from './MeetTheTeam/MeetTheTeam';
 import ReactPlayer from "react-player";
-import placeholder from '../OralHistories/res/video_placeholder.png'
+import placeholder from '../OralHistories/res/video_placeholder.png';
+import verticaltl from './res/Vertical Timeline.png'
+import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop';
 
 function About() {
   // one state to hold the regular page content loaded from Strapi
@@ -78,7 +80,7 @@ function About() {
 
   return (
     <div className="about">
-
+      <ScrollToTop />
       {/**BANNER */}
       <div className="aboutBanner">
         <img src={button} alt="_" />
@@ -112,7 +114,10 @@ function About() {
           <div className="aboutTimeline_annotNo"><p>5</p></div>
           <div className="aboutTimeline_annotText">{state.aboutTimeline_5}</div>
         </div>
-        <img src={tl} className="aboutTimeline_tl" alt="_" />
+        <div className="timelineWrapper">
+          <img src={tl} className="aboutTimeline_tl" alt="_" />
+          <img src={verticaltl} className="aboutTimeline_tl2" alt="_" />
+          </div>
       </div>
 
       {/**DOCUMENTS */}
