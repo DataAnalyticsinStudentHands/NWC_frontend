@@ -48,7 +48,6 @@ import { ReactComponent as Blob1 } from './res/explore/Blob 1.svg';
 import { ReactComponent as Blob2 } from './res/explore/Blob 2.svg';
 import { ReactComponent as Blob3 } from './res/explore/Blob 3.svg';
 import { ReactComponent as Blob4 } from './res/explore/Blob 4.svg';
-import { ReactComponent as Blob5 } from './res/explore/Blob 5.svg';
 import { ReactComponent as Blob6 } from './res/explore/Blob 6.svg';
 import { ReactComponent as Blob7 } from './res/explore/Blob 7.svg';
 import { ReactComponent as Blob8 } from './res/explore/Blob 8.svg';
@@ -83,7 +82,7 @@ function OralHistories() {
     ];
 
     const borders = [Border1, Border2, Border3, Border4, Border5, Border6];
-    const blobs = [Blob1, Blob2, Blob3, Blob4, Blob5, Blob6, Blob7, Blob8, Blob9, Blob10, Blob11];
+    const blobs = [Blob1, Blob2, Blob3, Blob4, Blob6, Blob7, Blob8, Blob9, Blob10, Blob11];
 
 
     const [activeTab, setActiveTab] = useState('All');
