@@ -11,7 +11,8 @@
     justify-items: center; // center cards horizontally
     align-items: start; // top align cards
     gap: 100rem 100rem;
-    margin-top: 200rem;
+    margin-top: 100rem;
+    min-height: calc((300rem * 2) + 200rem);
 }
 
 .card-wrapper {
@@ -82,24 +83,34 @@
 }
 
 .card-description {
-    margin-top: auto;  
+    margin-top: 15%;  
     width: 100%;
     font-size: 12rem;
     line-height: 1.4;
     text-align: center;
+    font-family: var(--fontMontserrat);
+    color: var(--colorDarkBlue);
 }
 
 .card-profile {
     position: relative;
     width: 200rem;
     height: 180rem;
-    margin: 0 auto;
+}
 
-  .card-blob {
-    width: 100%;
-    height: 100%;
-    
-  }
+.card-blob {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120%;
+    height: 120%;
+}
+
+  .card-blob * {
+    fill: currentColor;
+    stroke: none;
+}
 
   .card-icon {
     position: absolute;
@@ -107,10 +118,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: auto; // adjust size as needed
-    height: 50%;
+    height: 60%;
     pointer-events: none;
   }
-}
+
 
 
 

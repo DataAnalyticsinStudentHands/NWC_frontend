@@ -1,7 +1,6 @@
 import './Card.scss';
-import placeholder from '../res/placeholder.png';
 
-export default function Card({ name, description, blob, icon, borderImage }) {
+export default function Card({ name, description, blob: Blob, blobColor, icon, borderImage }) {
   return (
     <div className="card-wrapper">
       {borderImage && <img src={borderImage} alt="Card border" className="card-border" />}
@@ -9,15 +8,14 @@ export default function Card({ name, description, blob, icon, borderImage }) {
         <div className="card-content">
           <div className="card-header">
             <div className="card-name">{name}</div>
-            <div className="card-code">SS-77</div>
+            <div className="card-code" style={{ color: blobColor }} >SS-77</div>
           </div>
           
           {/* Profile Blob + Icon */}
           <div className="card-profile">
-            <img
-              src={blob || placeholder}
-              alt={`${name}'s blob`}
-              className="card-blob"
+            <Blob
+                className="card-blob"
+                style={{ color: blobColor }}
             />
             {icon && <img src={icon} alt="Card icon" className="card-icon" />}
           </div>

@@ -8,9 +8,12 @@ import pro_plan_progress from './res/pro_plan_progress.png'
 import { Banner } from "../../Components/Banner";
 import { Stack } from "../../Components/Stack";
 import { Typography } from "../../Components/Typography"
-import InfoVideo from "../../Components/Avalon/InfoVideo"
+// import InfoVideo from "../../Components/Avalon/InfoVideo"
 import Card from './components/Card'
 import { Pagination } from '../ResearchingNWC/Components/Pagination';
+import { Search } from '../../Components/SearchBox/Search';
+// import { StateSelect } from '../../Components/StateSelect/StateSelect';
+import stateTerritories from '../../assets/stateTerritories.json';
 
 //import explore oral history resources
 import da_icon from './res/explore/Delegates & Alternates - Nametag.png'
@@ -41,17 +44,17 @@ import Border3 from './res/explore/Border 3.svg';
 import Border4 from './res/explore/Border 4.svg';
 import Border5 from './res/explore/Border 5.svg';
 import Border6 from './res/explore/Border 6.svg';
-import Blob1 from './res/explore/Blob 1.svg';
-import Blob2 from './res/explore/Blob 2.svg';
-import Blob3 from './res/explore/Blob 3.svg';
-import Blob4 from './res/explore/Blob 4.svg';
-import Blob5 from './res/explore/Blob 5.svg';
-import Blob6 from './res/explore/Blob 6.svg';
-import Blob7 from './res/explore/Blob 7.svg';
-import Blob8 from './res/explore/Blob 8.svg';
-import Blob9 from './res/explore/Blob 9.svg';
-import Blob10 from './res/explore/Blob 10.svg';
-import Blob11 from './res/explore/Blob 11.svg';
+import { ReactComponent as Blob1 } from './res/explore/Blob 1.svg';
+import { ReactComponent as Blob2 } from './res/explore/Blob 2.svg';
+import { ReactComponent as Blob3 } from './res/explore/Blob 3.svg';
+import { ReactComponent as Blob4 } from './res/explore/Blob 4.svg';
+import { ReactComponent as Blob5 } from './res/explore/Blob 5.svg';
+import { ReactComponent as Blob6 } from './res/explore/Blob 6.svg';
+import { ReactComponent as Blob7 } from './res/explore/Blob 7.svg';
+import { ReactComponent as Blob8 } from './res/explore/Blob 8.svg';
+import { ReactComponent as Blob9 } from './res/explore/Blob 9.svg';
+import { ReactComponent as Blob10 } from './res/explore/Blob 10.svg';
+import { ReactComponent as Blob11 } from './res/explore/Blob 11.svg';
 
 function OralHistories() {
 
@@ -62,30 +65,36 @@ function OralHistories() {
         exploreText: '',
         Reflections_VideoURL1: '',
         Reflections_VideoURL2: '',
+        state: '',
     });
 
     const tabs = [
-    { name: "DELEGATES & ALTERNATES", icon: da_icon, Blob: DaBlob, activeColor: "#B32525" },
-    { name: "DELEGATES AT LARGE", icon: dal_icon, Blob: DalBlob, activeColor: "#00779D" },
-    { name: "EXHIBITORS", icon: exhibitor_icon, Blob: ExhibitorBlob, activeColor: "#FFD048" },
-    { name: "INTERNATIONAL DIGNITARIES", icon: dignitaries_icon, Blob: DignitariesBlob, activeColor: "#615FBF" },
-    { name: "JOURNALISTS", icon: journalist_icon, Blob: JournalistBlob, activeColor: "#CB4E28" },
-    { name: "NATIONAL COMMISSIONERS", icon: commissioners_icon, Blob: CommissionersBlob, activeColor: "#9FC6DF" },
-    { name: "NOTABLE SPEAKERS", icon: speakers_icon, Blob: SpeakersBlob, activeColor: "#B32525" },
-    { name: "OBSERVERS", icon: observers_icon, Blob: ObserversBlob, activeColor: "#00779D" },
-    { name: "PAID STAFF MEMBERS", icon: staff_icon, Blob: StaffBlob, activeColor: "#FFD046" },
-    { name: "TORCH RELAY RUNNERS", icon: torch_icon, Blob: TorchBlob, activeColor: "#615FBF" },
-    { name: "VOLUNTEERS", icon: volunteers_icon, Blob: VolunteersBlob, activeColor: "#CB4E28" },
+    { name: "DELEGATES & ALTERNATES", icon: da_icon, Blob: DaBlob, activeColor: "#B32525", roles: ["Delegate", "Alternate"] },
+    { name: "DELEGATES AT LARGE", icon: dal_icon, Blob: DalBlob, activeColor: "#00779D", roles: ["Delegate-at-Large"] },
+    { name: "EXHIBITORS", icon: exhibitor_icon, Blob: ExhibitorBlob, activeColor: "#FFD048", roles: ["Exhibitor"] },
+    { name: "INTERNATIONAL DIGNITARIES", icon: dignitaries_icon, Blob: DignitariesBlob, activeColor: "#615FBF", roles: ["International Dignitary"] },
+    { name: "JOURNALISTS", icon: journalist_icon, Blob: JournalistBlob, activeColor: "#CB4E28", roles: ["Journalist"] },
+    { name: "NATIONAL COMMISSIONERS", icon: commissioners_icon, Blob: CommissionersBlob, activeColor: "#9FC6DF", roles: ["Carter National Commissioner", "Ford National Commissioner"] },
+    { name: "NOTABLE SPEAKERS", icon: speakers_icon, Blob: SpeakersBlob, activeColor: "#B32525", roles: ["Notable Speaker"] },
+    { name: "OBSERVERS", icon: observers_icon, Blob: ObserversBlob, activeColor: "#00779D", roles: ["Official Observer"] },
+    { name: "PAID STAFF MEMBERS", icon: staff_icon, Blob: StaffBlob, activeColor: "#FFD046", roles: ["Paid Staff Member"] },
+    { name: "TORCH RELAY RUNNERS", icon: torch_icon, Blob: TorchBlob, activeColor: "#615FBF", roles: ["Torch Relay Runner"] },
+    { name: "VOLUNTEERS", icon: volunteers_icon, Blob: VolunteersBlob, activeColor: "#CB4E28", roles: ["Volunteer"] },
     ];
 
     const borders = [Border1, Border2, Border3, Border4, Border5, Border6];
     const blobs = [Blob1, Blob2, Blob3, Blob4, Blob5, Blob6, Blob7, Blob8, Blob9, Blob10, Blob11];
-    const icons = [da_icon, dal_icon, exhibitor_icon, dignitaries_icon, journalist_icon, commissioners_icon, 
-                    speakers_icon, observers_icon, staff_icon, torch_icon, volunteers_icon];
+
 
     const [activeTab, setActiveTab] = useState('All');
-    
+    const [searchTerm, setSearchTerm] = useState("");
     const [people, setPeople] = useState([]);
+    const [states, setStates] = useState([]);
+    const stateNameToCode = Object.values(stateTerritories).reduce((acc, state) => {
+        acc[state.state] = state.stateCode;
+        return acc;
+    }, {});
+    // const [selectedStates, setSelectedStates] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 6;
 
@@ -96,23 +105,107 @@ function OralHistories() {
             const mapped = data.data.map((person) => ({
             name: person.attributes.name,
             role: person.attributes.role,
+            state: stateNameToCode[person.attributes.state] || null,
             description:
                 "Collection/Library/Repository Lorem ipsum dolor sit amet...Collection/Library/Repository",
             profilepic: person.attributes.profilepic?.data  ? `${process.env.REACT_APP_API_URL}${person.attributes.profilepic.data.attributes.url}` : null,
+            blobIndex: Math.floor(Math.random() * blobs.length)
             }));
             setPeople(mapped);
         });
     }, []);
-        
-    
-    const offset = (currentPage - 1) * itemsPerPage;
-    const currentItems = people.slice(offset, offset + itemsPerPage);
 
-    const pageCount = Math.ceil(people.length / itemsPerPage);
+    useEffect(() => {
+        async function fetchAvailableStates() {
+            try {
+            const response = await fetch(
+                `${process.env.REACT_APP_API_URL}/api/content-discover-stories?fields=state&pagination[pageSize]=1000`
+            );
+            const data = await response.json();
+            const states = [
+                ...new Set(
+                    data.data
+                        .map((person) =>
+                            stateNameToCode[person.attributes.state]
+                        )
+                        .filter(Boolean)
+                )
+            ];
+
+            setStates(states);
+            } catch (error) {
+            console.error("Error fetching available states:", error);
+            }
+    }
+
+    fetchAvailableStates();
+    }, []);
+    console.log(states)
+    
+    const normalize = (str) =>
+        str?.trim().toLowerCase();
+
+    const filteredPeople =
+        people
+            .filter((person) => {
+                // TAB FILTER
+                if (activeTab === "All") return true;
+
+                const selectedTab = tabs.find(
+                    (tab) => tab.name === activeTab
+                );
+
+                if (!selectedTab) return false;
+
+                const personRoles = person.role
+                    ?.split(",")
+                    .map((role) => normalize(role));
+
+                const matchesTab = selectedTab.roles.some((tabRole) =>
+                    personRoles?.some(
+                        (personRole) =>
+                            personRole.includes(normalize(tabRole)) ||
+                            normalize(tabRole).includes(personRole)
+                    )
+                );
+
+                return matchesTab;
+            })
+        //     .filter((person) => {
+        //         // SEARCH FILTER
+        //         if (!searchTerm.trim()) return true;
+
+        //         return person.name
+        //             ?.toLowerCase()
+        //             .includes(searchTerm.toLowerCase());
+        //     })
+        //             .filter((person) => {
+        //         if (selectedStates.length === 0) return true;
+
+        //         const selectedCodes = selectedStates.map(
+        //             (s) => s.value
+        //         );
+
+        //         return selectedCodes.includes(person.state);
+        // });
+
+    const offset = (currentPage - 1) * itemsPerPage;
+
+    const currentItems = filteredPeople.slice(
+        offset,
+        offset + itemsPerPage
+    );
+
+    const pageCount = Math.ceil(filteredPeople.length / itemsPerPage);
 
     const handlePageClick = (selected) => {
     setCurrentPage(selected.selected + 1); // +1 if you want currentPage to be 1-indexed
     };  
+
+    const handleTabClick = (tabName) => {
+    setActiveTab(tabName);
+    setCurrentPage(1);
+    };
     
     useEffect(() => {
 		fetch([process.env.REACT_APP_API_URL, 'api/content-oral-history?populate=*'].join('/'))
@@ -164,7 +257,7 @@ function OralHistories() {
                 {/* Top-Left "All" Button */}
                     <button
                         className={`tab-button all-tab ${activeTab === 'All' ? 'active' : ''}`}
-                        onClick={() => setActiveTab('All')}
+                        onClick={() => handleTabClick('All')}
                     >
                         All
                     </button>
@@ -174,7 +267,7 @@ function OralHistories() {
                 <button
                 key={tab.name}
                 className={`tab-button left-tab ${activeTab === tab.name ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.name)}
+                onClick={() => handleTabClick(tab.name)}
                 >
                 <div className="tab-icon-wrapper">
 
@@ -202,7 +295,7 @@ function OralHistories() {
                 <button
                 key={tab.name}
                 className={`tab-button right-tab ${activeTab === tab.name ? 'active' : ''}`}
-                onClick={() => setActiveTab(tab.name)}
+                onClick={() => handleTabClick(tab.name)}
                 >
                 <div className="tab-icon-wrapper">
 
@@ -225,24 +318,93 @@ function OralHistories() {
 
 
             <div className="card-grid-container">
+                <div className="search-select-container">
+                    <Search
+                        placeholder="Search by Name"
+                        value={searchTerm}
+                        onSearch={setSearchTerm}
+                        style={{
+                                border: "none",
+                                padding: "6px",
+                                fontSize: "24rem",
+                                width: "300px",
+                                marginTop: "5%",
+                                backgroundColor: "lightgray",
+                            }}
+                    />
+                    {/* <StateSelect
+                            selectedOptions={selectedStates}
+                            onSelect={setSelectedStates}
+                            states={states}   // IMPORTANT: use fetched states here
+                            css={{ container: base => ({ ...base, width: "max-content", minWidth: "100%", })}}
+                    /> */}
+                </div>
                 <div className="card-grid">
                 {currentItems.map((p, index) => {
                     const border = borders[index % borders.length]; 
-                    const randomBlob = blobs[Math.floor(Math.random() * blobs.length)];
-                    const icon = icons[index % icons.length];
-                    return (
-                        <Card
-                            key={p.id}
-                            name={p.name}
-                            role={p.role}
-                            description={p.description}
-                            blob={randomBlob}
-                            icon={icon} 
-                            borderImage={border} 
-                        />
-                    );
-                })}
-                </div>
+                    const randomBlob = blobs[p.blobIndex];
+                    
+                    //function for match icons with role
+                    const getParticipantTab = (personRole) => {
+                        const personRoles = personRole
+                            ?.split(",")
+                            .map((role) => normalize(role));
+
+                        return tabs.find((tab) =>
+                            tab.roles.some((tabRole) =>
+                                personRoles?.some(
+                                    (personRole) =>
+                                        personRole.includes(normalize(tabRole)) ||
+                                        normalize(tabRole).includes(personRole)
+                                )
+                            )
+                        );
+                    };
+
+                    const matchingTab = getParticipantTab(p.role);
+
+                    const icon =
+                        activeTab === "All"
+                            ? matchingTab?.icon
+                            : tabs.find((tab) => tab.name === activeTab)
+                                ?.icon;
+
+                    
+                    // function for matching colors with role/tab
+                    const getParticipantColor = (personRole) => {
+                        const personRoles = personRole
+                            ?.split(",")
+                            .map((role) => normalize(role));
+
+                        const matchingTab = tabs.find((tab) =>
+                            tab.roles.some((tabRole) =>
+                                personRoles?.includes(normalize(tabRole))
+                            )
+                        );
+
+                        return matchingTab?.activeColor || "#B32525";
+                    };
+
+                    const activeColor =
+                        activeTab === "All"
+                            ? getParticipantColor(p.role)
+                            : tabs.find((tab) => tab.name === activeTab)
+                                ?.activeColor;
+
+                                    return (
+                                        <Card
+                                            key={p.id}
+                                            name={p.name}
+                                            role={p.role}
+                                            description={p.description}
+                                            blob={randomBlob}
+                                            blobColor={activeColor}
+                                            icon={icon} 
+                                            borderImage={border} 
+                                        />
+                                    );
+                                })}
+            </div>
             <div className="oral-histories-pagination">
                 <Pagination pageCount={pageCount} handlePageClick={handlePageClick} />
             </div>
@@ -256,7 +418,7 @@ function OralHistories() {
                     <ParticipantsTable cards={cards} roles={roles} />
             </Stack>
             */}
-            <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
+            {/* <Stack direction='column' gap={4} margin={'5% 5% 5% 5%'} className="OralHistories_NWC_container">
                 <div className="reflection">
                     <Typography type="heading-2" paddingLR="0" paddingTB="0"> Reflections </Typography>
                     <Typography type="paragraph-2" paddingLR="10" paddingTB="1"> {state.ReflectionsText} </Typography>
@@ -266,7 +428,7 @@ function OralHistories() {
                         <InfoVideo src={state.Reflections_VideoURL1}/>
                         <InfoVideo src={state.Reflections_VideoURL2}/>
                 </Stack>
-            </Stack>
+            </Stack> */}
 
             {/* BANNER 2 */}
             <Stack direction='column' margin={'5% 0 0 0'} className="OralHistories_Voice_container">

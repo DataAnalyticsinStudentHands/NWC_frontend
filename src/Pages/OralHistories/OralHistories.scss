@@ -102,7 +102,7 @@
   position: relative; 
   display: flex;
   justify-content: center; 
-  min-height: 999rem; 
+  min-height: 1400rem; 
   background-color: #fff;
   margin: 2% 240rem 3% 240rem;
   border: 4rem solid #000;
@@ -190,10 +190,7 @@
   position: absolute;
   width: 100%; // fit the wrapper
   height: 100%;
-  top: 0;
-  left: 0;
   z-index: 0;
-  opacity: 0.8;
   pointer-events: none;
 }
 
@@ -254,4 +251,14 @@
   transition: 0.1s;
   box-sizing: border-box;
   padding: 0 0.25em;
+}
+
+.search-select-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 5em);
+    margin: auto;
+    gap: 1rem;
+    flex-shrink:0
 }
