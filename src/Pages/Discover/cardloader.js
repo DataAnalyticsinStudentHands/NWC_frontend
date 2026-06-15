@@ -5,7 +5,7 @@ function d2card(datum) {
         profilepic = null
     }else{
         // profilepic = `https://dash.cs.uh.edu${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}
-        profilepic = `${process.env.REACT_APP_API_URL}${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
+        profilepic = `${import.meta.env.VITE_API_URL}${datum.attributes.profilepic.data.attributes.formats.thumbnail.url}`
 
     }
     // datum.profilepic.length > 0

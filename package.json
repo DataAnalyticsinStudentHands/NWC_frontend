@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "file-saver": "^2.0.5",
+    "pdfjs-dist": "^5.4.296",
     "qs": "^6.10.3",
     "react": "^18.3.1",
     "react-csv": "^2.2.2",
@@ -16,8 +17,8 @@
     "react-map-gl": "^6.1.19",
     "react-markdown": "^7.1.0",
     "react-paginate": "^8.1.2",
-    "react-pdf": "^5.7.1",
-    "react-player": "^2.9.0",
+    "react-pdf": "^10.4.1",
+    "react-player": "^3.4.0",
     "react-router-dom": "^6.14.2",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.2",
@@ -27,10 +28,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "vite",
+    "build": "vite build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "dev": "vite"
   },
   "eslintConfig": {
     "extends": [
@@ -38,7 +40,9 @@
       "react-app/jest",
       "plugin:react-hooks/recommended"
     ],
-    "plugins": ["react-hooks"],
+    "plugins": [
+      "react-hooks"
+    ],
     "rules": {
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn"
@@ -57,9 +61,13 @@
     ]
   },
   "devDependencies": {
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@vitejs/plugin-react": "^6.0.0",
     "eslint": "^7.32.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-react-hooks": "^7.0.1"
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "vite": "^8.0.0"
   }
 }

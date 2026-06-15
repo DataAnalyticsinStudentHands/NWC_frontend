@@ -121,7 +121,7 @@ export default function ListPage({ type: typeProp }) {
   const listOfData = useRef([]);
 
   useEffect(() => {
-    const base = process.env.REACT_APP_API_URL;
+    const base = import.meta.env.VITE_API_URL;
     if (!cfg || !base) return;
 
     const url =
