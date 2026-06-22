@@ -28,6 +28,8 @@ import { HomeMap } from './components/HomeMap'
 import { HomeExplore } from './components/HomeExplore'
 import { HomeHighlights } from './components/HomeHighlights'
 
+import ScrollToTop from '../../Components/ScrollToTop/ScrollToTop';
+
 const getWhere = (data, key, value) => {
   return data.filter((e) => e.attributes[key] === value);
 };
@@ -261,9 +263,7 @@ function Home() {
       {!globalState.video ? (
         
         <div className="home">
-          <button className="scroll-to-top" onClick={scroll}>
-            <div className="arrow-up"></div>
-          </button>
+          <ScrollToTop />
           {/**Home Banner */}
           <HomeBanner />
 

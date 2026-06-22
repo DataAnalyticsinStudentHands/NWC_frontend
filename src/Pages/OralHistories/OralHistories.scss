@@ -99,44 +99,45 @@
 }
 
 .tab-container {
-  position: relative;
+  position: relative; 
   display: flex;
-  justify-content: center;
-  min-height: 999rem;
-  background-color: #ffffff;
-  margin-top: 2%;
-  margin-bottom: 3%;
-  margin-left: 300rem;
-  margin-right: 300rem;
-  border: 4rem solid #000000;
-  z-index: 1
+  justify-content: center; 
+  min-height: 1400rem; 
+  background-color: #fff;
+  margin: 2% 240rem 3% 240rem;
+  border: 4rem solid #000;
+  z-index: 1;
 }
+
+
 
 .tab-column {
   position: absolute;
-  top: 0;
   display: flex;
   flex-direction: column;
-  background-color: white;
-      top: -3rem;
+  gap: 43rem;          
+  max-height: 100%;   
 
   &.left {
+    left: -176rem;      // keep your left offset
     align-items: flex-end;
-    left: -146rem;
   }
 
   &.right {
+    right: -175rem;     // keep your right offset
     align-items: flex-start;
-    right: -146rem;
-
   }
-  
+}
+
+
+.tab-button.active .tab-blob .blob-shape {
+  fill: currentColor;
 }
 
 .tab-button {
-  all: unset; // Reset all inherited styles (especially from global button styles)
-  width: 100rem; 
-  height: 120rem; 
+  all: unset;
+  width: 130rem;     // fixed width
+  height: 160rem;    // fixed height for all tabs
   text-align: center;
   font-family: 'babas_neue', 'normal';
   font-size: 22rem;
@@ -145,6 +146,14 @@
   border: 4rem solid #000000;
   padding: 20rem;
   cursor: pointer;
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  flex-direction: column; // 👈 stack icon above text
+  align-items: center;
+  justify-content: center;
+  gap: 10rem;
 
   &:hover {
     background-color: #235da3;
@@ -154,24 +163,57 @@
     background-color: #ffffff;
     color: #000000;
   }
+
   &.left-tab {
     border-radius: 25rem 0 0 25rem;
     border-right: none;
-    
   }
 
   &.right-tab {
     border-radius: 0 25rem 25rem 0;
-        border-left: none;
+    border-left: none;
+  }
+
+  /* 👇 new wrapper to isolate icon + blob */
+.tab-icon-wrapper {
+  position: relative;
+  width: 140rem;  // fixed width
+  height: 120rem; // fixed height
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 
 
+  /* 👇 blob sits behind icon */
+ .tab-blob {
+  position: absolute;
+  width: 100%; // fit the wrapper
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+
+  /* 👇 icon sits above blob */
+.tab-icon {
+  position: relative;
+  z-index: 1;
+  width: 70%;  // same width for all
+  height: 70%; // maintain aspect ratio
+  object-fit: contain;
+}
+
+  /* 👇 label text below icon */
+  .tab-text {
+    z-index: 2;
   }
 }
 
 .all-tab {
   position: absolute;
   top: -98rem;       // adjust based on button height and spacing
-  left: 0rem;     // match your left tab column offset
+  left: -3rem;     // match your left tab column offset
   width: 200rem;
   height: 50rem;
   font-size: clamp(16rem, 2vw, 30rem);
@@ -193,20 +235,30 @@
     background-color: #ffffff;
     color: #000000;
   }
-}
+  }
 
 .oral-histories-pagination {
   margin-top: 130rem;
 }
 .oral-histories-pagination .Research-Pagination a {
   font-family: var(--fontBabasNeue);
-	font-weight: 400;
-	font-size: 44rem;
-	line-height: 1.5em;
-	display: flex;
-	align-items: center;
-	color: #cadfee;
-	transition: 0.1s;
-	box-sizing: border-box;
-	padding: 0 0.25em;
+  font-weight: 400;
+  font-size: 44rem;
+  line-height: 1.5em;
+  display: flex;
+  align-items: center;
+  color: #cadfee;
+  transition: 0.1s;
+  box-sizing: border-box;
+  padding: 0 0.25em;
+}
+
+.search-select-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: calc(100% - 5em);
+    margin: auto;
+    gap: 1rem;
+    flex-shrink:0
 }

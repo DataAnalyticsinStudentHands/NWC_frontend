@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 
 import button from "./res/toform.png";
 import VideoPlayer from "../../Components/VideoPlayer/VideoPlayer.js"
+import InfoVideo from '../../Components/Avalon/InfoVideo.js';
 import BackToButton from '../../Components/Buttons/backTo';
 
 
@@ -33,6 +34,8 @@ function DiscoverInfo() {
         state: '',
         usertags: [],
         videourl: '',
+        avalonurl: '',
+        avalontitle: '',
 
     });
     // grab page data from strapi
@@ -43,7 +46,7 @@ function DiscoverInfo() {
             .then(data => {
                 const {attributes:
                             {bigquote1, bigquote2, career, dob, imgcaption, maintext, name, firstname, lastname, role, rolesAtNwc, 
-                                sources, VideoUrl, usertags}}= data.data[0]
+                                sources, VideoUrl, AvalonUrl, AvalonTitle, usertags}}= data.data[0]
                 // IF Conditional statement to ensure data[0].profilepic[0] TypeError resolved
                 // If it exists, we can set the state to that profile pic
                 // Else set it to our "button" picture, this is subject to change
@@ -80,6 +83,8 @@ function DiscoverInfo() {
                     rolesAtNwc: rolesAtNwc.map(r => r.text),
                     sources: sources.map(s => s.text),
                     videourl: VideoUrl,
+                    avalonurl: AvalonUrl,
+                    avalontitle: AvalonTitle,
                     state: data.data[0].attributes.state,
                     usertags: usertags.map(t => t.text),
                 });
@@ -129,7 +134,11 @@ function DiscoverInfo() {
                 <div className="discoverInfoBody_right">
 
                     <h2 className="discoverInfoBody_video">
-                        <VideoPlayer videourl={state.videourl} />
+                        {state.videourl ? (
+                            <VideoPlayer videourl={state.videourl} />
+                            ) : state.avalonurl ? (
+                            <InfoVideo src={state.avalonurl} title={state.avalontitle} />
+                            ) : null}
                     </h2>
 
                     <h2 className="discoverInfoBody_bioh">
