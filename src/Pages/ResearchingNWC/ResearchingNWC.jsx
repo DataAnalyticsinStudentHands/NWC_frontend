@@ -33,7 +33,6 @@ function ResearchingNWC() {
           throw new Error('Network response was not ok');
         }
         let data = await response.json();
-        console.log("data:", data)
         setContentMap(data.data);
       } catch (error) {
         console.error('Error fetching content map:', error);
@@ -266,10 +265,12 @@ const politicalOfficeObj = {
     const tableData = processTableData(response, categories, allCategories, selectArr); // response is API response, newArray
     setTableData(tableData);
   }
-  // adding USA list of states for select input
+
+  const [formKey, setFormKey] = useState(0);
   //reset form fields and map data
   const onClear = () => {
     reset();
+    setFormKey(k => k + 1);
     setSelectedOptions([]);
     setMap([])
     setTableData([])
@@ -314,7 +315,7 @@ const politicalOfficeObj = {
         <div className='mappingNWCSearchTemp'>Click boxes below to search. This search uses the participant identifiers from the original NWC Registration Forms.</div>
 
         {/* "handleSubmit" will validate your inputs before invoking "onSubmit" */}
-        <form key={2} onSubmit={handleSubmit(onSubmit)} className="basicForm">
+        <form key={formKey} onSubmit={handleSubmit(onSubmit)} className="basicForm">
           <div className="row">
             <div className='panel'>
               <p>STATE/TERRITORY</p>
