@@ -30,9 +30,9 @@ Move/copy the `\build` directory into web server document root directory.
 We are using [environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables) and the following must exists:
 
 ```
-REACT_APP_API_URL = 
-REACT_APP_MAPBOX_ACCESS_TOKEN = 
-REACT_APP_PRODUCTION = false
+VITE_API_URL =
+VITE_MAPBOX_ACCESS_TOKEN  =
+VITE_PRODUCTION = false
 ```
 
 
