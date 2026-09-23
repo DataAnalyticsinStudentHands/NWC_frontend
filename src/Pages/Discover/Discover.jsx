@@ -12,6 +12,8 @@ import { Search } from '../../Components/SearchBox/Search'
 import ReactMarkdown from 'react-markdown'
 import FeaturedCarousel from './Components/FeaturedCarousel';
 import Shuffle from "./res/Shuffle.svg"
+import { StateSelect } from '../../Components/StateSelect/StateSelect';
+import stateTerritories from '../../assets/stateTerritories.json';
 var currentData = 'lastname'
 
 function Discover() {
@@ -34,6 +36,8 @@ function Discover() {
   const listOfCards = useRef([]);
   const [activeCardsPerPage, setActiveCardsPerPage] = useState('12');
   const [activeSortMethod, setActiveSortMethod] = useState(2);
+  const [availableStates, setAvailableStates] = useState([]);
+  const [selectedStates, setSelectedStates] = useState([]);
   let totalPages = (Math.ceil(dataLength / postsPerPage))
   
   function setOffSet(){
@@ -55,50 +59,67 @@ function Discover() {
         });
         setDataLength(data.data.length);
         listOfCards.current = data.data;
+        const stateNameToCode = Object.values(stateTerritories).reduce((states, state) => {
+          states[state.state] = state.stateCode;
+          return states;
+        }, {});
+        setAvailableStates([
+          ...new Set(data.data.map((story) => stateNameToCode[story.attributes.state]).filter(Boolean))
+        ]);
       })
       .catch(err => console.log(err));
   }, []);
 
   useEffect(() => {
+    const stateFilter = selectedStates
+      .map((option, index) => `filters[state][$in][${index}]=${encodeURIComponent(option.label)}`)
+      .join('&');
+    const stateQuery = stateFilter ? `${stateFilter}&` : '';
+
     if(currentData === 'default'){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
+        setDataLength(data.meta?.pagination?.total ?? data.data.length);
         loadcards(data.data, setCards);
       })
       .catch(err => console.log(err));
     }
     if(currentData === 'firstname'){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=firstname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
+        setDataLength(data.meta?.pagination?.total ?? data.data.length);
         loadcards(data.data, setCards);
         
       })
       .catch(err => console.log(err));
     }
     if(currentData === 'lastname'){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=lastname&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
+        setDataLength(data.meta?.pagination?.total ?? data.data.length);
         loadcards(data.data, setCards);
         
       })
       .catch(err => console.log(err));
     }
     if(currentData === 'role'){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=role:asc&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
+        setDataLength(data.meta?.pagination?.total ?? data.data.length);
         loadcards(data.data, setCards);
         
       })
       .catch(err => console.log(err));
     }
     if(currentData === 'state'){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?sort=state&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
+        setDataLength(data.meta?.pagination?.total ?? data.data.length);
         loadcards(data.data, setCards);
         
       })
@@ -110,7 +131,7 @@ function Discover() {
       let lastname = fullName[1]
       
       if(currentData === 0){
-        fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+        fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
@@ -120,7 +141,7 @@ function Discover() {
         .catch(err => console.log(err));
       }
       if(fullName.length === 1){
-        fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+        fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${firstname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
         .then(response => response.json())
         .then(data => {
           setDataLength(data.meta.pagination.total)
@@ -130,7 +151,7 @@ function Discover() {
         .catch(err => console.log(err));
       }
     if(fullName.length === 2){
-      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+      fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${lastname}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
       .then(response => response.json())
       .then(data => {
         setDataLength(data.meta.pagination.total)
@@ -140,7 +161,7 @@ function Discover() {
       .catch(err => console.log(err));
   }
   if(fullName.length >= 3){
-    fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&populate=*`)
+    fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories?filters[$or][0][firstname][$containsi]=${firstname}&filters[$or][1][lastname][$containsi]=${fullName[2]}&filters[$or][0][firstname][$containsi]=${fullName[1]}&pagination[page]=${currentOffSet}&pagination[pageSize]=${postsPerPage}&${stateQuery}populate=*`)
     .then(response => response.json())
     .then(data => {
       setDataLength(data.meta.pagination.total)
@@ -151,7 +172,7 @@ function Discover() {
   }
     }
     
-  }, [currentOffSet, postsPerPage]); // eslint-disable-line
+  }, [currentOffSet, postsPerPage, selectedStates]); // eslint-disable-line
 
   useEffect(() => {
     fetch(`${import.meta.env.VITE_API_URL}/api/content-discover-stories-main`)
@@ -171,6 +192,7 @@ function Discover() {
   function resetData(){
     currentData='default'
     setActiveSortMethod(2)
+    setSelectedStates([])
     setOffSet()
   }
 
@@ -200,6 +222,13 @@ function Discover() {
   function search(){
     currentData = 'search'
     setOffSet()
+  }
+
+  function handleStateChange(options) {
+    setSelectedStates(options || []);
+    currentData = 'lastname';
+    setActiveSortMethod(2);
+    setCurrentOffSet(1);
   }
 
   //Cards shown amount
@@ -258,6 +287,12 @@ function Discover() {
           <Search placeholder="Search Participants by Name" onSearch={setInput}/>
           <button className="discoverSearch_icon" onClick={() => search()}></button>
         </div>
+        <StateSelect
+          css={{ container: base => ({ ...base, width: "max-content", minWidth: "220px" }) }}
+          onSelect={handleStateChange}
+          selectedOptions={selectedStates}
+          states={availableStates}
+        />
         <div className="discoverSearch_sortBy">
           <p>SORT BY:</p>
           <p className="discoverSearch_separater">|</p>
