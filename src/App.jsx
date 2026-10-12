@@ -11,7 +11,7 @@ import AdvancedSearch from "./Pages/ResearchingNWC/AdvancedSearch/AdvancedSearch
 import About from "./Pages/AboutProject/About";
 import Why from "./Pages/Why/Why";
 import Essay from "./Pages/Essay/Essay";
-import ListPage from './Pages/ListPage';
+import ListPage from "./Pages/ListPage";
 import Discover from "./Pages/Discover/Discover";
 import DiscoverInfo from "./Pages/Discover/DiscoverInfo";
 import HowToContribute from "./Pages/HowToContribute/HowToContribute";
@@ -44,49 +44,11 @@ const ScrollToTop = (props) => {
   return <>{props.children}</>;
 };
 
-
 function Routing() {
-  if (import.meta.env.VITE_PRODUCTION === "true") {
-    return (
-      <BrowserRouter className="App">
-        <Navigation />
-        <ScrollToTop>
-          <Routes>
-            <Route path="about" element={<About />} />
-            <Route path="why" element={<Why />} />
-            <Route path="essay/:essayId" element={<Essay />} />
-            <Route path="discover/:storyId" element={<DiscoverInfo />} />
-            <Route path="discover" element={<Discover />} />
-            <Route path="researchingNWC" element={<ResearchingNWC />} />
-            <Route path="advancedSearch" element={<AdvancedSearch />} />
-            <Route path="/list/:type" element={<ListPage />} />
-            <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
-            <Route path="forms/corrections" element={<CorrectionsForm />} />
-            <Route path="forms/contactus" element={<ContactUsForm />} />
-            <Route
-              path="forms/donatepapers"
-              element={<HowToDonatePapersForm />}
-            />
-            <Route path="forms/inquiryeducator" element={<InquiryEducatorForm />} />
-            <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
-            <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
-            <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
-            <Route path="forms/inquiryarchivist" element={<InquiryArchivistForm />} />
-            <Route path="forms/moreideas" element={<MoreIdeasForm />} />
-            <Route path="forms/thank-you" element={<ThankYouPage />} />
-            <Route path="howtocontribute" element={<HowToContribute />} />
-            <Route path="howtocontribute/:resource" element={<Resources />} />
-            <Route path="/" element={<Home />} />
-            <Route path="*" element={<PageNotFound />} />
-          </Routes>
-        </ScrollToTop>
-        <Footer />
-      </BrowserRouter>
-    );
-  }
+  const enableProduction = import.meta.env.VITE_ENABLE_PRODUCTION === "true";
 
   return (
-    <BrowserRouter basename={"/dev"} className="App">
+    <BrowserRouter basename={import.meta.env.BASE_URL} className="App">
       <Navigation />
       <ScrollToTop>
         <Routes>
@@ -97,6 +59,9 @@ function Routing() {
           <Route path="discover" element={<Discover />} />
           <Route path="researchingNWC" element={<ResearchingNWC />} />
           <Route path="advancedSearch" element={<AdvancedSearch />} />
+          {!enableProduction && (
+            <Route path="oralhistories" element={<OralHistories />} />
+          )}
           <Route path="/list/:type" element={<ListPage />} />
           <Route path="pdfviewer/:pdffile" element={<PDFViewer />} />
           <Route path="forms/corrections" element={<CorrectionsForm />} />
@@ -105,16 +70,27 @@ function Routing() {
             path="forms/donatepapers"
             element={<HowToDonatePapersForm />}
           />
-          <Route path="forms/inquiryeducator" element={<InquiryEducatorForm />} />
-          <Route path="forms/inquiryparticipant" element={<InquiryParticipantForm />} />
-          <Route path="forms/inquiryresearcher" element={<InquiryResearcherForm />} />
+          <Route
+            path="forms/inquiryeducator"
+            element={<InquiryEducatorForm />}
+          />
+          <Route
+            path="forms/inquiryparticipant"
+            element={<InquiryParticipantForm />}
+          />
+          <Route
+            path="forms/inquiryresearcher"
+            element={<InquiryResearcherForm />}
+          />
           <Route path="forms/inquirystudent" element={<InquiryStudentForm />} />
-          <Route path="forms/inquiryarchivist" element={<InquiryArchivistForm />} />
+          <Route
+            path="forms/inquiryarchivist"
+            element={<InquiryArchivistForm />}
+          />
           <Route path="forms/moreideas" element={<MoreIdeasForm />} />
           <Route path="forms/thank-you" element={<ThankYouPage />} />
           <Route path="howtocontribute" element={<HowToContribute />} />
           <Route path="howtocontribute/:resource" element={<Resources />} />
-          <Route path="oralhistories" element={<OralHistories />} />
           <Route path="/" element={<Home />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>

@@ -27,33 +27,33 @@ import observers_icon from './res/explore/Observers - Binoculars.png'
 import staff_icon from './res/explore/Paid Staff Members - Clipboard.png'
 import torch_icon from './res/explore/Torch Relay Runners - Shoes.png'
 import volunteers_icon from './res/explore/Volunteers - Helping Hands.png'
-import { ReactComponent as DaBlob } from './res/explore/Delegates & Alternates Tab Blob.svg';
-import { ReactComponent as DalBlob } from './res/explore/Delegates at Large Tab Blob.svg';
-import { ReactComponent as ExhibitorBlob } from './res/explore/Exhibitors Tab Blob.svg';
-import { ReactComponent as DignitariesBlob } from './res/explore/International Dignitaries Tab blob.svg';
-import { ReactComponent as JournalistBlob } from './res/explore/Journalists Tab Blob.svg';
-import { ReactComponent as CommissionersBlob } from './res/explore/National Commissioners Tab Blob.svg';
-import { ReactComponent as SpeakersBlob } from './res/explore/Notable Speakers Tab Blob.svg';
-import { ReactComponent as ObserversBlob } from './res/explore/Observers Tab Blob.svg';
-import { ReactComponent as StaffBlob } from './res/explore/Paid Staff Members Tab Blob.svg';
-import { ReactComponent as TorchBlob } from './res/explore/Torch Relay Runners Tab Blob.svg';
-import { ReactComponent as VolunteersBlob } from './res/explore/Volunteers Tab Blob.svg';
+import DaBlob from './res/explore/Delegates & Alternates Tab Blob.svg?react';
+import DalBlob from './res/explore/Delegates at Large Tab Blob.svg?react';
+import ExhibitorBlob from './res/explore/Exhibitors Tab Blob.svg?react';
+import DignitariesBlob from './res/explore/International Dignitaries Tab blob.svg?react';
+import JournalistBlob from './res/explore/Journalists Tab Blob.svg?react';
+import CommissionersBlob from './res/explore/National Commissioners Tab Blob.svg?react';
+import SpeakersBlob from './res/explore/Notable Speakers Tab Blob.svg?react';
+import ObserversBlob from './res/explore/Observers Tab Blob.svg?react';
+import StaffBlob from './res/explore/Paid Staff Members Tab Blob.svg?react';
+import TorchBlob from './res/explore/Torch Relay Runners Tab Blob.svg?react';
+import VolunteersBlob from './res/explore/Volunteers Tab Blob.svg?react';
 import Border1 from './res/explore/Border 1.svg';
 import Border2 from './res/explore/Border 2.svg';
 import Border3 from './res/explore/Border 3.svg';
 import Border4 from './res/explore/Border 4.svg';
 import Border5 from './res/explore/Border 5.svg';
 import Border6 from './res/explore/Border 6.svg';
-import { ReactComponent as Blob1 } from './res/explore/Blob 1.svg';
-import { ReactComponent as Blob2 } from './res/explore/Blob 2.svg';
-import { ReactComponent as Blob3 } from './res/explore/Blob 3.svg';
-import { ReactComponent as Blob4 } from './res/explore/Blob 4.svg';
-import { ReactComponent as Blob6 } from './res/explore/Blob 6.svg';
-import { ReactComponent as Blob7 } from './res/explore/Blob 7.svg';
-import { ReactComponent as Blob8 } from './res/explore/Blob 8.svg';
-import { ReactComponent as Blob9 } from './res/explore/Blob 9.svg';
-import { ReactComponent as Blob10 } from './res/explore/Blob 10.svg';
-import { ReactComponent as Blob11 } from './res/explore/Blob 11.svg';
+import Blob1 from './res/explore/Blob 1.svg?react';
+import Blob2 from './res/explore/Blob 2.svg?react';
+import Blob3 from './res/explore/Blob 3.svg?react';
+import Blob4 from './res/explore/Blob 4.svg?react';
+import Blob6 from './res/explore/Blob 6.svg?react';
+import Blob7 from './res/explore/Blob 7.svg?react';
+import Blob8 from './res/explore/Blob 8.svg?react';
+import Blob9 from './res/explore/Blob 9.svg?react';
+import Blob10 from './res/explore/Blob 10.svg?react';
+import Blob11 from './res/explore/Blob 11.svg?react';
 
 function OralHistories() {
 
