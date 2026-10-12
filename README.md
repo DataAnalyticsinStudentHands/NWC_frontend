@@ -1,38 +1,85 @@
-# NWC Frontend 
+# NWC Frontend
 
-This is the client-side interface for the 1977 NWC project. It is built with Create-React-App and [react-router-dom](https://www.npmjs.com/package/react-router-dom). The backend it interacts can be found at https://github.com/DataAnalyticsinStudentHands/NWC_backend.
+This is the client-side interface for the 1977 NWC project. It is built with React, Vite, and react-router-dom.
+
+The backend repository is:
+https://github.com/DataAnalyticsinStudentHands/NWC_backend
+
+## Requirements
+
+- Node.js 24
+- npm
+
+If using nvm, select the project's Node.js version with:
+
+```bash
+nvm use
+```
 
 ## Development
 
-Run: `npm run start` after configuring the environment variables.
+Install dependencies:
 
-We are following standard procedures for a Create-React-App [deployment](https://create-react-app.dev/docs/deployment/) using a [build](https://create-react-app.dev/docs/production-build/). 
+```bash
+npm ci
+```
 
-The development version will use a subfolder /dev and uses the *package.json* file.
+Configure the required environment variables in `.env`. See `.env.example` for the available variables.
 
-## Staging/Deployment
+Start the local Vite development server:
 
-In a nutshell run: `npm run build`
+```bash
+npm run dev
+```
 
-For staging: use pm2 to serve the `build` directory
+Local development runs at the site root and does not use the `/dev/` staging path.
+
+## Staging
+
+The staging site is deployed under `/dev/`.
+
+Create the staging build with:
+
+```bash
+npm run build:staging
+```
+
+This creates the static site in the `build` directory with `/dev/` configured as the application base path.
+
+The staging environment should use:
+
+```text
+VITE_ENABLE_PRODUCTION=false
+```
+
+The `build` directory is served by PM2 on the web server.
 
 ## Production
 
-For production, use the *package_production.json* file.
+Create the production build with:
 
-Run: `npm run build`
-
-Move/copy the `\build` directory into web server document root directory.
-
-
-### Environment variables
-
-We are using [environment variables](https://create-react-app.dev/docs/adding-custom-environment-variables) and the following must exists:
-
-```
-REACT_APP_API_URL = 
-REACT_APP_MAPBOX_ACCESS_TOKEN = 
-REACT_APP_PRODUCTION = false
+```bash
+npm run build
 ```
 
+This creates the static site in the `build` directory with `/` as the application base path.
 
+The production environment should use:
+
+```text
+VITE_ENABLE_PRODUCTION=true
+```
+
+The `build` directory is served by PM2 on the web server.
+
+## Environment Variables
+
+The frontend uses Vite environment variables. The required variables are:
+
+```text
+VITE_API_URL=
+VITE_MAPBOX_ACCESS_TOKEN=
+VITE_ENABLE_PRODUCTION=false
+```
+
+Use `.env.example` as the template. Environment-specific `.env` files containing actual configuration values should not be committed to the repository.

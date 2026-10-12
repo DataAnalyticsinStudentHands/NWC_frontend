@@ -68,9 +68,10 @@ typings/
 # Yarn Integrity file
 .yarn-integrity
 
-# dotenv environment variables file
+# dotenv environment variables
 .env
-.env.test
+.env.*
+!.env.example
 
 # parcel-bundler cache (https://parceljs.org/)
 .cache
@@ -106,7 +107,6 @@ dist
 
 # dependencies
 /node_modules
-package-lock.json
 
 # testing
 /coverage
@@ -126,4 +126,3 @@ yarn-error.log*
 
 # custom
 .htaccess_dev
-package_dev.json
