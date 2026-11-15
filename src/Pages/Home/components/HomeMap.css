@@ -37,6 +37,7 @@
     width: calc(1171.8 * var(--xUnit));
     margin-left: calc(32.01 * var(--xUnit));
     margin-top: calc(54.67 * var(--xUnit));
+    margin-bottom: calc(25 * var(--xUnit));
     text-align: left;
   }
   
