@@ -29,20 +29,20 @@ a {
 
 .whyBanner_card h2 {
     font-family: var(--fontBabasNeue);
-    font-size: 50rem;
+    font-size: max(50rem, 28px);
     font-weight: normal;
     color: var(--colorDarkBlue);
     text-align: center;
 }
 
 .whyBanner_card p {
-    font-size: 24rem;
+    font-size: max(24rem, 14px);
     font-family: var(--fontNeoBulletin);
 }
 
 .why_readmore{
     color: black;
-    margin-left: 600rem;
+    margin-left: min(600rem, calc(100% - 7em));
     margin-top: 50rem;
 }
   
@@ -64,7 +64,7 @@ a {
 
 .whyBanner figcaption {
     font-family: var(--fontBabasNeue);
-    font-size: 32rem;
+    font-size: max(32rem, 14px);
     color: var(--colorBeige);
     background-color: var(--colorDarkBlue);
     width: fit-content;
@@ -89,6 +89,12 @@ VIDEO
     padding: 60rem;
 }
 
+/* keeps the video a usable size on tablets and small laptops */
+.whyVideo .info_videoiframe {
+    min-width: 400px;
+    min-height: 230px;
+}
+
 /*
 ESSAYS
 */
@@ -110,7 +116,7 @@ ESSAYS
 
 .whyEssays h2 {
     font-family: var(--fontBabasNeue);
-    font-size: 80rem;
+    font-size: max(80rem, 36px);
     margin-bottom: 40rem;
     color: var(--colorDeepRed);
     font-weight: normal;
@@ -146,6 +152,11 @@ ESSAYS
     width: 350rem;
     padding-right: 30.5rem;
     padding-left: 30.5rem;
+}
+
+/* scoped to this page so the Home carousel is not affected */
+.whyEssays_list .thumb_with_title_h3 {
+    font-size: max(40rem, 16px);
 }
 
 .whyEssays_list img {
@@ -199,4 +210,112 @@ PUBLICATIONS
 .whyPublications_list img:hover {
     opacity: .8;
     transform: scale(1.01);
+}
+
+/*
+MOBILE
+Sizes in this block use px, em and vw. The site-wide rem is tied to the
+screen width (1rem = 1px on a 1920px screen), so rem gets too small on phones.
+*/
+@media screen and (max-width: 768px) {
+
+    .why {
+        font-size: 16px;
+    }
+
+    /* BANNER */
+    .whyBanner {
+        flex-direction: column;
+        align-items: center;
+        padding: 1.25em 1em 0;
+    }
+
+    .whyBanner_button {
+        width: 45%;
+        max-width: 220px;
+        margin-bottom: 1em;
+    }
+
+    .whyBanner_card {
+        width: 100%;
+        border-left: 6px solid var(--colorDeepRed);
+        padding: 1.25em;
+    }
+
+    .whyBanner_card h2 {
+        font-size: 2em;
+        margin-top: 0;
+        margin-bottom: .5em;
+    }
+
+    .whyBanner_card p {
+        font-size: 1em;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 0;
+    }
+
+    .why_readmore {
+        margin-left: 0;
+        margin-top: 1em;
+        text-align: right;
+    }
+
+    .whyBanner figure {
+        width: 60%;
+        max-width: 300px;
+        align-self: center;
+        margin: 1em 0 0;
+    }
+
+    .whyBanner figcaption {
+        font-size: 1em;
+        padding: .3em .5em;
+        margin-top: -2.1em;
+    }
+
+    /* VIDEO */
+    .whyVideo * {
+        padding: 0;
+    }
+
+    .whyVideo .info_videoiframe {
+        width: 90vw;
+        min-width: 0;
+        height: 50.625vw; /* 16:9 */
+        min-height: 0;
+        margin: 1.5em auto;
+    }
+
+    /* ESSAYS */
+    .whylowerSection {
+        padding: 2.5em 0 1.5em;
+    }
+
+    .whyEssays {
+        width: 100%;
+        margin: 1em auto;
+        padding: 1.25em 3.5em 3.5em; /* side room for the carousel arrows */
+    }
+
+    .whyEssays h2 {
+        font-size: 2.25em;
+        margin-top: 0;
+        margin-bottom: .5em;
+    }
+
+    .whyEssays_list img {
+        width: 92%;
+    }
+
+    .whyEssays_list .thumb_with_title_h3 {
+        font-size: clamp(11px, 2.6vw, 20px);
+        width: 80%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .whyEssays_list .slick-dots {
+        bottom: -2.25em;
+    }
 }
