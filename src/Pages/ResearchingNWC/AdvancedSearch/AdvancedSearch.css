@@ -666,7 +666,7 @@ padding-left: 20rem;
   top:0;
   left: 0;
   width: 210rem;
-  background-color: #FFF4E8;
+  background-color: var(--colorBeige);
   color: black;
   padding: 0.25em;
   border-radius: 0.5em;

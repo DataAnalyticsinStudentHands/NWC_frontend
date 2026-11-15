@@ -68,25 +68,25 @@
   
   .homeMap_tabs div:hover {
     cursor: pointer;
-    border-top: calc(4 * var(--xUnit)) solid #142f45;
-    border-left: calc(4 * var(--xUnit)) solid #142f45;
-    border-right: calc(4 * var(--xUnit)) solid #142f45;
-    color: #142f45;
+    border-top: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
+    border-left: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
+    border-right: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
+    color: var(--colorDarkBlue);
   }
   
   .homeMap_tabs .homeMap_tab--active {
-    border-top: calc(4 * var(--xUnit)) solid #142f45;
-    border-left: calc(4 * var(--xUnit)) solid #142f45;
-    border-right: calc(4 * var(--xUnit)) solid #142f45;
+    border-top: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
+    border-left: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
+    border-right: calc(4 * var(--xUnit)) solid var(--colorDarkBlue);
     background-color: #ffffff;
-    color: #142f45;
+    color: var(--colorDarkBlue);
     pointer-events: none;
   }
   
   .homeMap_tabsHr {
     width: calc(1611.58 * var(--xUnit));
     height: calc(4 * var(--xUnit));
-    background-color: #142f45;
+    background-color: var(--colorDarkBlue);
     margin-left: calc(135.5 * var(--xUnit));
   }
 

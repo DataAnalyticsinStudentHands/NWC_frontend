@@ -22,7 +22,7 @@
 }
 .Research-Pagination a:hover {
 	color: var(--colorDarkBlue);
-	background-color: #9EC7E1;
+	background-color: var(--colorLightBlue);
 }
 .Research-Pagination .previous a:hover {
 	background-color: transparent;
@@ -32,7 +32,7 @@
 }
 .Research-Pagination .active a {
 	color: var(--colorDarkBlue);
-	background-color: #9EC7E1;
+	background-color: var(--colorLightBlue);
 }
 
 .Research-Pagination .disabled a {

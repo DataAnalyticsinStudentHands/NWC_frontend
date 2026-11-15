@@ -3,7 +3,7 @@
     grid-template-columns: repeat(5, [col] auto ) ;
     grid-template-rows: repeat(2, [row] auto  );
     background-color: var(--colorDarkBlue);
-    font-family: 'babas_neue';
+    font-family: var(--fontBabasNeue);
     padding-top: 100rem;
     padding-left: 140rem;
     padding-right: 140rem;

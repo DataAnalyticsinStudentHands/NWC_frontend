@@ -135,7 +135,7 @@ DOCUMENTS
 }
 
 .aboutDocuments a:hover {
-  color: #FFD048;
+  color: var(--colorDeepYellow);
   text-decoration: underline;
   text-decoration-color: var(--colorDarkBlue);
 }
@@ -434,7 +434,7 @@ TABLE
   .aboutTimeline_annotNo p {
     font-size: 360rem;
     font-family: var(--fontBabasNeue);
-    color: #9EC7E1;
+    color: var(--colorLightBlue);
     position: absolute;
     z-index: 999;
   }

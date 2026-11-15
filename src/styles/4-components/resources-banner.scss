@@ -34,15 +34,15 @@
 			}
 			
 			div:nth-child(1) {
-				border-color: #B32525;
+				border-color: var(--colorDeepRed);
 			}
 			
 			div:nth-child(2) {
-				border-color: #CB4E28;
+				border-color: var(--colorDeepOrange);
 			}
 			
 			div:nth-child(3) {
-				border-color: #FFD048;
+				border-color: var(--colorDeepYellow);
 			}
 		}
 		p{
