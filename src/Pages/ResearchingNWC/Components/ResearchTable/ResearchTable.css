@@ -16,11 +16,11 @@
 }
 
 .result-table::-webkit-scrollbar-thumb {
-	background: #b32525;
+	background: var(--colorDeepRed);
 }
 
 .result-table::-webkit-scrollbar-thumb:hover {
-	background: #b32525;
+	background: var(--colorDeepRed);
 }
 
 /* General table styles */

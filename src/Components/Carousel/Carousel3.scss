@@ -9,13 +9,13 @@
 .slick-next:before{
   font-family: '';
   opacity: 1;
-  color: #FFF4E8;
+  color: var(--colorBeige);
  }
 
  .slick-prev:before{
   font-family: '';
   opacity: 1;
-  color: #FFF4E8;
+  color: var(--colorBeige);
  }
 
  .slick-next:hover{
@@ -26,7 +26,7 @@
   opacity: .75;
  }
  .slick-dots li.slick-active button:before{
-  color: #B32525;
+  color: var(--colorDeepRed);
   font-size: 15px;
  }
  .slick-dots {

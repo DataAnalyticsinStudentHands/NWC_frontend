@@ -10,7 +10,7 @@
 .back:hover{
     cursor: pointer;
     /* color: var(--colorDeepRed); */
-    color: #FFD048;
+    color: var(--colorDeepYellow);
     ext-decoration-color: var(--colorDarkBlue);
     
 }

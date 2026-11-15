@@ -26,7 +26,7 @@
   height: calc(70*var(--xUnit));
   text-align: center;
   background-color: var(--colorLightBlue);
-  font-family: 'babas_neue';
+  font-family: var(--fontBabasNeue);
   font-size: calc(40*var(--xUnit));
   border: calc(6*var(--xUnit)) double black;
 
@@ -75,7 +75,7 @@
 }
 
 .overlay_vid_card p {
-  font-family: 'babas_neue';
+  font-family: var(--fontBabasNeue);
   font-size: calc(65*var(--xUnit));
   margin-top: calc(40*var(--xUnit));
 }

@@ -19,7 +19,7 @@
 }
 
 .homeMap_poi {
-  font-family: 'babas_neue';
+  font-family: var(--fontBabasNeue);
   position: absolute;
   height: calc(1067.6*var(--xUnit));
   width: calc(420*var(--xUnit));
@@ -173,7 +173,7 @@ POPUP
 .homeMap_popupSrc {
   display: flex;
   flex-direction: column;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--fontMontserrat);
   color: var(--colorLightGray);
   margin-right: auto;
   margin-top: calc(20*var(--xUnit));
@@ -230,7 +230,7 @@ POPUP
 
 .homeMap_popupDescription {
   color: white;
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--fontMontserrat);
   font-size: calc(16*var(--xUnit));
   margin-top: calc(3*var(--xUnit));
   margin-left: calc(97*var(--xUnit));

@@ -14,7 +14,7 @@
   }
   
   .homeLaunch p{
-    font-family: 'neobulletin';
+    font-family: var(--fontNeoBulletin);
     font-size: calc(30*var(--xUnit));
     text-align: center;
   }
